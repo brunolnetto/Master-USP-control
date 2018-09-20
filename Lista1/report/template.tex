@@ -1,0 +1,124 @@
+\documentclass{article}
+\usepackage{graphicx,fancyhdr,amsmath,amssymb,amsthm,subfig,url,hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+
+%----------------------- Macros and Definitions --------------------------
+
+%%% FILL THIS OUT
+\newcommand{\studentname}{Bruno H. L. N. Peixoto}
+\newcommand{\uspid}{7206666}
+\newcommand{\uspmail}{bruno.peixoto@usp.br}
+\newcommand{\esnumber}{1}
+%%% END
+
+\renewcommand{\theenumi}{\bf \Alph{enumi}}
+
+\fancypagestyle{plain}{}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RO,LE]{\sffamily\bfseries\large Universidade de São Paulo}
+\fancyhead[LO,RE]{\sffamily\bfseries\large PTC5611 Controle Digital de Sistemas Dinâmicos}
+\renewcommand{\headrulewidth}{1pt}
+
+\graphicspath{{figures/}}
+
+%-------------------------------- Title ----------------------------------
+
+\title{Lista de exercícios \esnumber}
+\author{\studentname \qquad Número USP: \uspid \qquad E-mail USP: \uspmail}
+
+%--------------------------------- Text ----------------------------------
+
+\begin{document}
+\maketitle
+
+\section*{Exercício 1}
+\begin{enumerate}
+\item %A
+
+Por hipótese, a frequência de amostragem utilizada satisfaz o critério de Nyquist \footnote{$\omega_s \geq 2\omega_0$}. Como $t = kT_s = \frac{k}{f_s}$:
+
+\begin{equation}
+\label{eq:ex1a}
+x[k] = cos(k \frac{\omega}{f_s})  \stackrel{!}{=} cos(k \alpha) \Longleftrightarrow \alpha = \frac{\omega}{f_s}
+\end{equation}
+
+\begin{equation}
+\therefore \omega = 250\pi \frac{rad}{s}
+\end{equation}
+
+\item %B
+Por (\ref{eq:ex1a}), conclui-se que $f_s = 12$ $kHz$. Dado que a frequência do sistema é $4000\pi \frac{rad}{s}$, pelo teorema de Nyquist $\omega_s > 8000\pi \frac{rad}{s} \approx 24000 \frac{rad}{s}$. Devido à violação, não é possível reconstruir o sinal por meio de um passa-baixas ideal. 
+
+\item %C
+42
+
+\end{enumerate}
+
+\section*{Exercício 2}
+\begin{enumerate}
+\item %A
+
+\begin{itemize}
+	\item $Z\{\sum_{i=0}^{n}x[i] \} = \frac{1}{1-z^{-1}}X(z)$
+	
+	\begin{equation}
+	\begin{split}
+	Z\{\sum_{i=0}^{n}x[i] \} & = \sum_{n=0}^{\infty} z^{-n} \sum_{i=0}^{n} x[i] \\
+	& = x[0] + z^{-1} \sum_{i=0}^{1} x[i] + z^{-2} \sum_{i=0}^{2} x[i] + \cdots \\
+	& = x[0] \sum_{i=0}^{\infty} z^{-i} + x[1] \sum_{i=1}^{\infty} z^{-i} + \cdots \\
+	\end{split}
+	\end{equation}
+
+	Como
+
+	\begin{equation}
+	\label{eq:pgsoma}
+	\sum_{i=k}^{\infty} z^{-i} \coloneq \frac{z^{-k}}{1 - z^{-1}}, |z|<1
+	\end{equation}
+	
+	Então
+	
+	\begin{equation}
+	\begin{split}
+	x[0] \sum_{i=0}^{\infty} z^{-i} + x[1] \sum_{i=1}^{\infty} z^{-i} + \cdots & = 
+	x[0] \frac{1}{1 - z^{-1}} + x[1] \frac{z^{-1}}{1 - z^{-1}} + \cdots \\
+	& = \frac{1}{1 - z^{-1}} \underbrace{\sum_{i=0}^{\infty} x[i].z^{-i}}_{\coloneqq X(z)}
+	\end{split}
+	\end{equation}
+	
+	\begin{equation}
+	Z\{\sum_{i=0}^{n}x[i] \} = \frac{1}{1-z^{-1}}.X(z) \hspace{10pt} \blacksquare
+	\end{equation}
+	
+	\item $Z\{\sum_{i=0}^{n}x[i-1] \} = \frac{z^{-1}}{1-z^{-1}}X(z)$
+
+	\begin{equation}
+	\begin{split}
+	Z\{\sum_{i=0}^{n}x[i] \} & = \sum_{n=0}^{\infty} z^{-n} \sum_{i=0}^{n} x[i-1] \\
+	& = x[-1] + z^{-1} \sum_{i=0}^{1} x[i-1] + z^{-2} \sum_{i=0}^{2} x[i-1] + \cdots \\
+	& = \underbrace{x[-1]}_{\coloneqq 0} \sum_{i=0}^{\infty} z^{-i} + x[0] \sum_{i=1}^{\infty} z^{-i} + \cdots \\
+	& 
+	\end{split}
+	\end{equation}
+
+	\item $\lim\limits_{z \rightarrow 1} X(z) = \sum_{i=0}^{\infty}x[i]$
+	
+\end{itemize}
+
+
+\item %B
+
+\item %C
+
+\item %D
+
+\item %E
+
+\end{enumerate}
+
+
+\end{document}
