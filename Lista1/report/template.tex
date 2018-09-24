@@ -8,6 +8,7 @@
 \usepackage{graphics}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
+\usepackage{subfigure}
 
 %----------------------- Macros and Definitions --------------------------
 
@@ -44,29 +45,45 @@
 \begin{enumerate}
 \item %A
 
-Por hipótese, a frequência de amostragem utilizada satisfaz o critério de Nyquist \footnote{$\omega_s \geq 2\omega_0$}. Como $t = kT_s = \frac{k}{f_s}$:
+Por hipótese, a frequência de amostragem utilizada satisfaz o teorema de Nyquist \footnote{Essencialmente $\omega_s \geq 2\omega_0$, onde $\omega_s$ corresponde a frequência de amostragem e $\omega_0$ a máxima frequência do sinal amostrado.}. Como $t = kT_s = \frac{k}{f_s}$, temos que.
 
 \begin{equation}
 \label{eq:ex1a}
 x[k] = cos(k \frac{\omega}{f_s})  \stackrel{!}{=} cos(k \alpha) \Longleftrightarrow \alpha = \frac{\omega}{f_s}
 \end{equation}
 
-\begin{equation}
-\therefore \omega = 250\pi \frac{rad}{s}
-\end{equation}
+Assim, $\omega = 250\pi \frac{rad}{s}$. A imagem (\ref{fig:ex1}) apresenta o sinal original e o amostrado.
 
 \begin{figure}[!h]
 	\center
-	\includegraphics[width=0.7\textwidth]{./images/ex1a.eps}
+	\includegraphics[width=0.6\textwidth]{./images/ex1a.eps}
 	\caption{Curva original e série amostrada}
-	\label{fig:boat1}
+	\label{fig:ex1}
 \end{figure}
 
 \item %B
-Por (\ref{eq:ex1a}), conclui-se que $f_s = 12$ $kHz$. Dada frequência do sistema de $4000\pi \frac{rad}{s}$, pelo teorema de Nyquist $\omega_s \stackrel{!}{>} 8000\pi \frac{rad}{s} \approx 24000 \frac{rad}{s}$. Devido à violação, não é possível reconstruir o sinal por meio de um passa-baixas ideal. 
+Pela equação (\ref{eq:ex1a}), conclui-se que $f_s = 12$ $kHz$. Dada frequência do sistema de $4000\pi \frac{rad}{s}$, pelo teorema de Nyquist $\omega_s \stackrel{!}{>} 8000\pi \frac{rad}{s} \approx 24000 \frac{rad}{s}$. Devido à violação, não é possível reconstruir o sinal por meio de um filtro passa-baixas ideal. 
 
 \item %C
 Para sinais senoidais amostrados com frequência $f_s$, tem-se que, para uma mesma série $x[n] = cos(\alpha n)$, os possíveis sinais advindos deste são $x(t) = cos(2 \pi (f_0 + f_s)t) \mbox{, } k \in \mathbb{N} \mbox{, } \omega = 2 \pi f$. Por \ref{eq:ex1a}, tem-se que $\omega_0 = \frac{5\pi}{4} \frac{rad}{s}$. Assim, dois possíveis sinais para a série fornecida são $x_1(t) = cos(\frac{5\pi}{4} t )$ e $x_2(t) = cos(\frac{85\pi}{4} t)$.
+
+\item %D
+
+Para o caso presente na imagem (\ref{fig:ex1d1}), o sinal reconstruido é distorcido. Em contrapartida, devido ao respeito do critério de Nyquist, o sinal reconstruido é o mesmo do sinal original, presente em (\ref{fig:ex1d2}).
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./images/ex1d1.eps}
+    \caption{Espectro em frequência do sinal original, amostrado com $\omega_s = \omega_N$, e reconstruído por  filtro com $\omega_f = \omega_N$}
+    \label{fig:ex1d1}
+\end{figure}%
+
+\begin{figure}![!h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./images/ex1d2.eps}
+    \caption{Espectro em frequência do sinal original, amostrado com $\omega_s = 3 \, \omega_N$ e reconstruído por  filtro com $\omega_f = \frac{\omega_s}{2}$}
+    \label{fig:ex1d2}
+\end{figure}
 
 \end{enumerate}
 
