@@ -71,8 +71,11 @@ Para sinais senoidais amostrados com frequência $f_s$, tem-se que, para uma mes
 \end{enumerate}
 
 \section*{Exercício 2}
+
 \begin{enumerate}
 \item %A
+
+As demonstrações estão enunciadas abaixo:
 
 \begin{itemize}
 	\item $Z\{\sum_{i=0}^{n}x[i] \} = \frac{1}{1-z^{-1}}X(z)$
@@ -111,9 +114,7 @@ Para sinais senoidais amostrados com frequência $f_s$, tem-se que, para uma mes
 	\item $\lim\limits_{z \rightarrow 1} X(z) = \sum_{i=0}^{\infty}x[i]$
 
 	\begin{equation}
-	\begin{split}
-	\lim\limits_{z \rightarrow 1} X(z) & = \lim\limits_{z \rightarrow 1} \sum_{i=0}^{\infty} x[i].z^{-i} 
-	\end{split}
+	\lim\limits_{z \rightarrow 1} X(z) & = \lim\limits_{z \rightarrow 1} \sum_{i=0}^{\infty} x[i].z^{-i} = \sum_{i=0}^{\infty} x[i]
 	\end{equation}
 	
 	\begin{equation}
@@ -130,18 +131,27 @@ Dada função $x_1(t) = \frac{1}{a} \left( 1 - e^{-at} \right)$, por definição
 	\begin{equation}
 	\begin{split}
 	Z\{x_1(t)\} = X_1(z) & = \sum_{i=0}^{\infty} x_1(i Ts).z^{-i} \\
-	& = \frac{1}{a} \sum_{i=0}^{\infty} \left( 1 - e^{-a T_s i}.z^{-i} \right) \\
-	& = \frac{1}{a} \sum_{i=0}^{\infty} z^{-i} - \frac{1}{a} \sum_{i=0}^{\infty} \underbrace{e^{-a T_s i}.z^{-i}}_{(z.e^{aT_s})^{-i}} \\
-	& \stackrel{|z| > 1 \wedge |z| > e^{aT_s}}{=} \frac{1}{a} (\frac{1}{1-z^ {-1}} + \frac{1}{1-e^{-aT_s} z^ {-1}}) \\
-	& \frac{1}{a} \frac{(1 - e^{-aT_s})z^{-1}}{(1+z^{-1})(1-e^{-aT_s} z^ {-1})}
+	& = \frac{1}{a} \sum_{i=0}^{\infty} \left( 1 - e^{-a T_s i} \right)z^{-i} \\
+	& = \frac{1}{a} \sum_{i=0}^{\infty} z^{-i} - \frac{1}{a} \sum_{i=0}^{\infty} \underbrace{e^{-a T_s i}.z^{-i}}_{(z.e^{aT_s})^{-i}}
 	\end{split}
 	\end{equation}
 	
+Se $|z| > 1 \wedge |z| > e^{aT_s}$, então:
+	
 	\begin{equation}
-	\therefore X_1(z) = \frac{1}{a}  \frac{(1 - e^{-aT_s})z^{-1}}{(1-z^{-1})(1-e^{-aT_s} z^ {-1})}
+	\begin{split}
+	\frac{1}{a} \sum_{i=0}^{\infty} z^{-i} - \frac{1}{a} \sum_{i=0}^{\infty} e^{-a T_s i}.z^{-i} & = \frac{1}{a} (\frac{1}{1-z^ {-1}} - \frac{1}{1-e^{-aT_s} z^ {-1}}) \\
+	& = \frac{1}{a} \frac{(1 - e^{-aT_s})z^{-1}}{(1-z^{-1})(1-e^{-aT_s} z^ {-1})}
+	\end{split}
+	\end{equation}
+	
+Portanto
+	
+	\begin{equation}
+	X_1(z) = \frac{1}{a}  \frac{(1 - e^{-aT_s})z^{-1}}{(1-z^{-1})(1-e^{-aT_s} z^ {-1})}
 	\end{equation}
 
-De mesma forma, dada função $x_2(t) = \frac{1}{a} \left( 1 - e^{-at} \right)$, por definição tem-se que:
+De mesma forma, dada função $x_2(t) = $t^2 e^{-a t}$, por definição tem-se que:
 
 	\begin{equation}
 	\begin{split}
@@ -151,7 +161,7 @@ De mesma forma, dada função $x_2(t) = \frac{1}{a} \left( 1 - e^{-at} \right)$,
 	\end{split}
 	\end{equation}
 	
-Por meio da propriedade seguinte da transformada $\mathcal{Z}$ $-z \frac{d}{dz} X(z) = $\mathcal{Z}$\{n X[n]\}$, segue
+Por meio da propriedade da transformada $\mathcal{Z}\{n X[n]\} \coloneqq -z \frac{d}{dz} X(z)$, segue
 
     \begin{equation}
     x[n] = e^{-an} & \rightarrow -z \frac{d}{dz} \mathcal{Z}\{e^{-an}\} = \mathcal{Z}\{n e^{-an}\} \mbox{, } n = T_s i \mbox{, } i \in \mathbb{N}
@@ -167,9 +177,10 @@ Logo
 
     \begin{equation}
     \begin{split}
-    \mathcal{Z}\{e^{-an}\} = \frac{1}{1 - e^{-a T_s} z^{-1}} & \Rightarrow \frac{d}{dz} \mathcal{Z}\{e^{-an}\} = - e^{-a T_s} \frac{z^{-2}}{(1 - e^{-a T_s} z^{-1})^2} \\
-    \therefore -z \frac{d}{dz} \mathcal{Z}\{e^{-an}\} \coloneqq \mathcal{Z}\{n e^{-an}\} & = e^{-a T_s} \frac{z^{-1}}{(1 - e^{-a T_s} z^{-1})^2}
-    \end{split}}
+    \mathcal{Z}\{e^{-an}\} & = \frac{1}{1 - e^{-a T_s} z^{-1}} \Rightarrow \\
+    \frac{d}{dz} \mathcal{Z}\{e^{-an}\} & = - e^{-a T_s} \frac{z^{-2}}{(1 - e^{-a T_s} z^{-1})^2} \\
+    \mathcal{Z}\{n e^{-an}\} \coloneqq -z \frac{d}{dz} \mathcal{Z}\{e^{-an}\} & = e^{-a T_s} \frac{z^{-1}}{(1 - e^{-a T_s} z^{-1})^2}
+    \end{split}
     \end{equation}
 
 e
@@ -178,9 +189,15 @@ e
     \begin{split}
     \mathcal{Z}\{n e^{-an}\} & = e^{-a T_s} \frac{z^{-1}}{(1 - e^{-a T_s} z^{-1})^2} \Rightarrow \\ \frac{d}{dz} \mathcal{Z}\{n e^{-an}\} & = e^{- a T_s} \frac{z^{-2}(1 - e^{-a T_s} z^-1)^2 - 2(1 - e^{-a T_s} z^{-1}) e^{-a T_s} z^{-2}}{(1 - e^{-a T_s} z^{-1})^3} \\ 
     & = - e^{-a T_s} \frac{z^{-2} (1 + e^{-a T_s} z^{-1})}{(1 - e^{- a T_s} z^-1)^3} \\
-    \therefore \mathcal{Z}\{n^2 e^{-a n}\} \coloneqq -z \frac{d}{dz} \mathcal{Z}\{n e^{-a n}\} & = e^{-a T_s} \left( \frac{z^{-1}(1 + e^{-a T_s} z^{-1})}{(1 - e^{-a T_s} z^{-1})} \right)
-    \end{split}}
+    \mathcal{Z}\{n^2 e^{-a n}\} \coloneqq -z \frac{d}{dz} \mathcal{Z}\{n e^{-a n}\} & = e^{-a T_s} \left( \frac{z^{-1}(1 + e^{-a T_s} z^{-1})}{(1 - e^{-a T_s} z^{-1})} \right)
+    \end{split}
     \end{equation}
+
+Portanto 
+
+\begin{equation}
+\mathcal{Z}\{n^2 e^{-a n}\} = e^{-a T_s} \frac{z^{-1}(1 + e^{-a T_s} z^{-1})}{(1 - e^{-a T_s} z^{-1})}
+\end{equation}
 
 \item %C
 A equação das diferenças pode ser colocada da seguinte forma:
@@ -202,12 +219,12 @@ Assim, as raízes do numerador e denominador, nomeadamente zeros e pólos, são 
 \end{enumerate}
 
 \section*{Exercício 3}
-Dado sinal discreto $a[n]$ resultado da soma à esquerda, temos que:
+Dado sinal discreto $a[n]$ resultado da primeira soma à esquerda no diagrama de blocos, temos que:
 
 \begin{equation}
 \begin{split}
 \label{eq:ex31}
-A(z) = X(z) + 2 z^{-1} X(z) 0.3 - 0.5 z^{-2} Y(z)
+A(z) = 2 X(z) - 2 z^{-1} X(z) 0.3 - 0.5 z^{-2} Y(z)
 \end{split}
 \end{equation}
 
@@ -222,12 +239,28 @@ Substituindo-se (\ref{eq:ex31}) em (\ref{eq:ex32}), obtém-se:
 
 \begin{equation}
 \begin{split}
--z^2 X(z) + X(z) + 0.6  z^{-1} X(z) - 0.5 z^{-2}  Y(z) \\
-\frac{Y(z)}{X(z)} = \frac{-z^{-2} + 0.6 z^{-1} + 1}{1 - 0.5 z^-2} = \frac{z^{2} + 0.6 z - 1}{z^2 - 0.5}
+-z^{-2} X(z) + 2 X(z) - 0.6  z^{-1} X(z) - 0.5 z^{-2} Y(z) - z^{-1} Y(z) \\
+\frac{Y(z)}{X(z)} = \frac{- z^{-2} - 0.6 z^{-1} + 2}{0.5 z^-2 + z^{-1} + 1} = \frac{2 z^{2} - 0.6 z - 1}{z^2 + z + 0.5}
 \end{split}
 \end{equation}
 
 Os pólos do sistema é estável pois seus pólos $z = \pm\frac{\sqrt{2}}{2}$ encontram-se no interior do circulo unitário, região estável em tempo discreto.
+
+A imagem (\ref{fig:ex3sim}) refe-se à simulação do diagrama fornecido e a função de transferência encontrada. Perceba que ambos se sobrepõe nos instantes múltiplos do tempo de amostragem.
+
+\begin{figure}[!h]
+	\center
+	\includegraphics[width=\textwidth]{./images/ex31.png}
+	\caption{Entrada do sistema amostrado e saídas do diagrama amostrado e função de transferência equivalente}
+	\label{fig:ex3sim}
+\end{figure}
+
+\begin{figure}[!h]
+	\center
+	\includegraphics[width=\textwidth]{./images/ex3simulink.tif}
+	\caption{Entrada do sistema amostrado e saídas do diagrama amostrado e função de transferência equivalente}
+	\label{fig:ex3diag}
+\end{figure}
 
 \section*{Exercício 4}
 
