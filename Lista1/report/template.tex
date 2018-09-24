@@ -140,7 +140,24 @@ Dada função $x_1(t) = \frac{1}{a} \left( 1 - e^{-at} \right)$, por definição
 	\begin{equation}
 	\therefore X_1(z) = \frac{1}{a}  \frac{(1 - e^{-aT_s})z^{-1}}{(1-z^{-1})(1-e^{-aT_s} z^ {-1})}
 	\end{equation}
+
+De mesma forma, dada função $x_2(t) = \frac{1}{a} \left( 1 - e^{-at} \right)$, por definição tem-se que:
+
+	\begin{equation}
+	\begin{split}
+	Z\{x_2(t)\} = X_2(z) & = \sum_{i=0}^{\infty} x_2(i Ts).z^{-i} \\
+	& = \sum_{i=0}^{\infty} \left( i^2 T_s^2 e^{-a T_s i} z^{-i} \right) \\
+	& = \sum_{i=0}^{\infty} T_s^i i^2 e^{-a T_s i} z^{-i}
+	\end{split}
+	\end{equation}
 	
+Por meio da propriedade seguinte da transformada $\mathcal{Z}$ $-z \frac{d}{dz} X(z) = $\mathcal{Z}$\{n X[n]\}$, segue
+
+\begin{eqnarray}
+x[n] = e^{-an} \rightarrow -z \frac{d}{dz} \mathcal{e^{-an}} = $\mathcal{Z}$\{n e^{-an}\}\\
+x[n] = n e^{-an} \rightarrow -z \frac{d}{dz} \mathcal{n e^{-an}} = $\mathcal{Z}$\{n^2 e^{-an}\}
+\end{eqnarray}
+
 \item %C
 A equação das diferenças pode ser colocada da seguinte forma:
 
@@ -340,7 +357,7 @@ C(s) = K_p\left(1 + \frac{1}{T_i s} + T_d s\right)
 
 \begin{enumerate}
 	\item % A
-	Seja a aproximação retangular para trás dada por $s = \frac{1 - z^-1}{2 T_s}$, com auxílio do MATLAB para manipulação simbólica, a função de transferência do controlador PID é dada por:
+	Seja a aproximação retangular para trás dada por $s = \frac{1 - z^{-1}}{2 T_s}$, com auxílio do MATLAB para manipulação simbólica, a função de transferência do controlador PID é dada por:
 	
 	\begin{equation}
 	C(z) = K_p \frac{b_2 z^{-2} + b_1 z^{-1} + b_0}{a_2 z^{-2} + a_1 z^{-1} + a_0}
