@@ -147,16 +147,40 @@ De mesma forma, dada função $x_2(t) = \frac{1}{a} \left( 1 - e^{-at} \right)$,
 	\begin{split}
 	Z\{x_2(t)\} = X_2(z) & = \sum_{i=0}^{\infty} x_2(i Ts).z^{-i} \\
 	& = \sum_{i=0}^{\infty} \left( i^2 T_s^2 e^{-a T_s i} z^{-i} \right) \\
-	& = \sum_{i=0}^{\infty} T_s^i i^2 e^{-a T_s i} z^{-i}
+	& = \sum_{i=0}^{\infty} T_s^2 i^2 e^{-a T_s i} z^{-i}
 	\end{split}
 	\end{equation}
 	
 Por meio da propriedade seguinte da transformada $\mathcal{Z}$ $-z \frac{d}{dz} X(z) = $\mathcal{Z}$\{n X[n]\}$, segue
 
-\begin{eqnarray}
-x[n] = e^{-an} \rightarrow -z \frac{d}{dz} \mathcal{e^{-an}} = $\mathcal{Z}$\{n e^{-an}\}\\
-x[n] = n e^{-an} \rightarrow -z \frac{d}{dz} \mathcal{n e^{-an}} = $\mathcal{Z}$\{n^2 e^{-an}\}
-\end{eqnarray}
+    \begin{equation}
+    x[n] = e^{-an} & \rightarrow -z \frac{d}{dz} \mathcal{Z}\{e^{-an}\} = \mathcal{Z}\{n e^{-an}\} \mbox{, } n = T_s i \mbox{, } i \in \mathbb{N}
+    \end{equation}
+    
+e
+
+    \begin{equation}
+    x[n] = n e^{-an} & \rightarrow -z \frac{d}{dz} \mathcal{Z}\{n e^{-an}\}} = \mathcal{Z}\{n^2 e^{-an}\} \mbox{, } n = T_s \mbox{, } i \in \mathbb{N}
+    \end{equation}
+
+Logo
+
+    \begin{equation}
+    \begin{split}
+    \mathcal{Z}\{e^{-an}\} = \frac{1}{1 - e^{-a T_s} z^{-1}} & \Rightarrow \frac{d}{dz} \mathcal{Z}\{e^{-an}\} = - e^{-a T_s} \frac{z^{-2}}{(1 - e^{-a T_s} z^{-1})^2} \\
+    \therefore -z \frac{d}{dz} \mathcal{Z}\{e^{-an}\} \coloneqq \mathcal{Z}\{n e^{-an}\} & = e^{-a T_s} \frac{z^{-1}}{(1 - e^{-a T_s} z^{-1})^2}
+    \end{split}}
+    \end{equation}
+
+e
+
+    \begin{equation}
+    \begin{split}
+    \mathcal{Z}\{n e^{-an}\} & = e^{-a T_s} \frac{z^{-1}}{(1 - e^{-a T_s} z^{-1})^2} \Rightarrow \\ \frac{d}{dz} \mathcal{Z}\{n e^{-an}\} & = e^{- a T_s} \frac{z^{-2}(1 - e^{-a T_s} z^-1)^2 - 2(1 - e^{-a T_s} z^{-1}) e^{-a T_s} z^{-2}}{(1 - e^{-a T_s} z^{-1})^3} \\ 
+    & = - e^{-a T_s} \frac{z^{-2} (1 + e^{-a T_s} z^{-1})}{(1 - e^{- a T_s} z^-1)^3} \\
+    \therefore \mathcal{Z}\{n^2 e^{-a n}\} \coloneqq -z \frac{d}{dz} \mathcal{Z}\{n e^{-a n}\} & = e^{-a T_s} \left( \frac{z^{-1}(1 + e^{-a T_s} z^{-1})}{(1 - e^{-a T_s} z^{-1})} \right)
+    \end{split}}
+    \end{equation}
 
 \item %C
 A equação das diferenças pode ser colocada da seguinte forma:
