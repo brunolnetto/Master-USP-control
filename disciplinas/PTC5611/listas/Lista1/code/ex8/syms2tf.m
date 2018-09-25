@@ -4,7 +4,6 @@
 % 
 % Ex: Gs = syms2tf(G)
 % Where G is a symbolic equation and Gs is a zpk transfer function
-% https://www.mathworks.com/matlabcentral/fileexchange/27302-syms-to-tf-conversion
 
 function[ans] = syms2tf(G)
 [symNum,symDen] = numden(G); %Get num and den of Symbolic TF
