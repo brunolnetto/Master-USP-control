@@ -1,23 +1,12 @@
-% Transforma a funcao de tranferencia G em discreto
-% pela transformação para fora
-% Bruno Peixoto 2018
-% 
-%  >> G = tf([1], [1, 1]);
-%  >> Ts = 1;
-%  >> Gz = forward(G, Ts);
-%    ans =
-%   
-%    1
-%    -
-%    z
-%   
-%  Sample time: 1 seconds
-%  Discrete-time transfer function.
+Ts = 1;
 
-function[ans] = forward(G, Ts)
+syms z;
 
-c = [1; -1];
-d = [0; Ts];
-ans = s2z(G, Ts, c, d);
+c = [-1, 1]';
+d = [Ts, 0]';
+Z = [1, z]';
+
+C = c'*Z;
+D = d'*Z;
 
 
