@@ -1,4 +1,4 @@
-% Transforma a funcao de tranferencia G em discreto
+% Transforma a funcao de transferencia G em discreto
 % pela transformacao para tras 
 % Bruno Peixoto 2018
 % 
@@ -18,5 +18,5 @@
 function[ans] = backward(G, Ts)
 
 c = [1; -1];
-d = [0; Ts];
+d = [Ts; 0];
 ans = s2z(G, Ts, c, d);

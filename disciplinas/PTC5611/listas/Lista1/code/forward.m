@@ -17,7 +17,7 @@
 function[ans] = forward(G, Ts)
 
 c = [1; -1];
-d = [Ts; 0];
+d = [0; Ts];
 ans = s2z(G, Ts, c, d);
 
 

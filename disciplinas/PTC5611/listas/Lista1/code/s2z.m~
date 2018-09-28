@@ -56,7 +56,7 @@ for i = 1:m
     
     numi = c'*Vc*Dc_k_1*Vcinv*Z;
     deni = d'*Vd*Dd_k_1*Vdinv*Z;
-    Sm = [numi/deni; Sm];
+    Sm(i) = numi/deni;
 end
 
 % Conversao do vetor base do denominador em S em Z
@@ -75,7 +75,7 @@ for i = 1:n
     numi = c'*Vc*Dc_k_1*Vcinv*Z;
     deni = d'*Vd*Dd_k_1*Vdinv*Z;
     
-    Sn = [numi/deni; Sn];
+    Sn = [numi/deni;
 end
 
 simplify(Sm)
