@@ -63,13 +63,11 @@
 \begin{document}
 \maketitle
 
-O leitor pode encontrar todos os scripts utilizados neste documento em  \url{https://github.com/brunolnetto/Mestrado}.
-
 \section*{Exercício 1}
 \begin{enumerate}
 \item %A
 
-Por hipótese, a frequência de amostragem utilizada satisfaz o teorema de Nyquist \footnote{Essencialmente $\omega_s \geq 2\omega_0$, onde $\omega_s$ corresponde a frequência de amostragem e $\omega_0$ a máxima frequência do sinal amostrado.}. Como $t = kT_s = \frac{k}{f_s}$, temos que.
+Por hipótese, a frequência de amostragem utilizada satisfaz o teorema de Nyquist \footnote{Essencialmente $\omega_s \geq 2\omega_0$, o qual $\omega_s$ corresponde a frequência de amostragem e $\omega_0$ a máxima frequência do sinal amostrado.}. Como $t = kT_s = \frac{k}{f_s}$, temos que.
 
 \begin{equation}
 \label{eq:ex1a}
@@ -116,7 +114,7 @@ Para o caso presente na figura (\ref{fig:ex1d1}), o sinal reconstruido é distor
 \begin{enumerate}
 \item %A
 
-As demonstrações estão enunciadas abaixo:
+As demonstrações estão abaixo:
 
 \begin{itemize}
 	\item $Z\{\sum_{i=0}^{n}x[i] \} = \frac{1}{1-z^{-1}}X(z)$
@@ -253,49 +251,78 @@ G(z) = \frac{Y(Z)}{X(z)} = \frac{\sum_{i=0}^{m} b_{i} z^{-i}}{\sum_{i=0}^{n} a_{
 
 Assim, as raízes do numerador e denominador, nomeadamente zeros e pólos, são respectivamente $z = \{1.38 \pm 1.18 i, -0.3\}$ e $p = \{0.45 \pm 0.74i, 0.068\}$.
 
-\end{enumerate}
+\item %D
 
-\section*{Exercício 3}
-Dado sinal discreto $a[n]$ resultado da primeira soma à esquerda no diagrama de blocos, temos que:
+\begin{itemize}
 
-\begin{equation}
-\label{eq:ex31}
-A(z) = 2 X(z) - 2 z^{-1} X(z) 0.3 - 0.5 z^{-2} Y(z)
-\end{equation}
-
-De mesma forma,
-
-\begin{equation}
-\label{eq:ex32}
-Y(z) = -z^2 X(z) + A(z) - z^{-1} Y(z)
-\end{equation}
-
-Substituindo-se (\ref{eq:ex31}) em (\ref{eq:ex32}), obtém-se:
-
+\item $x[n] = a^n u[n]$
 \begin{equation}
 \begin{split}
--z^{-2} X(z) + 2 X(z) - 0.6  z^{-1} X(z) - 0.5 z^{-2} Y(z) - z^{-1} Y(z) \\
-\frac{Y(z)}{X(z)} = \frac{- z^{-2} - 0.6 z^{-1} + 2}{0.5 z^-2 + z^{-1} + 1} = \frac{2 z^{2} - 0.6 z - 1}{z^2 + z + 0.5}
+X(z) &= \sum_{n = -\infty}^{\infty} a^n u[n] z^{-n} \\
+& = \sum_{n 
+= 0}^{\infty} a^n z^{-n} = \sum_{n = 0}^{\infty} (\frac{a}{z})^n \stackrel{|z| > |a|}{=} \frac{1}{1 - \frac{a}{z}} \\
+&= \frac{1}{1 - a z^{-1}} \\
+\therefore & \,\, G(z) = \frac{1}{1 - a z^{-1}}
 \end{split}
 \end{equation}
 
-Os pólos do sistema são estáveis pois $z = \pm\frac{\sqrt{2}}{2}$ encontram-se no interior do circulo unitário, região estável em tempo discreto.
+\item $x[n] = -a^n u[-n-1]$
 
-A imagem (\ref{fig:ex3sim}) refere-se à simulação do diagrama fornecido e a função de transferência encontrada e a imagem (\ref{fig:ex3diag}) referem-se ao diagrama utilizado no MatLab/Simulink. Perceba que, em (\ref{fig:ex3sim}), ambos os sinais sobrepõem-se nos instantes múltiplos do tempo de amostragem. 
+\begin{equation}
+\begin{split}
+X(z) &= - \sum_{n = - \infty}^{\infty} a^n u[-n - 1] z^{-1} \\
+&= - \sum_{n = -1}^{-\infty} a^n z^{-n} \\
+&= -\left(a^{-1}z + a^{-2} z^2 + a^{-3} z^3 + \cdots\right) \\
+&= -\frac{z}{a} \sum_{n = 0}^{\infty} (\frac{z}{a})^n = - \frac{z}{a} \frac{1}{1 - \frac{z}{a}} = \frac{z}{z-a} = \frac{1}{1 - a z^{-1}} \\
+\therefore & \,\, G(z) = \frac{1}{1 - a z^{-1}}
+\end{split}
+\end{equation}
 
-\begin{figure}[!h]
-	\center
-	\includegraphics[width=\textwidth]{./images/ex31.png}
-	\caption{Entrada do sistema amostrado e saídas do diagrama amostrado e função de transferência equivalente}
-	\label{fig:ex3sim}
-\end{figure}
+\begin{equation}
+\therefore G(z) = \frac{1}{1 - a z^{-1}}
+\end{equation}
 
-\begin{figure}[!h]
-	\center
-	\includegraphics[width=\textwidth]{./images/ex3simulink.png}
-	\caption{Diagrama de blocos do sistema simulado}
-	\label{fig:ex3diag}
-\end{figure}
+\end{itemize}
+
+\end{enumerate}
+
+\section*{Exercício 3}
+
+Seja o pólo $s=0$ numericamente mapeado, entretanto, para $s_0 = 0.01$ em espaço $s$, o respectivo pólo em $z$ equivale a $z_0 = e^{T_s s_0}$, com $T_s = 0.01$ s. Assim $z_0 \approx 1.001$.
+
+\begin{enumerate}
+
+\item % A
+\label{item:ex3a}
+Ambas as funções de transferência, $G(s)$ e $G(z)$ devem ter o mesmo ganho em regime estacionário, ou seja,
+
+\begin{equation}
+\lim\limits_{s \rightarrow 0} G(s) \approx  \lim\limits_{s \rightarrow s_0} G(s) \coloneqq \lim\limits_{z \rightarrow 1} G(z) \Rightarrow \frac{1}{s_0} = \frac{1}{1 - e^{T_s s_0}} K \Rightarrow K \stackrel{N}{=} \frac{1 - e^{T_s s_0}}{s_0} = - 0.01
+\end{equation}
+
+Portanto
+
+\begin{equation}
+G(z) = \frac{1 - e^{T_s s_0}}{s_0} \frac{1}{1 - e^{T_s s_0} z^{-1}} \stackrel{N}{=} -0.001 \frac{1}{1 - 1.01 z^{-1}}
+\end{equation}
+
+Perceba que a função de transferência resultante é estritamente própria.
+
+\item % B
+
+A fim de que a função de transferência em espaço $z$ seja biprópria, $m_z = n_z$, os quais $m_z$ é o número de zeros e $n_z$ é o número de zeros. Assim, o zero $s \rightarrow - \infty_{\mathbb{C}}$ é mapeado em $z = -1$. Assim como no item (\ref{item:ex3a}), o ganho em regime estacionário deve ser igual, ambos para espaço $s$ ou $z$. Assim,
+
+\begin{equation}
+\lim\limits_{s \rightarrow 0} G(s) \approx  \lim\limits_{s \rightarrow s_0} G(s) \coloneqq \lim\limits_{z \rightarrow 1} G(z) \Rightarrow  \frac{1}{s_0} = \frac{2}{1 - e^{T_s s_0}} K \Rightarrow K = \frac{1 - e^{T_s s_0}}{2 s_0} \stackrel{N}{=} - 0.005
+\end{equation}
+
+Portanto,
+
+\begin{equation}
+G(z) =  \left( \frac{1 - e^{T_s s_0}}{2 s_0}\right) \frac{1-z^{-1}}{1 - e^{T_s s_0}  z^{-1}} \stackrel{N}{=} -0.005 \frac{1-z^{-1}}{1 - 1.001  z^{-1}}
+\end{equation}
+
+\end{enumerate}
 
 \section*{Exercício 4}
 
@@ -351,30 +378,33 @@ G_{MF}(z) = K' \frac{z}{z+b}
 
 onde $K' = \frac{K}{a} (1-e^{-aT_s}) \mbox{ e } b = \left[\left[(1 + \frac{k}{a})\right]e^(-aT_s) - \frac{k}{a} \right] $.
 
-\section*{Exercício 5} Dados: Ts = 0,1 s
+\section*{Exercício 5}
 
 \begin{enumerate}
 \item % A
+Dados: Ts = 0,1 s
 
 \begin{equation}
 \begin{split}
-s = \frac{z - 1}{T_s} \therefore X(z) = \frac{\frac{z+1}{T_s} + 1}{\frac{z+1}{T_s} + 10} = \frac{z - (1-T_s)}{z - (1-10T_s)} = \frac{z - 0.9}{z} 
+s = \frac{z - 1}{T_s} \therefore X(z) = \frac{\frac{z+1}{T_s} + 1}{\frac{z+1}{T_s} + 10} = \frac{z - (1-T_s)}{z - (1-10T_s)} \stackrel{N}{=} \frac{z - 0.9}{z} 
 \end{split}
 \end{equation}
 
 \item % B
+Dados: Ts = 0,1 s
 
 \begin{equation}
 \begin{split}
-s = \frac{z - 1}{T_s z} \therefore X(z) = \frac{\frac{z-1}{T_s z} + 1}{\frac{z-1}{T_s z} + 10} = \frac{(1+T_s) z - 1}{(1 + 10T_s) z + 1} = 0.45 \frac{z - 1.1}{z - 0.5}
+s = \frac{z - 1}{T_s z} \therefore X(z) = \frac{\frac{z-1}{T_s z} + 1}{\frac{z-1}{T_s z} + 10} = \frac{(1+T_s) z - 1}{(1 + 10T_s) z + 1} \stackrel{N}{=} 0.45 \frac{z - 1.1}{z - 0.5}
 \end{split}
 \end{equation}
 
 \item % C
+Dados: Ts = 0,1 s
 
 \begin{equation}
 \begin{split}
-s = \frac{2}{T_s} \frac{z - 1}{z+1} \therefore X(z) = \frac{\frac{2}{T_s} \frac{z-1}{z+1} + 1}{\frac{2}{T_s} \frac{z-1}{z+1} + 10} = \frac{(2+T_s)z + (T_s - 2)}{(2 + 10T_s) z + (10 T_s - 2)} = \frac{2.1z - 1.9}{3z - 1} = 0.7\frac{z-0.63}{z-0.33}
+s = \frac{2}{T_s} \frac{z - 1}{z+1} \therefore X(z) = \frac{\frac{2}{T_s} \frac{z-1}{z+1} + 1}{\frac{2}{T_s} \frac{z-1}{z+1} + 10} = \frac{(2+T_s)z + (T_s - 2)}{(2 + 10T_s) z + (10 T_s - 2)} \stackrel{N}{=} \frac{2.1z - 1.9}{3z - 1} = 0.7\frac{z-0.63}{z-0.33}
 \end{split}
 \end{equation}
 
@@ -398,7 +428,7 @@ Todo pólo e zero da planta pode ser mapeado diretamente para o espaço $\mathca
 \lim\limits_{z \rightarrow 1} X(z) \stackrel{!}{=} \lim\limits_{s \rightarrow 0} X(s) 
 \end{equation} 
 
-Desta forma.
+Desta forma,
 
 \begin{equation*}
 \begin{split}
@@ -415,13 +445,8 @@ X(z) = 1.59 \frac{z - 0.9}{z - 0.37}
 \end{enumerate}
 
 \section*{Exercício 6}
-Para que a função de transferência em malha fechada do sistema seja de segunda ordem, o controlador deve ser proporcional.O polinômio característico da função de transferência é:
 
-\begin{equation}
-P(s) = s^2 + 7s + k \stackrel{!}{=} s^2 + 2 \zeta \omega_n + \omega_n^2
-\end{equation}
-
-O tempo de subida é dada pela identidade:
+Para os critérios de projeto fornecidos, o projeto de controle será feito em espaço $s$ e o respectivo pólo deve pertencer ao lugar das raízes em malha fechada. O tempo de subida é:
 
 \begin{equation}
 \label{eq:sobressinal}
@@ -435,21 +460,22 @@ De mesma forma, o sobressinal é dado por:
 M(\zeta) = e^{-\pi \frac{\zeta}{\sqrt{1-\zeta^2}}}
 \end{equation}
 
-Como (\ref{eq:sobressinal}) é bijetora, $\exists g(M) = \zeta \mbox{, } g: M \rightarrow g(M) \mbox{, } M \circ g (M) = M$. De fato $g(M) = \sqrt{\frac{\log^2{M}}{\pi^2 - \log^2{M}}}$. Assim, $\zeta \approx 0.672$. De mesma forma, para $\zeta$ fixo, analogamente, $\exists h(t_r) = \zeta\mbox{, }h: t_r \rightarrow h(t_r)\mbox{, } t_r(\zeta) \circ h = t_r$. De fato, $g(t_r) = \frac{\pi - \theta}{\omega_d(\zeta, t_r)}$. Assim, para $\zeta = 0.672$, então $\omega_n = 4.46$.  Como $\omega_n^2 = k$, então $k = 19.96$.
+Como (\ref{eq:sobressinal}) é bijetora, $\exists g(M) = \zeta \mbox{, } g: M \rightarrow g(M) \mbox{, } M \circ g (M) = M$. De fato $g(M) = \sqrt{\frac{\log^2{M}}{\pi^2 - \log^2{M}}}$. Assim, $\zeta \approx 0.672$. De mesma forma, para $\zeta$ fixo, analogamente, $\exists h(t_r) = \zeta\mbox{, }h: t_r \rightarrow h(t_r)\mbox{, } t_r(\zeta) \circ h = t_r$. De fato, $g(t_r) = \frac{\pi - \theta}{\omega_d(\zeta, t_r)}$. Assim, para $\zeta = 0.672$, então $\omega_n = 4.46$.
 
-\section*{Exercício 7}
-
-A função de transferência de um controlador PID é dada por:
+Como $\forall s \in \mathbb{C}, \,\, s = \omega_n (\zeta + i \sqrt{1 - \zeta^2})$, logo a seguinte malha satisfaz os critérios estabelecidos em projeto:
 
 \begin{equation}
-C(s) = K_p\left(1 + \frac{1}{T_i s} + T_d s\right) = K \, \frac{s^2 + b s + c}{s}
+C(s) = K \frac{s + 0.7}{s + 2 \zeta \omega_n}
 \end{equation}
 
-Os quais $K = K_p T_d $, $b = \frac{1}{T_d}$ e $c = \frac{1}{T_i T_d}$. Com auxílio da equação do exercício (\ref{ex:ex8}), conclui-se que, por meio da transformação para trás, a função de transferência de um controlador PID segue
+Ao considerar o projeto em tempo contínuo, o controlador acima casa o pólo da planta com o zero do controlador. Para o caso de casamento perfeito de pólo e zero, o novo lugar das raízes permite que o pólo estabelecido pertença a este. Ademais, $K = \omega_n^2$. Assim, a função de transferência fornecida é:
 
 \begin{equation}
-G(s) = \frac{}{}
+C(s) = \omega_n^2 \frac{s + 0.7}{s + 2 \zeta \omega_n} \stackrel{N}{=} 19.89 \frac{s + 0.7}{s + 5.33}
 \end{equation}
+
+\section*{Dedução dos exercício 7}
+\label{sec:deducao7}
 
 Em caso geral, a fim da conversão de uma função de transferência $G(z)$ em sua respectiva função de diferenças e assim ação de controle do instante atual $kT_s$, seja essa em sua forma matricial
 
@@ -458,7 +484,7 @@ G(z) = \frac{b^T \textbf{z}_m}{a^T \textbf{z}_n}
 \label{eq:Gz}
 \end{equation}
 
-Os quais $a \in \mathbb{R}^n$, $b \in \mathbb{R}^m$ e $\mathcal{Z}_k = \left[z^k, \cdots, 1\right]^T$. Após manipulação algébrica, $\textbf{z}_p = z^p \, \textbf{v}_p$, $\textbf{v}_p = [1, \cdots, z^{-p}]$. A fim de manter a convenção para $z^{-1}$ dada por $\textbf{w}_p =  [z^{-p}, \cdots, 1]$, $\textbf{w}_p = \textbf{J}_p^{-1} \textbf{v}_p$ com $\textbf{J}_p$ a matriz de permuta, descrita em (\ref{eq:exchange}).
+Os quais $a \in \mathbb{R}^n$, $b \in \mathbb{R}^m$ e $\mathcal{Z}_k = \left[z^k, \cdots, 1\right]^T$. Após manipulação algébrica, $\textbf{z}_p = z^p \, \textbf{v}_p$, $\textbf{v}_p = [1, \cdots, z^{-p}]$. A fim de manter a convenção para $z^{-1}$ dada por $\textbf{w}_p =  [z^{-p}, \cdots, 1]$, $\textbf{w}_p = \textbf{J}_p \textbf{v}_p \Leftrightarrow{\textbf{v}_p = \textbf{J}_p \textbf{w}_p}$, com $\textbf{J}_p$ a matriz de permuta, descrita em (\ref{eq:exchange}).
 
 \begin{equation}
 \textbf{J}_p = 
@@ -470,22 +496,21 @@ Os quais $a \in \mathbb{R}^n$, $b \in \mathbb{R}^m$ e $\mathcal{Z}_k = \left[z^k
 \label{eq:exchange}
 \end{equation}
 
+A função de transferência resultante é (\ref{eq:Gz}).
+
 \begin{equation}
-\begin{split}
-G(z) & = \frac{\textbf{b}^T \textbf{J}^{-1}_{m+1} \textbf{w}_m}{\textbf{a}^T \textbf{J}^{-1}_{n+1} \textbf{w}_n} \\ 
- & \coloneqq \frac{\textbf{b'}^T \textbf{w}_{m'+1}}{\textbf{a'}^T \textbf{w}_{n'+1}} 
- \end{split}
+G(z) & = \frac{\textbf{b}^T \textbf{J}_{m+1} \textbf{w}_m}{\textbf{a}^T \textbf{J}_{n+1} \textbf{w}_n} \coloneqq \frac{\textbf{b'}^T \textbf{w}_{m'}}{\textbf{a'}^T \textbf{w}_{n'}} 
 \label{eq:Gz}
 \end{equation}
 
-Os parâmetros acima $\textbf{a'}$ e $\textbf{b'}$ estão a seguir:
+A fim de manter unicidade na solução, os parâmetros $\textbf{a'}$ e $\textbf{b'}$ são:
 
 \begin{subequations}
 \begin{equation}
   \textbf{a'} = 
   \begin{cases}
-   [\textbf{0}_{m-n, 1}, \textbf{a}^T \textbf{J}^{-1}_{n+1}]^T] & n < m\\
-   \tetxbf{a}, & n \geq m
+   [\textbf{0}_{m-n, 1}, \textbf{a}^T \textbf{J}_{n+1}]^T] &, n < m\\
+   \textbf{a} &, n \geq m
 \end{cases}
 \label{eq:a}
 \end{equation}
@@ -493,62 +518,87 @@ Os parâmetros acima $\textbf{a'}$ e $\textbf{b'}$ estão a seguir:
 \begin{equation}
   \textbf{b'} = 
   \begin{cases}
-   \tetxbf{b} &  n < m\\
-   [\textbf{0}_{m-n, 1}, \textbf{b}^T \textbf{J}^{-1}_{m+1}]^T, & n \geq m
+   \textbf{b} &,  n < m\\
+   [\textbf{0}_{m-n, 1}, \textbf{b}^T \textbf{J}_{m+1}]^T &, n \geq m
 \end{cases} 
 \label{eq:b}
 \end{equation}
-
 \end{subequations}
 
-Ademais, $n' = \dim{\textbf{a}}$ e $m' = \dim{\textbf{b}}$. A equação de diferenças de (\ref{eq:Gz}), é, por definição:
+Ademais, $n' = \dim{\textbf{a'}}$ e $m' = \dim{\textbf{b'}}$. A equação de diferenças de (\ref{eq:Gz}), é por definição:
 
 \begin{equation}
-G(z) = \frac{Y(z^{-1})}{U(z^{-1})} = \frac{\textbf{b}^T \textbf{w}_{m+1}}{\textbf{a}^T \textbf{w}_{n+1}} \Rightarrow a^T \textbf{y}[k] = b^T \textbf{u}[k]
+G(z) = \frac{Y(z^{-1})}{U(z^{-1})} = \frac{\textbf{b}^T \textbf{w}_{m}}{\textbf{a}^T \textbf{w}_{n}} \Rightarrow a^T \textbf{y}[k] = b^T \textbf{u}[k]
 \label{eq:eqdiferencas}
 \end{equation}
 
-Por inspeção, os parâmetros da equação de diferenças seguem de (\ref{eq:a}) e (\ref{eq:b}). O vetor $\textbf{u}$ pode ser escrito como $\textbf{u}[k] = \textbf{I}_{m' + 1} - \Delta_{m', m'} \textbf{u}[k] + \Delta_{m', m'} \textbf{u}[k]$. Assim
+Por inspeção, os parâmetros da equação de diferenças seguem de (\ref{eq:a}) e (\ref{eq:b}). O vetor $\textbf{u}$ pode ser escrito como $\textbf{u}[k] = \left(\textbf{I}_{m' + 1} - \mathbf{\Delta}_{m'+1, m'+1}\right) \mathbf{u}[k] + \mathbf{\Delta}_{m'+1, m'+1} \mathbf{u}[k]$. A matriz $\mathbf{\Delta}_{ij}$ é definida por 
 
 \begin{equation}
-\textbf{b'}^T \underbrace{\Delta_{m' + 1 \times m' + 1} \textbf{u}[k]}_{\textbf{e}_{m'+1}} = \textbf{a'} \textbf{y}[k] - \textbf{b'}^T (\textbf{m} - \Delta_{m' + 1 \times m' + 1}) \textbf{u}[k]
+  \mathbf{\Delta}_{ij} = 
+  \begin{cases}
+   1 & \mbox{em (i, j)}\\
+   0 & \mbox{ademais}
+\end{cases}
+\end{equation}
+
+Desta forma, a equação 
+
+\begin{equation}
+\textbf{b'}^T \underbrace{\Delta_{m' + 1, m' + 1} \textbf{u}[k]}_{\textbf{e}_{m'+1} u[k]} = \textbf{a'} \textbf{y}[k] - \textbf{b'}^T (\textbf{I}_{m'+1} - \Delta_{m' + 1, \, m' + 1}) \textbf{u}[k]
  \end{equation}
+
+Sendo $\textbf{e}_{m'+1} \in \mathbb{R}^{m'+1}$ definido por
+
+\begin{equation}
+  \textbf{e}_{m'+1} = 
+  \begin{cases}
+   1 & \mbox{em m'+1}\\
+   0 & \mbox{ademais}
+\end{cases}
+\end{equation}
 
 Portanto
 
 \begin{equation}
-u[k] = (\textbf{b'}^T \textbf{e}_{m' + 1})^{-1}(\textbf{a'}^T \textbf{y}[k] - \textbf{b'}^T (\textbf{I}_{m' + 1} - \Delta_{m' + 1 \times m' + 1}) \textbf{u}[k])
+u[k] = (\textbf{b'}^T \textbf{e}_{m' + 1})^{-1}(\textbf{a'}^T \textbf{y}[k] - \textbf{b'}^T (\textbf{I}_{m' + 1} - \Delta_{m' + 1, \, m' + 1}) \textbf{u}[k])
 \end{equation}
-
-Para o caso em estudo, $n = 2$ e $m = 1$. Logo, $n < m$ e $\textbf{a'} = [\textbf{0}_{m-n, 1}, \textbf{a}^T \textbf{J}^{-1}_{n+1}]^T]$
-
-\begin{enumerate}
-\end{enumerate}
 
 \section*{Exercício 7}
 
-\section*{Exercício 8}
-\label{ex:ex8}
+A função de transferência de um controlador PID é dada por:
 
-O objetivo é encontrar $G(z)$ dada transformação $s = F(z)$. Em geral, as transformações aplicadas em engenharia respeitam a relação $s = \frac{c^T \mathcal{Z}}{d^T \mathcal{Z}}$, $c, d \in \mathbb{R}^2$, $\mathcal{Z}^T = [z, 1] $. Para a função de transferência dada por $G(s) = \frac{b^T \mathcal{S}_m}{a^T \mathcal{S}_n}$, tal que $\mathcal{S}_k^T = [s^k, \cdots, 1]  \, \in \, \mathbb{R}^{k+1}$, $m = \dim(b)$ e $n = \dim(a)$ e $s \in \mathbb{C}$, segue
+\begin{equation}
+C(s) = K_p\left(1 + \frac{1}{T_i s} + T_d s\right) = K \, \frac{s^2 + b s + c}{s}
+\end{equation}
+
+Os quais $K = K_p T_d $, $b = \frac{1}{T_d}$ e $c = \frac{1}{T_i T_d}$. Com auxílio da equação do exercício (\ref{ex:ex9}), conclui-se que, por meio da transformação para trás, a função de transferência de um controlador PID segue
+
+\begin{equation}
+G(s) = \frac{}{}
+\end{equation}
+
+\section*{Dedução dos exercícios 8 e 9}
+\label{sec:deducao89}
+
+O objetivo dos exercícios (8) e (9) é encontrar $G(z)$ dada transformação $s = F(z)$. Em geral, as transformações aplicadas em engenharia respeitam a relação $s = \frac{c^T \mathcal{Z}}{d^T \mathcal{Z}}$, $c, d \in \mathbb{R}^2$, $\mathcal{Z}^T = [z, 1] $. Para a função de transferência dada por $G(s) = \frac{b^T \mathcal{S}_m}{a^T \mathcal{S}_n}$, tal que $\mathcal{S}_k^T = [s^k, \cdots, 1]  \, \in \, \mathbb{R}^{k+1}$, $m = \dim(b)$ e $n = \dim(a)$ e $s \in \mathbb{C}$, segue
 
 \begin{equation}
 s^i = \frac{c^T \mathcal{Z} \, c^T \, \mathcal{Z} \, \cdots \, c^T \, \mathcal{Z}}{d^T \, \mathcal{Z} \, d^T \, \mathcal{Z} \, \cdots d^T \, \mathcal{Z}} \, i \in \mathbb{N}
 \label{eq:sexpi}
 \end{equation}
 
-Por definição, $a b^T = M \,\, M \in \mathbb{R}^{2x2}$ e $M = W \Lambda V$, com $V$ a matriz de autovetores de $M$, $\Lamba$ a matriz de autovalores de $M$ e $W = V^{-1}$ e $f(M) = W f(\Lambda) V$. Em especial, $M^i = W \Lambda^i V$. Assim, a equação (\ref{eq:sexpi}) reduz-se a:
+Por definição, $a b^T = M \,\, M \in \mathbb{R}^{2x2}$, $M = V \Lambda V^{-1}$, $\forall M \in \mathbb{R}^{n \times n}$, com $V$ a matriz direita de autovetores de $M$ e $\Lamba$ a matriz de autovalores de $M$, diagonal por definição. Além disso, $f(M) = V f(\Lambda) V^{-1}$. Em especial, $M^i = V \Lambda^i V^{-1}$. Assim, a equação (\ref{eq:sexpi}) reduz-se a:
 
 \begin{equation}
-s^i = \frac{c^T W_c \Lambda_c^{i-1} V_c \mathcal{Z}}{d^T W_d \Lambda_d^{i-1} V_d \mathcal{Z}}
+s^i = \frac{c^T V_c \Lambda_c^{i-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{i-1} V_d^{-1} \mathcal{Z}}
 \end{equation}
 
-Perceba que o expoente de $\Lambda$ deve ser $i - 1$. Assim, 
+Perceba que o expoente de $\Lambda$ deve ser $k - 1$ por questão construtiva. Além disso, para uma matriz $\Lambda_c$ e $\Lambda$ arbitrárias, para $k = 0$, $\Lambda_c^{-1} = \Lambda_c^{+}$. Construtivamente
 
 \begin{equation}
-\mathcal{S}_k^T = \left[\frac{c^T W_c \Lambda_c^{k-1} V_c \mathcal{Z}}{d^T W_d \Lambda_d^i V_d \mathcal{Z}}, \cdots, \frac{c^T W_c \Lambda_c^{-1} V_c \mathcal{Z}}{d^T W_d \Lambda_d^i V_d \mathcal{Z}}\right]
+\mathcal{S}_k^T = \left[\frac{c^T V_c \Lambda_c^{k-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{k-1} V_d^{-1} \mathcal{Z}}, \cdots, \frac{c^T V_c \Lambda_c^{k-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{k-1} V_d^{-1} \mathcal{Z}}\right]
 \end{equation}
-$\mathcal{S}_k$ 
 
 Deste modo, a função convertida pela função de transformação $s = \frac{c^T \mathcal{Z}}{d^T \mathcal{Z}}$ é dada por
 
@@ -557,12 +607,54 @@ G(z) = \frac{b^T \mathcal{S}_m}{c^t \mathcal{S}_n}
 \end{equation}
 
 \begin{equation}
-\mathcal{S}_k^T = [\frac{c^T W_c \Lambda_c^{k-1} V_c \mathcal{Z}}{d^T W_d \Lambda_d^i V_d \mathcal{Z}}, \cdots, \frac{c^T W_c \Lambda_c^{-1} V_c \mathcal{Z}}{d^T W_d \Lambda_d^i V_d \mathcal{Z}}]
+\mathcal{S}_k^T = \left[\frac{c^T V_c \Lambda_c^{k-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{k-1} V_d^{-1} \mathcal{Z}}, \cdots, \frac{c^T V_c \Lambda_c^{k-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{k-1} V_d^{-1} \mathcal{Z}}\right]
 \end{equation}
 
-A implementação em MatLab encontra-se no apêndice 
+\section*{Exercício 8}
+
+A transformação para trás tem parâmetros $c^T = [1, -1]$ e $d^T = [T_s, 0]$ e a transformação para frente $c^T = [1, -1]$ e $d^T = [0, T_s]$. A implementação em MatLab encontra-se em anexo.
 
 \section*{Exercício 9}
+\label{ex:ex9}
 
+A transformação de Tustin tem parâmetros $c^T = [2, 2]$ e $d^T = [T_s, -T_s]$. A implementação em MatLab encontra-se em anexo.
+
+\section*{Exercício 10}
+
+Seja $P(z) = 1 + K G(z)$, o polinômio característico de $G(z)$ em malha fechada, para $K \in \mathbb{R}^*_{+}$ e $W$ o lugar geométrico das raízes do polinômio. O polinômio apresenta $N-1$ pólos em $z = 0$ e 1 pólo em $z = 1$. No caso em estudo, $G(z) = \frac{1}{z^{N} - z^{N-1}}$ e $G_c(z) = K \frac{G(z)}{1 + K G(z)}$. A imagem REF\_IMAGEM apresenta o lugar das raízes para $N = 5$. 
+
+IMAGEM
+
+Seja $\forall N \in \mathbb{N}^*\backslash{\{1\}}$, $S \in W$, $S = \{z \in \mathbb{C}, \omega \in \mathbb{R}, \sigma \in [0, 1] \,\, | \,\, z = (\omega, \sigma)\}$. Assim, por inspeção geométrica, $\inf K = 0$ para assegurar estabilidade. Para K crescente em $M = W \backslash {S}$, as ramificações resultantes divergem da origem e passam pela circunferência unitária i.e. $\exists K$, $K_{max} = \sup K$. e, assim, $0 \leq K \leq K_{max}$
+Para o limite de estabilidade i.e. $|z| \stackrel{!}{=} 1$ ou $z = e^{j \theta}$, tal que a malha fechada do sistema seja estável, tem-se que
+
+\begin{equation}
+P(z = e^{j \theta}) \coloneqq 0 = e^{j (N-1) \theta} - e^{j N \theta}
+\label{eq:Pz}
+\end{equation}
+
+Seja a transformação de Euler $e^{j \theta} = \cos{\theta} + j \sin{\theta}}$ e as relações trigonométricas $\cos{a} - \cos{b} = -2 \sin{\frac{a+b}{2} \sin{\frac{a-b}{2}$ e $\sin{a} - \sin{b} = 2 \sin{\frac{a-b}{2} \cos{\frac{a+b}{2}$, para $K \in \mathbb{R}$, a equação (\ref{eq:Pz}) torna-se:
+
+\begin{subequations}
+\begin{equation}
+K &= -2 \cos\left((2N - 1) \frac{\theta}{2}\right)}  \sin\left(- \frac{\theta}{2}\right)
+\end{equation}
+\begin{equation}
+0 =  2 \sin\left((2N - 1) \frac{\theta}{2}\right) \sin\left(-\frac{\theta}{2}\right)
+\label{eq:imagP}
+\end{equation}
+\end{subequations}
+
+Da equação (\ref{eq:imagP}), $S = S_1 \cup S_2$, $S_1 = $ $ \left\{\theta \in [0, 2 \pi] \,\, \Bigr| \,\, \theta = 0\right\}$, $S_2 = \left\{k \in \mathbb{Z}, \,\, \theta \in [0, 2 \pi] \,\, \Bigr| \,\, \theta = \frac{\pi}{2N - 1} + \frac{2 \pi}{2N - 1} k\right\}$. Para $S_1$, $L_1 = \left\{K \in \mathbb{N}^* \,\, \Bigr| \,\, K = 0\right\}$. Para $S_2$, $L_2 = \left\{K \in \mathbb{N}^*, k \in \mathbb{Z} \,\, \Bigr| \,\, 2 \, \sin\left(\frac{\pi}{2N-1} + \frac{2 \pi}{2N-1} k\right)\right\}$. Por verificação, $k \in [0, 2N -1]$, e a função seno no intervalo dado é estritamente crescente. Assim, 
+
+\begin{equation}
+K_{max} = K(k) = K(2N - 1) = 2 \sin\left(\frac{\pi}{2N - 1}\right)
+\end{equation}
+
+Assim,
+
+\begin{equation}
+0 \geq K \leq 2 \sin\left(\frac{\pi}{2N - 1}\right) \hspace{10pt} \blacksquare
+\end{equation}
 
 \end{document}
