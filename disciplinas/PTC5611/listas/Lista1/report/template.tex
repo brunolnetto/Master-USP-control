@@ -91,16 +91,16 @@ Para sinais senoidais amostrados com frequência $f_s$, tem-se que, para uma mes
 
 \item %D
 
-Para o caso presente na figura (\ref{fig:ex1d1}), o sinal reconstruido é distorcido. Em contrapartida, por respeitar o critério de Nyquist, o sinal reconstruido é o mesmo do sinal original, presente na figura (\ref{fig:ex1d2}).
+Para o caso presente na figura (\ref{fig:ex1d1}), o sinal reconstruido é distorcido. Em contrapartida, o caso apresentado na figura (\ref{fig:ex1d2}) respeita o critério de Nyquist e o sinal reconstruido é o mesmo do sinal original.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.6\textwidth]{./images/ex1d1.eps}
     \caption{Espectro de Fourier do sinal original, amostrado com $\omega_s = \omega_N$, e reconstruído por  filtro com $\omega_f = \omega_N$}
     \label{fig:ex1d1}
 \end{figure}%
 
-\begin{figure}![!h]
+\begin{figure}![!ht]
     \centering
     \includegraphics[width=0.6\textwidth]{./images/ex1d2.eps}
     \caption{Espectro em frequência do sinal original, amostrado com $\omega_s = 3 \, \omega_N$ e reconstruído por  filtro com $\omega_f = \frac{\omega_s}{2}$}
@@ -468,11 +468,13 @@ Como $\forall s \in \mathbb{C}, \,\, s = \omega_n (\zeta + i \sqrt{1 - \zeta^2})
 C(s) = K \frac{s + 0.7}{s + 2 \zeta \omega_n}
 \end{equation}
 
-Ao considerar o projeto em tempo contínuo, o controlador acima casa o pólo da planta com o zero do controlador. Para o caso de casamento perfeito de pólo e zero, o novo lugar das raízes permite que o pólo estabelecido pertença a este. Ademais, $K = \omega_n^2$. Assim, a função de transferência fornecida é:
+Ao considerar o projeto em tempo contínuo, o controlador acima casa o pólo da planta com o zero do controlador. Para o caso de casamento perfeito de pólo e zero, o novo lugar das raízes permite que o pólo estabelecido pertença a este. Por inspeção, conclui-se que $K = \omega_n^2$. Assim, a função de transferência fornecida é:
 
 \begin{equation}
 C(s) = \omega_n^2 \frac{s + 0.7}{s + 2 \zeta \omega_n} \stackrel{N}{=} 19.89 \frac{s + 0.7}{s + 5.33}
 \end{equation}
+
+A função acima através da transformação de Tustin 
 
 \section*{Dedução dos exercício 7}
 \label{sec:deducao7}
@@ -503,7 +505,7 @@ G(z) & = \frac{\textbf{b}^T \textbf{J}_{m+1} \textbf{w}_m}{\textbf{a}^T \textbf{
 \label{eq:Gz}
 \end{equation}
 
-A fim de manter unicidade na solução, os parâmetros $\textbf{a'}$ e $\textbf{b'}$ são:
+os quais $\textbf{a'}$ e $\textbf{b'}$ são
 
 \begin{subequations}
 \begin{equation}
@@ -525,10 +527,10 @@ A fim de manter unicidade na solução, os parâmetros $\textbf{a'}$ e $\textbf{
 \end{equation}
 \end{subequations}
 
-Ademais, $n' = \dim{\textbf{a'}}$ e $m' = \dim{\textbf{b'}}$. A equação de diferenças de (\ref{eq:Gz}), é por definição:
+Ademais, $n' = \dim(\textbf{a'})$ e $m' = \dim(\textbf{b'})$. A equação de diferenças de (\ref{eq:Gz}), é por definição:
 
 \begin{equation}
-G(z) = \frac{Y(z^{-1})}{U(z^{-1})} = \frac{\textbf{b}^T \textbf{w}_{m}}{\textbf{a}^T \textbf{w}_{n}} \Rightarrow a^T \textbf{y}[k] = b^T \textbf{u}[k]
+G(z) = \frac{Y(z^{-1})}{U(z^{-1})} = \frac{\textbf{b}^T \textbf{w}_{m}}{\textbf{a}^T \textbf{w}_{n}} \Rightarrow \mathbf{a}^T \textbf{y}[k] = \mathbf{b}^T \textbf{u}[k]
 \label{eq:eqdiferencas}
 \end{equation}
 
@@ -548,12 +550,12 @@ Desta forma, a equação
 \textbf{b'}^T \underbrace{\Delta_{m' + 1, m' + 1} \textbf{u}[k]}_{\textbf{e}_{m'+1} u[k]} = \textbf{a'} \textbf{y}[k] - \textbf{b'}^T (\textbf{I}_{m'+1} - \Delta_{m' + 1, \, m' + 1}) \textbf{u}[k]
  \end{equation}
 
-Sendo $\textbf{e}_{m'+1} \in \mathbb{R}^{m'+1}$ definido por
+Sendo $\textbf{e}_{k} \in \mathbb{R}^{m'+1}$ definido por
 
 \begin{equation}
   \textbf{e}_{m'+1} = 
   \begin{cases}
-   1 & \mbox{em m'+1}\\
+   1 & \mbox{em k}\\
    0 & \mbox{ademais}
 \end{cases}
 \end{equation}
@@ -562,6 +564,12 @@ Portanto
 
 \begin{equation}
 u[k] = (\textbf{b'}^T \textbf{e}_{m' + 1})^{-1}(\textbf{a'}^T \textbf{y}[k] - \textbf{b'}^T (\textbf{I}_{m' + 1} - \Delta_{m' + 1, \, m' + 1}) \textbf{u}[k])
+\end{equation}
+
+Por fim, definida a variável $(\textbf{I}_{m' + 1} - \Delta_{m' + 1, \, m' + 1}) \textbf{u}[k] = \textbf{u}_ {m'}[k]$ as $m'$ ações anteriores de controle
+
+\begin{equation}
+u[k] = (\textbf{b'}^T \textbf{e}_{m' + 1})^{-1}(\textbf{a'}^T \textbf{y}[k] - \textbf{b'}^T \textbf{u}_ {m'}[k])
 \end{equation}
 
 \section*{Exercício 7}
