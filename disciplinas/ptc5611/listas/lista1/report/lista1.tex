@@ -14,6 +14,7 @@
 \usepackage{color}                   % red, green, blue, yellow, cyan, magenta, black, white
 \definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
 \definecolor{mylilas}{RGB}{170,55,241}
+\usaepackage{multicols}
 
 \lstset{language=Matlab,%
     % basicstyle=\color{red},
@@ -31,6 +32,40 @@
     emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
     %emph=[2]{word1,word2}, emphstyle=[2]{style},    
 }
+
+\makeatletter
+\newcommand*\@dblLabelI {}
+\newcommand*\@dblLabelII {}
+\newcommand*\@dblequationAux {}
+
+\def\@dblequationAux #1,#2,%
+    {\def\@dblLabelI{\label{#1}}\def\@dblLabelII{\label{#2}}}
+
+\newcommand*{\doubleequation}[3][]{%
+    \par\vskip\abovedisplayskip\noindent
+    \if\relax\detokenize{#1}\relax
+       \let\@dblLabelI\@empty
+       \let\@dblLabelII\@empty
+    \else % we assume here that the optional argument
+          % has the required shape A,B
+       \@dblequationAux #1,%
+    \fi
+    \makebox[0.5\linewidth-1.5em]{%
+     \hspace{\stretch2}%
+     \makebox[0pt]{$\displaystyle #2$}%
+     \hspace{\stretch1}%
+    }%
+    \makebox[0.5\linewidth-1.5em]{%
+     \hspace{\stretch1}%
+     \makebox[0pt]{$\displaystyle #3$}%
+     \hspace{\stretch2}%
+    }%
+    \makebox[3em][r]{(%
+  \refstepcounter{equation}\theequation\@dblLabelI, 
+  \refstepcounter{equation}\theequation\@dblLabelII)}%
+  \par\vskip\belowdisplayskip
+}
+\makeatother
 
 %----------------------- Macros and Definitions --------------------------
 
@@ -232,12 +267,16 @@ Por definição, a equação das diferenças é da forma
 \begin{equation}
 \sum_{i=0}^{m} b_i y[n-i] = \sum_{i=0}^{n} a_i x[n-i]
 \end{equation}
-com parâmetros dados por $m = n = 3$ e $a_i, b_i$, $i = 1, 2, 3$ dados por $a_0 = 1$, $a_1 = -0.9737$, $a_2 = 0.8101$, $a_3 = 0.8151$, $a_1 = -0.0515$, $b_0 = 0.4108$, $b_1 = -1.0094$, $b_2 = 1.0094$ e $b_3 = 0.4108$. A função de transferência equivalente é
+
+A função de transferência equivalente é
 \begin{equation}
 G(z) = \frac{Y(Z)}{X(z)} = \frac{\sum_{i=0}^{m} b_{i} z^{-i}}{\sum_{i=0}^{n} a_{i} z^{-i}} = \frac{\sum_{i=0}^{m} b_{m-i} z^{i}}{\sum_{i=0}^{n} a_{n-i} z^{i}}
 \end{equation}
-Assim, as raízes do numerador e denominador, nomeadamente zeros e pólos, são respectivamente $z = \{1.38 \pm 1.18 i, -0.3\}$ e $p = \{0.45 \pm 0.74i, 0.068\}$.
+Assim, com parâmetros dados por $m = n = 3$ e $a_i, b_i$, $i = 1, 2, 3$ dados por $a_0 = 1$, $a_1 = -0.9737$, $a_2 = 0.8101$, $a_3 = 0.8151$, $a_1 = -0.0515$, $b_0 = 0.4108$, $b_1 = -1.0094$, $b_2 = 1.0094$ e $b_3 = 0.4108$, as raízes do numerador e denominador, nomeadamente zeros e pólos, são respectivamente $z = \{1.38 \pm 1.18 i, -0.3\}$ e $p = \{0.45 \pm 0.74i, 0.068\}$.
+
 \item %D
+Ambos os sinais apresentam a mesma transformada \mathcal{Z}, apesar de um ser sinal causal (Caso 1), e o outro ser não-causal (Caso 2).
+
 \begin{itemize}
 \item $x[n] = a^n u[n]$
 \begin{equation}
@@ -264,6 +303,7 @@ X(z) &= - \sum_{n = - \infty}^{\infty} a^n u[-n - 1] z^{-1} \\
 \end{equation}
 \end{itemize}
 \end{enumerate}
+
 \section*{Exercício 3}
 Seja o pólo $s=0$ numericamente mapeado, entretanto, para $s_0 = 0.01$ em espaço $s$, o respectivo pólo em $z$ equivale a $z_0 = e^{T_s s_0}$, com $T_s = 0.01$ s. Assim $z_0 \approx 1.001$.
 \begin{enumerate}
@@ -319,11 +359,12 @@ Portanto, a função $\mathcal{Z}$ da função (\ref{eq:lapinv}) é dada por
 \begin{equation}
 G(z) = \frac{K}{a} \frac{(1 - e^{-aT_s}z^{-1})}{(1-z^{-1})(1 - e^{-aT_s}z^{-1})}
 \end{equation}
+
 Por fim, por meio da função de transefrência de uma malha fechada \footnote{A equação em malha fechada de um sistema em tempo discreto ou contínuo é dado pela equação $G_{MF}(z) = \frac{G(z)}{1+G(z)}$}, após certa manipulação algébrica é dada por:
 \begin{equation}
 G_{MF}(z) = K' \frac{z}{z+b}
 \end{equation}
-onde $K' = \frac{K}{a} (1-e^{-aT_s}) \mbox{ e } b = \left[\left[(1 + \frac{k}{a})\right]e^(-aT_s) - \frac{k}{a} \right] $.
+onde $K' = \frac{K}{a} (1-e^{-aT_s}) \mbox{ e } b = (1 + \frac{k}{a})\right]e^{-aT_s} - \frac{k}{a} \right] $.
 \section*{Exercício 5}
 \begin{enumerate}
 \item % A
@@ -388,18 +429,27 @@ Como $\forall s \in \mathbb{C}, \,\, s = \omega_n (\zeta + i \sqrt{1 - \zeta^2})
 \begin{equation}
 C(s) = K \frac{s + 0.7}{s + 2 \zeta \omega_n}
 \end{equation}
-Ao considerar o projeto em tempo contínuo, o controlador acima casa o pólo da planta com o zero do controlador. Para o caso de casamento perfeito de pólo e zero, o novo lugar das raízes permite que o pólo estabelecido pertença a este. Ademais, $K = \omega_n^2$. Assim, a função de transferência fornecida é:
+Ao considerar o projeto em tempo contínuo, o controlador acima casa o pólo da planta com o zero do controlador. Para o caso de casamento perfeito de pólo e zero, o novo lugar das raízes permite que o pólo estabelecido pertença a este. Ademais, para casamento perfeito de pólo e zero, por inspeção, o polinômio característico fornece o valor $K$ i.e., $K = \omega_n^2$. Assim, a função de transferência fornecida é:
 \begin{equation}
 C(s) = \omega_n^2 \frac{s + 0.7}{s + 2 \zeta \omega_n} \stackrel{N}{=} 19.89 \frac{s + 0.7}{s + 5.33}
 \end{equation}
-\section*{Dedução dos exercício 7}
+
+\section*{Dedução do exercício 7}
 \label{sec:deducao7}
-Em caso geral, a fim da conversão de uma função de transferência $G(z)$ em sua respectiva função de diferenças e assim ação de controle do instante atual $kT_s$, seja essa em sua forma matricial
+O objetivo é encontrar uma função de transferência $G(z) = \frac{Y(z)}{U(z)}$ em sua respectiva função de diferenças e assim saída $y[k]$ no instante $k T_s$. Considere a função de transferência a seguir em sua forma matricial
+
 \begin{equation}
 G(z) = \frac{b^T \textbf{z}_m}{a^T \textbf{z}_n}    
 \label{eq:Gz}
 \end{equation}
-Os quais $a \in \mathbb{R}^n$, $b \in \mathbb{R}^m$ e $\mathcal{Z}_k = \left[z^k, \cdots, 1\right]^T$. Após manipulação algébrica, $\textbf{z}_p = z^p \, \textbf{v}_p$, $\textbf{v}_p = [1, \cdots, z^{-p}]$. A fim de manter a convenção para $z^{-1}$ dada por $\textbf{w}_p =  [z^{-p}, \cdots, 1]$, $\textbf{w}_p = \textbf{J}_p \textbf{v}_p \Leftrightarrow{\textbf{v}_p = \textbf{J}_p \textbf{w}_p}$, com $\textbf{J}_p$ a matriz de permuta, descrita em (\ref{eq:exchange}).
+
+os quais $a \in \mathbb{R}^n$, $b \in \mathbb{R}^m$ e $\mathcal{Z}_k = \left[z^k, \cdots, 1\right]^T$. Após manipulação algébrica, $\textbf{z}_p = z^p \, \textbf{v}_p$, $\textbf{v}_p = [1, \cdots, z^{-p}]$. A fim de manter a convenção para $z^{-1}$ dada por $\textbf{w}_p =  [z^{-p}, \cdots, 1]$, $\textbf{w}_p = \textbf{J}_p \textbf{v}_p \Leftrightarrow{\textbf{v}_p = \textbf{J}_p \textbf{w}_p}$, com $\textbf{J}_p$ a matriz de permuta, descrita em (\ref{eq:exchange}).
+
+\begin{equation}
+G(z) = z^{m-n}\frac{b^T \textbf{v}_m}{a^T \textbf{v}_n} = z^{m-n} \frac{\textbf{b}^T \textbf{J}_{m+1} \textbf{w}_m}{\textbf{a}^T \textbf{J}_{n+1} \textbf{w}_n}
+\label{eq:Gv}
+\end{equation}
+
 \begin{equation}
 \textbf{J}_p = 
 \begin{bmatrix}
@@ -409,36 +459,37 @@ Os quais $a \in \mathbb{R}^n$, $b \in \mathbb{R}^m$ e $\mathcal{Z}_k = \left[z^k
 \end{bmatrix}
 \label{eq:exchange}
 \end{equation}
-A função de transferência resultante é (\ref{eq:Gz}).
+
+O termo $z^{m-n}$ em (\ref{eq:Gw}) deve integrar a função a fim de chegarmos à equação de diferenças. Por meio de manipulação matricial, chegamos à seguinte equação 
+
 \begin{equation}
-G(z) & = \frac{\textbf{b}^T \textbf{J}_{m+1} \textbf{w}_m}{\textbf{a}^T \textbf{J}_{n+1} \textbf{w}_n} \coloneqq \frac{\textbf{b'}^T \textbf{w}_{m'}}{\textbf{a'}^T \textbf{w}_{n'}} 
-\label{eq:Gz}
+G(z) & = \frac{\textbf{b'}^T \textbf{w}_{m'}}{\textbf{a'}^T \textbf{w}_{n'}}
+\label{eq:Gw}
 \end{equation}
-A fim de manter unicidade na solução, os parâmetros $\textbf{a'}$ e $\textbf{b'}$ são:
-\begin{subequations}
-\begin{equation}
-  \textbf{a'} = 
+
+com
+
+\doubleequation[eq:a, eq:b]{
+\textbf{a'} = 
+\begin{cases}
+        \textbf{a}\\
+        \begin{bmatrix}
+            \textbf{0} \\ \textbf{J}_{n+1} \textbf{a} 
+         \end{bmatrix}_{m+1}
+    \end{cases} \mbox{ e }
+}{
+\textbf{b'} = 
   \begin{cases}
-   [\textbf{0}_{m-n, 1}, \textbf{a}^T \textbf{J}_{n+1}]^T] &, n < m\\
-   \textbf{a} &, n \geq m
-\end{cases}
-\label{eq:a}
-\end{equation}
-\begin{equation}
-  \textbf{b'} = 
-  \begin{cases}
-   \textbf{b} &,  n < m\\
-   [\textbf{0}_{m-n, 1}, \textbf{b}^T \textbf{J}_{m+1}]^T &, n \geq m
+   \begin{bmatrix}
+   \textbf{0}\\ \textbf{J}_{m+1} \textbf{b} 
+   \end{bmatrix}_{n+1} &, n \geq m \\
+   \textbf{b} &,  n < m
 \end{cases} 
-\label{eq:b}
-\end{equation}
-\end{subequations}
-Ademais, $n' = \dim{\textbf{a'}}$ e $m' = \dim{\textbf{b'}}$. A equação de diferenças de (\ref{eq:Gz}), é por definição:
-\begin{equation}
-G(z) = \frac{Y(z^{-1})}{U(z^{-1})} = \frac{\textbf{b}^T \textbf{w}_{m}}{\textbf{a}^T \textbf{w}_{n}} \Rightarrow a^T \textbf{y}[k] = b^T \textbf{u}[k]
-\label{eq:eqdiferencas}
-\end{equation}
-Por inspeção, os parâmetros da equação de diferenças seguem de (\ref{eq:a}) e (\ref{eq:b}). O vetor $\textbf{u}$ pode ser escrito como $\textbf{u}[k] = \left(\textbf{I}_{m' + 1} - \mathbf{\Delta}_{m'+1, m'+1}\right) \mathbf{u}[k] + \mathbf{\Delta}_{m'+1, m'+1} \mathbf{u}[k]$. A matriz $\mathbf{\Delta}_{ij}$ é definida por 
+}
+
+Perceba que $n'$ e $m'$ são $\begin{cases} n,& n \geq m \\ m, & n < m \end{cases}}$, i.e. $\forall z^p \in \textbf{w} \mbox{, } p \leq 0$. 
+
+A equação de diferenças de $G(z^{-1}) = \frac{Y(z^{-1})}{U(z^{-1})} = \frac{\textbf{b}^T \textbf{w}_{m}}{\textbf{a}^T \textbf{w}_{n}}$ é, por definição, descrita por $\textbf{a}^T \textbf{y}_{m}[k] = \textbf{b}^T \textbf{u}_{n}[k]$. Por inspeção, os parâmetros da equação de diferenças seguem de (\ref{eq:a}) e (\ref{eq:b}). O vetor $\textbf{y}_{n'}[k]$ pode ser escrito como $\textbf{y}_{n'}[k] = \left(\textbf{I}_{n' + 1} - \mathbf{\Delta}_{n'+1, n'+1}\right) \mathbf{y}_{n'}[k] + \mathbf{\Delta}_{n'+1, n'+1} \mathbf{y}_{n'}[k]$. A matriz $\mathbf{\Delta}_{ij}$ é definida por 
 \begin{equation}
   \mathbf{\Delta}_{ij} = 
   \begin{cases}
@@ -446,38 +497,92 @@ Por inspeção, os parâmetros da equação de diferenças seguem de (\ref{eq:a}
    0 & \mbox{ademais}
 \end{cases}
 \end{equation}
+
 Desta forma, a equação 
 \begin{equation}
-\textbf{b'}^T \underbrace{\Delta_{m' + 1, m' + 1} \textbf{u}[k]}_{\textbf{e}_{m'+1} u[k]} = \textbf{a'} \textbf{y}[k] - \textbf{b'}^T (\textbf{I}_{m'+1} - \Delta_{m' + 1, \, m' + 1}) \textbf{u}[k]
+\textbf{a'}^T \underbrace{\Delta_{n' + 1, n' + 1} \textbf{y}_{n'}[k]}_{\textbf{e}_{n'+1} y[k]} = \textbf{b'} \textbf{u}_{m'}[k] - \textbf{a'}^T (\textbf{I}_{n'+1} - \Delta_{n' + 1}) \textbf{y}_{n'}[k]
  \end{equation}
-Sendo $\textbf{e}_{m'+1} \in \mathbb{R}^{m'+1}$ definido por
+
+com $\textbf{e}_{k} \in \mathbb{R}^{m'+1}$ o vetor canônico. Portanto
+
 \begin{equation}
-  \textbf{e}_{m'+1} = 
-  \begin{cases}
-   1 & \mbox{em m'+1}\\
-   0 & \mbox{ademais}
+y[k] = \left(\textbf{a'}^T \textbf{e}_{n' + 1}\right)^{-1}\left(\textbf{b'}^T \textbf{u}_{m'}[k] - \textbf{a'}^T (\textbf{I}_{n' + 1} - \Delta_{n' + 1, n' + 1}) \textbf{y}_{n'}[k]\right)
+\label{eq:u_resumido}
+\end{equation}
+
+A equação \eqref{eq:u_resumido} tem implementação relativamente custosa por questões de requisitos de projeto. O objetivo é obter uma função \texttt{tf2diff(G, u, y)}, com \texttt{G} a função de transferência $G$, \texttt{y} os $n$ valores anteriores da saída $y$ e \texttt{u} os $m$ valores anteriores da entrada $u$ e o valor atual $u[k]$.
+
+Matematicamente, o vetor de entrada $\texttt{u} = \mathbf{u}_0^T[k] = \left[u[k - m], \cdots, u[k]\right]$ e saídas $\texttt{y} = \mathbf{y}_0^T[k] = \left[y[k - n], \cdots, y[k - 1]\right]$. A saída $y[k]$ não existe antecipadamente como enunciado em \eqref{eq:u_resumido}. Além disso, $\dim(\texttt{y}) = n$ e $\dim(\texttt{u}) = m$. Assim, reescrevemos a equação \eqref{eq:u_resumido} a fim de obter uma forma computável. Por fim
+
+\begin{equation}
+y[k] = (\textbf{a'}^T \textbf{e}_{n' + 1})^{-1}(\textbf{b'}^T \textbf{D} \textbf{u}[k] - \textbf{a'}^T \textbf{F} \textbf{y}[k])
+\label{eq:u_programacao}
+\end{equation}
+
+com 
+
+\doubleequation[]{
+\textbf{D} = \begin{cases}
+\textbf{I}_n+1 \\
+\begin{bmatrix}
+\textbf{0}_{m-n} & \textbf{0} \\
+\textbf{0} & \textbf{I}_{n+1}
+\end{bmatrix}
 \end{cases}
-\end{equation}
-Portanto
-\begin{equation}
-u[k] = (\textbf{b'}^T \textbf{e}_{m' + 1})^{-1}(\textbf{a'}^T \textbf{y}[k] - \textbf{b'}^T (\textbf{I}_{m' + 1} - \Delta_{m' + 1, \, m' + 1}) \textbf{u}[k])
-\end{equation}
+}{
+\textbf{F} = \begin{cases}
+\begin{bmatrix}
+\textbf{0}_{n-m} & \textbf{0} \\
+\textbf{0} & \textbf{I}_{m+1}
+\end{bmatrix}&\mbox{, } n < m \\
+\textbf{I}_{m+1} &\mbox{, } n \leq m
+\end{cases}
+}
+
+\doubleequation[]{
+    \textbf{y}[k] = \begin{cases}
+    \,\,\,\textbf{y}_0[k] \\
+    \begin{bmatrix}
+    \textbf{0} \\
+    \textbf{y}_0[k]
+    \end{bmatrix}
+    \end{cases}
+}{
+    \textbf{u}[k] = \begin{cases}
+    \begin{bmatrix}
+    \textbf{0} \\
+    \textbf{u}_0[k]
+    \end{bmatrix} &\mbox{, } n \leq m \\
+    \,\,\,\textbf{u}_0[k]&\mbox{, } n < m
+    \end{cases}
+}
+
+e parâmetros $\textbf{a}'$ e $\textbf{b}'$ já escritos por \eqref{eq:a} e \eqref{eq:b}.
+
 \section*{Exercício 7}
+
 A função de transferência de um controlador PID é dada por:
+
 \begin{equation}
 C(s) = K_p\left(1 + \frac{1}{T_i s} + T_d s\right) = K \, \frac{s^2 + b s + c}{s}
 \end{equation}
+
 Os quais $K = K_p T_d $, $b = \frac{1}{T_d}$ e $c = \frac{1}{T_i T_d}$. Com auxílio da equação do exercício (\ref{ex:ex9}), conclui-se que, por meio da transformação para trás, a função de transferência de um controlador PID segue
+
 \begin{equation}
 G(s) = \frac{}{}
 \end{equation}
+
 \section*{Dedução dos exercícios 8 e 9}
 \label{sec:deducao89}
+
 O objetivo dos exercícios (8) e (9) é encontrar $G(z)$ dada transformação $s = F(z)$. Em geral, as transformações aplicadas em engenharia respeitam a relação $s = \frac{c^T \mathcal{Z}}{d^T \mathcal{Z}}$, $c, d \in \mathbb{R}^2$, $\mathcal{Z}^T = [z, 1] $. Para a função de transferência dada por $G(s) = \frac{b^T \mathcal{S}_m}{a^T \mathcal{S}_n}$, tal que $\mathcal{S}_k^T = [s^k, \cdots, 1]  \, \in \, \mathbb{R}^{k+1}$, $m = \dim(b)$ e $n = \dim(a)$ e $s \in \mathbb{C}$, segue
+
 \begin{equation}
 s^i = \frac{c^T \mathcal{Z} \, c^T \, \mathcal{Z} \, \cdots \, c^T \, \mathcal{Z}}{d^T \, \mathcal{Z} \, d^T \, \mathcal{Z} \, \cdots d^T \, \mathcal{Z}} \, i \in \mathbb{N}
 \label{eq:sexpi}
 \end{equation}
+
 Por definição, $a b^T = M \,\, M \in \mathbb{R}^{2x2}$, $M = V \Lambda V^{-1}$, $\forall M \in \mathbb{R}^{n \times n}$, com $V$ a matriz direita de autovetores de $M$ e $\Lamba$ a matriz de autovalores de $M$, diagonal por definição. Além disso, $f(M) = V f(\Lambda) V^{-1}$. Em especial, $M^i = V \Lambda^i V^{-1}$. Assim, a equação (\ref{eq:sexpi}) reduz-se a:
 \begin{equation}
 s^i = \frac{c^T V_c \Lambda_c^{i-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{i-1} V_d^{-1} \mathcal{Z}}
