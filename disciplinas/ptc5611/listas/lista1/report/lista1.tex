@@ -66,6 +66,26 @@
 }
 \makeatother
 
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    basicstyle=\ttfamily,
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+
+\renewcommand\lstlistlistingname{Scripts em Matlab}
+
 %----------------------- Macros and Definitions --------------------------
 
 %%% FILL THIS OUT
@@ -96,6 +116,9 @@
 
 \begin{document}
 \maketitle
+
+\listoffigures
+\lstlistoflistings
 
 \section*{Exercício 1}
 
@@ -132,14 +155,14 @@
             \begin{figure}[!h]
                 \centering
                 \includegraphics[width=0.6\textwidth]{./images/ex1d1.eps}
-                \caption{Espectro de Fourier do sinal original, amostrado com $\omega_s = \omega_N$, e reconstruído por  filtro com $\omega_f = \omega_N$}
+                \caption{Espectro do sinal original. Frequência de amostragem e reconstrução $\omega_s = \omega_N$ e $\omega_f = \omega_N$}
                 \label{fig:ex1d1}
             \end{figure}%
         
             \begin{figure}![!h]
                 \centering
                 \includegraphics[width=0.6\textwidth]{./images/ex1d2.eps}
-                \caption{Espectro em frequência do sinal original, amostrado com $\omega_s = 3 \, \omega_N$ e reconstruído por  filtro com $\omega_f = \frac{\omega_s}{2}$}
+                \caption{Espectro do sinal original. Frequência de amostragem e reconstrução $\omega_s = 3 \, \omega_N$ e $\omega_f = \frac{\omega_s}{2}$}
                 \label{fig:ex1d2}
             \end{figure}
     
@@ -291,7 +314,7 @@
         
         \item %D
         
-        Ambos os sinais apresentam a mesma transformada \mathcal{Z}, apesar de um ser sinal causal (Caso 1), e o outro ser não-causal (Caso 2).
+        Ambos os sinais apresentam a mesma transformada $\mathcal{Z}$, apesar de um ser sinal causal (Caso 1), e o outro ser não-causal (Caso 2).
         
             \begin{itemize}
                 \item $x[n] = a^n u[n]$
@@ -620,13 +643,14 @@
         \textbf{F} = 
         \begin{cases}
             \begin{bmatrix}
-                \textbf{0}_{n-m} & \textbf{0} \\
-                \textbf{0} & \textbf{I}_{m} \\
-                \textbf{0} & \textbf{0} \\
-            \end{bmatrix}_{n+1, n}&\mbox{, } n \geq m \\
-            \begin{bmatrix}
-                \textbf{I}_{m} & \textbf{0} \\
+                \textbf{I}_{n} & \textbf{0} \\
                 \textbf{0} & 0 \\
+            \end{bmatrix}_{n+1, n}
+            &\mbox{, } n \geq m \\
+            \begin{bmatrix}
+                \textbf{0}_{m-n} & \textbf{0} \\
+                \textbf{0} & \textbf{I}_{n} \\
+                \textbf{0} & \textbf{0} \\
             \end{bmatrix}_{m+1, n} & \mbox{, } n < m
         \end{cases}
     \end{equation}
@@ -636,14 +660,14 @@
     O controlador PID com possibilidades de controle anti-wind-up e pólo adicional para a parte derivativa apresenta esquematicamente a seguinte estrutura:
     
         \begin{equation}
-            U(s) = P(s) + I(s, E, U, U_{sat}) + D(E, s)
+            U(s) = P(s) + I(s) + D(s)
             \label{eq:PID}
         \end{equation}
     
     com 
     
         \begin{equation}
-            P(E(s)) = K_p E(s),
+            P(s) = K_p E(s),
             \label{eq:P}
         \end{equation},
     
@@ -666,14 +690,14 @@
     Por meio da definição de $a, f \in \{0, 1\}$, para $a$ caso haja anti-windup e $f$ para pré-filtro, reescrevemos as equações \eqref{eq:I} e \eqref{eq:D} como
     
         \begin{equation}
-            I(s, E(s)) =  \frac{K_p}{T_i s} E(s) - a \left(\frac{K_p}{T_t s} \left(U - U_{sat}\right)\right)
+            I(s, E(s)) =  \frac{K_p}{T_i s} E(s) - a \frac{K_p}{T_t s} \left( U(s) - U_{sat}(s)\right)
             \label{eq:Ia}
         \end{equation},
     
         \begin{equation}
             \begin{split}
                 D(s, E(s)) &= K_p T_d s E(s) \left((1-f) + f \frac{1}{\frac{T_d}{N}s + 1}\right) \\
-                & = K_p T_d s E(s) + f \left(\frac{s}{\frac{T_d}{N} s E(s) + 1} + s E(s)\right) \\
+                & = K_p T_d s E(s) + f \left(\frac{s}{\frac{T_d}{N} s + 1}  - s\right) E(s) \\
                 & = K_p T_d s E(s) + f \frac{\frac{T_d}{N} s^2}{\frac{T_d}{N}s + 1} E(s)
             \end{split}
             \label{eq:Df}
@@ -682,16 +706,16 @@
     Ao substituirmos as expressões \eqref{eq:P}, \eqref{eq:Df}, \eqref{eq:Df}, a expressão geral \eqref{eq:PID} consequentemente segue 
     
         \begin{equation}
-            U(s) = & K_p \left(1 + \frac{1}{T_i s} + T_d s + f \frac{\frac{T_d}{N} s^2}{\frac{T_d}{N}s+1}\right) E(s) + \frac{1}{1 + \frac{a}{T_t s}} \frac{a}{T_t s} U_{sat}(s) 
+            U(s) = & K_p \left(1 + \frac{1}{T_i s} + T_d s + f \frac{\frac{T_d}{N} s^2}{\frac{T_d}{N}s+1}\right) E(s) +  a \frac{K_p}{T_t s} U_{sat}(s) - a \frac{K_p}{T_t s} U(s)
             \label{eq:PIDaf}
         \end{equation}
     
-    Perceba que para $f=0$, o termo referente ao pré-filtro é nulo e para $a = 0$, ao termo anti-windup é nulo. A fim de implementá-la, a expressão segue
+    Perceba que para $f=0$, o termo referente ao pré-filtro é nulo e para $a = 0$, o termo anti-windup é nulo. A fim de implementá-la, a expressão segue
     
         \begin{equation}
             \begin{split}
                 U(s) &= K_p \left(\frac{T_t s}{T_t s + a} + \frac{T_t s}{T_t s + a} + \frac{T_d T_t s^2}{T_t s + a} + f \frac{\frac{T_d}{N} T_t s^3}{\left(\frac{T_d T_t}{N} s^2 + \left(\frac{T_d}{N} + T_t\right) s + a\right)} \right) E(s) + \frac{a K_p}{T_t s + a} U_{sat}(s) \\
-                & \coloneqq \left(P'_(s) + I'(s) + D'(s) + F(s)\right) E(s) + W(s) U_{sat}(s)
+                & \coloneqq \left(P'(s) + I'(s) + D'(s) + f F(s)\right) E(s) + a W(s) U_{sat}(s)
             \end{split}
             \label{eq:PIDfull}
         \end{equation}
@@ -813,5 +837,25 @@
     \begin{equation}
         0 \leq K \leq \sqrt{2 \left(1 - \cos\left(\frac{\pi}{2N - 1}\right)\right)} \hspace{10pt} \blacksquare
     \end{equation}
+
+\newpage
+
+\section*{Scripts}
+
+\subsection*{s2z.m}
+\label{subsec:s2z}
+\lstinputlisting[language=Matlab, caption=Conversão de função de transferência por transformação $T(z)$]{../code/s2z.m}
+
+\subsection*{backward.m}
+\label{subsec:backward}
+\lstinputlisting[language=Matlab, caption=Transformação de conversão para trás]{../code/backward.m}
+
+\subsection*{forward.m}
+\label{subsec:forward}
+\lstinputlisting[language=Matlab, caption=Transformação de conversão para frente]{../code/forward.m}
+
+\subsection*{tustin_prop.m}
+\label{subsec:forward}
+\lstinputlisting[language=Matlab, caption=Transformação de conversão tustin própria]{../code/tustin_prop.m}
 
 \end{document}
