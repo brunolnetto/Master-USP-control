@@ -74,7 +74,7 @@
     basicstyle=\ttfamily,
     morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
     identifierstyle=\color{black},%
-    stringstyle=\color{mylilas},
+    stringstyle=\color{ mylilas},
     commentstyle=\color{mygreen},%
     showstringspaces=false,%without this there will be a symbol in the places where there is a space
     numbers=left,%
@@ -585,7 +585,7 @@
             \end{cases}
         }
     
-    Perceba que $n'$ e $m'$ são $\begin{cases} n,& n \geq m \\ m, & n < m \end{cases}}$, i.e. $\forall z^p \in \textbf{w} \mbox{, } p \leq 0$. 
+    Perceba que $n'$ e $m'$ são $\begin{cases} n + 1,& n \geq m \\ m + 1, & n < m \end{cases}}$, i.e. $\forall z^p \in \textbf{w} \mbox{, } p \leq 0$. 
     
     A equação de diferenças de $G(z^{-1}) = \frac{Y(z^{-1})}{U(z^{-1})} = \frac{\textbf{b}^T \textbf{w}_{m}}{\textbf{a}^T \textbf{w}_{n}}$ é, por definição, descrita por $\textbf{a}^T \textbf{y}_{m}[k] = \textbf{b}^T \textbf{u}_{n}[k]$. Por inspeção, os parâmetros da equação de diferenças seguem de (\ref{eq:a}) e (\ref{eq:b}). O vetor $\textbf{y}_{n'}[k]$ pode ser escrito como $\textbf{y}_{n'}[k] = \left(\textbf{I}_{n' + 1} - \mathbf{\Delta}_{n'+1, n'+1}\right) \mathbf{y}_{n'}[k] + \mathbf{\Delta}_{n'+1, n'+1} \mathbf{y}_{n'}[k]$. A matriz $\mathbf{\Delta}_{ij}$ é definida por 
     
