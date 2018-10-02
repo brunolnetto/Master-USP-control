@@ -5,13 +5,18 @@ clc;
 % [s]
 Ts = 0.1;
 
+% [s^-1]
+s0 = 0.01;
+
+z0 = exp(Ts*s0);
+
 % [rad/s]
 ws = 2*pi/Ts;
 
 % Funcoes de transferencia 
 G = tf(1, [1,0]);
-Ga = -0.01*tf(1, [1, -1.001], Ts, 'Variable', 'z^-1');
-Gb = -0.005*tf([1 -1], [1 -1.001], Ts, 'Variable', 'z^-1');
+Ga = ((1 - z0)/s0)*tf(1, [1, z0], Ts, 'Variable', 'z^-1');
+Gb = ((1 - z0)/(2*s0))*tf([1 -1], [1 z0], Ts, 'Variable', 'z^-1');
 
 hfig = figure('units','normalized','outerposition',[0 0 1 1]);
 set(hfig, 'defaultLegendInterpreter','latex');

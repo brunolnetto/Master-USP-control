@@ -24,3 +24,10 @@ Cs = K*(s+c)/(s+p);
 % Controlador em tempo discreto
 Cz1 = c2d(Cs, Ts1, 'tustin');
 Cz2 = c2d(Cs, Ts2, 'tustin');
+
+% Item A
+param = [Cz1];
+
+
+% Item B
+param = [Cz2];
