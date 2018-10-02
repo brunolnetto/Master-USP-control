@@ -741,9 +741,9 @@
 
 \section*{Exercício 10}
 
-    Seja $P(z) = 1 + K G(z)$, o polinômio característico de $G(z)$ em malha fechada, para $K \in \mathbb{R}^*_{+}$ e $W$ o lugar geométrico das raízes do polinômio. O polinômio apresenta $N-1$ pólos em $z = 0$ e 1 pólo em $z = 1$. No caso em estudo, $G(z) = \frac{1}{z^{N} - z^{N-1}}$ e $G_c(z) = K \frac{G(z)}{1 + K G(z)}$. A imagem REF\_IMAGEM apresenta o lugar das raízes para $N = 5$. 
-    
-    IMAGEM
+\subsection*{Solução 1}
+
+    Seja $P(z) = 1 + K G(z)$, o polinômio característico de $G(z)$ em malha fechada, para $K \in \mathbb{R}^*_{+}$ e $W$ o lugar geométrico das raízes do polinômio. O polinômio apresenta $N-1$ pólos em $z = 0$ e 1 pólo em $z = 1$. No caso em estudo, $G(z) = \frac{1}{z^{N} - z^{N-1}}$.
     
     Seja $\forall N \in \mathbb{N}^*\backslash{\{1\}}$, $S \in W$, $S = \{z \in \mathbb{C}, \omega \in \mathbb{R}, \sigma \in [0, 1] \,\, | \,\, z = (\omega, \sigma)\}$. Assim, por inspeção geométrica, $\inf K = 0$ para assegurar estabilidade. Para K crescente em $M = W \backslash {S}$, as ramificações resultantes divergem da origem e passam pela circunferência unitária i.e. $\exists K$, $K_{max} = \sup K$. e, assim, $0 \leq K \leq K_{max}$
     
@@ -758,10 +758,10 @@
     
         \begin{subequations}
             \begin{equation}
-                K &= -2 \cos\left((2N - 1) \frac{\theta}{2}\right)}  \sin\left(- \frac{\theta}{2}\right)
+                K &= -2 \sin\left((2N - 1) \frac{\theta}{2}\right)}  \sin\left(- \frac{\theta}{2}\right)
             \end{equation}
             \begin{equation}
-                0 =  2 \sin\left((2N - 1) \frac{\theta}{2}\right) \sin\left(-\frac{\theta}{2}\right)
+                0 =  2 \cos\left((2N - 1) \frac{\theta}{2}\right) \sin\left(-\frac{\theta}{2}\right)
             \label{eq:imagP}
             \end{equation}
         \end{subequations}
@@ -769,13 +769,49 @@
     Da equação (\ref{eq:imagP}), $S = S_1 \cup S_2$, $S_1 = $ $ \left\{\theta \in [0, 2 \pi] \,\, \Bigr| \,\, \theta = 0\right\}$, $S_2 = \left\{k \in \mathbb{Z}, \,\, \theta \in [0, 2 \pi] \,\, \Bigr| \,\, \theta = \frac{\pi}{2N - 1} + \frac{2 \pi}{2N - 1} k\right\}$. Para $S_1$, $L_1 = \left\{K \in \mathbb{N}^* \,\, \Bigr| \,\, K = 0\right\}$. Para $S_2$, $L_2 = \left\{K \in \mathbb{N}^*, k \in \mathbb{Z} \,\, \Bigr| \,\, 2 \, \sin\left(\frac{\pi}{2N-1} + \frac{2 \pi}{2N-1} k\right)\right\}$. Por verificação, $k \in [0, 2N -1]$, e a função seno no intervalo dado é estritamente crescente. Assim, 
     
         \begin{equation}
-            K_{max} = K(k) = K(2N - 1) = 2 \sin\left(\frac{\pi}{2N - 1}\right)
+            K_{max} = K(k) = K(2N - 1) = 2 \sin\left(\frac{\pi}{(2N - 1) 2}\right)
         \end{equation}
     
-    Assim,
+    Por fim, como $\sin(\frac{\theta}{2}) = \sqrt{\frac{1 - \cos{\theta}}{2}}$ Assim,
     
         \begin{equation}
-            0 \geq K \leq 2 \sin\left(\frac{\pi}{2N - 1}\right) \hspace{10pt} \blacksquare
+            0 \leq K \leq \sqrt{2 \left(1 - \cos\left(\frac{\pi}{2N - 1}\right)\right)} \hspace{10pt} \blacksquare
         \end{equation}
+
+\subsection*{Solução 2}
+
+    Seja $P(z) = 1 + K G(z)$, o polinômio característico de $G(z)$ em malha fechada, para $K \in \mathbb{R}^*_{+}$ e $W$ o lugar geométrico das raízes do polinômio. O polinômio apresenta $N-1$ pólos em $z = 0$ e 1 pólo em $z = 1$. No caso em estudo, $G(z) = \frac{1}{z^{N} - z^{N-1}}$.  Assim $K = z^{N - 1} - z^N$. Para o limite de estabilidade $z = e^{j\theta} = \cos{\theta} + j \sin{\theta}$, tem-se que:
+    
+    \begin{equation}
+        \begin{split}
+            K(z) & = e^{j N \theta} \left(1 - e^{-j \theta}\right) \\
+             & = e^{j N \theta} \left(1 - e^{-j \theta}\right)  \frac{e^{\frac{j\theta}{2}}}{e^{\frac{j\theta}{2}}} \frac{2j}{2j} \\
+            & = 2 j \frac{e^{j N \theta}}{e^{\frac{j \theta}{2}}} (\underbrace{\left\frac{e^{\frac{j \theta}{2}} - e^{\frac{- j \theta}{2}}}{2 j}\right}_{\sin(\frac{\theta}{2})}) \\
+            & = -2 j e^{j \frac{(2N - 1) \theta}{2}} \sin{\frac{\theta}{2}}
+        \end{split}    
+    \end{equation}
+    
+    Como $K \in \mathbb{R^*_+}$, temos que 
+    
+    \begin{subequations}
+        \begin{equation}
+            \begin{split}
+            K & \coloneqq |2| . |e^{j \frac{(2N - 1)\theta}{2}}| . |\sin(\frac{\theta}{2})| |\frac{1}{j}| \\
+            & = 2 \sin{\left(\frac{\theta}{2}\right)}
+            \end{split}
+            \label{eq:modulo}
+            \end{equation}
+            \begin{equation}
+            0 \coloneqq \angle(2) + \angle\left(e^{\frac{(2N + 1)\theta}{2}}\right) + \angle\left(\sin\left(\frac{\theta}{2}\right)\right) + \angle(\left(\frac{1}{j}\right)) \\
+            & = \frac{(2N - 1)}{2} \theta - \frac{\pi}{2}
+            \label{eq:argumento}
+        \end{equation}
+    \end{subequations}
+    
+    Por \eqref{eq:argumento}, obtemos que $\theta = \frac{\pi}{2N - 1}$. Ao substituir em \eqref{eq:modulo}, temos que $K = 2 \sin\left(\frac{\pi}{2 (2N - 1)}\right)$. Como $sin\left(\frac{\theta}{2}\right) = \sqrt{\frac{1 -\cos(\theta)}{2}}$, por fim
+    
+    \begin{equation}
+        0 \leq K \leq \sqrt{2 \left(1 - \cos\left(\frac{\pi}{2N - 1}\right)\right)} \hspace{10pt} \blacksquare
+    \end{equation}
 
 \end{document}
