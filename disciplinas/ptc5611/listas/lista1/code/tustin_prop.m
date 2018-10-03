@@ -17,8 +17,8 @@
 
 function [ans] = tustin_prop(G, Ts)
 
-c = [2; 2];
-d = [Ts; -Ts];
+c = [2; -2];
+d = [Ts; Ts];
 ans = s2z(G, Ts, c, d);
 
 

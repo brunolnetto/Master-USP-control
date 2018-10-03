@@ -16,7 +16,7 @@
 %  Sample time: 1 seconds
 %  Discrete-time transfer function.
 
-function[ans] = s2z(G,Ts, c, d)
+function[ans] = s2z(G, Ts, c, d)
 
 syms z;
 
@@ -63,7 +63,6 @@ end
 Sn = [];
 for i = 1:n
     k = i-1;
-    
     if(k == 0)
         Dc_k_1 = pinv(Dc);
         Dd_k_1 = pinv(Dd);
@@ -78,14 +77,7 @@ for i = 1:n
     Sn = [numi/deni; Sn];
 end
 
-simplify(Sm)
-simplify(Sn)
-
 Gz = (num.'*Sm)/(den.'*Sn);
 Gz = simplify(Gz);
 
-[symNum,symDen] = numden(Gz);
-TFnum = sym2poly(symNum);
-TFden = sym2poly(symDen);
-
-ans = tf(TFnum,TFden, Ts);
+ans = syms2tfz(Gz, Ts);

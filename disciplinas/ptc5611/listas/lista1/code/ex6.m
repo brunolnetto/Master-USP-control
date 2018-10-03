@@ -9,25 +9,32 @@ fs2 = 20;
 Ts1 = 1/fs1;
 Ts2 = 1/fs2;
 
-% Parametros do controlador
+% Planta
+s = tf('s');
+Gs = 1/(s^2 + p*s);
+num = Gs.num{1};
+den = Gs.den{1};
+
+% Controlador
 wn = 4.46;
 zeta = 0.597;
 K = wn^2;
 p = 2*zeta*wn;
 c = 0.7;
-
-% Planta e controlador em tempo continuo
-s = tf('s');
-Gs = 1/(s^2 + p*s);
+ 
 Cs = K*(s+c)/(s+p);
 
-% Controlador em tempo discreto
-Cz1 = c2d(Cs, Ts1, 'tustin');
-Cz2 = c2d(Cs, Ts2, 'tustin');
-
 % Item A
-param = [Cz1];
+runsim(Cs, Ts1, 'ex6sima');
+plotuy(u, y);
 
+runsim(Cs, Ts2, 'ex6sima');
+plotuy(u, y);
 
 % Item B
-param = [Cz2];
+runsim(Cs, Ts1, 'ex6simb');
+plotuy(u, y);
+
+runsim(Cs, Ts2, 'ex6simb');
+plotuy(u, y);
+

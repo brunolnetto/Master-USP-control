@@ -1,5 +1,21 @@
-function [uk] = tf2diff(G, y_n, u_m)
-
+function [yk] = tf2diff(G, y_n, u_m)
+% Transforma a funcao de tranferencia G discreta
+% com numerador e denominador da transformacao linear 
+% fornecida
+% Bruno Peixoto 2018
+% 
+% Ex.: Discretizacao para frente de uma PT1
+%  >> c = [-1, 1];
+%  >> d = [Ts, 0];
+%  >> G = s2z(Gs, Ts, c, d);
+%    ans =
+%   
+%    1
+%    -
+%    z
+%   
+%  Sample time: 1 seconds
+%  Discrete-time transfer function.
 m = length(G.num);
 n = length(G.den);
 
@@ -12,12 +28,12 @@ Jm_1 = flipud(eye(m));
 if n >= m:
     a_ = a;
     b_ = [zeros(n-m, 1); a'*Jn_1];
-    F = ;
+    F = [eye(n); zeros(1, n)];
 
 else
     a_ = [zeros(m-n, 1); b'*Jn_1];
     b_ = b;
-    F = ;
+    F = [zeros(m-n, n); eye(n); zeros(1, n)];
 end
 
 m_ = length(a_);
@@ -26,4 +42,6 @@ n_ = length(b_);
 delta = zeros(n_);
 delta(n_, n_) = 1;
 
-yk = (a_'*delta)^(-1)*(b_'*u_m - a_')
+yk = (a_'*delta)^(-1)*(b_'*u_m - a_'*F*y_n);
+
+end
