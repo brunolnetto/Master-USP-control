@@ -1,4 +1,4 @@
-% Exercicio 1 - Lista 1
+% Exercicio 6 - Lista 1
 % Autor: Bruno Peixoto
 % Data: 29/09
 
