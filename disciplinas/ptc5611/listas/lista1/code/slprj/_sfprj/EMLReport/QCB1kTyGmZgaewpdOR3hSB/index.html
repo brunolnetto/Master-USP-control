@@ -40,7 +40,7 @@ var keyBindings = {
 var functionInfoTable = {
  MATLABcode1: "fcn1_mcode.html",
  fpath1: "#ex6sima:5",
- lines1: [1, 1, 12],
+ lines1: [1, 1, 19],
  watch1: "fcn1_watch.html",
  title1: "Function: <span class='functionname'><a title='ex6sima/MATLAB&nbsp;Function' class='functionlink' href=\"matlab: sfprivate('eml_report_manager', 'openEditorFromChecksum', 'QCB1kTyGmZgaewpdOR3hSB');\">fcn</a></span>",
  tcall1: [  ],
@@ -50,7 +50,15 @@ var functionInfoTable = {
  htmlRoot: "/home/brunopeixoto/github/Mestrado/disciplinas/ptc5611/listas/lista1/code/slprj/_sfprj/EMLReport/QCB1kTyGmZgaewpdOR3hSB/"
 };
 var scriptInfoTable = {
- fpath1: "#ex6sima:5"
+ fpath1: "#ex6sima:5",
+ fpath2: "/usr/local/MATLAB/R2015a/toolbox/eml/lib/matlab/elmat/length.m",
+ fpath3: "/usr/local/MATLAB/R2015a/toolbox/eml/lib/matlab/ops/eml_mtimes_helper.m",
+ fpath4: "/usr/local/MATLAB/R2015a/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m",
+ fpath5: "/usr/local/MATLAB/R2015a/toolbox/eml/lib/matlab/ops/mrdivide.p",
+ fpath6: "/usr/local/MATLAB/R2015a/toolbox/eml/lib/matlab/ops/rdivide.m",
+ fpath7: "/usr/local/MATLAB/R2015a/toolbox/eml/lib/matlab/eml/eml_scalexp_compatible.m",
+ fpath8: "/usr/local/MATLAB/R2015a/toolbox/eml/lib/matlab/eml/eml_div.m",
+ fpath9: "/usr/local/MATLAB/R2015a/toolbox/coder/coder/+coder/+internal/div.p"
 };
 </script>
 </head>
@@ -123,7 +131,7 @@ var scriptInfoTable = {
 <div class="functionwrapper" onmouseover="callTreeMouseOver(event);" onmouseout="callTreeMouseOut(event);" onclick="functionTreeClick(event);">
 <ol class="tree">
 <!-- Begin Function Tree Roots -->
-<li class="leaf  failed"><a href="#" class="fcn " id="F1N1:F1">fcn</a></li>
+<li class="leaf  failed"><a href="#" class="fcn " id="F1N2:F1">fcn</a></li>
 <!-- End Function Tree Roots -->
 </ol>
 <!-- Function Tree Nodes -->
@@ -139,14 +147,14 @@ var scriptInfoTable = {
 <div class="treewrapper" onmouseover="callTreeMouseOver(event);" onmouseout="callTreeMouseOut(event);" onclick="callTreeClick(event);">
 <ol class="tree">
 <!-- Call Tree Root -->
-<li class="leaf failed"><a href="#" class="fcn " id="F1N1:L1">fcn</a>
+<li class="leaf failed"><a href="#" class="fcn " id="F1N2:L1">fcn</a>
 </li>
 </ol>
 <!-- Call Tree Nodes -->
 <div class="callstacknodes hidden">
 <ol class="callstacknode" id="callstacknode1">
 
-<li class="leaf failed"><a href="#" class="fcn " id="F1N1:l1">fcn</a>
+<li class="leaf failed"><a href="#" class="fcn " id="F1N2:l1">fcn</a>
 </li>
 </ol>
 
@@ -160,8 +168,8 @@ var scriptInfoTable = {
 <div class="tooltips">
 <div class="tooltip" id="TT1"><table class="tooltip"><tr><th>Size</th><td>1 x 2</td></tr><tr><th>Class</th><td>double</td></tr><tr><th>Complex</th><td>No</td></tr></table></div>
 <div class="tooltip" id="TT2"><table class="tooltip"><tr><th>Size</th><td>1 x 1</td></tr><tr><th>Class</th><td>double</td></tr><tr><th>Complex</th><td>No</td></tr></table></div>
-<div class="tooltip" id="TT3"><table class="tooltip"><tr><th>Size</th><td>1 x 8</td></tr><tr><th>Class</th><td>char</td></tr></table></div>
-<div class="tooltip" id="TT4"><table class="tooltip"><tr><th>Size</th><td>1 x 4</td></tr><tr><th>Class</th><td>char</td></tr></table></div>
+<div class="tooltip" id="TT3"><table class="tooltip"><tr><th>Size</th><td>2 x 1</td></tr><tr><th>Class</th><td>double</td></tr><tr><th>Complex</th><td>No</td></tr></table></div>
+<div class="tooltip" id="TT4"><table class="tooltip"><tr><th>Size</th><td>1 x 1</td></tr><tr><th>Class</th><td>logical</td></tr></table></div>
 <div class="tooltip" id="TT5"><table class="tooltip"><tr><th>Size</th><td>1 x 0</td></tr><tr><th>Class</th><td>double</td></tr><tr><th>Complex</th><td>No</td></tr></table></div>
 <div class="tooltip" id="TT6"><table class="tooltip"><tr><th>Size</th><td>1 x 1</td></tr><tr><th>Class</th><td>double</td></tr><tr><th>Complex</th><td>No</td></tr></table></div>
 </div>
@@ -171,7 +179,7 @@ var scriptInfoTable = {
 <div class="south">
 <ul class="ui-tabs-nav">
 <li class="ui-tabs-nav-item"><span class="tab-link" id="summary"><span>Summary</span></span></li>
-<li class="ui-tabs-nav-item ui-tabs-selected"><span class="tab-link" id="messages"><span>All Messages (3)</span></span></li>
+<li class="ui-tabs-nav-item ui-tabs-selected"><span class="tab-link" id="messages"><span>All Messages (1)</span></span></li>
 <li class="ui-tabs-nav-item"><span class="tab-link" id="watchlist"><span>Variables</span></span></li>
 <li class="ui-tabs-nav-item hidden"><span class="tab-link" id="watchload"><span>Variables</span></span></li>
 </ul>
@@ -179,8 +187,8 @@ var scriptInfoTable = {
 <!-- Compilation Summary -->
 <div id="summarybody" class="ui-tabs-panel hidden">
 <table cellpadding="1" cellspacing="4">
-<tr><td>MATLAB code generation attempted on:</td><td>03-Oct-2018 12:33:52</td></tr>
-<tr><td>Number of errors:</td><td><a href="javascript:selectMessagesTab();">3</a></td></tr>
+<tr><td>MATLAB code generation attempted on:</td><td>04-Oct-2018 13:43:50</td></tr>
+<tr><td>Number of errors:</td><td><a href="javascript:selectMessagesTab();">1</a></td></tr>
 <tr><td>Number of warnings:</td><td><a href="javascript:selectMessagesTab();">0</a></td></tr>
 <tr><td>Number of notices:</td><td><a href="javascript:selectMessagesTab();">0</a></td></tr>
 </table>
@@ -208,21 +216,7 @@ var scriptInfoTable = {
 <td class="msgorder" headers="msgorder"><a href="#">1</a></td>
 <td class="failed" headers="msgtype"></td>
 <td class="function" headers="function"><div>fcn</div></td>
-<td class="location" headers="location"><div>4</div></td>
-<td class="text" headers="text"><div>The 'tf' class does not support code generation.</div></td>
-</tr>
-<tr class="message error" id="M2F1">
-<td class="msgorder" headers="msgorder"><a href="#">2</a></td>
-<td class="failed" headers="msgtype"></td>
-<td class="function" headers="function"><div>fcn</div></td>
-<td class="location" headers="location"><div>5</div></td>
-<td class="text" headers="text"><div>Undefined function or variable 'Cz'. The first assignment to a local variable determines its class.</div></td>
-</tr>
-<tr class="message error" id="M3F1">
-<td class="msgorder" headers="msgorder"><a href="#">3</a></td>
-<td class="failed" headers="msgtype"></td>
-<td class="function" headers="function"><div>fcn</div></td>
-<td class="location" headers="location"><div>8</div></td>
+<td class="location" headers="location"><div>14</div></td>
 <td class="text" headers="text"><div>Undefined function or variable 'u'. The first assignment to a local variable determines its class.</div></td>
 </tr>
 </tbody>

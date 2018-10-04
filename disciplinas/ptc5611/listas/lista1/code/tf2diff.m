@@ -1,6 +1,6 @@
 function [yk] = tf2diff(num, den, y_n, u_m)
-m = length(G.num);
-n = length(G.den);
+m = length(num);
+n = length(den);
 
 a = num;
 b = den;

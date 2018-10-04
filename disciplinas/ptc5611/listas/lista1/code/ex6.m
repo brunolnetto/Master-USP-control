@@ -11,9 +11,6 @@ Ts2 = 1/fs2;
 
 % Planta
 s = tf('s');
-Gs = 1/(s^2 + p*s);
-num = Gs.num{1};
-den = Gs.den{1};
 
 % Controlador
 wn = 4.46;
@@ -21,8 +18,11 @@ zeta = 0.597;
 K = wn^2;
 p = 2*zeta*wn;
 c = 0.7;
- 
+
+Gs = 1/(s^2 + p*s);
 Cs = K*(s+c)/(s+p);
+num = Gs.num{1};
+den = Gs.den{1};
 
 % Item A
 runsim(Cs, Ts1, 'ex6sima');
