@@ -17,7 +17,6 @@ z0 = exp(Ts*s0);
 G = tf(1, [1,0]);
 Ga = ((1 - z0)/s0)*tf([1 0], [1, -z0], Ts);
 Gb = ((1 - z0)/(2*s0))*tf([1 1], [1 -z0], Ts);
-%Gc = c2d(G, Ts, 'matched');
 
 hfig = figure('units','normalized','outerposition',[0 0 1 1]);
 set(hfig, 'defaultLegendInterpreter','latex');
