@@ -358,6 +358,7 @@
         \end{enumerate}
     
     \section*{Exercício 3}
+    \label{sec:ex3}
     
     Seja o pólo $s=0$ numericamente mapeado, entretanto, para $s_0 = 0.01$ em espaço $s$, o respectivo pólo em $z$ equivale a $z_0 = e^{T_s s_0}$, com $T_s = 0.01$ s. Assim $z_0 \approx 1.001$.
     
@@ -515,6 +516,7 @@
     \end{enumerate}
 
 \section*{Exercício 6}
+\label{sec:ex6}
 
     Para os critérios de projeto fornecidos, o projeto de controle será feito em espaço $s$ e o respectivo pólo deve pertencer ao lugar das raízes em malha fechada. O tempo de subida é:
     
@@ -800,6 +802,11 @@
 \newpage
 
 \section*{Scripts}
+
+    \subsection*{ex6.m}
+    \label{subsec:ex6}
+    \lstinputlisting[language=Matlab, caption=Constantes e comandos para item A e B do exercício \nameref{sec:ex6}]{../code/ex6.m}
+
     \subsection*{syms2tfz.m}
     \label{subsec:syms2tfz}
     \lstinputlisting[language=Matlab, caption=Conversão de simbólico fracionário em função de transferência discreta]{../code/syms2tfz.m}
@@ -819,5 +826,5 @@
     \subsection*{tustin\_prop.m}
     \label{subsec:tustin}
     \lstinputlisting[language=Matlab, caption=Transformação de conversão tustin própria]{../code/tustin_prop.m}
-
+    
 \end{document}
