@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[twoside, fleqn]{article}
 \usepackage{graphicx,fancyhdr,amsmath,amssymb,amsthm,subfig,url,hyperref}
 \usepackage[margin=1in]{geometry}
 \usepackage[brazilian]{babel}
@@ -7,9 +7,9 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{graphics}
+\usepackage{float}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
-\usepackage{subfigure}
 \usepackage{listings}
 \usepackage{color}                   % red, green, blue, yellow, cyan, magenta, black, white
 \definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
@@ -85,6 +85,7 @@
 }
 
 \renewcommand\lstlistlistingname{Scripts em Matlab}
+\renewcommand{\lstlistingname}{Script}
 
 %----------------------- Macros and Definitions --------------------------
 
@@ -102,6 +103,7 @@
 \fancyhf{}
 \fancyhead[RO,LE]{\sffamily\bfseries\large Universidade de São Paulo}
 \fancyhead[LO,RE]{\sffamily\bfseries\large PTC5611 Controle Digital de Sistemas Dinâmicos}
+\setlength{\headheight}{14.0pt}
 \cfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}	
 \renewcommand{\headrulewidth}{1pt}
 
@@ -117,6 +119,7 @@
 \begin{document}
 \maketitle
 
+
 \listoffigures
 \lstlistoflistings
 
@@ -126,7 +129,7 @@
 
         \item %A
         
-        Por hipótese, a frequência de amostragem utilizada satisfaz o teorema de Nyquist \footnote{Essencialmente $\omega_s \geq 2\omega_0$, o qual $\omega_s$ corresponde a frequência de amostragem e $\omega_0$ a máxima frequência do sinal amostrado.}. Como $t = kT_s = \frac{k}{f_s}$, temos que.
+        Por hipótese, a frequência de amostragem utilizada satisfaz o critério de Nyquist \footnote{Essencialmente $\omega_s \geq 2\omega_0$, o qual $\omega_s$ corresponde a frequência de amostragem e $\omega_0$ a máxima frequência do sinal amostrado.}. Como $t = kT_s = \frac{k}{f_s}$, temos que.
         
             \begin{equation}
                 \label{eq:ex1a}
@@ -135,7 +138,7 @@
         
         Assim, $\omega = 250\pi \frac{rad}{s}$. A imagem (\ref{fig:ex1}) apresenta o sinal original e o amostrado.
         
-            \begin{figure}[!h]
+            \begin{figure}[H]
             	\center
             	\includegraphics[width=0.6\textwidth]{./images/ex1a.eps}
             	\caption{Curva original e série amostrada}
@@ -146,27 +149,36 @@
         Pela equação (\ref{eq:ex1a}), conclui-se que $f_s = 12$ $kHz$. Dada frequência do sistema de $4000\pi \frac{rad}{s}$, pelo teorema de Nyquist $\omega_s \stackrel{!}{>} 8000\pi \frac{rad}{s} \approx 24000 \frac{rad}{s}$. Devido à violação, não é possível reconstruir o sinal por meio de um filtro passa-baixas ideal. 
         
         \item %C
-        Para sinais senoidais amostrados com frequência $f_s$, tem-se que, para uma mesma série $x[n] = cos(\alpha n)$, os possíveis sinais advindos deste são $x(t) = cos(2 \pi (f_0 + f_s)t) \mbox{, } k \in \mathbb{N} \mbox{, } \omega = 2 \pi f$. Por (\ref{eq:ex1a}), tem-se que $\omega_0 = \frac{5\pi}{4} \frac{rad}{s}$. Assim, dois possíveis sinais para a série fornecida são $x_1(t) = cos(\frac{5\pi}{4} t )$ e $x_2(t) = cos(\frac{85\pi}{4} t)$.
+        Para sinais senoidais amostrados com frequência $f_s$, tem-se que, para uma mesma série $x[n] = cos(\alpha n)$, os possíveis sinais advindos deste são $x(t) = cos(2 \pi (f_0 + f_s)t) \mbox{, } k \in \mathbb{N} \mbox{, } \omega = 2 \pi f$. Por (\ref{eq:ex1a}), tem-se que $\omega_0 = \frac{5\pi}{4} \frac{rad}{s}$. Assim, dois possíveis sinais para a série fornecida são $x_1(t) = cos(\frac{5\pi}{4} t )$ e $x_2(t) = cos(\frac{85\pi}{4} t)$, mostrado na imagem (\ref{fig:ex1c}) 
+        
+            \begin{figure}[H]
+            	\center
+            	\includegraphics[width=0.7\textwidth]{./images/ex1c.eps}
+            	\caption{Sinais com frequências diferentes e mesmo sinal amostrado}
+            	\label{fig:ex1c}
+            \end{figure}
         
         \item %D
         
         Para o caso presente na figura (\ref{fig:ex1d1}), o sinal reconstruido é distorcido. Em contrapartida, por respeitar o critério de Nyquist, o sinal reconstruido é o mesmo do sinal original, presente na figura (\ref{fig:ex1d2}).
         
-            \begin{figure}[!h]
+            \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.6\textwidth]{./images/ex1d1.eps}
+                \includegraphics[width=0.7\textwidth]{./images/ex1d1.eps}
                 \caption{Espectro do sinal original. Frequência de amostragem e reconstrução $\omega_s = \omega_N$ e $\omega_f = \omega_N$}
                 \label{fig:ex1d1}
             \end{figure}%
         
-            \begin{figure}![!h]
+            \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.6\textwidth]{./images/ex1d2.eps}
+                \includegraphics[width=0.7\textwidth]{./images/ex1d2.eps}
                 \caption{Espectro do sinal original. Frequência de amostragem e reconstrução $\omega_s = 3 \, \omega_N$ e $\omega_f = \frac{\omega_s}{2}$}
                 \label{fig:ex1d2}
             \end{figure}
     
     \end{enumerate}
+
+\newpage
 
 \section*{Exercício 2}
 
@@ -212,7 +224,7 @@
             	\item $\lim\limits_{z \rightarrow 1} X(z) = \sum_{i=0}^{\infty}x[i]$
             
             	\begin{equation}
-            	\lim\limits_{z \rightarrow 1} X(z) & = \lim\limits_{z \rightarrow 1} \sum_{i=0}^{\infty} x[i].z^{-i} = \sum_{i=0}^{\infty} x[i]
+            	\lim\limits_{z \rightarrow 1} X(z) = \lim\limits_{z \rightarrow 1} \sum_{i=0}^{\infty} x[i].z^{-i} = \sum_{i=0}^{\infty} x[i]
             	\end{equation}
             	
             	\begin{equation}
@@ -264,10 +276,10 @@
         
             \begin{subequations}
                 \begin{equation}
-                    x[n] = e^{-an} & \rightarrow -z \frac{d}{dz} \mathcal{Z}\{e^{-an}\} = \mathcal{Z}\{n e^{-an}\} \mbox{, } n = T_s i \mbox{, } i \in \mathbb{N}
+                    x[n] = e^{-an} \rightarrow -z \frac{d}{dz} \mathcal{Z}\{e^{-an}\} = \mathcal{Z}\{n e^{-an}\} \mbox{, } n = T_s i \mbox{, } i \in \mathbb{N}
                 \end{equation}
                 \begin{equation}
-                    x[n] = n e^{-an} & \rightarrow -z \frac{d}{dz} \mathcal{Z}\{n e^{-an}\}} = \mathcal{Z}\{n^2 e^{-an}\} \mbox{, } n = T_s \mbox{, } i \in \mathbb{N}
+                    x[n] = n e^{-an} \rightarrow -z \frac{d}{dz} \mathcal{Z}\{n e^{-an}\} = \mathcal{Z}\{n^2 e^{-an}\} \mbox{, } n = T_s \mbox{, } i \in \mathbb{N}
                 \end{equation}
             \end{subequations}
         
@@ -293,7 +305,7 @@
         Portanto 
         
             \begin{equation}
-                \mathcal{Z}\{n^2 e^{-a n}\} \coloneqq -z \frac{d}{dz} \mathcal{Z}\{n e^{-a n}\} & = e^{-a T_s} \frac{z^{-1}(1 + e^{-a T_s} z^{-1})}{(1 - e^{-a T_s} z^{-1})}
+                \mathcal{Z}\{n^2 e^{-a n}\} \coloneqq -z \frac{d}{dz} \mathcal{Z}\{n e^{-a n}\} = e^{-a T_s} \frac{z^{-1}(1 + e^{-a T_s} z^{-1})}{(1 - e^{-a T_s} z^{-1})}
             \end{equation}
         
         \item %C
@@ -435,7 +447,7 @@
             G_{MF}(z) = K' \frac{z}{z+b}
         \end{equation}
         
-    onde $K' = \frac{K}{a} (1-e^{-aT_s}) \mbox{ e } b = (1 + \frac{k}{a})\right]e^{-aT_s} - \frac{k}{a} \right] $.
+    onde $K' = \frac{K}{a} (1-e^{-aT_s}) \mbox{ e } b = (1 + \frac{k}{a})\left[e^{-aT_s} - \frac{k}{a} \right] $.
 
 \section*{Exercício 5}
 
@@ -508,7 +520,7 @@
     
         \begin{equation}
             t^{0\% - 100\%}_{r}(\omega_n, \zeta) = \frac{\pi - \theta(\zeta)}{\omega_d(\omega_n, \zeta)} \mbox{, com } \theta(\zeta) = \tan^{-1}\frac{\sqrt{1 - \zeta^2}}{\zeta} \mbox{ e } \omega_d(\omega_n, \zeta) = \omega_n \sqrt{1-\zeta^2}
-            \label{eq:sobressinal}
+            \label{eq:tempo_de_subida}
         \end{equation}
     
     De mesma forma, o sobressinal é dado por:
@@ -561,33 +573,13 @@
     O termo $z^{m-n}$ em (\ref{eq:Gw}) deve integrar a função a fim de chegarmos à equação de diferenças. Por meio de manipulação matricial, chegamos à seguinte equação 
     
         \begin{equation}
-            G(z) & = \frac{\textbf{b'}^T \textbf{w}_{m'}}{\textbf{a'}^T \textbf{w}_{n'}}
+            G(z) = \frac{\textbf{b'}^T \textbf{w}_{m'}}{\textbf{a'}^T \textbf{w}_{n'}}
             \label{eq:Gw}
         \end{equation}
     
-    com
+    com $\textbf{a'} = \begin{cases} \textbf{a}\\ \begin{bmatrix} \textbf{0} \\ \textbf{J}_{n+1} \textbf{a} \end{bmatrix}_{m+1} \end{cases} \mbox{ e } \textbf{b'} = \begin{cases} \begin{bmatrix} \textbf{0}\\ \textbf{J}_{m+1} \textbf{b} \end{bmatrix}_{n+1} &, n \geq m \\ \textbf{b} &,  n < m \end{cases}$. Perceba que $n'$ e $m'$ são $\begin{cases} n + 1,& n \geq m \\ m + 1, & n < m \end{cases}$, i.e. $\forall z^p \in \textbf{w} \mbox{, } p \leq 0$. 
     
-        \doubleequation[eq:a, eq:b]{
-            \textbf{a'} = 
-            \begin{cases}
-                \textbf{a}\\
-                \begin{bmatrix}
-                    \textbf{0} \\ \textbf{J}_{n+1} \textbf{a} 
-                \end{bmatrix}_{m+1}
-            \end{cases} \mbox{ e }
-        }{
-            \textbf{b'} = 
-              \begin{cases}
-               \begin{bmatrix}
-                   \textbf{0}\\ \textbf{J}_{m+1} \textbf{b} 
-               \end{bmatrix}_{n+1} &, n \geq m \\
-               \textbf{b} &,  n < m
-            \end{cases}
-        }
-    
-    Perceba que $n'$ e $m'$ são $\begin{cases} n + 1,& n \geq m \\ m + 1, & n < m \end{cases}}$, i.e. $\forall z^p \in \textbf{w} \mbox{, } p \leq 0$. 
-    
-    A equação de diferenças de $G(z^{-1}) = \frac{Y(z^{-1})}{U(z^{-1})} = \frac{\textbf{b}^T \textbf{w}_{m}}{\textbf{a}^T \textbf{w}_{n}}$ é, por definição, descrita por $\textbf{a}^T \textbf{y}_{m}[k] = \textbf{b}^T \textbf{u}_{n}[k]$. Por inspeção, os parâmetros da equação de diferenças seguem de (\ref{eq:a}) e (\ref{eq:b}). O vetor $\textbf{y}_{n'}[k]$ pode ser escrito como $\textbf{y}_{n'}[k] = \left(\textbf{I}_{n' + 1} - \mathbf{\Delta}_{n'+1, n'+1}\right) \mathbf{y}_{n'}[k] + \mathbf{\Delta}_{n'+1, n'+1} \mathbf{y}_{n'}[k]$. A matriz $\mathbf{\Delta}_{ij}$ é definida por 
+    A equação de diferenças de $G(z^{-1}) = \frac{Y(z^{-1})}{U(z^{-1})} = \frac{\textbf{b}^T \textbf{w}_{m}}{\textbf{a}^T \textbf{w}_{n}}$ é, por definição, descrita por $\textbf{a}^T \textbf{y}_{m}[k] = \textbf{b}^T \textbf{u}_{n}[k]$. Por inspeção, $a' = a$ e $b' = b$. O vetor $\textbf{y}_{n'}[k]$ pode ser escrito como $\textbf{y}_{n'}[k] = \left(\textbf{I}_{n' + 1} - \mathbf{\Delta}_{n'+1, n'+1}\right) \mathbf{y}_{n'}[k] + \mathbf{\Delta}_{n'+1, n'+1} \mathbf{y}_{n'}[k]$. A matriz $\mathbf{\Delta}_{ij}$ é definida por 
     
         \begin{equation}
           \mathbf{\Delta}_{ij} = 
@@ -619,41 +611,7 @@
             \label{eq:u_programacao}
         \end{equation}
     
-    com 
-    
-        \doubleequation[eq:a, eq:b]{
-            \textbf{a'} = 
-            \begin{cases}
-                \textbf{a}\\
-                \begin{bmatrix}
-                    \textbf{0} \\ \textbf{J}_{n+1} \textbf{a} 
-                 \end{bmatrix}_{m+1}
-            \end{cases} \mbox{ e }
-        }{
-            \textbf{b'} = 
-            \begin{cases}
-                \begin{bmatrix}
-                    \textbf{0}\\ \textbf{J}_{m+1} \textbf{b} 
-                \end{bmatrix}_{n+1} &\mbox{, } n \geq m \\
-                \textbf{b} &\mbox{, } n < m
-            \end{cases} 
-        }
-    
-    \begin{equation}
-        \textbf{F} = 
-        \begin{cases}
-            \begin{bmatrix}
-                \textbf{I}_{n} & \textbf{0} \\
-                \textbf{0} & 0 \\
-            \end{bmatrix}_{n+1, n}
-            &\mbox{, } n \geq m \\
-            \begin{bmatrix}
-                \textbf{0}_{m-n} & \textbf{0} \\
-                \textbf{0} & \textbf{I}_{n} \\
-                \textbf{0} & \textbf{0} \\
-            \end{bmatrix}_{m+1, n} & \mbox{, } n < m
-        \end{cases}
-    \end{equation}
+    com $\textbf{a'} = \begin{cases} \textbf{a}\\ \begin{bmatrix} \textbf{0} \\ \textbf{J}_{n+1} \textbf{a} \end{bmatrix}_{m+1} \end{cases} \mbox{, } \textbf{b'} = \begin{cases} \begin{bmatrix} \textbf{0}\\ \textbf{J}_{m+1} \textbf{b} \end{bmatrix}_{n+1} &\mbox{, } n \geq m \\ \textbf{b} &\mbox{, } n < m \end{cases} \mbox{ e } \textbf{F} = \begin{cases}\begin{bmatrix} \textbf{I}_{n} & \textbf{0} \\ \textbf{0} & 0 \\ \end{bmatrix}_{n+1, n} &\mbox{, } n \geq m \\ \begin{bmatrix} \textbf{0}_{m-n} & \textbf{0} \\ \textbf{0} & \textbf{I}_{n} \\ \textbf{0} & \textbf{0} \\ \end{bmatrix}_{m+1, n} & \mbox{, } n < m \end{cases}$
 
 \section*{Exercício 7}
 
@@ -680,9 +638,10 @@
         \end{equation},
     
         \begin{equation}
-            D(s, E(s)) = \begin{cases}
-            K_p T_d s E(s) & \mbox{sem filtro} \\
-            K_p T_d s \frac{1}{\frac{T_d}{N}s + 1}} E(s)& \mbox{com filtro} \\
+            D(s, E(s)) = 
+            \begin{cases}
+                K_p T_d s E(s), & \mbox{sem filtro} \\
+                K_p T_d s \frac{1}{\frac{T_d}{N}s + 1} E(s), & \mbox{com filtro} \\
             \end{cases}
             \label{eq:D}
         \end{equation}
@@ -706,7 +665,7 @@
     Ao substituirmos as expressões \eqref{eq:P}, \eqref{eq:Df}, \eqref{eq:Df}, a expressão geral \eqref{eq:PID} consequentemente segue 
     
         \begin{equation}
-            U(s) = & K_p \left(1 + \frac{1}{T_i s} + T_d s + f \frac{\frac{T_d}{N} s^2}{\frac{T_d}{N}s+1}\right) E(s) +  a \frac{K_p}{T_t s} U_{sat}(s) - a \frac{K_p}{T_t s} U(s)
+            U(s) = K_p \left(1 + \frac{1}{T_i s} + T_d s + f \frac{\frac{T_d}{N} s^2}{\frac{T_d}{N}s+1}\right) E(s) +  a \frac{K_p}{T_t s} U_{sat}(s) - a \frac{K_p}{T_t s} U(s)
             \label{eq:PIDaf}
         \end{equation}
     
@@ -732,7 +691,7 @@
         \label{eq:sexpi}
     \end{equation}
     
-    Por definição, $a b^T = M \,\, M \in \mathbb{R}^{2x2}$, $M = V \Lambda V^{-1}$, $\forall M \in \mathbb{R}^{n \times n}$, com $V$ a matriz direita de autovetores de $M$ e $\Lamba$ a matriz de autovalores de $M$, diagonal por definição. Além disso, $f(M) = V f(\Lambda) V^{-1}$. Em especial, $M^i = V \Lambda^i V^{-1}$. Assim, a equação (\ref{eq:sexpi}) reduz-se a:
+    Por definição, $a b^T = M \,\, M \in \mathbb{R}^{2x2}$, $M = V \Lambda V^{-1}$, $\forall M \in \mathbb{R}^{n \times n}$, com $V$ a matriz direita de autovetores de $M$ e $\Lambda$ a matriz de autovalores de $M$, diagonal por definição. Além disso, $f(M) = V f(\Lambda) V^{-1}$. Em especial, $M^i = V \Lambda^i V^{-1}$. Assim, a equação (\ref{eq:sexpi}) reduz-se a:
     
     \begin{equation}
         s^i = \frac{c^T V_c \Lambda_c^{i-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{i-1} V_d^{-1} \mathcal{Z}}
@@ -778,11 +737,11 @@
             \label{eq:Pz}
         \end{equation}
     
-    Seja a transformação de Euler $e^{j \theta} = \cos{\theta} + j \sin{\theta}}$ e as relações trigonométricas $\cos{a} - \cos{b} = -2 \sin{\frac{a+b}{2} \sin{\frac{a-b}{2}$ e $\sin{a} - \sin{b} = 2 \sin{\frac{a-b}{2} \cos{\frac{a+b}{2}$, para $K \in \mathbb{R}$, a equação (\ref{eq:Pz}) torna-se:
+    Seja a transformação de Euler $e^{j \theta} = \cos{\theta} + j \sin{\theta}$ e as relações trigonométricas $\cos{a} - \cos{b} = -2 \sin{a+b} \sin{\frac{a-b}{2}}$ e $\sin{a} - \sin{b} = 2 \sin{\frac{a-b}{2}} \cos{\frac{a+b}{2}}$, para $K \in \mathbb{R}$, a equação (\ref{eq:Pz}) torna-se:
     
         \begin{subequations}
             \begin{equation}
-                K &= -2 \sin\left((2N - 1) \frac{\theta}{2}\right)}  \sin\left(- \frac{\theta}{2}\right)
+                K = -2 \sin\left((2N - 1) \frac{\theta}{2}\right) \sin\left(- \frac{\theta}{2}\right)
             \end{equation}
             \begin{equation}
                 0 =  2 \cos\left((2N - 1) \frac{\theta}{2}\right) \sin\left(-\frac{\theta}{2}\right)
@@ -810,8 +769,8 @@
         \begin{split}
             K(z) & = e^{j N \theta} \left(1 - e^{-j \theta}\right) \\
              & = e^{j N \theta} \left(1 - e^{-j \theta}\right)  \frac{e^{\frac{j\theta}{2}}}{e^{\frac{j\theta}{2}}} \frac{2j}{2j} \\
-            & = 2 j \frac{e^{j N \theta}}{e^{\frac{j \theta}{2}}} (\underbrace{\left\frac{e^{\frac{j \theta}{2}} - e^{\frac{- j \theta}{2}}}{2 j}\right}_{\sin(\frac{\theta}{2})}) \\
-            & = -2 j e^{j \frac{(2N - 1) \theta}{2}} \sin{\frac{\theta}{2}}
+             & = 2 j e^{\frac{j (2N - 1) \theta}{2}} \underbrace{\left(\frac{e^{\frac{j \theta}{2}} - e^{\frac{- j \theta}{2}}}{2 j}\right)}_{\sin(\frac{\theta}{2})} \\
+             & = -2 j e^{j \frac{(2N - 1) \theta}{2}} \sin{\frac{\theta}{2}}
         \end{split}    
     \end{equation}
     
@@ -827,7 +786,7 @@
             \end{equation}
             \begin{equation}
             0 \coloneqq \angle(2) + \angle\left(e^{\frac{(2N + 1)\theta}{2}}\right) + \angle\left(\sin\left(\frac{\theta}{2}\right)\right) + \angle(\left(\frac{1}{j}\right)) \\
-            & = \frac{(2N - 1)}{2} \theta - \frac{\pi}{2}
+             = \frac{(2N - 1)}{2} \theta - \frac{\pi}{2}
             \label{eq:argumento}
         \end{equation}
     \end{subequations}
@@ -838,24 +797,6 @@
         0 \leq K \leq \sqrt{2 \left(1 - \cos\left(\frac{\pi}{2N - 1}\right)\right)} \hspace{10pt} \blacksquare
     \end{equation}
 
-\newpage
 
-\section*{Scripts}
-
-\subsection*{s2z.m}
-\label{subsec:s2z}
-\lstinputlisting[language=Matlab, caption=Conversão de função de transferência por transformação $T(z)$]{../code/s2z.m}
-
-\subsection*{backward.m}
-\label{subsec:backward}
-\lstinputlisting[language=Matlab, caption=Transformação de conversão para trás]{../code/backward.m}
-
-\subsection*{forward.m}
-\label{subsec:forward}
-\lstinputlisting[language=Matlab, caption=Transformação de conversão para frente]{../code/forward.m}
-
-\subsection*{tustin_prop.m}
-\label{subsec:forward}
-\lstinputlisting[language=Matlab, caption=Transformação de conversão tustin própria]{../code/tustin_prop.m}
 
 \end{document}
