@@ -10,7 +10,7 @@ Ts1 = 1/fs1;
 Ts2 = 1/fs2;
 
 % Planta
-s = tf('s');
+Gs = tf([1], [1 p 0]);
 
 % Controlador
 wn = 4.46;
@@ -19,8 +19,7 @@ K = wn^2;
 p = 2*zeta*wn;
 c = 0.7;
 
-Gs = 1/(s^2 + p*s);
-Cs = K*(s+c)/(s+p);
+Cs = K*tf([1 c], [1 p]);
 num = Gs.num{1};
 den = Gs.den{1};
 
