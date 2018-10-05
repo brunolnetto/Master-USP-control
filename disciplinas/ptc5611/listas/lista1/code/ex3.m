@@ -29,9 +29,9 @@ hold on;
 bode(Gb);
 hold off;
 
-legend('$\frac{1}{s}$', 'Estritamente própria', 'Biprópria', 'fontsize', '20');
+legend('1/s', 'Estritamente propria', 'Bipropria', 'fontsize', '20');
 title('Diagrama de bode de 1/s', 'interpreter', 'latex');
-xlabel('Frequência de entrada', 'interpreter', 'latex');
+xlabel('Frequencia de entrada', 'interpreter', 'latex');
 
 xlim([0.01, 1.5*ws/2]);
 saveas(hfig, '../report/images/ex3.png');
