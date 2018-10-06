@@ -1,35 +1,50 @@
 \documentclass[twoside, fleqn]{article}
-\usepackage{graphicx,fancyhdr,amsmath,amssymb,amsthm,subfig,url,hyperref}
-\usepackage[margin=1in]{geometry}
+
+% Linguagem do texto
 \usepackage[brazilian]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{mathtools}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{graphics}
-\usepackage{float}
-\usepackage{fancyhdr}
-\usepackage{lastpage}
-\usepackage{listings}
-\usepackage{color}                   % red, green, blue, yellow, cyan, magenta, black, white
-\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
-\definecolor{mylilas}{RGB}{170,55,241}
 
-\lstset{language=Matlab,%
-    % basicstyle=\color{red},
-    breaklines=true,%
-    morekeywords={matlab2tikz},
-    keywordstyle=\color{blue},%
-    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
-    identifierstyle=\color{black},%
+% Linguagem matemAtica
+\usepackage{amsmath,amssymb, mathtools, amsthm}
+
+% red, green, blue, yellow, cyan, magenta, black, white
+\usepackage{lastpage}
+
+\usepackage{graphics, graphicx,fancyhdr, subfig,  color, float}
+\usepackage[margin=1in]{geometry}
+
+% Listagem de scripts
+\usepackage{listings}
+
+% Nome de referências
+\usepackage{nameref}
+\usepackage{hyperref}
+
+\definecolor{mygreen}{rgb}{0.133, 0.545, 0.133} % color values Red, Green, Blue
+\definecolor{mylilas}{rgb}{0.627, 0.126,0.941}
+\definecolor{myblue}{rgb}{0, 0, 1}
+
+\lstset{
+    language=Matlab,
+    tabsize = 4,
+    framesep = 3mm,
+    frame = tb,
+    classoffset = 0,
+    breaklines=true,
+    keywordstyle=\color{blue},
+    basicstyle=\ttfamily,
+    keywordstyle= \bfseries\color{myblue},
+    identifierstyle=\color{black},
+    commentstyle= \itshape\color{mygreen},
     stringstyle=\color{mylilas},
-    commentstyle=\color{mygreen},%
-    showstringspaces=false,             % without this there will be a symbol in the places where there is a space
-    numbers=left,%
-    numberstyle={\tiny \color{black}},  % size of the numbers
-    numbersep=9pt,                      % this defines how far the numbers are from the text
-    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
-    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+    numberfirstline = true,
+    showstringspaces=true,
+    extendedchars = true,
+    breaklines = true,
+    numbers=left,
+    numberstyle=\tiny \color{black},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    stepnumber = 5
 }
 
 \makeatletter
@@ -65,24 +80,6 @@
   \par\vskip\belowdisplayskip
 }
 \makeatother
-
-\lstset{language=Matlab,%
-    %basicstyle=\color{red},
-    breaklines=true,%
-    morekeywords={matlab2tikz},
-    keywordstyle=\color{blue},%
-    basicstyle=\ttfamily,
-    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
-    identifierstyle=\color{black},%
-    stringstyle=\color{ mylilas},
-    commentstyle=\color{mygreen},%
-    showstringspaces=false,%without this there will be a symbol in the places where there is a space
-    numbers=left,%
-    numberstyle={\tiny \color{black}},% size of the numbers
-    numbersep=9pt, % this defines how far the numbers are from the text
-    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
-    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
-}
 
 \renewcommand\lstlistlistingname{Scripts em Matlab}
 \renewcommand{\lstlistingname}{Script}
@@ -247,11 +244,11 @@
             	\end{split}
         	\end{equation}
         
-        Se $|z| > 1$ e $|z| > e^{aT_s}$, então:
+        Para $|z| > 1$ e $|z| > e^{aT_s} \Rightarrow \begin{cases} |z| > 1, & |a| < 1 \\ |z| > e^{a T_s} & |a| \geq 1 \end{cases}$, a soma infinita converge. Assim:
         	
         	\begin{equation}
             	\begin{split}
-                	\frac{1}{a} \sum_{i=0}^{\infty} z^{-i} - \frac{1}{a} \sum_{i=0}^{\infty} e^{-a T_s i}.z^{-i} & = \frac{1}{a} (\frac{1}{1-z^ {-1}} - \frac{1}{1-e^{-aT_s} z^ {-1}}) \\
+                	\frac{1}{a} \sum_{i=0}^{\infty} z^{-i} - \frac{1}{a} \sum_{i=0}^{\infty} e^{-a T_s i}.z^{-i} & = \frac{1}{a} \left(\frac{1}{1-z^ {-1}} - \frac{1}{1-e^{-aT_s} z^ {-1}}\right) \\
                 	& = \frac{1}{a} \frac{(1 - e^{-aT_s})z^{-1}}{(1-z^{-1})(1-e^{-aT_s} z^ {-1})}
             	\end{split}
         	\end{equation}
@@ -265,11 +262,7 @@
         De mesma forma, dada função $x_2(t) = t^2 e^{-a t}$, por definição tem-se que:
         
         	\begin{equation}
-            	\begin{split}
-                	Z\{x_2(t)\} = X_2(z) & = \sum_{i=0}^{\infty} x_2(i Ts).z^{-i} \\
-                	& = \sum_{i=0}^{\infty} \left( i^2 T_s^2 e^{-a T_s i} z^{-i} \right) \\
-                	& = \sum_{i=0}^{\infty} T_s^2 i^2 e^{-a T_s i} z^{-i}
-            	\end{split}
+            	Z\{x_2(t)\} = X_2(z) = \sum_{i=0}^{\infty} x_2(i Ts).z^{-i}  = \sum_{i=0}^{\infty} \left( i^2 T_s^2 e^{-a T_s i} z^{-i} \right)  = \sum_{i=0}^{\infty} T_s^2 i^2 e^{-a T_s i} z^{-i}
         	\end{equation}
         	
         Por meio da propriedade da transformada $\mathcal{Z}\{n X[n]\} \coloneqq -z \frac{d}{dz} X(z)$, segue
@@ -277,13 +270,15 @@
             \begin{subequations}
                 \begin{equation}
                     x[n] = e^{-an} \rightarrow -z \frac{d}{dz} \mathcal{Z}\{e^{-an}\} = \mathcal{Z}\{n e^{-an}\} \mbox{, } n = T_s i \mbox{, } i \in \mathbb{N}
+                \label{eq:appprop1}
                 \end{equation}
                 \begin{equation}
                     x[n] = n e^{-an} \rightarrow -z \frac{d}{dz} \mathcal{Z}\{n e^{-an}\} = \mathcal{Z}\{n^2 e^{-an}\} \mbox{, } n = T_s \mbox{, } i \in \mathbb{N}
+                \label{eq:appprop2}
                 \end{equation}
             \end{subequations}
         
-        Logo
+        Logo, para \eqref{eq:appprop1} obtemos:
         
             \begin{equation}
                 \begin{split}
@@ -291,9 +286,10 @@
                     \frac{d}{dz} \mathcal{Z}\{e^{-an}\} & = - e^{-a T_s} \frac{z^{-2}}{(1 - e^{-a T_s} z^{-1})^2} \\
                     \mathcal{Z}\{n e^{-an}\} \coloneqq -z \frac{d}{dz} \mathcal{Z}\{e^{-an}\} & = e^{-a T_s} \frac{z^{-1}}{(1 - e^{-a T_s} z^{-1})^2}
                 \end{split}
+            \label{eq:appprop_resolvido}
             \end{equation}
         
-        e
+        Consequentemente, com o resultado de \eqref{eq:appprop_resolvido} e \eqref{eq:appprop2}, tem-se:
         
             \begin{equation}
                 \begin{split}
@@ -302,7 +298,7 @@
                 \end{split}
             \end{equation}
         
-        Portanto 
+        Por fim, a expressão resultante é:
         
             \begin{equation}
                 \mathcal{Z}\{n^2 e^{-a n}\} \coloneqq -z \frac{d}{dz} \mathcal{Z}\{n e^{-a n}\} = e^{-a T_s} \frac{z^{-1}(1 + e^{-a T_s} z^{-1})}{(1 - e^{-a T_s} z^{-1})}
@@ -360,39 +356,38 @@
     \section*{Exercício 3}
     \label{sec:ex3}
     
-    Seja o pólo $s=0$ numericamente mapeado, entretanto, para $s_0 = 0.01$ em espaço $s$, o respectivo pólo em $z$ equivale a $z_0 = e^{T_s s_0}$, com $T_s = 0.01$ s. Assim $z_0 \approx 1.001$.
+    Seja o pólo $s=0$ numericamente mapeado, entretanto, para $s_0 = -0.01$ em espaço $s$, o respectivo pólo em $z$ equivale a $z_0 = e^{T_s s_0}$, com $T_s = 0.01$ s. Assim $z_0 \approx 0.999$.
     
         \begin{enumerate}
         
-        \item % A
-        \label{item:ex3a}
+        \item \label{item:ex3a}
         
         Ambas as funções de transferência, $G(s)$ e $G(z)$ devem ter o mesmo ganho em regime estacionário, ou seja,
         
             \begin{equation}
-                \lim\limits_{s \rightarrow 0} G(s) \approx  \lim\limits_{s \rightarrow s_0} G(s) \coloneqq \lim\limits_{z \rightarrow 1} G(z) \Rightarrow \frac{1}{s_0} = \frac{1}{1 - e^{T_s s_0}} K \Rightarrow K \stackrel{N}{=} \frac{1 - e^{T_s s_0}}{s_0} = - 0.01
+                \lim\limits_{s \rightarrow 0} G(s) \approx  \lim\limits_{s \rightarrow s_0} G(s) \coloneqq \lim\limits_{z \rightarrow 1} G(z) \Rightarrow \frac{1}{s_0} = \frac{1}{1 - e^{T_s s_0}} K \Rightarrow K \stackrel{N}{=} \frac{1 - e^{T_s s_0}}{s_0} = - 0.1
             \end{equation}
         
         Portanto
         
             \begin{equation}
-                G(z) = \frac{1 - e^{T_s s_0}}{s_0} \frac{1}{1 - e^{T_s s_0} z^{-1}} \stackrel{N}{=} -0.001 \frac{1}{1 - 1.01 z^{-1}}
+                G(z) = \frac{1 - e^{T_s s_0}}{s_0} \frac{1}{1 - e^{T_s s_0} z^{-1}} \stackrel{N}{=} -0.1 \frac{1}{1 - z^{-1}}
             \end{equation}
         
         Perceba que a função de transferência resultante é estritamente própria.
         
         \item % B
         
-        A fim de que a função de transferência em espaço $z$ seja biprópria, $m_z = n_z$, os quais $m_z$ é o número de zeros e $n_z$ é o número de zeros. Assim, o zero $s \rightarrow - \infty_{\mathbb{C}}$ é mapeado em $z = -1$. Assim como no item (\ref{item:ex3a}), o ganho em regime estacionário deve ser igual, ambos para espaço $s$ ou $z$. Assim,
+        A fim de que a função de transferência em espaço $z$ seja biprópria, $m_z = n_z$, os quais $m_z$ é o número de zeros e $n_z$ é o número de zeros. Assim, o zero $s \rightarrow - \infty_{\mathbb{C}}$ é mapeado em $z = -1$. Assim como no item \ref{item:ex3a}, o ganho em regime estacionário deve ser igual, ambos para espaço $s$ ou $z$. Assim,
         
             \begin{equation}
-                \lim\limits_{s \rightarrow 0} G(s) \approx  \lim\limits_{s \rightarrow s_0} G(s) \coloneqq \lim\limits_{z \rightarrow 1} G(z) \Rightarrow  \frac{1}{s_0} = \frac{2}{1 - e^{T_s s_0}} K \Rightarrow K = \frac{1 - e^{T_s s_0}}{2 s_0} \stackrel{N}{=} - 0.005
+                \lim\limits_{s \rightarrow 0} G(s) \approx  \lim\limits_{s \rightarrow s_0} G(s) \coloneqq \lim\limits_{z \rightarrow 1} G(z) \Rightarrow  \frac{1}{s_0} = \frac{2}{1 - e^{T_s s_0}} K \Rightarrow K = \frac{1 - e^{T_s s_0}}{2 s_0} \stackrel{N}{=} - 0.05
             \end{equation}
         
         Portanto,
         
             \begin{equation}
-                G(z) =  \left( \frac{1 - e^{T_s s_0}}{2 s_0}\right) \frac{1-z^{-1}}{1 - e^{T_s s_0}  z^{-1}} \stackrel{N}{=} -0.005 \frac{1-z^{-1}}{1 - 1.001  z^{-1}}
+                G(z) =  \left( \frac{1 - e^{T_s s_0}}{2 s_0}\right) \frac{1+z^{-1}}{1 - e^{T_s s_0}  z^{-1}} \stackrel{N}{=} -0.05 \frac{1+z^{-1}}{1 - z^{-1}}
             \end{equation}
     \end{enumerate}
 
@@ -442,7 +437,7 @@
             G(z) = \frac{K}{a} \frac{(1 - e^{-aT_s}z^{-1})}{(1-z^{-1})(1 - e^{-aT_s}z^{-1})}
         \end{equation}
     
-    Por fim, por meio da função de transefrência de uma malha fechada \footnote{A equação em malha fechada de um sistema em tempo discreto ou contínuo é dado pela equação $G_{MF}(z) = \frac{G(z)}{1+G(z)}$}, após certa manipulação algébrica é dada por:
+    Por fim, por meio da função de transefrência de uma malha fechada \footnote{A equação em malha fechada de um sistema em tempo discreto ou contínuo é dado pela equação $G_{MF}(z) = \frac{G(z)}{1+G(z)}$}, após manipulação algébrica é dada por:
     
         \begin{equation}
             G_{MF}(z) = K' \frac{z}{z+b}
@@ -451,11 +446,10 @@
     onde $K' = \frac{K}{a} (1-e^{-aT_s}) \mbox{ e } b = (1 + \frac{k}{a})\left[e^{-aT_s} - \frac{k}{a} \right] $.
 
 \section*{Exercício 5}
-
+    Para todos os itens abaixo, $T_s = 0,1 s$. No item \ref{item:ex5d}, $\omega_c = 3 \frac{rad}{s}$
+    
     \begin{enumerate}
         \item % A
-        Dados: Ts = 0,1 s
-        
             \begin{equation}
                 \begin{split}
                     s = \frac{z - 1}{T_s} \therefore X(z) = \frac{\frac{z+1}{T_s} + 1}{\frac{z+1}{T_s} + 10} = \frac{z - (1-T_s)}{z - (1-10T_s)} \stackrel{N}{=} \frac{z - 0.9}{z} 
@@ -463,7 +457,6 @@
             \end{equation}
         
         \item % B
-        Dados: Ts = 0,1 s
             \begin{equation}
                 \begin{split}
                     s = \frac{z - 1}{T_s z} \therefore X(z) = \frac{\frac{z-1}{T_s z} + 1}{\frac{z-1}{T_s z} + 10} = \frac{(1+T_s) z - 1}{(1 + 10T_s) z + 1} \stackrel{N}{=} 0.45 \frac{z - 1.1}{z - 0.5}
@@ -471,7 +464,6 @@
             \end{equation}
         
         \item % C
-        Dados: Ts = 0,1 s
             \begin{equation}
                 \begin{split}
                     s = \frac{2}{T_s} \frac{z - 1}{z+1} \therefore X(z) = \frac{\frac{2}{T_s} \frac{z-1}{z+1} + 1}{\frac{2}{T_s} \frac{z-1}{z+1} + 10} = \frac{(2+T_s)z + (T_s - 2)}{(2 + 10T_s) z + (10 T_s - 2)} \stackrel{N}{=} \frac{2.1z - 1.9}{3z - 1} = 0.7\frac{z-0.63}{z-0.33}
@@ -479,8 +471,7 @@
             \end{equation}
         
         \item % D
-        Dados: $\omega_c = 3 \frac{rad}{s}$
-            
+        \label{item:ex5d}
             \begin{equation}
                 s = \frac{\omega_c}{\tan{\frac{\omega_c T_s}{2}}} \frac{z-1}{z+1} \therefore X(z) = \frac{\frac{\omega_c}{\tan(\frac{\omega_c T_s}{2})} \frac{z-1}{z+1} + 1}{\frac{\omega_c}{\tan(\frac{\omega_c T_s}{2})} \frac{z-1}{z+1} + 10} = \frac{(\tan{\frac{\omega_c T_s}{2}} + \omega_c) z + (\tan{\frac{\omega_c T_s}{2}} - \omega_c)}{(10 \tan{\frac{\omega_c T_s}{2}} + \omega_c) z + (10 \tan{\frac{\omega_c T_s}{2}} - \omega_c)} 
             \end{equation}
@@ -515,8 +506,7 @@
         
     \end{enumerate}
 
-\section*{Exercício 6}
-\label{sec:ex6}
+\section*{Exercício 6} \label{sec:ex6}
 
     Para os critérios de projeto fornecidos, o projeto de controle será feito em espaço $s$ e o respectivo pólo deve pertencer ao lugar das raízes em malha fechada. O tempo de subida é:
     
@@ -617,7 +607,7 @@
 
 \section*{Exercício 7}
 
-    O controlador PID com possibilidades de controle anti-wind-up e pólo adicional para a parte derivativa apresenta esquematicamente a seguinte estrutura:
+    O controlador PID com possibilidades de controle anti-windup e pólo adicional para a parte derivativa apresenta esquematicamente a seguinte estrutura:
     
         \begin{equation}
             U(s) = P(s) + I(s) + D(s)
@@ -681,7 +671,7 @@
             \label{eq:PIDfull}
         \end{equation}
     
-    Como já explicitado na seção \emph{\nameref{sec:deducao7}}, convertemos cada uma das expressões $P'(s)$, $I'(s)$, $D'(s)$, $F(s)$ e $F(s)$ associadas aos termos dados pela sobreposição linear \eqref{eq:PIDfull}.
+    Como já explicitado na seção \nameref{sec:deducao7}, convertemos cada uma das expressões $P'(s)$, $I'(s)$, $D'(s)$, $F(s)$ e $F(s)$ associadas aos termos dados pela sobreposição linear \eqref{eq:PIDfull}.
 
 \section*{Dedução dos exercícios 8 e 9}
 \label{sec:deducao89}
@@ -805,26 +795,26 @@
 
     \subsection*{ex6.m}
     \label{subsec:ex6}
-    \lstinputlisting[language=Matlab, caption=Constantes e comandos para item A e B do exercício \nameref{sec:ex6}]{../code/ex6.m}
+    \lstinputlisting[caption = Constantes e comandos para item A e B do \nameref{sec:ex6}]{code/ex6.m}
 
     \subsection*{syms2tfz.m}
     \label{subsec:syms2tfz}
-    \lstinputlisting[language=Matlab, caption=Conversão de simbólico fracionário em função de transferência discreta]{../code/syms2tfz.m}
+    \lstinputlisting[caption = Conversão de simbólico fracionário em função de transferência discreta]{code/syms2tfz.m}
     
     \subsection*{s2z.m}
     \label{subsec:s2z}
-    \lstinputlisting[language=Matlab, caption=Conversão de função de transferência por transformação $T(z)$]{../code/s2z.m}
+    \lstinputlisting[caption = Conversão de função de transferência por transformação $T(z)$]{code/s2z.m}
     
     \subsection*{backward.m}
     \label{subsec:backward}
-    \lstinputlisting[language=Matlab, caption=Transformação de conversão para trás]{../code/backward.m}
+    \lstinputlisting[caption = Transformação de conversão para trás]{code/backward.m}
     
     \subsection*{forward.m}
     \label{subsec:forward}
-    \lstinputlisting[language=Matlab, caption=Transformação de conversão para frente]{../code/forward.m}
+    \lstinputlisting[caption = Transformação de conversão para frente]{code/forward.m}
     
     \subsection*{tustin\_prop.m}
     \label{subsec:tustin}
-    \lstinputlisting[language=Matlab, caption=Transformação de conversão tustin própria]{../code/tustin_prop.m}
+    \lstinputlisting[caption = Transformação de conversão tustin própria]{code/tustin_prop.m}
     
 \end{document}
