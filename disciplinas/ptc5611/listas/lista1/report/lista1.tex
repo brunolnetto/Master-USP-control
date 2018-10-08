@@ -18,12 +18,19 @@
 
 % Nome de referências
 \usepackage{nameref}
+\usepackage{varioref}
 \usepackage{hyperref}
+\usepackage{cleveref}
 
+% Evita que títulos sejam exibidos no final da pagina
+\usepackage[nobottomtitles*]{titlesec}
+
+% Cores definidas pelo usuario
 \definecolor{mygreen}{rgb}{0.133, 0.545, 0.133} % color values Red, Green, Blue
 \definecolor{mylilas}{rgb}{0.627, 0.126,0.941}
 \definecolor{myblue}{rgb}{0, 0, 1}
 
+% Configuracao da linguagem MatLab para exibicao
 \lstset{
     language=Matlab,
     tabsize = 4,
@@ -47,42 +54,10 @@
     stepnumber = 5
 }
 
-\makeatletter
-\newcommand*\@dblLabelI {}
-\newcommand*\@dblLabelII {}
-\newcommand*\@dblequationAux {}
-
-\def\@dblequationAux #1,#2,%
-    {\def\@dblLabelI{\label{#1}}\def\@dblLabelII{\label{#2}}}
-
-\newcommand*{\doubleequation}[3][]{%
-    \par\vskip\abovedisplayskip\noindent
-    \if\relax\detokenize{#1}\relax
-       \let\@dblLabelI\@empty
-       \let\@dblLabelII\@empty
-    \else % we assume here that the optional argument
-          % has the required shape A,B
-       \@dblequationAux #1,%
-    \fi
-    \makebox[0.5\linewidth-1.5em]{%
-     \hspace{\stretch2}%
-     \makebox[0pt]{$\displaystyle #2$}%
-     \hspace{\stretch1}%
-    }%
-    \makebox[0.5\linewidth-1.5em]{%
-     \hspace{\stretch1}%
-     \makebox[0pt]{$\displaystyle #3$}%
-     \hspace{\stretch2}%
-    }%
-    \makebox[3em][r]{(%
-  \refstepcounter{equation}\theequation\@dblLabelI, 
-  \refstepcounter{equation}\theequation\@dblLabelII)}%
-  \par\vskip\belowdisplayskip
-}
-\makeatother
-
 \renewcommand\lstlistlistingname{Scripts em Matlab}
 \renewcommand{\lstlistingname}{Script}
+
+
 
 %----------------------- Macros and Definitions --------------------------
 
@@ -127,15 +102,9 @@
     \begin{enumerate}
 
         \item %A
+        \label{item:ex1a}
         
-        Por hipótese, a frequência de amostragem utilizada satisfaz o critério de Nyquist \footnote{Essencialmente $\omega_s \geq 2\omega_0$, o qual $\omega_s$ corresponde a frequência de amostragem e $\omega_0$ a máxima frequência do sinal amostrado.}. Como $t = kT_s = \frac{k}{f_s}$, temos que.
-        
-            \begin{equation}
-                \label{eq:ex1a}
-                    x[k] = cos(k \frac{\omega}{f_s})  \stackrel{!}{=} cos(k \alpha) \Longleftrightarrow \alpha = \frac{\omega}{f_s}
-            \end{equation}
-        
-        Assim, $\omega = 250\pi \frac{rad}{s}$. A imagem (\ref{fig:ex1}) apresenta o sinal original e o amostrado.
+        Por hipótese, a frequência de amostragem utilizada satisfaz o critério de Nyquist \footnote{Essencialmente $\omega_s \geq 2\omega_0$, o qual $\omega_s$ corresponde a frequência de amostragem e $\omega_0$ a máxima frequência do sinal amostrado.}. Como $t = kT_s = \frac{k}{f_s}$, temos que $x[k] = cos(k \frac{\omega}{f_s})  \stackrel{!}{=} cos(k \alpha) \Longleftrightarrow \alpha = \frac{\omega}{f_s}$.  Assim, $\omega = 250\pi \frac{rad}{s}$. A imagem (\ref{fig:ex1}) apresenta o sinal original e o amostrado.
         
             \begin{figure}[H]
             	\center
@@ -145,7 +114,7 @@
             \end{figure}
         
         \item %B
-        Pela equação (\ref{eq:ex1a}), conclui-se que $f_s = 12$ $kHz$. Dada frequência do sistema de $4000\pi \frac{rad}{s}$, pelo teorema de Nyquist $\omega_s \stackrel{!}{>} 8000\pi \frac{rad}{s} \approx 24000 \frac{rad}{s}$. Devido à violação, não é possível reconstruir o sinal por meio de um filtro passa-baixas ideal. 
+        Como demonstrado no item \ref{item:ex1a}, conclui-se que $f_s = 12$ $kHz$. Dada frequência do sistema de $4000\pi \frac{rad}{s}$, pelo teorema de Nyquist $\omega_s \stackrel{!}{>} 8000\pi \frac{rad}{s} \approx 24000 \frac{rad}{s}$. Devido à violação, não é possível reconstruir o sinal por meio de um filtro passa-baixas ideal. 
         
         \item %C
         Para sinais senoidais amostrados com frequência $f_s$, tem-se que, para uma mesma série $x[n] = cos(\alpha n)$, os possíveis sinais advindos deste são $x(t) = cos(2 \pi (f_0 + f_s)t) \mbox{, } k \in \mathbb{N} \mbox{, } \omega = 2 \pi f$. Por (\ref{eq:ex1a}), tem-se que $\omega_0 = \frac{5\pi}{4} \frac{rad}{s}$. Assim, dois possíveis sinais para a série fornecida são $x_1(t) = cos(\frac{5\pi}{4} t )$ e $x_2(t) = cos(\frac{85\pi}{4} t)$, mostrado na imagem (\ref{fig:ex1c}) 
@@ -389,11 +358,13 @@
             \begin{equation}
                 G(z) =  \left( \frac{1 - e^{T_s s_0}}{2 s_0}\right) \frac{1+z^{-1}}{1 - e^{T_s s_0}  z^{-1}} \stackrel{N}{=} -0.05 \frac{1+z^{-1}}{1 - z^{-1}}
             \end{equation}
+
+        Perceba que a função de transferência resultante é biprópria.
     \end{enumerate}
 
 \section*{Exercício 4}
 
-    A conversão sem aproximação do espaço contínuo para discreto com mantenedor de ordem zero (ZOH) satisfaz a seguinte equação:
+    A fim de garantir a mesma energia à entrada degrau, a seguinte equação deve ser satisfeita:
     
         \begin{equation}
             G(z) \coloneqq (1-z^{-1}) \mathcal{Z}\left\{\mathcal{L}^{-1}\left\{\frac{G(s)}{s}\right\}\right\}
@@ -409,13 +380,11 @@
     Pelo método de expansão de frações parciais, a equação (\ref{eq:ex41}) apresenta a seguinte forma
     
         \begin{equation}
-            H(s) = \frac{A}{s} + \frac{B}{(s+a)} 
-        \end{equation}
-    
-    o qual 
-    
-        \begin{equation}
-            A = H(s) s \bigg\rvert_{s=0} = \frac{K}{a} \mbox{ e } B = H(s) (s+a)\bigg\rvert_{s=-a} = -\frac{K}{a}
+            H(s) = \frac{A}{s} + \frac{B}{(s+a)} \mbox{, com }
+            \left\{\begin{cases}
+            A &= s H(s) \bigg\rvert_{s=0} = \frac{K}{a} \\
+            B &= (s+a) H(s) \bigg\rvert_{s=-a} = -\frac{K}{a}
+            \end{cases}\right.
         \end{equation}
     
     Logo
@@ -424,14 +393,14 @@
             H(s) = \frac{K}{a} \left( \frac{1}{s} - \frac{1}{s+a} \right)
         \end{equation}
     
-    A função de transferência acima exceto ao fator de escala $j$ foi obtida no item (\ref{item:ex2b}). Desta forma
+    A função de transferência acima exceto ao fator de escala $j$ foi obtida no item \ref{item:ex2b}. Desta forma
     
         \begin{equation}
             \mathcal{L}^{-1}\left\{\frac{G(s)}{s}\right\} = \frac{K}{a}\sigma(t)\left(1+e^{-at}\right)
             \label{eq:lapinv}
         \end{equation}
     
-    Portanto, a função $\mathcal{Z}$ da função (\ref{eq:lapinv}) é dada por
+    Portanto, a transformada $\mathcal{Z}$ do sinal (\ref{eq:lapinv}) é dada por
     
         \begin{equation}
             G(z) = \frac{K}{a} \frac{(1 - e^{-aT_s}z^{-1})}{(1-z^{-1})(1 - e^{-aT_s}z^{-1})}
@@ -440,10 +409,8 @@
     Por fim, por meio da função de transefrência de uma malha fechada \footnote{A equação em malha fechada de um sistema em tempo discreto ou contínuo é dado pela equação $G_{MF}(z) = \frac{G(z)}{1+G(z)}$}, após manipulação algébrica é dada por:
     
         \begin{equation}
-            G_{MF}(z) = K' \frac{z}{z+b}
+            G_{MF}(z) = K' \frac{z}{z+b} \mbox{, com } K' = \frac{K}{a} (1-e^{-aT_s}) \mbox{ e } b = \left(1 + \frac{K}{a}\right)e^{-aT_s} - \frac{K}{a} 
         \end{equation}
-        
-    onde $K' = \frac{K}{a} (1-e^{-aT_s}) \mbox{ e } b = (1 + \frac{k}{a})\left[e^{-aT_s} - \frac{k}{a} \right] $.
 
 \section*{Exercício 5}
     Para todos os itens abaixo, $T_s = 0,1 s$. No item \ref{item:ex5d}, $\omega_c = 3 \frac{rad}{s}$
@@ -506,9 +473,12 @@
         
     \end{enumerate}
 
-\section*{Exercício 6} \label{sec:ex6}
+\section*{Exercício 6} 
+\label{sec:ex6}
 
-    Para os critérios de projeto fornecidos, o projeto de controle será feito em espaço $s$ e o respectivo pólo deve pertencer ao lugar das raízes em malha fechada. O tempo de subida é:
+    Para os critérios de projeto fornecidos, o projeto de controle será feito em espaço $s$ e o respectivo pólo deve pertencer ao lugar das raízes em malha fechada. 
+    
+    O tempo de subida é:
     
         \begin{equation}
             t^{0\% - 100\%}_{r}(\omega_n, \zeta) = \frac{\pi - \theta(\zeta)}{\omega_d(\omega_n, \zeta)} \mbox{, com } \theta(\zeta) = \tan^{-1}\frac{\sqrt{1 - \zeta^2}}{\zeta} \mbox{ e } \omega_d(\omega_n, \zeta) = \omega_n \sqrt{1-\zeta^2}
@@ -522,158 +492,43 @@
             \label{eq:sobressinal}
         \end{equation}
     
-    Como (\ref{eq:sobressinal}) é bijetora, $\exists g(M) = \zeta \mbox{, } g: M \rightarrow g(M) \mbox{, } M \circ g (M) = M$. De fato $g(M) = \sqrt{\frac{\log^2{M}}{\pi^2 - \log^2{M}}}$. Assim, $\zeta \approx 0.672$. De mesma forma, para $\zeta$ fixo, analogamente, $\exists h(t_r) = \zeta\mbox{, }h: t_r \rightarrow h(t_r)\mbox{, } t_r(\zeta) \circ h = t_r$. De fato, $g(t_r) = \frac{\pi - \theta}{\omega_d(\zeta, t_r)}$. Assim, para $\zeta = 0.672$, então $\omega_n = 4.46$.
-    Como $\forall s \in \mathbb{C}, \,\, s = \omega_n (\zeta + i \sqrt{1 - \zeta^2})$, logo a seguinte malha satisfaz os critérios estabelecidos em projeto:
+    Como (\ref{eq:sobressinal}) é bijetora, $\exists g(M) = \zeta \mbox{, } g: M \rightarrow g(M) \mbox{, } M \circ g (M) = M$. De fato, $g(M) = \sqrt{\frac{\log^2{M}}{\pi^2 - \log^2{M}}}$. Assim, $\zeta \approx 0.672$. De mesma forma, para $\zeta$ fixo, analogamente, $\exists h(t_r) = \omega_n \mbox{, } h: t_r \rightarrow h(t_r)\mbox{, } t_r \circ h(t_r) = t_r$. De fato, $h(t_r) = \omega_n = \frac{\pi - \theta}{\omega_d(\zeta, t_r)}$. Assim, para $\zeta = 0.672$, então $\omega_n = 4.46$.
+    Como $\forall s \in \mathbb{C}, \,\, s = \omega_n (\zeta + i \sqrt{1 - \zeta^2})$, a malha satisfaz os critérios estabelecidos em projeto para o seguinte controlador:
     
         \begin{equation}
             C(s) = K \frac{s + 0.7}{s + 2 \zeta \omega_n}
         \end{equation}
     
-    Ao considerar o projeto em tempo contínuo, o controlador acima casa o pólo da planta com o zero do controlador. Para o caso de casamento perfeito de pólo e zero, o novo lugar das raízes permite que o pólo estabelecido pertença a este. Ademais, para casamento perfeito de pólo e zero, por inspeção, o polinômio característico fornece o valor $K$ i.e., $K = \omega_n^2$. Assim, a função de transferência fornecida é:
+    Ao considerar o projeto em tempo contínuo, o controlador acima casa o pólo da planta com o zero do controlador. Para casamento perfeito de pólo e zero, o pólo de projeto pertencerá ao novo lugar das raízes. Ademais, para casamento perfeito de pólo e zero, por inspeção, o polinômio característico fornece o valor $K$ i.e., $K = \omega_n^2$. Assim, a função de transferência fornecida é:
     
         \begin{equation}
             C(s) = \omega_n^2 \frac{s + 0.7}{s + 2 \zeta \omega_n} \stackrel{N}{=} 19.89 \frac{s + 0.7}{s + 5.33}
         \end{equation}
 
-\section*{Dedução do exercício 7}
-\label{sec:deducao7}
-
-    O objetivo é encontrar uma função de transferência $G(z) = \frac{Y(z)}{U(z)}$ em sua respectiva função de diferenças e assim saída $y[k]$ no instante $k T_s$. Considere a função de transferência a seguir em sua forma matricial
-    
-        \begin{equation}
-            G(z) = \frac{b^T \textbf{z}_m}{a^T \textbf{z}_n}    
-            \label{eq:Gz}
-        \end{equation}
-    
-    os quais $a \in \mathbb{R}^n$, $b \in \mathbb{R}^m$ e $\mathcal{Z}_k = \left[z^k, \cdots, 1\right]^T$. Após manipulação algébrica, $\textbf{z}_p = z^p \, \textbf{v}_p$, $\textbf{v}_p = [1, \cdots, z^{-p}]$. A fim de manter a convenção para $z^{-1}$ dada por $\textbf{w}_p =  [z^{-p}, \cdots, 1]$, $\textbf{w}_p = \textbf{J}_p \textbf{v}_p \Leftrightarrow{\textbf{v}_p = \textbf{J}_p \textbf{w}_p}$, com $\textbf{J}_p$ a matriz de permuta, descrita em (\ref{eq:exchange}).
-    
-        \begin{equation}
-            G(z) = z^{m-n}\frac{b^T \textbf{v}_m}{a^T \textbf{v}_n} = z^{m-n} \frac{\textbf{b}^T \textbf{J}_{m+1} \textbf{w}_m}{\textbf{a}^T \textbf{J}_{n+1} \textbf{w}_n}
-        \label{eq:Gv}
-        \end{equation}
-    
-        \begin{equation}
-            \textbf{J}_p = 
-            \begin{bmatrix}
-                0&\cdots&1\\
-                \vdots & \ddots & \vdots\\
-                1&\cdots&0
-            \end{bmatrix}
-            \label{eq:exchange}
-        \end{equation}
-    
-    O termo $z^{m-n}$ em (\ref{eq:Gw}) deve integrar a função a fim de chegarmos à equação de diferenças. Por meio de manipulação matricial, chegamos à seguinte equação 
-    
-        \begin{equation}
-            G(z) = \frac{\textbf{b'}^T \textbf{w}_{m'}}{\textbf{a'}^T \textbf{w}_{n'}}
-            \label{eq:Gw}
-        \end{equation}
-    
-    com $\textbf{a'} = \begin{cases} \textbf{a}\\ \begin{bmatrix} \textbf{0} \\ \textbf{J}_{n+1} \textbf{a} \end{bmatrix}_{m+1} \end{cases} \mbox{ e } \textbf{b'} = \begin{cases} \begin{bmatrix} \textbf{0}\\ \textbf{J}_{m+1} \textbf{b} \end{bmatrix}_{n+1} &, n \geq m \\ \textbf{b} &,  n < m \end{cases}$. Perceba que $n'$ e $m'$ são $\begin{cases} n + 1,& n \geq m \\ m + 1, & n < m \end{cases}$, i.e. $\forall z^p \in \textbf{w} \mbox{, } p \leq 0$. 
-    
-    A equação de diferenças de $G(z^{-1}) = \frac{Y(z^{-1})}{U(z^{-1})} = \frac{\textbf{b}^T \textbf{w}_{m}}{\textbf{a}^T \textbf{w}_{n}}$ é, por definição, descrita por $\textbf{a}^T \textbf{y}_{m}[k] = \textbf{b}^T \textbf{u}_{n}[k]$. Por inspeção, $a' = a$ e $b' = b$. O vetor $\textbf{y}_{n'}[k]$ pode ser escrito como $\textbf{y}_{n'}[k] = \left(\textbf{I}_{n' + 1} - \mathbf{\Delta}_{n'+1, n'+1}\right) \mathbf{y}_{n'}[k] + \mathbf{\Delta}_{n'+1, n'+1} \mathbf{y}_{n'}[k]$. A matriz $\mathbf{\Delta}_{ij}$ é definida por 
-    
-        \begin{equation}
-          \mathbf{\Delta}_{ij} = 
-          \begin{cases}
-               1 & \mbox{em (i, j)}\\
-               0 & \mbox{ademais}
-          \end{cases}
-        \end{equation}
-    
-    Desta forma, a equação 
-    
-        \begin{equation}
-            \textbf{a'}^T \underbrace{\Delta_{n' + 1, n' + 1} \textbf{y}_{n'}[k]}_{\textbf{e}_{n'+1} y[k]} = \textbf{b'} \textbf{u}_{m'}[k] - \textbf{a'}^T (\textbf{I}_{n'+1} - \Delta_{n' + 1}) \textbf{y}_{n'}[k]
-         \end{equation}
-    
-    com $\textbf{e}_{k} \in \mathbb{R}^{m'+1}$ o vetor canônico. Portanto
-    
-        \begin{equation}
-            y[k] = \left(\textbf{a'}^T \textbf{e}_{n' + 1}\right)^{-1}\left(\textbf{b'}^T \textbf{u}_{m'}[k] - \textbf{a'}^T (\textbf{I}_{n' + 1} - \Delta_{n' + 1, n' + 1}) \textbf{y}_{n'}[k]\right)
-            \label{eq:u_resumido}
-        \end{equation}
-    
-    A equação \eqref{eq:u_resumido} tem implementação relativamente custosa por questões de requisitos de projeto. Os requisitos sã0 obter uma função \texttt{tf2diff(G, u, y)}, com \texttt{G} a função de transferência $G$, \texttt{y} os $n$ valores anteriores da saída $y$ e \texttt{u} os $m$ valores anteriores da entrada $u$ e o valor atual $u[k]$.
-    
-    Matematicamente, o vetor de entrada $\texttt{u} = \mathbf{u}_0^T[k] = \left[u[k - m], \cdots, u[k]\right]$ e saídas $\texttt{y} = \mathbf{y}_0^T[k] = \left[y[k - n], \cdots,\right.$ $\left.y[k - 1]\right]$. A saída $y[k]$ não existe antecipadamente como enunciado em \eqref{eq:u_resumido}. Além disso, $\dim(\texttt{y}) = n$ e $\dim(\texttt{u}) = m + 1$. Assim, reescrevemos a equação \eqref{eq:u_resumido} a fim de obter uma forma computável. Por fim
-    
-        \begin{equation}
-            y[k] = (\textbf{a'}^T \textbf{e}_{n' + 1})^{-1}(\textbf{b'}^T \textbf{u}[k] - \textbf{a'}^T \textbf{F} \textbf{y}[k])
-            \label{eq:u_programacao}
-        \end{equation}
-    
-    com $\textbf{a'} = \begin{cases} \textbf{a}\\ \begin{bmatrix} \textbf{0} \\ \textbf{J}_{n+1} \textbf{a} \end{bmatrix}_{m+1} \end{cases} \mbox{, } \textbf{b'} = \begin{cases} \begin{bmatrix} \textbf{0}\\ \textbf{J}_{m+1} \textbf{b} \end{bmatrix}_{n+1} &\mbox{, } n \geq m \\ \textbf{b} &\mbox{, } n < m \end{cases} \mbox{ e } \textbf{F} = \begin{cases}\begin{bmatrix} \textbf{I}_{n} & \textbf{0} \\ \textbf{0} & 0 \\ \end{bmatrix}_{n+1, n} &\mbox{, } n \geq m \\ \begin{bmatrix} \textbf{0}_{m-n} & \textbf{0} \\ \textbf{0} & \textbf{I}_{n} \\ \textbf{0} & \textbf{0} \\ \end{bmatrix}_{m+1, n} & \mbox{, } n < m \end{cases}$
-
 \section*{Exercício 7}
 
-    O controlador PID com possibilidades de controle anti-windup e pólo adicional para a parte derivativa apresenta esquematicamente a seguinte estrutura:
+    Seja $\mathbf{a} \in \mathbb{R}^n$, $\mathbf{b} \in \mathbb{R}^m$ e $\mathbf{z}_k = \left[z^{-k}, \cdots, 1\right]^T$, a equação de diferenças de $G(z^{-1}) = \frac{Y(z^{-1})}{U(z^{-1})} = \frac{\textbf{b}^T \mathbf{z}_{m}}{a^T \mathbf{z}_{n}}$ é, por definição, descrita em tempo discreto por $\textbf{a}^T \textbf{y}_{m}[k] = \textbf{b}^T \textbf{u}_{n}[k]$. Os requisitos são obter uma função \texttt{tf2diff(G, u, y)}, com \texttt{G} a função de transferência $G$, \texttt{y} os $n$ valores anteriores da saída $y$ e \texttt{u} os $m$ valores anteriores da entrada $u$ e o valor atual $u[k]$. O vetor de entrada $\texttt{u} = \mathbf{u}_0^T[k] = \left[u[k - m], \cdots, u[k]\right]$ e saídas $\texttt{y} = \mathbf{y}_0^T[k] = \left[y[k - n], \cdots,\right.$ $\left.y[k - 1]\right]$, $\dim(\texttt{y}) = n$ e $\dim(\texttt{u}) = m + 1$. 
+    
+    Desta forma, a equação de diferenças resultante é
     
         \begin{equation}
-            U(s) = P(s) + I(s) + D(s)
-            \label{eq:PID}
+            y[k] = (\textbf{a}^T \textbf{e}_{n + 1})^{-1}(\textbf{b}^T \textbf{u}[k] - \textbf{a}^T \textbf{F} \textbf{y}[k])
+            \label{eq:u_programacao}
         \end{equation}
     
     com 
     
-        \begin{equation}
-            P(s) = K_p E(s),
-            \label{eq:P}
-        \end{equation},
-    
-        \begin{equation}
-            I(s, E(s), U(s), U_{sat}(s)) = \begin{cases}
-            \frac{K_p}{T_i s} E(s) & \mbox{sem anti-windup} \\
-            \frac{K_p}{T_i s} E(s) - \frac{K_p}{T_t s} \left(U(s) - U_{sat}(s)\right)& \mbox{com anti-windup}
-            \end{cases}
-            \label{eq:I}
-        \end{equation},
-    
-        \begin{equation}
-            D(s, E(s)) = 
-            \begin{cases}
-                K_p T_d s E(s), & \mbox{sem filtro} \\
-                K_p T_d s \frac{1}{\frac{T_d}{N}s + 1} E(s), & \mbox{com filtro} \\
-            \end{cases}
-            \label{eq:D}
-        \end{equation}
-    
-    Por meio da definição de $a, f \in \{0, 1\}$, para $a$ caso haja anti-windup e $f$ para pré-filtro, reescrevemos as equações \eqref{eq:I} e \eqref{eq:D} como
-    
-        \begin{equation}
-            I(s, E(s)) =  \frac{K_p}{T_i s} E(s) - a \frac{K_p}{T_t s} \left( U(s) - U_{sat}(s)\right)
-            \label{eq:Ia}
-        \end{equation},
-    
-        \begin{equation}
-            \begin{split}
-                D(s, E(s)) &= K_p T_d s E(s) \left((1-f) + f \frac{1}{\frac{T_d}{N}s + 1}\right) \\
-                & = K_p T_d s E(s) + f \left(\frac{s}{\frac{T_d}{N} s + 1}  - s\right) E(s) \\
-                & = K_p T_d s E(s) + f \frac{\frac{T_d}{N} s^2}{\frac{T_d}{N}s + 1} E(s)
-            \end{split}
-            \label{eq:Df}
-        \end{equation}
-    
-    Ao substituirmos as expressões \eqref{eq:P}, \eqref{eq:Df}, \eqref{eq:Df}, a expressão geral \eqref{eq:PID} consequentemente segue 
-    
-        \begin{equation}
-            U(s) = K_p \left(1 + \frac{1}{T_i s} + T_d s + f \frac{\frac{T_d}{N} s^2}{\frac{T_d}{N}s+1}\right) E(s) +  a \frac{K_p}{T_t s} U_{sat}(s) - a \frac{K_p}{T_t s} U(s)
-            \label{eq:PIDaf}
-        \end{equation}
-    
-    Perceba que para $f=0$, o termo referente ao pré-filtro é nulo e para $a = 0$, o termo anti-windup é nulo. A fim de implementá-la, a expressão segue
-    
-        \begin{equation}
-            \begin{split}
-                U(s) &= K_p \left(\frac{T_t s}{T_t s + a} + \frac{T_t s}{T_t s + a} + \frac{T_d T_t s^2}{T_t s + a} + f \frac{\frac{T_d}{N} T_t s^3}{\left(\frac{T_d T_t}{N} s^2 + \left(\frac{T_d}{N} + T_t\right) s + a\right)} \right) E(s) + \frac{a K_p}{T_t s + a} U_{sat}(s) \\
-                & \coloneqq \left(P'(s) + I'(s) + D'(s) + f F(s)\right) E(s) + a W(s) U_{sat}(s)
-            \end{split}
-            \label{eq:PIDfull}
-        \end{equation}
-    
-    Como já explicitado na seção \nameref{sec:deducao7}, convertemos cada uma das expressões $P'(s)$, $I'(s)$, $D'(s)$, $F(s)$ e $F(s)$ associadas aos termos dados pela sobreposição linear \eqref{eq:PIDfull}.
+    \begin{equation}
+        \textbf{F} = \begin{bmatrix} \textbf{I}_{n} \\ \textbf{0} \\ \end{bmatrix}_{n+1, n}
+    \end{equation}
 
-\section*{Dedução dos exercícios 8 e 9}
+    \begin{enumerate}
+        \item % A
+        \item % B
+        \item % C
+    \end{enumerate}
+
+\section*{Preparação para os exercícios 8 e 9}
 \label{sec:deducao89}
 
     O objetivo dos exercícios (8) e (9) é encontrar $G(z)$ dada transformação $s = F(z)$. Em geral, as transformações aplicadas em engenharia respeitam a relação $s = \frac{c^T \mathcal{Z}}{d^T \mathcal{Z}}$, $c, d \in \mathbb{R}^2$, $\mathcal{Z}^T = [z, 1] $. Para a função de transferência dada por $G(s) = \frac{b^T \mathcal{S}_m}{a^T \mathcal{S}_n}$, tal que $\mathcal{S}_k^T = [s^k, \cdots, 1]  \, \in \, \mathbb{R}^{k+1}$, $m = \dim(b)$ e $n = \dim(a)$ e $s \in \mathbb{C}$, segue
@@ -683,7 +538,14 @@
         \label{eq:sexpi}
     \end{equation}
     
-    Por definição, $a b^T = M \,\, M \in \mathbb{R}^{2x2}$, $M = V \Lambda V^{-1}$, $\forall M \in \mathbb{R}^{n \times n}$, com $V$ a matriz direita de autovetores de $M$ e $\Lambda$ a matriz de autovalores de $M$, diagonal por definição. Além disso, $f(M) = V f(\Lambda) V^{-1}$. Em especial, $M^i = V \Lambda^i V^{-1}$. Assim, a equação (\ref{eq:sexpi}) reduz-se a:
+    Como $a b^T = M \,\, M \in \mathbb{R}^{2x2}$, a equação torna-se \eqref{eq:sexpi} torna-se:
+    
+    \begin{equation}
+        s^i = \frac{c^T M_c^{i - 1} \, \mathcal{Z}}{d^T \, M_d^{i - 1} \, \mathcal{Z}}
+        \label{eq:smi}
+    \end{equation}
+    
+    Por definição, $M = V \Lambda V^{-1}$, $\forall M \in \mathbb{R}^{n \times n}$, com $V$ a matriz direita de autovetores de $M$ e $\Lambda$ a matriz de autovalores de $M$, diagonal por definição. Além disso, $f(M) = V f(\Lambda) V^{-1}$. Em especial, $M^i = V \Lambda^i V^{-1}$. Assim, a equação (\ref{eq:smi}) reduz-se a:
     
     \begin{equation}
         s^i = \frac{c^T V_c \Lambda_c^{i-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{i-1} V_d^{-1} \mathcal{Z}}
@@ -692,7 +554,7 @@
     Perceba que o expoente de $\Lambda$ deve ser $k - 1$ por questão construtiva. Além disso, para uma matriz $\Lambda_c$ e $\Lambda$ arbitrárias, para $k = 0$, $\Lambda_c^{-1} = \Lambda_c^{+}$. Construtivamente
     
     \begin{equation}
-        \mathcal{S}_k^T = \left[\frac{c^T V_c \Lambda_c^{k-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{k-1} V_d^{-1} \mathcal{Z}}, \cdots, \frac{c^T V_c \Lambda_c^{k-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{k-1} V_d^{-1} \mathcal{Z}}\right]
+        \mathcal{S}_k^T = \left[\frac{c^T V_c \Lambda_c^{k-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{k-1} V_d^{-1} \mathcal{Z}}, \cdots, \frac{c^T V_c \Lambda_c^{-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{-1} V_d^{-1} \mathcal{Z}}\right]
     \end{equation}
     
     Deste modo, a função convertida pela função de transformação $s = \frac{c^T \mathcal{Z}}{d^T \mathcal{Z}}$ é dada por
@@ -707,12 +569,12 @@
 
 \section*{Exercício 8}
 
-    A transformação para trás tem parâmetros $c^T = [1, -1]$ e $d^T = [T_s, 0]$ e a transformação para frente $c^T = [1, -1]$ e $d^T = [0, T_s]$. A implementação em MatLab encontra-se em anexo.
+    A transformação para trás tem parâmetros $c^T = [1, -1]$ e $d^T = [T_s, 0]$ e a transformação para frente $c^T = [1, -1]$ e $d^T = [0, T_s]$. As implementações em MatLab estão nas subseções \ref{subsec:s2z}, \ref{subsec:backward} e \ref{subsec:forward}.
 
 \section*{Exercício 9}
 \label{ex:ex9}
 
-    A transformação de Tustin tem parâmetros $c^T = [2, 2]$ e $d^T = [T_s, -T_s]$. A implementação em MatLab encontra-se em anexo.
+    A transformação de Tustin tem parâmetros $c^T = [2, 2]$ e $d^T = [T_s, -T_s]$. A implementação em MatLab encontra-se nas subseções \ref{subsec:s2z} e \ref{subsec:tustin}.
 
 \section*{Exercício 10}
 
@@ -791,29 +653,29 @@
 
 \newpage
 
-\section*{Scripts}
+\section{Scripts em MatLab}
 
-    \subsection*{ex6.m}
+    \subsection{Script do exercício 6}
     \label{subsec:ex6}
-    \lstinputlisting[caption = Constantes e comandos para item A e B do \nameref{sec:ex6}]{code/ex6.m}
+    \lstinputlisting[caption = Constantes e comandos para item A e B do \sectionautorefname{sec:ex6}]{code/ex6.m}
 
-    \subsection*{syms2tfz.m}
+    \subsection{Simbólicos para função de transferência}
     \label{subsec:syms2tfz}
     \lstinputlisting[caption = Conversão de simbólico fracionário em função de transferência discreta]{code/syms2tfz.m}
     
-    \subsection*{s2z.m}
+    \subsection{Transformação de S para Z}
     \label{subsec:s2z}
     \lstinputlisting[caption = Conversão de função de transferência por transformação $T(z)$]{code/s2z.m}
     
-    \subsection*{backward.m}
+    \subsection{Transformação de z para s para trás}
     \label{subsec:backward}
     \lstinputlisting[caption = Transformação de conversão para trás]{code/backward.m}
     
-    \subsection*{forward.m}
+    \subsection{Transformação de z para s para frente}
     \label{subsec:forward}
     \lstinputlisting[caption = Transformação de conversão para frente]{code/forward.m}
     
-    \subsection*{tustin\_prop.m}
+    \subsection{Transformação de z para s tustin estritamente própria}
     \label{subsec:tustin}
     \lstinputlisting[caption = Transformação de conversão tustin própria]{code/tustin_prop.m}
     
