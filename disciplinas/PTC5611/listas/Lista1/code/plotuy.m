@@ -1,0 +1,3 @@
+function [] = plotuy(u, y)
+    
+    
