@@ -1,9 +1,7 @@
 % @author: Bruno Peixoto
-% Simula Os controladores projetado no exercício 6 da lista 1
+% Simula Os controladores projetado no exercï¿½cio 6 da lista 1
 % da disciplina PTC5611
 function [e, u, y] = sim_ex6(G, C, mdlnome)
-    Tf = 20;
-
     % Caso discreto
     if (C.Ts ~= 0)
         % Tempo de amostragem
@@ -21,6 +19,7 @@ function [e, u, y] = sim_ex6(G, C, mdlnome)
     
     % Simulacao
     open_system(mdlnome);
+    save_system;
     set_param(mdlnome, 'SaveOutput', 'on');
     stdOut = sim(mdlnome, 'StopTime', '2', ...
                           'SrcWorkspace', 'current', ...

@@ -30,7 +30,7 @@ wn = (1/tr)*(1/sqrt(1 - zeta^2))*(pi - atan(sqrt(1 - zeta^2)/zeta));
 %     |  |
 % _x__|__x______> \sigma
 %     |  |
-%     -  |
+%     -  |e_ant(1) = 
 %     |  |
 
 C = (wn^2)*tf([1 c], [1 2*zeta*wn]);
@@ -63,16 +63,16 @@ Cz20 = c2d(C, Ts, 'tustin');
 % ------------- Visualizacao -------------------
 
 % Plotagem dos sinais adquiridos
-legends = {'Continuo', '$f_s = 4 Hz$', '$f_s = 20 Hz$'};
+legends = {'Continuo', 'f_s = 4 Hz', 'f_s = 20 Hz'};
 
 E = [ec, e4, e20];
 U = [uc, u4, u20];
 Y = [yc, y4, y20];
 
-% Plota a ação de controle e saídas
+% Plota a aï¿½ï¿½o de controle e saï¿½das
 hfig = plot_ex6(E, U, Y, legends);
 saveas(gca, '../../report/images/ex6zoh.pdf');
-close(hfig);
+%close(hfig);
 
 % Salva modelos em simulink
 open_system('ex6continuo')
