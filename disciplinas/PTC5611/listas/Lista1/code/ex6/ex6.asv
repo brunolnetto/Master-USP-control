@@ -1,0 +1,103 @@
+% @author: Bruno Peixoto
+% Exercicio 6 - PTC5611 - Controle discreto
+
+clear all;
+close all;
+clc;
+ 
+% ------------------- Planat -------------------
+c = 0.7;
+G = tf([1], [1 c 0]);
+
+% -- Criterios de projeto - Controle continuo --
+% Tempo de subida [s]
+tr = 1;
+
+% Sobressinal []
+M = 0.2;
+% ----------------------------------------------
+
+% -------- Projeto de Controle continuo --------
+% Parametros em frequencia
+zeta = sqrt(log(M)^2/(log(M)^2 + pi^2));
+wn = (1/tr)*(1/sqrt(1 - zeta^2))*(pi - atan(sqrt(1 - zeta^2)/zeta));
+% ----------------------------------------------
+
+% ------------- Lugar das raizes ---------------
+%         ^\omega 
+%     |   |          -: Polos em malha fechada
+%     -   |          x: Polos do sistema 
+%     |   |
+% _x__|___x______> \sigma
+%     |   |
+%     -   |
+%     |   |
+
+K = wn^2;
+C = K*tf([1 c], [1 2*zeta*wn]);
+% ----------------------------------------------
+
+% ------------- Simulacoes ---------------------
+% Simulacao continua
+[uc, yc] = sim_ex6(G, C, 'ex6continuo');
+
+% ############### ZOH exato ####################
+% Frequencia = 4 Hz
+fs = 4;
+Ts = 1/fs;
+Cz4 = c2d(C, Ts, 'tustin');
+
+[u4, y4] = sim_ex6(G, Cz4, 'ex6discreto');
+
+% Frequencia - 20 Hz
+fs = 20;
+Ts = 1/fs;
+Cz20 = c2d(C, Ts, 'tustin');
+
+[u20, y20] = sim_ex6(G, Cz20, 'ex6discreto');
+
+% ##############################################
+
+% ############### ZOH ~ Pade' ##################
+% Simulacao continua
+[uc, yc] = sim_ex6(G, C, 'ex6continuo');
+
+% ############### ZOH exato ####################
+
+
+% Frequencia = 4 Hz
+fs = 4;
+Ts = 1/fs;
+Cz4 = c2d(C, Ts, 'tustin');
+
+[u4, y4] = sim_ex6(G, Cz4, 'ex6discreto');
+
+% Frequencia - 20 Hz
+fs = 20;
+Ts = 1/fs;
+Cz20 = c2d(C, Ts, 'tustin');
+
+[u20, y20] = sim_ex6(G, Cz20, 'ex6discreto');
+
+% ##############################################
+
+% ------------- Visualizacao -------------------
+
+% Plotagem dos sinais adquiridos
+legends = {'Continuo', '$f_s = 4 Hz$', '$f_s = 20 Hz$'};
+U = [uc, u4, u20];
+Y = [yc, y4, y20];
+
+% Plota a ação de controle e saídas
+plot_ex6(U, Y, legends);
+
+% Salva modelos em simulink
+open_system('ex6continuo')
+print -depsc ../../report/images/ex6continuo.eps2
+close_system
+
+open_system('ex6discreto')
+print -depsc ../../report/images/ex6discreto.eps
+close_system
+
+% ----------------------------------------------
