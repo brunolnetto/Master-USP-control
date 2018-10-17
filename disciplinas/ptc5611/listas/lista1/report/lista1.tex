@@ -516,7 +516,7 @@
 
 \section*{Exercício 6}
 
-    Para os critérios de projeto fornecidos, o projeto de controle será feito em espaço $s$ e o respectivo pólo deve pertencer ao lugar das raízes em malha fechada. O tempo de subida é:
+    Para os critérios de projeto fornecidos, o projeto de controle será feito em espaço $s$ e o respectivo pólo deve pertencer ao lugar das raízes em malha fechada. O tempo de subida é dado por:
     
         \begin{equation}
             t^{0\% - 100\%}_{r}(\omega_n, \zeta) = \frac{\pi - \theta(\zeta)}{\omega_d(\omega_n, \zeta)} \mbox{, com } \theta(\zeta) = \tan^{-1}\frac{\sqrt{1 - \zeta^2}}{\zeta} \mbox{ e } \omega_d(\omega_n, \zeta) = \omega_n \sqrt{1-\zeta^2}
@@ -531,7 +531,7 @@
         \end{equation}
     
     Como (\ref{eq:sobressinal}) é bijetora, $\exists g(M) = \zeta \mbox{, } g: M \rightarrow g(M) \mbox{, } M \circ g (M) = M$. De fato $g(M) = \sqrt{\frac{\log^2{M}}{\pi^2 - \log^2{M}}}$. Assim, $\zeta \approx 0.672$. De mesma forma, para $\zeta$ fixo, analogamente, $\exists h(t_r) = \zeta\mbox{, }h: t_r \rightarrow h(t_r)\mbox{, } t_r(\zeta) \circ h = t_r$. De fato, $g(t_r) = \frac{\pi - \theta}{\omega_d(\zeta, t_r)}$. Assim, para $\zeta = 0.672$, então $\omega_n = 4.46$.
-    Como $\forall s \in \mathbb{C}, \,\, s = \omega_n (\zeta + i \sqrt{1 - \zeta^2})$, logo a seguinte malha satisfaz os critérios estabelecidos em projeto:
+    Por fim, $\forall s \in \mathbb{C}, \,\, s = \omega_n (\zeta + i \sqrt{1 - \zeta^2})$, logo a seguinte malha satisfaz os critérios estabelecidos em projeto:
     
         \begin{equation}
             C(s) = K \frac{s + 0.7}{s + 2 \zeta \omega_n}
@@ -540,8 +540,30 @@
     Ao considerar o projeto em tempo contínuo, o controlador acima casa o pólo da planta com o zero do controlador. Para o caso de casamento perfeito de pólo e zero, o novo lugar das raízes permite que o pólo estabelecido pertença a este. Ademais, para casamento perfeito de pólo e zero, por inspeção, o polinômio característico fornece o valor $K$ i.e., $K = \omega_n^2$. Assim, a função de transferência fornecida é:
     
         \begin{equation}
-            C(s) = \omega_n^2 \frac{s + 0.7}{s + 2 \zeta \omega_n} \stackrel{N}{=} 19.89 \frac{s + 0.7}{s + 5.33}
+            C(s) = \omega_n^2 \frac{s + 0.7}{s + 2 \zeta \omega_n}
         \end{equation}
+        
+    Para projeto de controle por meio da aproximação do mantenedor de primeira ordem por transformação de Padé, utilizaremos a fórmula de Padé de primeira ordem seguinte:
+    
+    \begin{equation}
+    e^{x} \approx \frac{1 + \frac{x}{2}}{1 - \frac{x}{2}}
+    \label{eq:pade}
+    \end{equation}
+    
+    Desta formna, por meio de \eqref{eq:pade}, a aproximação de padé exata pode ser aproximada por
+    
+    \begin{equation}
+    G_{zoh}(s) = \frac{1 - e^{-T_s s}}{s T_s} \approx \frac{1}{\frac{T_s}{2} s + 1}
+    \end{equation}
+    
+    A função de transferência em malha aberta do sistema é $G'(s) = C(s)*G_{zoh}(s)*G(s)$. De mesma forma ao projeto acima, o projeto de controlador em tempo discreto "casará" o pólo da planta com um zero do controlador. Para um controlador da forma \eqref{eq:controladorpade}, o pólo encontrado para projeto pertence a curva $1 + G'(s) \coloneqq 0$.   Com auxílio de software de manipulação numérica, encontramos $K$ e $p$ tal que o sistema satisfaça os critérios de  projeto. 
+
+    \begin{equation}
+    \label{eq:controladorpade}
+        C(s) = K \frac{s + 0.7}{s + p}
+    \end{equation}
+    
+    
 
 \section*{Dedução do exercício 7}
 \label{sec:deducao7}
