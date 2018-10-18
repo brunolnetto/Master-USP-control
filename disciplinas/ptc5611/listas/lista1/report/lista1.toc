@@ -1,0 +1,15 @@
+\select@language {brazilian}
+\contentsline {section}{Exerc\IeC {\'\i }cio 1}{2}{section*.4}
+\contentsline {section}{Exerc\IeC {\'\i }cio 2}{4}{section*.8}
+\contentsline {section}{Exerc\IeC {\'\i }cio 3}{8}{section*.9}
+\contentsline {section}{Exerc\IeC {\'\i }cio 4}{9}{section*.10}
+\contentsline {section}{Exerc\IeC {\'\i }cio 5}{10}{section*.11}
+\contentsline {section}{Exerc\IeC {\'\i }cio 6}{11}{section*.12}
+\contentsline {subsection}{Dedu\IeC {\c c}\IeC {\~a}o do exerc\IeC {\'\i }cio 7}{15}{section*.18}
+\contentsline {section}{Exerc\IeC {\'\i }cio 7}{17}{section*.19}
+\contentsline {subsection}{Dedu\IeC {\c c}\IeC {\~a}o dos exerc\IeC {\'\i }cios 8 e 9}{18}{section*.20}
+\contentsline {section}{Exerc\IeC {\'\i }cio 8}{19}{section*.21}
+\contentsline {section}{Exerc\IeC {\'\i }cio 9}{20}{section*.22}
+\contentsline {section}{Exerc\IeC {\'\i }cio 10}{21}{section*.23}
+\contentsline {subsection}{Solu\IeC {\c c}\IeC {\~a}o 1}{21}{section*.24}
+\contentsline {subsection}{Solu\IeC {\c c}\IeC {\~a}o 2}{21}{section*.25}
