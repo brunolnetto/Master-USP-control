@@ -2,13 +2,11 @@
 \addcontentsline{toc}{section}{Exercício 2}
 
     \begin{enumerate}
-        \item %A
-        
-        As demonstrações estão abaixo:
-        
+        \item %Ax
             \begin{itemize}
             	\item $Z\{\sum_{i=0}^{n}x[i] \} = \frac{1}{1-z^{-1}}X(z)$
             	
+            	\begin{proof}
             	\begin{equation}
             	\begin{split}
             	Z\{\sum_{i=0}^{n}x[i] \} & = \sum_{n=0}^{\infty} z^{-n} \sum_{i=0}^{n} x[i] \\
@@ -23,9 +21,11 @@
             	\begin{equation}
             	\therefore Z\{\sum_{i=0}^{n}x[i] \} = \frac{1}{1-z^{-1}}.X(z) \hspace{10pt} \blacksquare
             	\end{equation}
+            	\end{proof}
             	
             	\item $Z\{\sum_{i=0}^{n}x[i-1] \} = \frac{z^{-1}}{1-z^{-1}}X(z)$
-            
+                
+            	\begin{proof}
             	\begin{equation}
             	\begin{split}
             	Z\{\sum_{i=0}^{n}x[i] \} & = \sum_{n=0}^{\infty} z^{-n} \sum_{i=0}^{n} x[i-1] \\
@@ -51,6 +51,7 @@
             	\therefore \lim\limits_{z \rightarrow 1} X(z) = \sum_{i=0}^{\infty}x[i] \hspace{10pt} \blacksquare
             	\end{split}
             	\end{equation}
+            	\end{proof}
             	
             \end{itemize}
         
@@ -126,6 +127,8 @@
             \begin{equation}
                 \mathcal{Z}\{n^2 e^{-a n}\} \coloneqq -z \frac{d}{dz} \mathcal{Z}\{n e^{-a n}\} = e^{-a T_s} \frac{z^{-1}(1 + e^{-a T_s} z^{-1})}{(1 - e^{-a T_s} z^{-1})}
             \end{equation}
+        
+        Em ambos os casos, a região de convergência é dada pela condição $ROC = R_1 \cup R_2$, com $R_1 = \left\{z \in \mathbb{C} | |z| \leq 1 \right\}$ e $R_2 = \left\{z \in \mathbb{C} | |z| \leq e^{-a T_s} \right\}$
         
         \item %C
         
