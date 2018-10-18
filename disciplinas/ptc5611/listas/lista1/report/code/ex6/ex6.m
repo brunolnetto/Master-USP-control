@@ -99,11 +99,11 @@ U = [uc, u4, u20, u4pade, u20pade];
 Y = [yc, y4, y20, y4pade, y20pade];
 
 % Plota a a��o de controle e sa�das
-hfig = plot_ex6(U, Y, E, legends);
+hfig = plot_ex6(Y, U, E, legends);
 saveas(hfig(1), '../../images/saidazoh.pdf');
 saveas(hfig(2), '../../images/controlezoh.pdf');
 saveas(hfig(3), '../../images/saidazoh.pdf');
-close all;
+% close all;
 
 % Salva modelos em simulink
 open_system('ex6continuo')

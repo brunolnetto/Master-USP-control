@@ -1,4 +1,4 @@
-function hfigs = plot_ex6(U, Y, E, legends)    
+function hfigs = plot_ex6(Y, U, E, legends)    
     n = length(legends);
 
     % Propriedades uteis
@@ -30,6 +30,8 @@ function hfigs = plot_ex6(U, Y, E, legends)
         ylab.FontSize = ylabSize;
         xlab.FontSize = xlabSize;
         
+        grid
+        
         hold on
         
         % Acao de controle
@@ -45,12 +47,14 @@ function hfigs = plot_ex6(U, Y, E, legends)
         xlab = xlabel('Tempo [s]');
         tit = title('Saida do Controlador', 'interpreter', 'latex');
         lgd = legend(legends{1:i});
-
+        
         set(lgd, 'interpreter', 'latex');
         lgd.FontSize = lgdSize;
         tit.FontSize = titSize;
         ylab.FontSize = ylabSize;
         xlab.FontSize = xlabSize;
+        
+        grid
         
         hold on 
 
@@ -74,6 +78,8 @@ function hfigs = plot_ex6(U, Y, E, legends)
         tit.FontSize = titSize;
         ylab.FontSize = ylabSize;
         xlab.FontSize = xlabSize;
+        
+        grid
         
         hold on
 
