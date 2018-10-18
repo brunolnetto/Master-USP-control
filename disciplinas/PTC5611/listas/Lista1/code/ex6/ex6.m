@@ -39,8 +39,6 @@ polo_proj = wn*(-zeta + i*sqrt(1 - zeta^2));
 C = (wn^2)*(s + c)/(s + 2*zeta*wn);
 % ----------------------------------------------
 
-
-
 % ------------- Simulacoes ---------------------
 % Tempo de simulacao
 Tf = 5;
@@ -90,8 +88,8 @@ Cz20_pade = c2d(C20_pade, Ts, 'tustin');
 
 % Plotagem dos sinais adquiridos
 legends = {'Continuo', ...
-           'f_s = 4 Hz', 'f_s = 20 Hz', ...
-           'f_s = 4 Hz com Pade', 'f_s = 20 Hz com Pade'};
+           '$f_s$ =  4 Hz', '$f_s$ = 20 Hz', ...
+           '$f_s$ =  4 Hz com Pade', '$f_s$ = 20 Hz com Pade'};
 
 E = [ec, e4, e20, e4pade, e20pade];
 U = [uc, u4, u20, u4pade, u20pade];
