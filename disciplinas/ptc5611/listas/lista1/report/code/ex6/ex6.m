@@ -102,7 +102,7 @@ Y = [yc, y4, y20, y4pade, y20pade];
 hfig = plot_ex6(Y, U, E, legends);
 saveas(hfig(1), '../../images/saidazoh.pdf');
 saveas(hfig(2), '../../images/controlezoh.pdf');
-saveas(hfig(3), '../../images/saidazoh.pdf');
+saveas(hfig(3), '../../images/errozoh.pdf');
 % close all;
 
 % Salva modelos em simulink
