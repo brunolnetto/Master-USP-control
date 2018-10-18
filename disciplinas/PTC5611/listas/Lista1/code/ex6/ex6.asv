@@ -68,34 +68,40 @@ Cz20 = c2d(C, Ts, 'tustin');
 % ############### ZOH ~ Pade' ##################
 % ##############################################
 
+syms K p;
+
 % Frequencia = 4 Hz
 fs = 4;
 Ts = 1/fs;
 
-C4_pade = C_zoh_approx_pade(G, polo_proj, Ts);
+[num, den] = pade(Ts, 1);
+Gpade = tf(num, den);
 
-Cz4_pade = c2d(C4_pade, Ts, 'tustin');
-[e4pade, u4pade, y4pade] = sim_ex6(G, Cz4_pade, 'ex6discreto', Tf);
+Gproj = ((1 - Gpade)/(s*Ts))*G;
+Gproj = minreal(Gproj);
+
+Gnum = Gproj.num{1};
+Gden = Gproj.den{1};
+
+% Denominador da "planta + controlador + aproximacao de Pade"
+Rnum = poly2sym(Gnum)*poly2sim([1 c]);
+Rden = poly2sym(Gden)*poly2sim([1 p]);
+
+eq_projpol = polyval(Rden, polo_proj) + K*polyval(Rnum, polo_proj);
+eq_projpol = simplify(expand(eq_projpol));
 
 % Frequencia = 4 Hz
 fs = 20;
 Ts = 1/fs;
 
-C20_pade = C_zoh_approx_pade(G, polo_proj, Ts);
-
-Cz20_pade = c2d(C20_pade, Ts, 'tustin');
-[e20pade, u20pade, y20pade] = sim_ex6(G, Cz20_pade, 'ex6discreto', Tf);
-
 % ------------- Visualizacao -------------------
 
 % Plotagem dos sinais adquiridos
-legends = {'Continuo', ...
-           'f_s = 4 Hz', 'f_s = 20 Hz', ...
-           'f_s = 4 Hz com Pade', 'f_s = 20 Hz com Pade'};
+legends = {'Continuo', 'f_s = 4 Hz', 'f_s = 20 Hz'};
 
-E = [ec, e4, e20, e4pade, e20pade];
-U = [uc, u4, u20, u4pade, u20pade];
-Y = [yc, y4, y20, y4pade, y20pade];
+E = [ec, e4, e20];
+U = [uc, u4, u20];
+Y = [yc, y4, y20];
 
 % Plota a a��o de controle e sa�das
 hfig = plot_ex6(E, U, Y, legends);

@@ -1,7 +1,7 @@
 % @author: Bruno Peixoto
 % Simula Os controladores projetado no exerc�cio 6 da lista 1
 % da disciplina PTC5611
-function [e, u, y] = sim_ex6(G, C, mdlnome)
+function [e, u, y, u_direto] = sim_ex6(G, C, mdlnome, Tf)
     % Caso discreto
     if (C.Ts ~= 0)
         % Tempo de amostragem
@@ -21,12 +21,13 @@ function [e, u, y] = sim_ex6(G, C, mdlnome)
     open_system(mdlnome);
     save_system;
     set_param(mdlnome, 'SaveOutput', 'on');
-    stdOut = sim(mdlnome, 'StopTime', '2', ...
+    stdOut = sim(mdlnome, 'StopTime', num2str(Tf), ...
                           'SrcWorkspace', 'current', ...
                           'AbsTol', '1e-6');
     close_system
     
     % Acao de controle e saida da planta
+    u_direto = stdOut.get('u_direto');
     u = stdOut.get('u');
     y = stdOut.get('y');
     e = stdOut.get('e');
