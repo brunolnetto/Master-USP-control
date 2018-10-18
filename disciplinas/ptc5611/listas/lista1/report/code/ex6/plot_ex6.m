@@ -2,11 +2,6 @@ function hfigs = plot_ex6(Y, U, E, legends)
     n = length(legends);
 
     % Propriedades uteis
-    set(gcf, 'PaperPositionMode', 'auto');
-    
-    set(groot, 'defaultFigureUnits', 'normalized')
-    set(groot, 'defaultFigurePosition', [0, 0, 1, 1])
-    set(groot, 'DefaultAxesColor', 'none'); 
     set(groot, 'defaultTextInterpreter', 'latex'); 
 
     titSize = 20;
@@ -29,7 +24,6 @@ function hfigs = plot_ex6(Y, U, E, legends)
         tit.FontSize = titSize;
         ylab.FontSize = ylabSize;
         xlab.FontSize = xlabSize;
-        
         grid
         
         hold on
@@ -53,7 +47,6 @@ function hfigs = plot_ex6(Y, U, E, legends)
         tit.FontSize = titSize;
         ylab.FontSize = ylabSize;
         xlab.FontSize = xlabSize;
-        
         grid
         
         hold on 
@@ -78,7 +71,6 @@ function hfigs = plot_ex6(Y, U, E, legends)
         tit.FontSize = titSize;
         ylab.FontSize = ylabSize;
         xlab.FontSize = xlabSize;
-        
         grid
         
         hold on
@@ -86,6 +78,10 @@ function hfigs = plot_ex6(Y, U, E, legends)
     end
     
     hold off
+    
+    orient(hfig1,'landscape')
+    orient(hfig2,'landscape')
+    orient(hfig3,'landscape')
     
     hfigs = [hfig1, hfig2, hfig3];
     
