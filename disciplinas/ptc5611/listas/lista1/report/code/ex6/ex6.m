@@ -103,7 +103,7 @@ hfig = plot_ex6(E, U, Y, legends);
 saveas(hfig(1), '../../images/errozoh.pdf');
 saveas(hfig(2), '../../images/saida6zoh.pdf');
 saveas(hfig(3), '../../images/controlezoh.pdf');
-%close(hfig);
+close all;
 
 % Salva modelos em simulink
 open_system('ex6continuo')
