@@ -14,7 +14,7 @@ function uk = controlador(ek, params)
          u_ant = 0;
      end
     
-    % Parâmetros do controlador
+    % Parametros do controlador
     b0 = params.b0;
     b1 = params.b1;
     a0 = params.a0;
