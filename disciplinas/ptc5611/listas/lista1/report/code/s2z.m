@@ -80,4 +80,5 @@ end
 Gz = (num.'*Sm)/(den.'*Sn);
 Gz = simplify(Gz);
 
-ans = syms2tfz(Gz, Ts);
+tfdsymed = syms2tfz(Gz, Ts);
+ans = minnreal(tfdsymed);
