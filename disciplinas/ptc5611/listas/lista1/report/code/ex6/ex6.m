@@ -98,7 +98,7 @@ E = [ec, e4, e20, e4pade, e20pade];
 U = [uc, u4, u20, u4pade, u20pade];
 Y = [yc, y4, y20, y4pade, y20pade];
     
-% Plota a a��o de controle e sa�das
+% Plota a acao de controle e saidas
 hfig = plot_ex6(Y, U, E, legends);
 saveas(hfig(1), '../../images/saidazoh.pdf');
 saveas(hfig(2), '../../images/controlezoh.pdf');

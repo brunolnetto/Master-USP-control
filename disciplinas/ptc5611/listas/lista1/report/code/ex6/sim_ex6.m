@@ -1,5 +1,5 @@
 % @author: Bruno Peixoto
-% Simula Os controladores projetado no exerc�cio 6 da lista 1
+% Simula Os controladores projetado no exercicio 6 da lista 1
 % da disciplina PTC5611
 function [e, u, y, u_direto] = sim_ex6(G, C, mdlnome, Tf)
     % Caso discreto
