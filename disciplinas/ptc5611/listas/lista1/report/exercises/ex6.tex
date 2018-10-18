@@ -51,7 +51,7 @@
     
     A função de transferência em malha aberta do sistema é $G'(s) = C(s)*G_{zoh}(s)*G(s)$. De mesma forma ao projeto acima, o projeto de controlador em tempo discreto "casará" o pólo da planta com um zero do controlador. Para um controlador da forma \eqref{eq:controladorpade}, o pólo encontrado para projeto pertence a curva $1 + G'(s) \coloneqq 0$.   Com auxílio de software de manipulação numérica, encontramos $K$ e $p$ tal que o sistema satisfaça os critérios de  projeto. 
     
-    A aproximação de Padé para o mantenedor de ordem zero no projeto do controlador aproxima o sinal em tempo discreto da ação contínua tanto para a saída, erro e ação de controle do sistema como representa as imagens \ref{fig:ex6saida}, \ref{fig:ex6erro} e \ref{fig:ex6controle}  respectivamente. Os diagramas de blocos utiliazdos para a simulação estão nas imagens IMAGEM1 e IMAGEM2.
+    A aproximação de Padé para o mantenedor de ordem zero no projeto do controlador aproxima o sinal em tempo discreto da ação contínua tanto para a saída, erro e ação de controle do sistema como representa as imagens \ref{fig:ex6saida}, \ref{fig:ex6erro} e \ref{fig:ex6controle}  respectivamente. Os diagramas de blocos utiliazdos para a simulação estão nas imagens \ref{fig:ex6continuo} e \ref{fig:ex6discreto}.
     
     \begin{equation}
     \label{eq:controladorpade}
@@ -63,7 +63,7 @@
     \begin{figure}[H]
 	\center
 	\includegraphics[width=0.8\textwidth]{images/saidazoh.pdf}
-	\caption{Ação de controle para controle contínuo e discreto com frequências de amostragem $f_s = 4 Hz$ e $f_s = 20 Hz$. }
+	\caption{Ação de controle para controle contínuo e discreto com $f_s = 4 Hz$ e $f_s = 20 Hz$. }
 	\label{fig:ex6controle}
     \end{figure}
     
