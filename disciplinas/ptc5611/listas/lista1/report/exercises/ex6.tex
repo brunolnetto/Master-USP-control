@@ -51,7 +51,7 @@
     
     A função de transferência em malha aberta do sistema é $G'(s) = C(s)*G_{zoh}(s)*G(s)$. De mesma forma ao projeto acima, o projeto de controlador em tempo discreto "casará" o pólo da planta com um zero do controlador. Para um controlador da forma \eqref{eq:controladorpade}, o pólo encontrado para projeto pertence a curva $1 + G'(s) \coloneqq 0$.   Com auxílio de software de manipulação numérica, encontramos $K$ e $p$ tal que o sistema satisfaça os critérios de  projeto. 
     
-    A aproximação de Padé para o mantenedor de ordem zero no projeto do controlador aproxima o sinal em tempo discreto da ação contínua tanto para a ação de controle, erro e saída do sistema como representa as imagens \ref{fig:ex6controle}, \ref{fig:ex6erro} e \ref{fig:ex6saida} respectivamente. Os diagramas de blocos utiliazdos para a simulação estão nas imagens IMAGEM1 e IMAGEM2.
+    A aproximação de Padé para o mantenedor de ordem zero no projeto do controlador aproxima o sinal em tempo discreto da ação contínua tanto para a saída, erro e ação de controle do sistema como representa as imagens \ref{fig:ex6saida}, \ref{fig:ex6erro} e \ref{fig:ex6controle}  respectivamente. Os diagramas de blocos utiliazdos para a simulação estão nas imagens IMAGEM1 e IMAGEM2.
     
     \begin{equation}
     \label{eq:controladorpade}
@@ -62,35 +62,35 @@
     
     \begin{figure}[H]
 	\center
-	\includegraphics[trim=200 200 200 200, width=0.3\textwidth]{images/saidazoh.pdf}
+	\includegraphics[width=0.8\textwidth]{images/saidazoh.pdf}
 	\caption{Ação de controle para controle contínuo e discreto com frequências de amostragem $f_s = 4 Hz$ e $f_s = 20 Hz$. }
 	\label{fig:ex6controle}
     \end{figure}
     
     \begin{figure}[H]
 	\center
-	\includegraphics[trim=200 200 200 200, width=0.3\textwidth]{images/controlezoh.pdf}
+	\includegraphics[width=0.8\textwidth]{images/controlezoh.pdf}
 	\caption{Curva original e série amostrada}
 	\label{fig:ex6saida}
     \end{figure}
-    
+
     \begin{figure}[H]
 	\center
-	\includegraphics[trim=200 200 200 200, width=0.3\textwidth]{images/errozoh.pdf}
+	\includegraphics[width=0.8\textwidth]{images/errozoh.pdf}
 	\caption{Curva original e série amostrada}
 	\label{fig:ex6erro}
     \end{figure}
     
     \begin{figure}[H]
 	\center
-	\includegraphics[trim=200 200 200 200, width=0.3\textwidth]{images/ex6continuo.pdf}
+	\includegraphics[width=0.8\textwidth]{images/ex6simcontinuo.pdf}
 	\caption{Diagrama de blocos em malha fechada com controle contínuo}
 	\label{fig:ex6continuo}
     \end{figure}
-    
+
     \begin{figure}[H]
 	\center
-	\includegraphics[trim=200 200 200 200, width=0.3\textwidth]{images/ex6discreto.pdf}
+	\includegraphics[width=0.8\textwidth]{images/ex6simdiscreto.pdf}
 	\caption{Diagrama de blocos em malha fechada com controle discreto}
 	\label{fig:ex6discreto}
     \end{figure}
