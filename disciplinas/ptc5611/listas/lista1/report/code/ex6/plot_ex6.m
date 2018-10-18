@@ -1,7 +1,5 @@
-function hfigs = plot_ex6(E, U, Y, legends)    
+function hfigs = plot_ex6(U, Y, E, legends)    
     n = length(legends);
-
-    hfig = figure();
 
     % Propriedades uteis
     set(gcf, 'PaperPositionMode', 'auto');
