@@ -101,8 +101,8 @@ Y = [yc, y4, y20, y4pade, y20pade];
 % Plota a a��o de controle e sa�das
 hfig = plot_ex6(E, U, Y, legends);
 saveas(hfig(1), '../../images/errozoh.pdf');
-saveas(hfig(2), '../../images/saida6zoh.pdf');
-saveas(hfig(3), '../../images/controlezoh.pdf');
+saveas(hfig(2), '../../images/controlezoh.pdf');
+saveas(hfig(3), '../../images/saidazoh.pdf');
 close all;
 
 % Salva modelos em simulink
