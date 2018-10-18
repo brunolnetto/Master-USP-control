@@ -131,14 +131,7 @@
 
         \item %A
         
-        Por hipótese, a frequência de amostragem utilizada satisfaz o critério de Nyquist \footnote{Essencialmente $\omega_s \geq 2\omega_0$, o qual $\omega_s$ corresponde a frequência de amostragem e $\omega_0$ a máxima frequência do sinal amostrado.}. Como $t = kT_s = \frac{k}{f_s}$, temos que.
-        
-            \begin{equation}
-                \label{eq:ex1a}
-                    x[k] = cos(k \frac{\omega}{f_s})  \stackrel{!}{=} cos(k \alpha) \Longleftrightarrow \alpha = \frac{\omega}{f_s}
-            \end{equation}
-        
-        Assim, $\omega = 250\pi \frac{rad}{s}$. A imagem (\ref{fig:ex1}) apresenta o sinal original e o amostrado.
+        Por hipótese, a frequência de amostragem utilizada satisfaz o critério de Nyquist \footnote{Essencialmente $\omega_s \geq 2\omega_0$, o qual $\omega_s$ corresponde a frequência de amostragem e $\omega_0$ a máxima frequência do sinal amostrado.}. Como $t = kT_s = \frac{k}{f_s}$, temos que $x[k] = cos(k \frac{\omega}{f_s})  \stackrel{!}{=} cos(k \alpha) \Longleftrightarrow \alpha = \frac{\omega}{f_s}$. Assim, $\omega = 250\pi \frac{rad}{s}$. A imagem (\ref{fig:ex1}) apresenta o sinal original e o amostrado.
         
             \begin{figure}[H]
             	\center
@@ -148,7 +141,8 @@
             \end{figure}
         
         \item %B
-        Pela equação (\ref{eq:ex1a}), conclui-se que $f_s = 12$ $kHz$. Dada frequência do sistema de $4000\pi \frac{rad}{s}$, pelo teorema de Nyquist $\omega_s \stackrel{!}{>} 8000\pi \frac{rad}{s} \approx 24000 \frac{rad}{s}$. Devido à violação, não é possível reconstruir o sinal por meio de um filtro passa-baixas ideal. 
+        
+        Como no item anterior, conclui-se que $f_s = 12 kHz$. Dada frequência do sistema de $4000\pi \frac{rad}{s}$ ou $2000 Hz$. Como a frequência utilizada para amostragem respeita o teorema de Nyquist, é possível reconstruir o sinal por meio de um filtro passa-baixas ideal. 
         
         \item %C
         Para sinais senoidais amostrados com frequência $f_s$, tem-se que, para uma mesma série $x[n] = cos(\alpha n)$, os possíveis sinais advindos deste são $x(t) = cos(2 \pi (f_0 + f_s)t) \mbox{, } k \in \mathbb{N} \mbox{, } \omega = 2 \pi f$. Por (\ref{eq:ex1a}), tem-se que $\omega_0 = \frac{5\pi}{4} \frac{rad}{s}$. Assim, dois possíveis sinais para a série fornecida são $x_1(t) = cos(\frac{5\pi}{4} t )$ e $x_2(t) = cos(\frac{85\pi}{4} t)$, mostrado na imagem (\ref{fig:ex1c}) 
@@ -530,14 +524,22 @@
             \label{eq:sobressinal}
         \end{equation}
     
-    Como (\ref{eq:sobressinal}) é bijetora, $\exists g(M) = \zeta \mbox{, } g: M \rightarrow g(M) \mbox{, } M \circ g (M) = M$. De fato $g(M) = \sqrt{\frac{\log^2{M}}{\pi^2 - \log^2{M}}}$. Assim, $\zeta \approx 0.672$. De mesma forma, para $\zeta$ fixo, analogamente, $\exists h(t_r) = \zeta\mbox{, }h: t_r \rightarrow h(t_r)\mbox{, } t_r(\zeta) \circ h = t_r$. De fato, $g(t_r) = \frac{\pi - \theta}{\omega_d(\zeta, t_r)}$. Assim, para $\zeta = 0.672$, então $\omega_n = 4.46$.
-    Por fim, $\forall s \in \mathbb{C}, \,\, s = \omega_n (\zeta + i \sqrt{1 - \zeta^2})$, logo a seguinte malha satisfaz os critérios estabelecidos em projeto:
+    Como (\ref{eq:sobressinal}) é bijetora, $\exists g(M) = \zeta \mbox{, } g: M \longmapsto g(M) \mbox{, } M \circ g (M) = M$. De fato $g(M) = \sqrt{\frac{\log^2{M}}{\pi^2 - \log^2{M}}}$. Assim, $\zeta \approx 0.672$. De mesma forma, para $\zeta$ fixo, analogamente, $\exists h(t_r) = \zeta\mbox{, }h: t_r \longmapsto h(t_r)\mbox{, } t_r(\zeta) \circ h = t_r$. De fato, $g(t_r) = \frac{\pi - \theta}{\omega_d(\zeta, t_r)}$. Assim, para $\zeta = 0.672$, então $\omega_n = 4.46$.
+    Por fim, $\forall s \in \mathbb{C}, \,\, s = \omega_n (\zeta + i \sqrt{1 - \zeta^2})$, logo a seguinte malha satisfaz os critérios estabelecidos em projeto
     
         \begin{equation}
-            C(s) = K \frac{s + 0.7}{s + 2 \zeta \omega_n}
+        C(s) = K \frac{s + 0.7}{s + 2 \zeta \omega_n}
+        \label{eq:Cs}
         \end{equation}
     
-    Ao considerar o projeto em tempo contínuo, o controlador acima casa o pólo da planta com o zero do controlador. Para o caso de casamento perfeito de pólo e zero, o novo lugar das raízes permite que o pólo estabelecido pertença a este. Ademais, para casamento perfeito de pólo e zero, por inspeção, o polinômio característico fornece o valor $K$ i.e., $K = \omega_n^2$. Assim, a função de transferência fornecida é:
+    O polinômio característico do sistema para \eqref{eq:Cs} em malha fechada é 
+    
+        \begin{equation}
+        P(s) = s^2 + 2\zeta \omega_n + K \coloneqq 0
+        \label{eq:polcarac}
+        \end{equation}
+    
+    Ao considerar o projeto em tempo contínuo, o controlador acima "casa" o pólo da planta com o zero do controlador. Para o caso de casamento perfeito de pólo e zero, o novo lugar das raízes permite que o pólo estabelecido pertença a este. Ademais, para casamento perfeito de pólo e zero, por inspeção, o polinômio característico \eqref{eq:polcarac} fornece o valor $K$ para os pólos em projeto i.e., $K = \omega_n^2$. Assim, a função de transferência fornecida é:
     
         \begin{equation}
             C(s) = \omega_n^2 \frac{s + 0.7}{s + 2 \zeta \omega_n}
@@ -550,7 +552,7 @@
     \label{eq:pade}
     \end{equation}
     
-    Desta formna, por meio de \eqref{eq:pade}, a aproximação de padé exata pode ser aproximada por
+    Desta forma, por meio de \eqref{eq:pade}, a aproximação de padé exata pode ser aproximada por
     
     \begin{equation}
     G_{zoh}(s) = \frac{1 - e^{-T_s s}}{s T_s} \approx \frac{1}{\frac{T_s}{2} s + 1}
@@ -563,12 +565,26 @@
         C(s) = K \frac{s + 0.7}{s + p}
     \end{equation}
     
+
+    \begin{figure}[H]
+	\center
+	\includegraphics[trim=200 200 200 200, width=0.3\textwidth]{./images/saidazoh.pdf}
+	\caption{Saída do controlador para uma estratégia de controle contínua e discreta para as frequências de amostragem $f_s = 4 Hz$ e $f_s = 20 Hz$. Ao considerar a aproximação de Padé para o mantenedor de ordem zero, a curva-se aproxima-se do caso contínuo }
+	\label{fig:ex6controle}
+    \end{figure}
     
     \begin{figure}[H]
-    	\center
-    	\includegraphics[width=0.6\textwidth]{./images/ex6simdiscreto.pdf}
-    	\caption{Curva original e série amostrada}
-    	\label{fig:ex1}
+	\center
+	\includegraphics[trim=200 200 200 200, width=0.3\textwidth]{./images/controlezoh.pdf}
+	\caption{Curva original e série amostrada}
+	\label{fig:ex6saida}
+    \end{figure}
+    
+    \begin{figure}[H]
+	\center
+	\includegraphics[trim=200 200 200 200, width=0.3\textwidth]{./images/errozoh.pdf}
+	\caption{Curva original e série amostrada}
+	\label{fig:ex1}
     \end{figure}
     
 
