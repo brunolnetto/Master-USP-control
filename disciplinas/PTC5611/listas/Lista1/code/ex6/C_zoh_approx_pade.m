@@ -3,6 +3,7 @@ function C = C_zoh_approx_pade(G, polo_proj, Ts)
     assume(K, 'real');
     assume(p, 'real');
 
+
     c = G.den{1}(2);
     s = tf('s');
     
