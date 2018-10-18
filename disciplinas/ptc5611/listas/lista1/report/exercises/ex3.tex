@@ -1,0 +1,38 @@
+    \section*{Exercício 3}
+    \addcontentsline{toc}{section}{Exercício 3}
+    
+    Seja o pólo $s=0$ numericamente mapeado, entretanto, para $s_0 = 0.01$ em espaço $s$, o respectivo pólo em $z$ equivale a $z_0 = e^{T_s s_0}$, com $T_s = 0.01$ s. Assim $z_0 \approx 1.001$.
+    
+        \begin{enumerate}
+        
+        \item % A
+        \label{item:ex3a}
+        
+        Ambas as funções de transferência, $G(s)$ e $G(z)$ devem ter o mesmo ganho em regime estacionário, ou seja,
+        
+            \begin{equation}
+                \lim\limits_{s \rightarrow 0} G(s) \approx  \lim\limits_{s \rightarrow s_0} G(s) \coloneqq \lim\limits_{z \rightarrow 1} G(z) \Rightarrow \frac{1}{s_0} = \frac{1}{1 - e^{T_s s_0}} K \Rightarrow K \stackrel{N}{=} \frac{1 - e^{T_s s_0}}{s_0} = - 0.01
+            \end{equation}
+        
+        Portanto
+        
+            \begin{equation}
+                G(z) = \frac{1 - e^{T_s s_0}}{s_0} \frac{1}{1 - e^{T_s s_0} z^{-1}} \stackrel{N}{=} -0.001 \frac{1}{1 - 1.01 z^{-1}}
+            \end{equation}
+        
+        Perceba que a função de transferência resultante é estritamente própria.
+        
+        \item % B
+        
+        A fim de que a função de transferência em espaço $z$ seja biprópria, $m_z = n_z$, os quais $m_z$ é o número de zeros e $n_z$ é o número de zeros. Assim, o zero $s \rightarrow - \infty_{\mathbb{C}}$ é mapeado em $z = -1$. Assim como no item (\ref{item:ex3a}), o ganho em regime estacionário deve ser igual, ambos para espaço $s$ ou $z$. Assim,
+        
+            \begin{equation}
+                \lim\limits_{s \rightarrow 0} G(s) \approx  \lim\limits_{s \rightarrow s_0} G(s) \coloneqq \lim\limits_{z \rightarrow 1} G(z) \Rightarrow  \frac{1}{s_0} = \frac{2}{1 - e^{T_s s_0}} K \Rightarrow K = \frac{1 - e^{T_s s_0}}{2 s_0} \stackrel{N}{=} - 0.005
+            \end{equation}
+        
+        Portanto,
+        
+            \begin{equation}
+                G(z) =  \left( \frac{1 - e^{T_s s_0}}{2 s_0}\right) \frac{1-z^{-1}}{1 - e^{T_s s_0}  z^{-1}} \stackrel{N}{=} -0.005 \frac{1-z^{-1}}{1 - 1.001  z^{-1}}
+            \end{equation}
+    \end{enumerate}

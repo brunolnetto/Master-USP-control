@@ -1,0 +1,45 @@
+\section*{Exercício 1}
+\addcontentsline{toc}{section}{Exercício 1}
+
+    \begin{figure}[H]
+        \centering
+        \begin{tabular}{cc}
+        \includegraphics[width=0.5\textwidth]{images/ex1a.eps} & \includegraphics[width=0.5\textwidth]{images/ex1c.eps} \\ (a) & (b)
+        \end{tabular}
+        \caption{\label{fig:ex1ac} (a) Curva original e série amostrada (b) Sinais com frequências diferentes e mesmo sinal amostrado} 
+    \end{figure}
+    
+    \begin{enumerate}
+
+        \item %A
+        
+        Por hipótese, a frequência de amostragem utilizada satisfaz o critério de Nyquist \footnote{Essencialmente $\omega_s \geq 2\omega_0$, o qual $\omega_s$ corresponde a frequência de amostragem e $\omega_0$ a máxima frequência do sinal amostrado.}. Como $t = kT_s = \frac{k}{f_s}$, temos que $x[k] = cos(k \frac{\omega}{f_s})  \stackrel{!}{=} cos(k \alpha) \Longleftrightarrow \alpha = \frac{\omega}{f_s}$. Assim, $\omega = 250\pi \frac{rad}{s}$. A imagem (\ref{fig:ex1ac}) apresenta o sinal original e o amostrado.
+        
+        \item %B
+        
+        Como no item anterior, conclui-se que $f_s = 12 kHz$. Dada frequência do sistema de $4000\pi \frac{rad}{s}$ ou $2000 Hz$. Como a frequência utilizada para amostragem respeita o teorema de Nyquist, é possível reconstruir o sinal por meio de um filtro passa-baixas ideal. 
+        
+        \item %C
+        Para sinais senoidais amostrados com frequência $f_s$, tem-se que, para uma mesma série $x[n] = cos(\alpha n)$, os possíveis sinais advindos deste são $x(t) = cos(2 \pi (f_0 + f_s)t) \mbox{, } k \in \mathbb{N} \mbox{, } \omega = 2 \pi f$. Por \eqref{eq:ex1a}, tem-se que $\omega_0 = \frac{5\pi}{4} \frac{rad}{s}$. Assim, dois possíveis sinais para a série fornecida são $x_1(t) = cos(\frac{5\pi}{4} t )$ e $x_2(t) = cos(\frac{85\pi}{4} t)$, mostrado na imagem (\ref{fig:ex1ac}) 
+        
+        \item %D
+        
+        Para o caso presente na figura (\ref{fig:ex1d1}), o sinal reconstruido é distorcido. Em contrapartida, por respeitar o critério de Nyquist, o sinal reconstruido é o mesmo do sinal original, presente na figura (\ref{fig:ex1d2}).
+        
+        \newpage
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\textwidth]{./images/ex1d1.eps}
+            \caption{Espectro do sinal original. Frequência de amostragem e reconstrução $\omega_s = \omega_N$ e $\omega_f = \omega_N$}
+            \label{fig:ex1d1}
+        \end{figure}%
+    
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.7\textwidth]{./images/ex1d2.eps}
+            \caption{Espectro do sinal original. Frequência de amostragem e reconstrução $\omega_s = 3 \, \omega_N$ e $\omega_f = \frac{\omega_s}{2}$}
+            \label{fig:ex1d2}
+        \end{figure}
+    
+    \end{enumerate}
