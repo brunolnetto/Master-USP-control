@@ -1,0 +1,70 @@
+\subsection*{Dedução do exercício 7}
+\addcontentsline{toc}{subsection}{Dedução do exercício 7}
+\label{sec:deducao7}
+
+    O objetivo é encontrar uma função de transferência $G(z) = \frac{Y(z)}{U(z)}$ em sua respectiva função de diferenças e assim saída $y[k]$ no instante $k T_s$. Considere a função de transferência a seguir em sua forma matricial
+    
+        \begin{equation}
+            G(z) = \frac{b^T \textbf{z}_m}{a^T \textbf{z}_n}    
+            \label{eq:Gz}
+        \end{equation}
+    
+    os quais $a \in \mathbb{R}^n$, $b \in \mathbb{R}^m$ e $\mathcal{Z}_k = \left[z^k, \cdots, 1\right]^T$. Após manipulação algébrica, $\textbf{z}_p = z^p \, \textbf{v}_p$, $\textbf{v}_p = [1, \cdots, z^{-p}]$. A fim de manter a convenção para $z^{-1}$ dada por $\textbf{w}_p =  [z^{-p}, \cdots, 1]$, $\textbf{w}_p = \textbf{J}_p \textbf{v}_p \Leftrightarrow{\textbf{v}_p = \textbf{J}_p \textbf{w}_p}$, com $\textbf{J}_p$ a matriz de permuta, descrita em (\ref{eq:exchange}).
+    
+        \begin{equation}
+            G(z) = z^{m-n}\frac{b^T \textbf{v}_m}{a^T \textbf{v}_n} = z^{m-n} \frac{\textbf{b}^T \textbf{J}_{m+1} \textbf{w}_m}{\textbf{a}^T \textbf{J}_{n+1} \textbf{w}_n}
+        \label{eq:Gv}
+        \end{equation}
+    
+        \begin{equation}
+            \textbf{J}_p = 
+            \begin{bmatrix}
+                0&\cdots&1\\
+                \vdots & \ddots & \vdots\\
+                1&\cdots&0
+            \end{bmatrix}
+            \label{eq:exchange}
+        \end{equation}
+    
+    O termo $z^{m-n}$ em (\ref{eq:Gw}) deve integrar a função a fim de chegarmos à equação de diferenças. Por meio de manipulação matricial, chegamos à seguinte equação 
+    
+        \begin{equation}
+            G(z) = \frac{\textbf{b'}^T \textbf{w}_{m'}}{\textbf{a'}^T \textbf{w}_{n'}}
+            \label{eq:Gw}
+        \end{equation}
+    
+    com $\textbf{a'} = \begin{cases} \textbf{a}\\ \begin{bmatrix} \textbf{0} \\ \textbf{J}_{n+1} \textbf{a} \end{bmatrix}_{m+1} \end{cases} \mbox{ e } \textbf{b'} = \begin{cases} \begin{bmatrix} \textbf{0}\\ \textbf{J}_{m+1} \textbf{b} \end{bmatrix}_{n+1} &, n \geq m \\ \textbf{b} &,  n < m \end{cases}$. Perceba que $n'$ e $m'$ são $\begin{cases} n + 1,& n \geq m \\ m + 1, & n < m \end{cases}$, i.e. $\forall z^p \in \textbf{w} \mbox{, } p \leq 0$. 
+    
+    A equação de diferenças de $G(z^{-1}) = \frac{Y(z^{-1})}{U(z^{-1})} = \frac{\textbf{b}^T \textbf{w}_{m}}{\textbf{a}^T \textbf{w}_{n}}$ é, por definição, descrita por $\textbf{a}^T \textbf{y}_{m}[k] = \textbf{b}^T \textbf{u}_{n}[k]$. Por inspeção, $a' = a$ e $b' = b$. O vetor $\textbf{y}_{n'}[k]$ pode ser escrito como $\textbf{y}_{n'}[k] = \left(\textbf{I}_{n' + 1} - \mathbf{\Delta}_{n'+1, n'+1}\right) \mathbf{y}_{n'}[k] + \mathbf{\Delta}_{n'+1, n'+1} \mathbf{y}_{n'}[k]$. A matriz $\mathbf{\Delta}_{ij}$ é definida por 
+    
+        \begin{equation}
+          \mathbf{\Delta}_{ij} = 
+          \begin{cases}
+               1 & \mbox{em (i, j)}\\
+               0 & \mbox{ademais}
+          \end{cases}
+        \end{equation}
+    
+    Desta forma, a equação 
+    
+        \begin{equation}
+            \textbf{a'}^T \underbrace{\Delta_{n' + 1, n' + 1} \textbf{y}_{n'}[k]}_{\textbf{e}_{n'+1} y[k]} = \textbf{b'} \textbf{u}_{m'}[k] - \textbf{a'}^T (\textbf{I}_{n'+1} - \Delta_{n' + 1}) \textbf{y}_{n'}[k]
+         \end{equation}
+    
+    com $\textbf{e}_{k} \in \mathbb{R}^{m'+1}$ o vetor canônico. Portanto
+    
+        \begin{equation}
+            y[k] = \left(\textbf{a'}^T \textbf{e}_{n' + 1}\right)^{-1}\left(\textbf{b'}^T \textbf{u}_{m'}[k] - \textbf{a'}^T (\textbf{I}_{n' + 1} - \Delta_{n' + 1, n' + 1}) \textbf{y}_{n'}[k]\right)
+            \label{eq:u_resumido}
+        \end{equation}
+    
+    A equação \eqref{eq:u_resumido} tem implementação relativamente custosa por questões de requisitos de projeto. Os requisitos sã0 obter uma função \texttt{tf2diff(G, u, y)}, com \texttt{G} a função de transferência $G$, \texttt{y} os $n$ valores anteriores da saída $y$ e \texttt{u} os $m$ valores anteriores da entrada $u$ e o valor atual $u[k]$.
+    
+    Matematicamente, o vetor de entrada $\texttt{u} = \mathbf{u}_0^T[k] = \left[u[k - m], \cdots, u[k]\right]$ e saídas $\texttt{y} = \mathbf{y}_0^T[k] = \left[y[k - n], \cdots,\right.$ $\left.y[k - 1]\right]$. A saída $y[k]$ não existe antecipadamente como enunciado em \eqref{eq:u_resumido}. Além disso, $\dim(\texttt{y}) = n$ e $\dim(\texttt{u}) = m + 1$. Assim, reescrevemos a equação \eqref{eq:u_resumido} a fim de obter uma forma computável. Por fim
+    
+        \begin{equation}
+            y[k] = (\textbf{a'}^T \textbf{e}_{n' + 1})^{-1}(\textbf{b'}^T \textbf{u}[k] - \textbf{a'}^T \textbf{F} \textbf{y}[k])
+            \label{eq:u_programacao}
+        \end{equation}
+    
+    com $\textbf{a'} = \begin{cases} \textbf{a}\\ \begin{bmatrix} \textbf{0} \\ \textbf{J}_{n+1} \textbf{a} \end{bmatrix}_{m+1} \end{cases} \mbox{, } \textbf{b'} = \begin{cases} \begin{bmatrix} \textbf{0}\\ \textbf{J}_{m+1} \textbf{b} \end{bmatrix}_{n+1} &\mbox{, } n \geq m \\ \textbf{b} &\mbox{, } n < m \end{cases} \mbox{ e } \textbf{F} = \begin{cases}\begin{bmatrix} \textbf{I}_{n} & \textbf{0} \\ \textbf{0} & 0 \\ \end{bmatrix}_{n+1, n} &\mbox{, } n \geq m \\ \begin{bmatrix} \textbf{0}_{m-n} & \textbf{0} \\ \textbf{0} & \textbf{I}_{n} \\ \textbf{0} & \textbf{0} \\ \end{bmatrix}_{m+1, n} & \mbox{, } n < m \end{cases}$

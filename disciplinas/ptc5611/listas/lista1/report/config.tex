@@ -1,0 +1,101 @@
+%----------------------- Macros and Definitions --------------------------
+\definecolor{mygreen}{RGB}{28,172,0}
+\definecolor{mylilas}{RGB}{170,55,241}
+
+% Listar secoess
+\setcounter{secnumdepth}{0}
+
+% Configuracoes do matlab
+\lstset{language=Matlab,%
+    % basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,             % without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},  % size of the numbers
+    numbersep=9pt,                      % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+
+\makeatletter
+\newcommand*\@dblLabelI {}
+\newcommand*\@dblLabelII {}
+\newcommand*\@dblequationAux {}
+
+\def\@dblequationAux #1,#2,%
+    {\def\@dblLabelI{\label{#1}}\def\@dblLabelII{\label{#2}}}
+
+\newcommand*{\doubleequation}[3][]{%
+    \par\vskip\abovedisplayskip\noindent
+    \if\relax\detokenize{#1}\relax
+       \let\@dblLabelI\@empty
+       \let\@dblLabelII\@empty
+    \else % we assume here that the optional argument
+          % has the required shape A,B
+       \@dblequationAux #1,%
+    \fi
+    \makebox[0.5\linewidth-1.5em]{%
+     \hspace{\stretch2}%
+     \makebox[0pt]{$\displaystyle #2$}%
+     \hspace{\stretch1}%
+    }%
+    \makebox[0.5\linewidth-1.5em]{%
+     \hspace{\stretch1}%
+     \makebox[0pt]{$\displaystyle #3$}%
+     \hspace{\stretch2}%
+    }%
+    \makebox[3em][r]{(%
+  \refstepcounter{equation}\theequation\@dblLabelI, 
+  \refstepcounter{equation}\theequation\@dblLabelII)}%
+  \par\vskip\belowdisplayskip
+}
+\makeatother
+
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    basicstyle=\ttfamily,
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{ mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+
+\renewcommand\lstlistlistingname{Scripts em Matlab}
+\renewcommand{\lstlistingname}{Script}
+
+%%% FILL THIS OUT
+\newcommand{\studentname}{Bruno H. L. N. Peixoto}
+\newcommand{\uspid}{7206666}
+\newcommand{\uspmail}{bruno.peixoto@usp.br}
+\newcommand{\esnumber}{1}
+%%% END
+
+\renewcommand{\theenumi}{\bf \Alph{enumi}}
+
+\fancypagestyle{plain}{}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RO,LE]{\sffamily\bfseries\large Universidade de São Paulo}
+\fancyhead[LO,RE]{\sffamily\bfseries\large PTC5611 Controle Digital de Sistemas Dinâmicos}
+\setlength{\headheight}{14.0pt}
+\cfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}	
+\renewcommand{\headrulewidth}{1pt}
+
+\graphicspath{{figures/}}
+
+%-------------------------------- Title ----------------------------------

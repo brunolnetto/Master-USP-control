@@ -1,0 +1,65 @@
+\section*{Exercício 5}
+\addcontentsline{toc}{section}{Exercício 5}
+
+    \begin{enumerate}
+        \item % A
+        Dados: Ts = 0,1 s
+        
+            \begin{equation}
+                \begin{split}
+                    s = \frac{z - 1}{T_s} \therefore X(z) = \frac{\frac{z+1}{T_s} + 1}{\frac{z+1}{T_s} + 10} = \frac{z - (1-T_s)}{z - (1-10T_s)} \stackrel{N}{=} \frac{z - 0.9}{z} 
+                \end{split}
+            \end{equation}
+        
+        \item % B
+        Dados: Ts = 0,1 s
+            \begin{equation}
+                \begin{split}
+                    s = \frac{z - 1}{T_s z} \therefore X(z) = \frac{\frac{z-1}{T_s z} + 1}{\frac{z-1}{T_s z} + 10} = \frac{(1+T_s) z - 1}{(1 + 10T_s) z + 1} \stackrel{N}{=} 0.45 \frac{z - 1.1}{z - 0.5}
+                \end{split}
+            \end{equation}
+        
+        \item % C
+        Dados: Ts = 0,1 s
+            \begin{equation}
+                \begin{split}
+                    s = \frac{2}{T_s} \frac{z - 1}{z+1} \therefore X(z) = \frac{\frac{2}{T_s} \frac{z-1}{z+1} + 1}{\frac{2}{T_s} \frac{z-1}{z+1} + 10} = \frac{(2+T_s)z + (T_s - 2)}{(2 + 10T_s) z + (10 T_s - 2)} \stackrel{N}{=} \frac{2.1z - 1.9}{3z - 1} = 0.7\frac{z-0.63}{z-0.33}
+                \end{split}
+            \end{equation}
+        
+        \item % D
+        Dados: $\omega_c = 3 \frac{rad}{s}$
+            
+            \begin{equation}
+                s = \frac{\omega_c}{\tan{\frac{\omega_c T_s}{2}}} \frac{z-1}{z+1} \therefore X(z) = \frac{\frac{\omega_c}{\tan(\frac{\omega_c T_s}{2})} \frac{z-1}{z+1} + 1}{\frac{\omega_c}{\tan(\frac{\omega_c T_s}{2})} \frac{z-1}{z+1} + 10} = \frac{(\tan{\frac{\omega_c T_s}{2}} + \omega_c) z + (\tan{\frac{\omega_c T_s}{2}} - \omega_c)}{(10 \tan{\frac{\omega_c T_s}{2}} + \omega_c) z + (10 \tan{\frac{\omega_c T_s}{2}} - \omega_c)} 
+            \end{equation}
+            
+        Como $\frac{\omega_c T_s}{2} \ll 1$ e $\tan{\theta} \approx \theta$, então $\tan{\frac{\omega_c T_s}{2}} \approx \frac{\omega_c T_s}{2}$. Assim
+        
+            \begin{equation}
+                X(z) = \frac{3.15\ - 2.85}{4.15z - 1.5} = 0.76 \frac{z - 0.9}{z - 0.36}
+            \end{equation}
+        
+        \item % E
+        
+        Todo pólo e zero da planta pode ser mapeado diretamente para o espaço $\mathcal{Z}$ pela relação $z = e^{s T_s}$. O ganho da função em regime estacionário devem ser ambos em espaço discreto quanto contínuo iguais.
+        
+            \begin{equation}
+                \lim\limits_{z \rightarrow 1} X(z) \stackrel{!}{=} \lim\limits_{s \rightarrow 0} X(s) 
+            \end{equation}
+        
+        Desta forma,
+        
+            \begin{equation*}
+                \begin{split}
+                    K_z \frac{1 - e^{-Ts}}{1 - e^{-10Ts}} = \frac{1}{10} \Rightarrow K_z = 10 \frac{1 - e^{-10T_s}}{1 - e^{-T_s}} \approx 1.59
+                \end{split}
+            \end{equation*}
+            
+        Portanto
+        
+            \begin{equation}
+                X(z) = 1.59 \frac{z - 0.9}{z - 0.37}
+            \end{equation}
+        
+    \end{enumerate}
