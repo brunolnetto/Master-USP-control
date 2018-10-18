@@ -14,23 +14,19 @@ function hfigs = plot_ex6(E, U, Y, legends)
     titSize = 20;
     xlabSize = 15;
     ylabSize = 15;
-    lgdSize = 15;
+    lgdSize = 12;
        
     for i = 1:n
         hfig1 = figure(1);
         % Saida da planta
         plot(Y(i).time, Y(i).signals.values);
-
-        ylab = ylabel('Amplitude');
-        xlab = xlabel('Tempo [s]');
-        tit = title('Saida da planta', 'interpreter', 'latex');
-        lgd = legend(legends{1:i});
+        ylabel('Amplitude');
+        title('Saida da planta', 'interpreter', 'latex');
         
         set(lgd, 'interpreter', 'latex');
         lgd.FontSize = lgdSize;
         tit.FontSize = titSize;
         ylab.FontSize = ylabSize;
-        xlab.FontSize = xlabSize;
         
         hold on
         
@@ -44,15 +40,13 @@ function hfigs = plot_ex6(E, U, Y, legends)
         end
         
         ylab = ylabel('Amplitude');
-        xlab = xlabel('Tempo [s]');
         tit = title('Saida do Controlador', 'interpreter', 'latex');
         lgd = legend(legends{1:i});
 
         set(lgd, 'interpreter', 'latex');
         lgd.FontSize = lgdSize;
         tit.FontSize = titSize;
-        ylab.FontSize = ylabSize;
-        xlab.FontSize = xlabSize;
+        ylab.FontSize = ylabSize;        
         
         hold on 
 
@@ -65,18 +59,10 @@ function hfigs = plot_ex6(E, U, Y, legends)
             stairs(E(i).time, E(i).signals.values);
         end
         
-        ylab = ylabel('Amplitude');
-        xlab = xlabel('Tempo [s]');
-        tit = title('Erro');
+-        ylab = ylabel('Amplitude');
+-        xlab = xlabel('Tempo [s]');
+-        tit = title('Erro');
 
-        lgd = legend(legends{1:i});
-
-        set(lgd, 'interpreter', 'latex');
-        lgd.FontSize = lgdSize;
-        tit.FontSize = titSize;
-        ylab.FontSize = ylabSize;
-        xlab.FontSize = xlabSize;
-        
         hold on
 
     end
