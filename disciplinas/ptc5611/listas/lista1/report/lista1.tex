@@ -10,8 +10,17 @@
 %--------------------------------- Exercicios ----------------------------------
 \maketitle
 \tableofcontents
+\thispagestyle{empty}
+
+\newpage
+\clearpage
+\setcounter{page}{1}
+\addcontentsline{toc}{section}{\listfigurename}
 \listoffigures
+\addcontentsline{toc}{section}{\lstlistlistingname}
 \lstlistoflistings
+
+
 %-------------------------------------------------------------------------------
 
 %--------------------------------- Exercicios ----------------------------------
@@ -23,6 +32,7 @@
 \input{exercises/ex3}
 \newpage
 \input{exercises/ex4}
+\newpage
 \input{exercises/ex5}
 \newpage
 \input{exercises/ex6}
