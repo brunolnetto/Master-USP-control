@@ -2,6 +2,19 @@
 \definecolor{mygreen}{RGB}{28,172,0}
 \definecolor{mylilas}{RGB}{170,55,241}
 
+\pgfplotsset{compat=1.10}
+\usetikzlibrary{pgfplots.fillbetween, backgrounds}
+
+\tikzset{
+    reverseclip/.style={insert path={(current page.north east) --
+        (current page.south east) --
+        (current page.south west) --
+        (current page.north west) --
+        (current page.north east)}
+    }
+}
+
+
 % Listar secoess
 \setcounter{secnumdepth}{0}
 
