@@ -8,7 +8,7 @@
         \item % A
         \label{item:ex3a}
         
-        Ambas as funções de transferência, $G(s)$ e $G(z)$ devem ter o mesmo ganho em regime estacionário. Seja $s = \epsilon + i \delta$, com $\epsilon$ e $\delta$ arbitrários, temos que o processo de mapeamento de pólos e zeros tem como condição necessária que o ganho tanto em $s$ quanto em $z$ sejam iguais. Isto significa 
+         Seja $s = \epsilon + i \delta$, com $\epsilon$ e $\delta$ arbitrários, temos que o processo de mapeamento de pólos e zeros tem como condição necessária que o ganho tanto em $s$ quanto em $z$ sejam iguais. Isto significa 
         
             \begin{equation}
                  \lim\limits_{s \rightarrow (0, 0)} \left \lvert G(s) \right \rvert = \lim\limits_{z \rightarrow (1, 0)} \left \lvert G(z) \right \rvert
@@ -87,7 +87,7 @@
         O termo à esquerda no limite tem valor definito e igual a $\frac{1}{2}$, $\forall T_s, k \in \mathbb{R}$. O termo à direita já foi calculada no item anterior e sua dedução está em \eqref{eq:esqex3a}. Desta forma, $K = \frac{T_s}{2}$. A expressão encontrada para o integrador em tempo discreto com uma função biprópria é dada por 
         
             \begin{equation}
-                G(z) = \frac{T_s}{2} \frac{z + 1}{z - 1}
+                G(z) = \frac{T_s}{2} \frac{z + 1}{z - 1} \stackrel{N}{=} 0.05 \frac{z + 1}{z - 1}
             \end{equation}
         
         A expressão acima corresponde nomeadamente à transformação bilinear ou Tustin.
