@@ -36,14 +36,14 @@
         Através de manipulações algébricas, obtemos que
         
             \begin{equation}
-                K = \lim\limits_{\epsilon \rightarrow 0} \left[ \left(\frac{e^{k T_s \epsilon} \cos{T_s \epsilon}  - 1}{\epsilon}\right)^2 + \left( \frac{e^{k T_s \epsilon} \sinT_s \sin T_s \epsilon}{\epsilon} \right)^2 \right]^{\frac{1}{2}} \frac{1}{\sqrt{1 + k^2}}
+                K = \lim\limits_{\epsilon \rightarrow 0} \left[ \left(\frac{e^{k T_s \epsilon} \cos{T_s \epsilon}  - 1}{\epsilon}\right)^2 + \left( \frac{e^{k T_s \epsilon} \sin T_s \sin T_s \epsilon}{\epsilon} \right)^2 \right]^{\frac{1}{2}} \frac{1}{\sqrt{1 + k^2}}
             \label{eq:K}
             \end{equation}
                 
         O termo à esquerda na expressão do limite em \eqref{eq:K} é uma indeterminação matemática para $\epsilon \rightarrow 0$. Por meio da regra de L'Hôpital, obtemos 
         
             \begin{equation}
-                \lim\limits_{\epsilon \rightarrow 0} \frac{e^{k T_s \epsilon} \cos{T_s \epsilon}  - 1}{\epsilon} = \lim\limits_{\epsilon \rightarrow 0} \left( k T_s e^{k \epsilon} \cos{\epsilon - e^{k T_s \epsilon} \sin{T_s \epsilon} \right) = k T_s
+                \lim\limits_{\epsilon \rightarrow 0} \frac{e^{k T_s \epsilon} \cos{T_s \epsilon}  - 1}{\epsilon} = \lim\limits_{\epsilon \rightarrow 0} \left( k T_s e^{k T_s \epsilon} \cos{T_s \epsilon} - e^{k T_s \epsilon} \sin{T_s \epsilon} \right) = k T_s
             \label{eq:esqex3a}
             \end{equation}
 
@@ -72,7 +72,7 @@
         Para K finito, 
         
             \begin{equation}
-                K &= \lim\limits_{(\epsilon, \delta) \rightarrow (0, 0)} \left( \frac{(e^{T_s \delta} \cos T_s \epsilon - 1)^2 +  e^{2 T_s \delta} \sin^2 T_s \epsilon}{((e^{T_s \delta} \cos T_s \epsilon + 1)^2 +  e^{2 T_s \delta} \sin^2 T_s \epsilon) (\epsilon^2 + \delta^2)} \right)^{\frac{1}{2}}
+                K = \lim\limits_{(\epsilon, \delta) \rightarrow (0, 0)} \left( \frac{(e^{T_s \delta} \cos T_s \epsilon - 1)^2 +  e^{2 T_s \delta} \sin^2 T_s \epsilon}{((e^{T_s \delta} \cos T_s \epsilon + 1)^2 +  e^{2 T_s \delta} \sin^2 T_s \epsilon) (\epsilon^2 + \delta^2)} \right)^{\frac{1}{2}}
             \end{equation}
         
         Para toda curva $\delta = k \epsilon$, $k \in \mathbb{R}$, temos que 
