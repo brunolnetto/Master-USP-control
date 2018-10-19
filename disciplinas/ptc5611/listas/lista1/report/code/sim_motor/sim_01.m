@@ -1,4 +1,4 @@
-clear all
+    clear all
 close all
 clc
 
@@ -28,14 +28,14 @@ sim('controle_01');
 hfig = figure();
 subplot(211); 
 
-% Gráfico de saída
+% Grï¿½fico de saï¿½da
 plot(tout, y,'k'); 
 title('Saida y(t)', 'interpreter', 'latex');
 ylabel('Amplitide ($\frac{rad}{s}$)', 'interpreter', 'latex');
 
 subplot(212); 
 
-% Gráfico do sinal de controle
+% Grï¿½fico do sinal de controle
 plot(tout, u,'k');
 title('Sinal de controle u(t)', 'interpreter', 'latex');
 xlabel('Tempo (s)', 'interpreter', 'latex'); 

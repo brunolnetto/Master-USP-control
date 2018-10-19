@@ -23,7 +23,8 @@ function [e, u, y, u_direto] = sim_ex6(G, C, mdlnome, Tf)
     set_param(mdlnome, 'SaveOutput', 'on');
     stdOut = sim(mdlnome, 'StopTime', num2str(Tf), ...
                           'SrcWorkspace', 'current', ...
-                          'AbsTol', '1e-6');
+                          'AbsTol', '1e-10', ...
+                          'RelTol', '1e-10');
     close_system
     
     % Acao de controle e saida da planta

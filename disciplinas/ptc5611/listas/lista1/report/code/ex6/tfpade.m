@@ -1,9 +1,10 @@
 function Gppade = tfpade(G, Ts, n)
     s = tf('s');
 
-    [num, den] = pade(Ts, n);
-    Gpade = tf(num, den);
+    num = [2/Ts];
+    den = [1 2/Ts];
+    Gzoh = tf(num, den);
 
-    Gppade = ((1 - Gpade)/(s*Ts))*G;
+    Gppade = Gzoh*G;
     Gppade = minreal(Gppade);
 end

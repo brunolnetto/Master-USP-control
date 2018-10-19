@@ -2,13 +2,11 @@
 \addcontentsline{toc}{section}{Exercício 2}
 
     \begin{enumerate}
-        \item %A
-        
-        As demonstrações estão abaixo:
-        
+        \item %Ax
             \begin{itemize}
             	\item $Z\{\sum_{i=0}^{n}x[i] \} = \frac{1}{1-z^{-1}}X(z)$
             	
+            	\begin{proof}
             	\begin{equation}
             	\begin{split}
             	Z\{\sum_{i=0}^{n}x[i] \} & = \sum_{n=0}^{\infty} z^{-n} \sum_{i=0}^{n} x[i] \\
@@ -23,9 +21,11 @@
             	\begin{equation}
             	\therefore Z\{\sum_{i=0}^{n}x[i] \} = \frac{1}{1-z^{-1}}.X(z) \hspace{10pt} \blacksquare
             	\end{equation}
+            	\end{proof}
             	
             	\item $Z\{\sum_{i=0}^{n}x[i-1] \} = \frac{z^{-1}}{1-z^{-1}}X(z)$
-            
+                
+            	\begin{proof}
             	\begin{equation}
             	\begin{split}
             	Z\{\sum_{i=0}^{n}x[i] \} & = \sum_{n=0}^{\infty} z^{-n} \sum_{i=0}^{n} x[i-1] \\
@@ -51,6 +51,7 @@
             	\therefore \lim\limits_{z \rightarrow 1} X(z) = \sum_{i=0}^{\infty}x[i] \hspace{10pt} \blacksquare
             	\end{split}
             	\end{equation}
+            	\end{proof}
             	
             \end{itemize}
         
@@ -127,6 +128,8 @@
                 \mathcal{Z}\{n^2 e^{-a n}\} \coloneqq -z \frac{d}{dz} \mathcal{Z}\{n e^{-a n}\} = e^{-a T_s} \frac{z^{-1}(1 + e^{-a T_s} z^{-1})}{(1 - e^{-a T_s} z^{-1})}
             \end{equation}
         
+        Em ambos os casos, a região de convergência é dada pela condição $R = R_1 \cap R_2$, com $R_1 = \left\{z \in \mathbb{C} | |z| \leq 1 \right\}$ e $R_2 = \left\{z \in \mathbb{C} | |z| \leq e^{-a T_s} \right\}$
+        
         \item %C
         
         Por definição, a equação das diferenças é da forma
@@ -145,8 +148,6 @@
         
         \item %D
         
-        Ambos os sinais apresentam a mesma transformada $\mathcal{Z}$, apesar de um ser sinal causal (Caso 1), e o outro ser não-causal (Caso 2).
-        
             \begin{itemize}
                 \item $x[n] = a^n u[n]$
                     \begin{equation}
@@ -157,6 +158,7 @@
                             &= \frac{1}{1 - a z^{-1}} \\
                             \therefore & \,\, G(z) = \frac{1}{1 - a z^{-1}}
                         \end{split}
+                    \label{eq:anun}
                     \end{equation}
                 
                 \item $x[n] = -a^n u[-n-1]$
@@ -165,13 +167,73 @@
                             X(z) &= - \sum_{n = - \infty}^{\infty} a^n u[-n - 1] z^{-1} \\
                             &= - \sum_{n = -1}^{-\infty} a^n z^{-n} \\
                             &= -\left(a^{-1}z + a^{-2} z^2 + a^{-3} z^3 + \cdots\right) \\
-                            &= -\frac{z}{a} \sum_{n = 0}^{\infty} (\frac{z}{a})^n = - \frac{z}{a} \frac{1}{1 - \frac{z}{a}} = \frac{z}{z-a} = \frac{1}{1 - a z^{-1}} \\
-                            \therefore & \,\, G(z) = \frac{1}{1 - a z^{-1}}
+                            &= -\frac{z}{a} \sum_{n = 0}^{\infty} (\frac{z}{a})^n \stackrel{|z| < |a|}{=} - \frac{z}{a} \frac{1}{1 - \frac{z}{a}} = \frac{z}{z-a} = \frac{1}{1 - a z^{-1}} \\
+                            \therefore & \,\, G(z) = \frac{1}{1 - a z^{-1}} \\
+                            \therefore G(z) = \frac{1}{1 - a z^{-1}}
                         \end{split}
-                    \end{equation}
-                    
-                    \begin{equation}
-                        \therefore G(z) = \frac{1}{1 - a z^{-1}}
+                    \label{eq:_anun_1}
                     \end{equation}
             \end{itemize}
         \end{enumerate}
+    
+    Ambos os sinais apresentam a mesma transformada $\mathcal{Z}$, apesar de serem distintos. Além disso, as regiões de convergência de ambos são distintas: para \eqref{eq:anun}, esta á  $|z| > |a|$ e para \eqref{eq:_anun_1}, $|z| < |a|$. A imagem \ref{fig:ex2d} apresenta as regiões visualmente.
+    
+    \begin{figure}[H]
+        \centering
+            \begin{tabular}{cc}
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        title={(a) Região de convergência de $x[n] = a^n u[n]$},
+                        width=6cm, height=6cm,
+                        xmin=-2, xmax=2,
+                        ymin=-2, ymax=2,
+                        xlabel = {$ \sigma $}, ylabel = {$ \omega $},
+                        xtick={-2, -1, 0, 1, 2},
+                        xticklabels={$-2$, $-1$, $0$,$1$,$2$},
+                        ytick={-2, -1, 0, 1, 2},
+                        yticklabels={$-2$, $-1$, $0$,$1$,$2$},
+                        every tick label/.append style={font=\scriptsize},
+                        enlargelimits=0.05,
+                        ]
+                        
+                        % Draw filled rectangle
+                        \addplot[draw=black, fill=gray, thin] coordinates { (-2,-2) (-2, 2) (2, 2) (2, -2) (-2, -2) };
+                        
+                        % Draw filled circles
+                        \draw[black, dashed, fill = white] (axis cs:0, 0) circle[radius=1.5];
+                        
+                        % Draw diameter
+                        \addplot[color=red] coordinates { (1.5/1.4142, 1.5/1.4142) (0, 0) } node[pos=.5, yshift=8pt,sloped] {$|a|$};
+                    
+                    \end{axis}
+                \end{tikzpicture} &
+                \begin{tikzpicture}
+                        \begin{axis}[
+                            title={(b) Região de convergência de $x[n] = -a^n u[-n-1]$},
+                            width=6cm, height=6cm,
+                            xmin=-2, xmax=2,
+                            ymin=-2, ymax=2,
+                            xlabel = {$ \sigma $}, ylabel = {$ \omega $},
+                            xtick={-2, -1, 0, 1, 2},
+                            xticklabels={$-2$, $-1$, $0$,$1$,$2$},
+                            ytick={-2, -1, 0, 1, 2},
+                            yticklabels={$-2$, $-1$, $0$,$1$,$2$},
+                            every tick label/.append style={font=\scriptsize},
+                            enlargelimits=0.05,
+                            ]
+                            
+                            % Draw filled rectangle
+                            \addplot[draw=black, fill=white, thin] coordinates { (-2,-2) (-2, 2) (2, 2) (2, -2) (-2, -2) };
+                            
+                            % Draw filled circles
+                            \draw[black, dashed, fill = gray] (axis cs:0, 0) circle[radius=1.5];
+                            
+                            % Draw diameter
+                            \addplot[color=red] coordinates { (1.5/1.4142, 1.5/1.4142) (0, 0) } node[pos=.5, yshift=8pt, sloped] {$|a|$};
+                        
+                        \end{axis}
+                \end{tikzpicture}
+            \end{tabular}
+        \caption{\label{fig:ex2d} Região de convergência da transformação $\mathcal{Z}$ das sequências $x[n] = a^n u[n]$ e $x[n] = -a^n u[-n-1]$}
+    \end{figure}
+
