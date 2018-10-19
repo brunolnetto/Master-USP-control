@@ -16,7 +16,7 @@ G = 1/(s*(s+c));
 tr = 1;
 
 % Sobressinal []
-M = 0.2;
+M = 0.05;
 % ----------------------------------------------
 
 % -------- Projeto de Controle continuo --------
@@ -24,7 +24,6 @@ M = 0.2;
 zeta = sqrt(log(M)^2/(log(M)^2 + pi^2));
 wn = (1/tr)*(1/sqrt(1 - zeta^2))*(pi - atan(sqrt(1 - zeta^2)/zeta));
 polo_proj = wn*(-zeta + i*sqrt(1 - zeta^2));
-% 
 
 % Lugar das raizes
 %         ^\omega 
