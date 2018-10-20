@@ -1,9 +1,0 @@
-\select@language {brazilian}
-\contentsline {figure}{\numberline {1}{\ignorespaces (a) Curva original e s\IeC {\'e}rie amostrada (b) Sinais com frequ\IeC {\^e}ncias diferentes e mesmo sinal amostrado\relax }}{2}{figure.caption.5}
-\contentsline {figure}{\numberline {2}{\ignorespaces Espectro do sinal original. Frequ\IeC {\^e}ncia de amostragem e reconstru\IeC {\c c}\IeC {\~a}o $\omega _s = \omega _N$ e $\omega _f = \omega _N$\relax }}{3}{figure.caption.6}
-\contentsline {figure}{\numberline {3}{\ignorespaces Espectro do sinal original. Frequ\IeC {\^e}ncia de amostragem e reconstru\IeC {\c c}\IeC {\~a}o $\omega _s = 3 \tmspace +\thinmuskip {.1667em} \omega _N$ e $\omega _f = \frac {\omega _s}{2}$\relax }}{3}{figure.caption.7}
-\contentsline {figure}{\numberline {4}{\ignorespaces A\IeC {\c c}\IeC {\~a}o de controle para controle cont\IeC {\'\i }nuo e discreto com $f_s = 4 Hz$ e $f_s = 20 Hz$. \relax }}{12}{figure.caption.13}
-\contentsline {figure}{\numberline {5}{\ignorespaces Curva original e s\IeC {\'e}rie amostrada\relax }}{13}{figure.caption.14}
-\contentsline {figure}{\numberline {6}{\ignorespaces Curva original e s\IeC {\'e}rie amostrada\relax }}{13}{figure.caption.15}
-\contentsline {figure}{\numberline {7}{\ignorespaces Diagrama de blocos em malha fechada com controle cont\IeC {\'\i }nuo\relax }}{14}{figure.caption.16}
-\contentsline {figure}{\numberline {8}{\ignorespaces Diagrama de blocos em malha fechada com controle discreto\relax }}{14}{figure.caption.17}
