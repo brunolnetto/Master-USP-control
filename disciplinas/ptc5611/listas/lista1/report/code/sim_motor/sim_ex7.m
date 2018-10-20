@@ -1,6 +1,20 @@
-function [w, e, d, u, y] = sim_ex7(mdlnome, params, Tf)
+function [w, e, d, u, usat, y] = sim_ex7(mdlnome, params, Tf)
     
     sat = params.sat;
+    Ts = params.Ts;
+    variance = params.variance;
+    
+    t0_dist = params.t0_vel;
+    tf_dist = params.t0_vel;
+    t0_vel = params.t0_vel;
+    vel_estat = params.vel_estat;
+    dist_val = params.dist_val;
+    
+    b = params.b;
+    J = params.J;
+    K = params.K;
+    R = params.R;
+    L = params.L;
     
     open_system(mdlnome);
     save_system;
@@ -15,4 +29,5 @@ function [w, e, d, u, y] = sim_ex7(mdlnome, params, Tf)
     e = stdOut.get('e');
     d = stdOut.get('d');
     u = stdOut.get('u');
+    usat = stdOut.get('usat');
     y = stdOut.get('y');

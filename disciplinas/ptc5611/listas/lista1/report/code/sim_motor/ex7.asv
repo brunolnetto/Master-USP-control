@@ -90,7 +90,7 @@ params.a = Ts/sqrt(Ti*Td);
 
 [wd, ed, dd, ud, usatd, yd] = sim_ex7(mdlnome, params, Tf);
 
-hfig = figure();
+figure()
 set(groot, 'defaultTextInterpreter', 'latex');
 
 subplot(2,2, 1)
@@ -105,7 +105,8 @@ plot(ud.time, ud.signals.values)
 hold off
 
 xlabel('Tempo [s]');
-xlabel('Tensao [V]', 'interpreter', 'latex');
+xlabel('Tensao [V]');
+
 
 subplot(2,2, 2)
 plot(ya.time, ya.signals.values)
@@ -117,8 +118,9 @@ hold on
 plot(yd.time, yd.signals.values)
 hold off
 
-xlabel('Tempo [s]', 'interpreter', 'latex');
-ylabel('$\omega$ [$\frac{rad}{s}$]', 'interpreter', 'latex');
+xlabel('Tempo [s]');
+ylabel('$\omega$ [rad/s]', 'interpreter', ' ');
+ylabel('Tensao [rad/s]');
 
 subplot(2,2, 3)
 plot(usata.time, usata.signals.values)
@@ -130,9 +132,6 @@ hold on
 plot(usatd.time, usatd.signals.values)
 hold off
 
-xlabel('Tempo [s]', 'interpreter', 'latex');
-ylabel('Tensao [V]', 'interpreter', 'latex');
-
 subplot(2,2, 4)
 plot(ea.time, ea.signals.values)
 hold on
@@ -143,18 +142,11 @@ hold on
 plot(ed.time, ed.signals.values)
 hold off
 
-xlabel('Tempo [s]', 'interpreter', 'latex');
-ylabel('Erro [$\frac{rad}{s}$]', 'interpreter', 'latex');
+legend('PID', 'PID com anti0windup', 'PID com anti-windup e filtro', 'PID com anti-windup e filtro');
 
-legend('PID', 'PID com anti-windup', 'PID com anti-windup (1) e filtro', 'PID com anti-windup (2) e filtro');
-
-orient(hfig, 'landscape');
-
-saveas(hfig, '../../images/ex7.pdf');
-% close all;
-
-% Salva modelos em simulink
-open_system('dcIntrocomplete')
-print('-sdcIntrocomplete','-dpdf','../../images/dcIntrocomplete.pdf')
-close_system
+% Sinais das simulacoes
+%E = [ea eb ec ed];
+%D = [da db dc dd];
+%U = [ua ub uc ud];
+%Y = [ya yb yc yd];
 

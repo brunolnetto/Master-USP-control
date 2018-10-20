@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.50"
+    ComputedModelVersion    "1.67"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -31,7 +31,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1936.0, 1056.0]
+      Location		      [-8.0, 0.0, 1936.0, 1056.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -40,7 +40,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -57,7 +57,7 @@ Model {
 	LoadSaveID		"0"
 	Extents			[1886.0, 882.0]
 	ZoomFactor		[1.25]
-	Offset			[-76.345322697606889, -120.72419627749578]
+	Offset			[-76.345322697606889, -120.72419627749576]
       }
     }
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "BPeixoto"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Oct 19 23:19:23 2018"
-  RTWModifiedTimeStamp	  461891962
-  ModelVersionFormat	  "1.%<AutoIncrement:50>"
+  LastModifiedDate	  "Sat Oct 20 19:30:53 2018"
+  RTWModifiedTimeStamp	  461962818
+  ModelVersionFormat	  "1.%<AutoIncrement:67>"
   ConfigurationManager	  "Perforce SCM"
   SampleTimeColors	  on
   SampleTimeAnnotations	  off
@@ -374,7 +374,7 @@ Model {
 	  SimStateInterfaceChecksumMismatchMsg "warning"
 	  SimStateOlderReleaseMsg "error"
 	  InitInArrayFormatMsg	  "warning"
-	  StrictBusMsg		  "Warning"
+	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
 	  BlockIODiagnostic	  "none"
@@ -953,7 +953,7 @@ Model {
   }
   System {
     Name		    "dcIntrocomplete"
-    Location		    [-8, -8, 1928, 1048]
+    Location		    [-8, 0, 1928, 1056]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -967,7 +967,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "125"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "43"
+    SIDHighWatermark	    "47"
     Block {
       BlockType		      ZeroOrderHold
       Name		      "A-D \nConverter"
@@ -975,33 +975,59 @@ Model {
       Position		      [340, 260, 370, 290]
       ZOrder		      -2
       BlockMirror	      on
+      BackgroundColor	      "yellow"
       SampleTime	      "0.02"
     }
     Block {
       BlockType		      ZeroOrderHold
       Name		      "A-D \nConverter1"
       SID		      "41"
-      Position		      [130, 150, 160, 180]
+      Position		      [130, 130, 160, 160]
       ZOrder		      10
+      BackgroundColor	      "yellow"
       NamePlacement	      "alternate"
       SampleTime	      "0.02"
     }
     Block {
-      BlockType		      ZeroOrderHold
-      Name		      "A-D \nConverter2"
-      SID		      "42"
-      Position		      [435, 305, 465, 335]
-      ZOrder		      11
+      BlockType		      ToWorkspace
+      Name		      "Acao de controle"
+      SID		      "44"
+      Ports		      [1]
+      Position		      [325, 350, 385, 380]
+      ZOrder		      14
+      BlockMirror	      on
+      BackgroundColor	      "green"
       NamePlacement	      "alternate"
-      SampleTime	      "0.02"
+      VariableName	      "u"
+      MaxDataPoints	      "inf"
+      SaveFormat	      "Structure With Time"
+      Save2DSignal	      "3-D array (concatenate along third dimension)"
+      FixptAsFi		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "Ação de controle de saturacao"
+      SID		      "38"
+      Ports		      [1]
+      Position		      [530, 350, 590, 380]
+      ZOrder		      7
+      BackgroundColor	      "green"
+      VariableName	      "usat"
+      MaxDataPoints	      "inf"
+      SaveFormat	      "Structure With Time"
+      Save2DSignal	      "3-D array (concatenate along third dimension)"
+      FixptAsFi		      on
+      SampleTime	      "-1"
     }
     Block {
       BlockType		      SubSystem
       Name		      "DC Motor"
       SID		      "2"
       Ports		      [2, 1]
-      Position		      [530, 140, 585, 200]
+      Position		      [530, 125, 585, 185]
       ZOrder		      -3
+      BackgroundColor	      "green"
       RequestExecContextInheritance off
       Object {
 	$PropName		"MaskObject"
@@ -1156,55 +1182,16 @@ Model {
       }
     }
     Block {
-      BlockType		      Step
-      Name		      "Degrau 1"
-      SID		      "12"
-      Position		      [375, 30, 405, 50]
-      ZOrder		      -1
-      Time		      "10"
-      After		      "0.25"
-      SampleTime	      "Ts"
-      Port {
-	PortNumber		1
-	Name			"Disturbio de torque"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-    }
-    Block {
-      BlockType		      Step
-      Name		      "Degrau 2"
-      SID		      "32"
-      Position		      [375, 80, 405, 100]
-      ZOrder		      1
-      Time		      "25"
-      After		      "-0.25"
-      SampleTime	      "Ts"
-    }
-    Block {
       BlockType		      ToWorkspace
       Name		      "Distúrbio"
       SID		      "40"
       Ports		      [1]
-      Position		      [545, 75, 605, 105]
+      Position		      [525, 35, 585, 65]
       ZOrder		      9
+      BackgroundColor	      "green"
       VariableName	      "d"
       MaxDataPoints	      "inf"
-      SaveFormat	      "Timeseries"
-      Save2DSignal	      "3-D array (concatenate along third dimension)"
-      FixptAsFi		      on
-      SampleTime	      "-1"
-    }
-    Block {
-      BlockType		      ToWorkspace
-      Name		      "Entrada"
-      SID		      "38"
-      Ports		      [1]
-      Position		      [565, 320, 625, 350]
-      ZOrder		      7
-      VariableName	      "u"
-      MaxDataPoints	      "inf"
-      SaveFormat	      "Timeseries"
+      SaveFormat	      "Structure With Time"
       Save2DSignal	      "3-D array (concatenate along third dimension)"
       FixptAsFi		      on
       SampleTime	      "-1"
@@ -1214,13 +1201,14 @@ Model {
       Name		      "Erro"
       SID		      "39"
       Ports		      [1]
-      Position		      [190, 60, 250, 90]
+      Position		      [180, 25, 240, 55]
       ZOrder		      8
       BlockMirror	      on
+      BackgroundColor	      "green"
       NamePlacement	      "alternate"
       VariableName	      "e"
       MaxDataPoints	      "inf"
-      SaveFormat	      "Timeseries"
+      SaveFormat	      "Structure With Time"
       Save2DSignal	      "3-D array (concatenate along third dimension)"
       FixptAsFi		      on
       SampleTime	      "-1"
@@ -1230,8 +1218,9 @@ Model {
       Name		      "MATLAB Function"
       SID		      "34"
       Ports		      [2, 1]
-      Position		      [310, 141, 405, 234]
+      Position		      [285, 121, 380, 214]
       ZOrder		      3
+      BackgroundColor	      "yellow"
       LibraryVersion	      "1.32"
       ErrorFcn		      "Stateflow.Translate.translate"
       PermitHierarchicalResolution "ExplicitOnly"
@@ -1241,7 +1230,7 @@ Model {
       Port {
 	PortNumber		1
 	Name			"Tensão"
-	PropagatedSignals	"uk"
+	PropagatedSignals	"u_k"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -1298,6 +1287,7 @@ Model {
 	  FunctionName		  "sf_sfun"
 	  Parameters		  "params"
 	  PortCounts		  "[2 2]"
+	  EnableBusSupport	  on
 	  Port {
 	    PortNumber		    2
 	    Name		    "u_k"
@@ -1360,112 +1350,17 @@ Model {
       }
     }
     Block {
-      BlockType		      RandomNumber
-      Name		      "Ruido do sensor"
-      SID		      "9"
-      Position		      [690, 56, 720, 74]
-      ZOrder		      -6
-      BlockMirror	      on
-      NamePlacement	      "alternate"
-      Variance		      "sigma^2"
-      SampleTime	      "Ts"
-    }
-    Block {
-      BlockType		      Saturate
-      Name		      "Saturacao"
-      SID		      "43"
-      Ports		      [1, 1]
-      Position		      [460, 170, 490, 200]
-      ZOrder		      12
-      InputPortMap	      "u0"
-    }
-    Block {
-      BlockType		      ToWorkspace
-      Name		      "Saída"
-      SID		      "37"
-      Ports		      [1]
-      Position		      [700, 155, 760, 185]
-      ZOrder		      6
-      VariableName	      "y"
-      MaxDataPoints	      "inf"
-      SaveFormat	      "Timeseries"
-      Save2DSignal	      "3-D array (concatenate along third dimension)"
-      FixptAsFi		      on
-      SampleTime	      "-1"
-    }
-    Block {
-      BlockType		      ToWorkspace
-      Name		      "Set-point"
-      SID		      "35"
-      Ports		      [1]
-      Position		      [115, 60, 175, 90]
-      ZOrder		      4
-      VariableName	      "w"
-      MaxDataPoints	      "inf"
-      SaveFormat	      "Timeseries"
-      Save2DSignal	      "3-D array (concatenate along third dimension)"
-      FixptAsFi		      on
-      SampleTime	      "-1"
-    }
-    Block {
-      BlockType		      Sum
-      Name		      "Sum"
-      SID		      "13"
-      Ports		      [2, 1]
-      Position		      [230, 155, 250, 175]
-      ZOrder		      -7
-      ShowName		      off
-      IconShape		      "round"
-      Inputs		      "|+-"
-      InputSameDT	      off
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
-      SaturateOnIntegerOverflow	off
-    }
-    Block {
-      BlockType		      Sum
-      Name		      "Sum1"
-      SID		      "33"
-      Ports		      [2, 1]
-      Position		      [440, 80, 460, 100]
-      ZOrder		      2
-      ShowName		      off
-      IconShape		      "round"
-      Inputs		      "++|"
-      InputSameDT	      off
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
-      SaturateOnIntegerOverflow	off
-    }
-    Block {
-      BlockType		      Sum
-      Name		      "Sum2"
-      SID		      "28"
-      Ports		      [2, 1]
-      Position		      [625, 160, 645, 180]
-      ZOrder		      -8
-      ShowName		      off
-      IconShape		      "round"
-      Inputs		      "++|"
-      InputSameDT	      off
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
-      SaturateOnIntegerOverflow	off
-      Port {
-	PortNumber		1
-	Name			"Velocidade medida"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-    }
-    Block {
       BlockType		      SubSystem
-      Name		      "Velocidade \ndesejada"
-      SID		      "20"
+      Name		      "Perturbação"
+      SID		      "45"
       Ports		      [0, 1]
-      Position		      [20, 145, 60, 185]
-      ZOrder		      -4
+      Position		      [315, 22, 400, 78]
+      ZOrder		      15
+      BackgroundColor	      "green"
       RequestExecContextInheritance off
       System {
-	Name			"Velocidade \ndesejada"
-	Location		[-8, -8, 1928, 1048]
+	Name			"Perturbação"
+	Location		[-8, 0, 1928, 1056]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1477,71 +1372,179 @@ Model {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"100"
+	ZoomFactor		"125"
 	Block {
 	  BlockType		  Step
-	  Name			  "Step"
-	  SID			  "24"
-	  Position		  [25, 100, 55, 130]
+	  Name			  "Degrau 1"
+	  SID			  "12"
+	  Position		  [20, 20, 50, 40]
 	  ZOrder		  -1
-	  Time			  "7"
-	  After			  "-4"
-	  SampleTime		  "0.02"
+	  Time			  "t0_dist"
+	  After			  "dist_val"
+	  SampleTime		  "Ts"
+	  Port {
+	    PortNumber		    1
+	    Name		    "Disturbio de torque"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
 	}
 	Block {
 	  BlockType		  Step
-	  Name			  "Step1"
-	  SID			  "25"
-	  Position		  [25, 25, 55, 55]
-	  ZOrder		  -2
-	  After			  "2"
-	  SampleTime		  "0.02"
+	  Name			  "Degrau 2"
+	  SID			  "32"
+	  Position		  [20, 70, 50, 90]
+	  ZOrder		  1
+	  Time			  "25"
+	  After			  "-0.25"
+	  SampleTime		  "Ts"
 	}
 	Block {
 	  BlockType		  Sum
-	  Name			  "Sum"
-	  SID			  "23"
+	  Name			  "Sum1"
+	  SID			  "33"
 	  Ports			  [2, 1]
-	  Position		  [135, 30, 155, 50]
-	  ZOrder		  -3
+	  Position		  [85, 70, 105, 90]
+	  ZOrder		  2
 	  ShowName		  off
 	  IconShape		  "round"
-	  Inputs		  "|++"
+	  Inputs		  "++|"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  Outport
-	  Name			  "Speed"
-	  SID			  "21"
-	  Position		  [315, 33, 345, 47]
-	  ZOrder		  -4
+	  Name			  "Distúrbio de torque"
+	  SID			  "46"
+	  Position		  [150, 73, 180, 87]
+	  ZOrder		  3
 	  IconDisplay		  "Port number"
 	}
 	Line {
-	  ZOrder		  1
-	  SrcBlock		  "Step"
+	  Name			  "Disturbio de torque"
+	  ZOrder		  9
+	  Labels		  [-1, 1]
+	  SrcBlock		  "Degrau 1"
 	  SrcPort		  1
-	  Points		  [85, 0]
-	  DstBlock		  "Sum"
+	  Points		  [40, 0]
+	  DstBlock		  "Sum1"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  10
+	  SrcBlock		  "Degrau 2"
+	  SrcPort		  1
+	  DstBlock		  "Sum1"
 	  DstPort		  2
 	}
 	Line {
-	  ZOrder		  2
-	  SrcBlock		  "Step1"
+	  ZOrder		  14
+	  SrcBlock		  "Sum1"
 	  SrcPort		  1
-	  DstBlock		  "Sum"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  3
-	  SrcBlock		  "Sum"
-	  SrcPort		  1
-	  DstBlock		  "Speed"
+	  DstBlock		  "Distúrbio de torque"
 	  DstPort		  1
 	}
       }
+    }
+    Block {
+      BlockType		      RandomNumber
+      Name		      "Ruido do sensor"
+      SID		      "9"
+      Position		      [715, 266, 745, 284]
+      ZOrder		      -6
+      BlockMirror	      on
+      BackgroundColor	      "green"
+      NamePlacement	      "alternate"
+      Variance		      "variance"
+      SampleTime	      "Ts"
+    }
+    Block {
+      BlockType		      Saturate
+      Name		      "Saturacao"
+      SID		      "43"
+      Ports		      [1, 1]
+      Position		      [450, 155, 480, 185]
+      ZOrder		      12
+      BackgroundColor	      "yellow"
+      InputPortMap	      "u0"
+      UpperLimit	      "sat"
+      LowerLimit	      "-sat"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "Saída"
+      SID		      "37"
+      Ports		      [1]
+      Position		      [700, 140, 760, 170]
+      ZOrder		      6
+      BackgroundColor	      "green"
+      VariableName	      "y"
+      MaxDataPoints	      "inf"
+      SaveFormat	      "Structure With Time"
+      Save2DSignal	      "3-D array (concatenate along third dimension)"
+      FixptAsFi		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "Set-point"
+      SID		      "35"
+      Ports		      [1]
+      Position		      [20, 25, 80, 55]
+      ZOrder		      4
+      BlockMirror	      on
+      BackgroundColor	      "green"
+      NamePlacement	      "alternate"
+      VariableName	      "w"
+      MaxDataPoints	      "inf"
+      SaveFormat	      "Structure With Time"
+      Save2DSignal	      "3-D array (concatenate along third dimension)"
+      FixptAsFi		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Step
+      Name		      "Step"
+      SID		      "24"
+      Position		      [20, 130, 50, 160]
+      ZOrder		      16
+      BackgroundColor	      "green"
+      Time		      "t0_vel"
+      After		      "vel_estat"
+      SampleTime	      "Ts"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum"
+      SID		      "13"
+      Ports		      [2, 1]
+      Position		      [210, 135, 230, 155]
+      ZOrder		      -7
+      BackgroundColor	      "yellow"
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "|+-"
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum2"
+      SID		      "28"
+      Ports		      [2, 1]
+      Position		      [605, 265, 625, 285]
+      ZOrder		      13
+      BlockMirror	      on
+      BackgroundColor	      "cyan"
+      NamePlacement	      "alternate"
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "++|"
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Scope
@@ -1573,12 +1576,12 @@ Model {
       IOType		      "viewer"
       List {
 	ListType		IOSignalStrings
-	set0ParseKeys		"23,7"
-	set0Sigs		"Velocidade  desejada:o1Sum2:o1"
+	set0ParseKeys		"11"
+	set0Sigs		"unconnected"
 	set1ParseKeys		"11"
 	set1Sigs		"unconnected"
-	set2ParseKeys		"11"
-	set2Sigs		"Degrau 1:o1"
+	set2ParseKeys		"23"
+	set2Sigs		"Perturbação/Degrau 1:o1"
       }
       Floating		      off
       Location		      [11, 527, 963, 1025]
@@ -1632,65 +1635,29 @@ Model {
       SampleTime	      "0"
     }
     Line {
-      ZOrder		      11
+      ZOrder		      102
       SrcBlock		      "Sum"
       SrcPort		      1
-      Points		      [11, 0; 0, -10]
+      Points		      [24, 0]
       Branch {
-	ZOrder			63
-	Points			[0, -80]
-	DstBlock		"Erro"
-	DstPort			1
-      }
-      Branch {
-	ZOrder			56
-	Points			[29, 0]
+	ZOrder			122
 	DstBlock		"MATLAB Function"
 	DstPort			1
       }
-    }
-    Line {
-      ZOrder		      5
-      SrcBlock		      "DC Motor"
-      SrcPort		      1
-      DstBlock		      "Sum2"
-      DstPort		      2
-    }
-    Line {
-      Name		      "Velocidade medida"
-      ZOrder		      6
-      SrcBlock		      "Sum2"
-      SrcPort		      1
-      Points		      [29, 0]
       Branch {
-	ZOrder			23
-	DstBlock		"Saída"
+	ZOrder			103
+	Points			[0, -105]
+	DstBlock		"Erro"
 	DstPort			1
       }
-      Branch {
-	ZOrder			22
-	Labels			[2, 0]
-	Points			[0, 105]
-	DstBlock		"A-D \nConverter"
-	DstPort			1
-      }
-    }
-    Line {
-      ZOrder		      7
-      SrcBlock		      "Ruido do sensor"
-      SrcPort		      1
-      Points		      [-50, 0]
-      DstBlock		      "Sum2"
-      DstPort		      1
     }
     Line {
       ZOrder		      8
       SrcBlock		      "A-D \nConverter"
       SrcPort		      1
-      Points		      [-95, 0; 0, -75]
+      Points		      [-115, 0; 0, -85]
       Branch {
-	ZOrder			48
-	Points			[25, 0; 0, 10]
+	ZOrder			104
 	DstBlock		"MATLAB Function"
 	DstPort			2
       }
@@ -1701,53 +1668,19 @@ Model {
       }
     }
     Line {
-      Name		      "Disturbio de torque"
-      ZOrder		      9
-      Labels		      [-1, 1]
-      SrcBlock		      "Degrau 1"
+      ZOrder		      145
+      SrcBlock		      "Step"
       SrcPort		      1
-      Points		      [40, 0]
-      DstBlock		      "Sum1"
-      DstPort		      1
-    }
-    Line {
-      ZOrder		      10
-      SrcBlock		      "Degrau 2"
-      SrcPort		      1
-      DstBlock		      "Sum1"
-      DstPort		      2
-    }
-    Line {
-      ZOrder		      13
-      SrcBlock		      "Sum1"
-      SrcPort		      1
-      Points		      [25, 0]
+      Points		      [41, 0]
       Branch {
-	ZOrder			30
-	DstBlock		"Distúrbio"
+	ZOrder			98
+	DstBlock		"A-D \nConverter1"
 	DstPort			1
       }
-      Branch {
-	ZOrder			29
-	Points			[0, 65]
-	DstBlock		"DC Motor"
-	DstPort			1
-      }
-    }
-    Line {
-      ZOrder		      31
-      SrcBlock		      "Velocidade \ndesejada"
-      SrcPort		      1
-      Points		      [31, 0]
       Branch {
 	ZOrder			45
-	Points			[0, -90]
+	Points			[0, -105]
 	DstBlock		"Set-point"
-	DstPort			1
-      }
-      Branch {
-	ZOrder			39
-	DstBlock		"A-D \nConverter1"
 	DstPort			1
       }
     }
@@ -1759,21 +1692,87 @@ Model {
       DstPort		      1
     }
     Line {
+      ZOrder		      92
+      SrcBlock		      "Ruido do sensor"
+      SrcPort		      1
+      DstBlock		      "Sum2"
+      DstPort		      2
+    }
+    Line {
+      ZOrder		      90
+      SrcBlock		      "DC Motor"
+      SrcPort		      1
+      Points		      [25, 0]
+      Branch {
+	ZOrder			118
+	DstBlock		"Sum2"
+	DstPort			1
+      }
+      Branch {
+	ZOrder			116
+	DstBlock		"Saída"
+	DstPort			1
+      }
+    }
+    Line {
+      ZOrder		      97
+      SrcBlock		      "Sum2"
+      SrcPort		      1
+      DstBlock		      "A-D \nConverter"
+      DstPort		      1
+    }
+    Line {
       Name		      "Tensão"
-      ZOrder		      54
+      ZOrder		      108
       Labels		      [0, 0]
       SrcBlock		      "MATLAB Function"
       SrcPort		      1
-      Points		      [0, -5]
-      DstBlock		      "Saturacao"
-      DstPort		      1
+      Points		      [38, 0]
+      Branch {
+	ZOrder			113
+	Points			[0, 195]
+	DstBlock		"Acao de controle"
+	DstPort			1
+      }
+      Branch {
+	ZOrder			112
+	DstBlock		"Saturacao"
+	DstPort			1
+      }
     }
     Line {
       ZOrder		      55
       SrcBlock		      "Saturacao"
       SrcPort		      1
-      DstBlock		      "DC Motor"
-      DstPort		      2
+      Points		      [16, 0]
+      Branch {
+	ZOrder			119
+	Points			[0, 195]
+	DstBlock		"Ação de controle de saturacao"
+	DstPort			1
+      }
+      Branch {
+	ZOrder			110
+	DstBlock		"DC Motor"
+	DstPort			2
+      }
+    }
+    Line {
+      ZOrder		      114
+      SrcBlock		      "Perturbação"
+      SrcPort		      1
+      Points		      [50, 0]
+      Branch {
+	ZOrder			124
+	DstBlock		"Distúrbio"
+	DstPort			1
+      }
+      Branch {
+	ZOrder			121
+	Points			[0, 90]
+	DstBlock		"DC Motor"
+	DstPort			1
+      }
     }
   }
 }
@@ -1801,10 +1800,7 @@ Stateflow {
     firstTransition	    9
     firstJunction	    8
     viewObj		    2
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    8
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -1830,17 +1826,16 @@ Stateflow {
     eml {
       isEML		      1
       script		      "function u_k = controlador(e_k, y_k, params)\n\npersistent ui_ant;\npersistent ud_ant;\npersisten"
-      "t u_ant; \npersistent e_ant;\npersistent y_ant;\n\n% Atribuicao para primeira iteracao\nif isempty(ui_ant) && is"
-      "empty(ud_ant) &&...\n   isempty(e_ant) && isempty(y_ant)\n    ui_ant = 0;\n    ud_ant = 0;\n    u_ant = 0;\n    "
-      "e_ant = 0;\n    y_ant = 0;\nend\n\n% Parametros do controlador\nparams.sat = sat;\nparams.Ts = Ts;\nparams.Kp = "
-      "Kp;\nparams.Ti = Ti;\nparams.Td = Td;\nparams.N = N;\nparams.a = a;\n\n% Erro do integrador\n% Estratégia anti-w"
-      "indup\nif params.antiwindup\n    if (u_ant >= sat) || (u_ant <= -sat)\n        ei_k = 0;\n    else\n        ei_k"
-      " = ek;\n    end\nelse\n    ei_k = ek;\nend\n\nif (u_ant >= sat)\n    e_u = u_ant - sat;\nelseif (u_ant <= -sat)\n"
-      "    e_u = u_ant + sat;\nelse\n    e_u = 0;\nend\n\n% Saidas e acoes anteriorse\ny_k_1 = y_ant;\nui_k_1 = ui_ant;"
-      "\nud_k_1 = ud_ant;\n\n% Acao proporcional\nup_k = Kp*ek;\n\n% Acao integrativa\nui_k = ui_k_1 + (Kp*Ts/Ti)*ei_k "
-      "- a*e_u;\n\n% Acao derivativa\nud = (Td/(Td + N*Ts))*ud_k_1 - (Kp*N*Td/(Td + N*Ts))*(yk - y_k_1);\n\nu_k = up_k "
-      "+ ui_k + ud_k;\n\n% Valores salvos para a próxima iteracao\nui_ant = ui_k;\nud_ant = ud_k;\nu_ant = u_k\ne_ant ="
-      " e_k;\ny_ant = y_k;\n\n\n"
+      "t u_ant; \npersistent y_ant;\n\n% Atribuicao para primeira iteracao\nif isempty(ui_ant) && isempty(ud_ant) && is"
+      "empty(y_ant)\n    ui_ant = 0;\n    ud_ant = 0;\n    u_ant = 0;\n    y_ant = 0;\nend\n\n% Parametros do controlad"
+      "or\nsat = params.sat;\nTs = params.Ts;\nKp = params.Kp;\nTi = params.Ti;\nTd = params.Td;\nN = params.N;\na = pa"
+      "rams.a;\n\n% Erro do integrador\n% Estratégia anti-windup\nif params.antiwindup\n    if (u_ant >= sat) || (u_ant"
+      " <= -sat)\n        ei_k = 0;\n    else\n        ei_k = e_k;\n    end\nelse\n    ei_k = e_k;\nend\n\nif (u_ant >="
+      " sat)\n    e_u = u_ant - sat;\nelseif (u_ant <= -sat)\n    e_u = u_ant + sat;\nelse\n    e_u = 0;\nend\n\n% Said"
+      "as e acoes anteriorse\ny_k_1 = y_ant;\nui_k_1 = ui_ant;\nud_k_1 = ud_ant;\n\n% Acao proporcional\nup_k = Kp*e_k;"
+      "\n\n% Acao integrativa\nui_k = ui_k_1 + (Kp*Ts/Ti)*ei_k - a*e_u;\n\n% Acao derivativa\nud_k = (Td/(Td + N*Ts))*u"
+      "d_k_1 - (Kp*N*Td/(Td + N*Ts))*(y_k - y_k_1);\n\nu_k = up_k + ui_k + ud_k;\n\n% Valores salvos para a próxima ite"
+      "racao\nui_ant = ui_k;\nud_ant = ud_k;\nu_ant = u_k;\ny_ant = y_k;\n\n\n"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }
