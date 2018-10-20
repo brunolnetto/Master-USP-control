@@ -9,12 +9,12 @@ N = 3;
 
 % Velocidade inicial e valor de velocidade estacionária
 t0_vel = 5;
-vel_estat = 3;
+vel_estat = 10;
 
 % Instante inicial e final da perturbacao
 t0_dist = 10;
 tf_dist = 25;
-dist_val = 0.25;
+dist_val = 3;
 
 % Parâmetos da planta
 b = 1;
@@ -33,7 +33,7 @@ Ts = 0.01;
 Tf = 35;
 
 % Desvio padrão do ruido
-variance = 0.0;
+variance = 0.01;
 
 % Controlador PID
 s = tf('s');
