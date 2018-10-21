@@ -23,7 +23,7 @@ N = params.N;
 a = params.a;
 
 % Erro do integrador
-% Estratégia anti-windup
+% Estrategia anti-windup
 if params.antiwindup
     if (u_ant >= sat) || (u_ant <= -sat)
         ei_k = 0;
@@ -42,7 +42,7 @@ else
     e_u = 0;
 end
 
-% Saidas e acoes anteriorse
+% Saidas e acoes anteriores
 y_k_1 = y_ant;
 ui_k_1 = ui_ant;
 ud_k_1 = ud_ant;
@@ -58,7 +58,7 @@ ud_k = (Td/(Td + N*Ts))*ud_k_1 - (Kp*N*Td/(Td + N*Ts))*(y_k - y_k_1);
 
 u_k = up_k + ui_k + ud_k;
 
-% Valores salvos para a próxima iteracao
+% Valores salvos para a proxima iteracao
 ui_ant = ui_k;
 ud_ant = ud_k;
 u_ant = u_k;
