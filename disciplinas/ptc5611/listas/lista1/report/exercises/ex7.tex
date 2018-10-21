@@ -35,9 +35,11 @@ Os dados utilizados na simulação tanto da planta quanto dos controladores est�
 
 A utilização da estratégia anti-windup juntamente ao controlador PID reduz o tempo que o controlador necessita para sair da área de saturação. O intervalo de tempo que o controlador permanece em saturação na imagem \ref{fig:PIDantiwindup} não é suficiente para afirmar categoricamente a respeito da conclusão acima com os dados fornecidos no enunciado. Entretanto, por meio do aumento do \emph{set-point}, o aluno observou o fato.
 
-Ao compararmos controladores PID, ambos com estratégia anti-windup, sem e com filtro passa-baixas na ação derivativa, é possível observarmos uma diminuição na sensibilidade ao ruido de leitura, o que faz com que o sinal convirja de forma mais suave que o sinal sem o filtro.
+Ao compararmos controladores PID, ambos com estratégia anti-windup, sem e com filtro passa-baixas na ação derivativa na imagem \ref{fig:PIDfiltro}, é possível observarmos uma diminuição na sensibilidade ao ruido de leitura, o que faz com que o sinal convirja de forma mais suave que o sinal sem o filtro.
 
-Por fim, como análise final, o aluno escolheu duas estratégias apresentadas na apostila da disciplina. A primeira não acresce a ação integral durante o período de saturação e a segunda, além disto, mitiga o sinal de controle por meio de um fator proporcional à diferença de ação de controle antes e depois da saturação. 
+Por fim, como análise final, o aluno escolheu duas estratégias apresentadas na apostila da disciplina de controle PID anti-windup com filtro. A primeira não acresce a ação integral durante o período de saturação e a segunda, além da estratégia do anterior, mitiga o sinal de controle por meio de um fator proporcional à diferença de ação de controle antes e depois da saturação. Ambas apresentaram qualitativamente o mesmo desempenho, como se observa em na imagem \ref{fig:PIDantiwindup12}.
+
+O torque fornecido como perturbação no eixo do motor não afeta de forma  significativamente a velocidade do motor tanto quanto o ruido de leitura para as quatro simulações.
 
 \begin{figure}[!h]
     \center
