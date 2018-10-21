@@ -1,13 +1,10 @@
 \section*{Exercício 7}
 \label{ex:7}
+\raggedbottom
 
-Os dados utilizadas na simulação estão nas tabelas \ref{tab:ex7planta} e \ref{tab:ex7controlador}. A imagem \ref{fig:dcIntrocomplete} apresenta o resultado das quatro estratégias utilizadas para controlar a velocidade de um motor DC. Todas implementam um controlador PID com discretização para trás para partes I e D. 
+Os dados utilizados na simulação tanto da planta quanto dos controladores estão nas tabelas \ref{tab:ex7planta} e \ref{tab:ex7controlador}. 
 
-O sinal laranja apresenta a estratégia de anti-windup a qual desativa a ação integradora durante a saturação, o sinal amarelo apresenta a mesma estratégia com um filtro passa-baixas associado ao termo derivativo e, por fim, o sinal púrpura utiliza a diferença entre a ação anterior de controle e a atual para mitigar a ação de controle durante a saturação.
-
-É possível notar que a saída da planta é suave com a utilização das estratégia de anti-windup. 
-
-\begin{table}[htp]
+\begin{table}[H]
     \centering
     \begin{tabular}{|l|c|c|c|}
     \hline
@@ -22,7 +19,7 @@ O sinal laranja apresenta a estratégia de anti-windup a qual desativa a ação 
     \label{tab:ex7planta}
 \end{table}
 
-\begin{table}[htp]
+\begin{table}[H]
     \centering
     \begin{tabular}{|l|c|c|c|}
     \hline
@@ -32,24 +29,40 @@ O sinal laranja apresenta a estratégia de anti-windup a qual desativa a ação 
     Constante de tempo derivativo & $T_d$ & s  & 0.05 \\
     Período de amostragem & $T_s$ & s & 0.01 \\\hline
     \end{tabular}
-    \caption{Parâmetros do controlador}
+    \caption{Parâmetros dos controladores}
     \label{tab:ex7controlador}
 \end{table}
 
-Os sinais apresentam uma semelhança qualitativa, entretanto, a ação de controle 
+A utilização da estratégia anti-windup juntamente ao controlador PID reduz o tempo que o controlador necessita para sair da área de saturação. O intervalo de tempo que o controlador permanece em saturação na imagem \ref{fig:PIDantiwindup} não é suficiente para afirmar categoricamente a respeito da conclusão acima com os dados fornecidos no enunciado. Entretanto, por meio do aumento do \emph{set-point}, o aluno observou o fato.
 
-Deseja-se avaliar a performance dos controladores com respeito à saturação e 
+Ao compararmos controladores PID, ambos com estratégia anti-windup, sem e com filtro passa-baixas na ação derivativa, é possível observarmos uma diminuição na sensibilidade ao ruido de leitura, o que faz com que o sinal convirja de forma mais suave que o sinal sem o filtro.
 
-\begin{figure}[H]
+Por fim, como análise final, o aluno escolheu duas estratégias apresentadas na apostila da disciplina. A primeira não acresce a ação integral durante o período de saturação e a segunda, além disto, mitiga o sinal de controle por meio de um fator proporcional à diferença de ação de controle antes e depois da saturação. 
+
+\begin{figure}[!h]
     \center
-    \includegraphics[width=1.2\textwidth, trim=4cm 2cm 1cm 1cm]{ex7.pdf}
-    \caption{Principais sinais de controle do diagrama} \label{fig:dcIntrocomplete}
+    \includegraphics[width=0.8\textwidth, trim=4cm 3.5cm 1cm 2cm]{dcIntrocomplete.pdf}
+    \caption{Principais sinais de controle do diagrama} 
+    \label{fig:dcIntrocomplete}
 \end{figure}
 
 \begin{figure}[H]
     \center
-    \includegraphics[width=0.8\textwidth, trim=3.5cm 3.5cm 2cm 2cm]{dcIntrocomplete.pdf}
+    \includegraphics[width=0.85\textwidth, trim=3.5cm 2cm 2cm 1cm]{ex7PID_PIDantiwindup.pdf}
     \caption{Diagrama de blocos utilizado para exercício 7}
-    \label{fig:ex7}
+    \label{fig:PIDantiwindup}
 \end{figure}
 
+\begin{figure}[H]
+    \center
+    \includegraphics[width=0.8\textwidth, trim=3.5cm 2.5cm 2cm 2cm]{ex7PID_antiwindup_filtro.pdf}
+    \caption{Diagrama de blocos utilizado para exercício 7}
+    \label{fig:PIDfiltro}
+\end{figure}
+
+\begin{figure}[H]
+    \center
+    \includegraphics[width=0.8\textwidth, trim=3.5cm 2.5cm 2cm 2cm]{PID_antiwidup12_filtro.pdf}
+    \caption{Diagrama de blocos utilizado para exercício 7}
+    \label{fig:PIDantiwindup12}
+\end{figure}
