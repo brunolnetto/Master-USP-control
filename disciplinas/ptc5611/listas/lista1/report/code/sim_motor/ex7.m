@@ -1,5 +1,5 @@
 % @Author: Bruno Peixoto
-% Exercício 7 - Lista 1 da disciplina PTC5611
+% Exercicio 7 - Lista 1 da disciplina PTC5611
 clear all;
 close all;
 clc;
@@ -10,23 +10,23 @@ Ti = 0.42;
 Td = 0.05;
 N = 3;
 
-% Velocidade inicial e valor de velocidade estacionária
+% Velocidade inicial e valor de velocidade estacionaria
 t0_vel = 5;
-vel_estat = 3;
+vel_estat = 30;
 
 % Instante inicial e final da perturbacao
 t0_dist = 10;
 tf_dist = 25;
 dist_val = 3;
 
-% Parâmetos da planta
+% Parametos da planta
 b = 1;
 J = 1;
 K = 1;
 R = 1;
 L = 0.01;
 
-% Valor de saturação do motor [V]
+% Valor de saturacao do motor [V]
 sat = 50;
 
 % Tempo de amostragem [s]
@@ -35,7 +35,7 @@ Ts = 0.01;
 % Tempo de simulacao [s]
 Tf = 35;
 
-% Desvio padrão do ruido
+% Desvio padrao do ruido
 variance = 0.01;
 
 % Controlador PID
@@ -143,10 +143,10 @@ ylabel('Erro [$\frac{rad}{s}$]', 'interpreter', 'latex');
 
 legend('PID', 'PID com anti-windup', 'interpreter', 'latex');
 
+minimizar_espaco_branco(hfig.CurrentAxes);
+
 orient(hfig, 'landscape');
 saveas(hfig, '../../images/ex7PID_PIDantiwindup.pdf');
-
-minimizar_espaco_branco(hfig.CurrentAxes);
 
 % Comparacao entre PID com anti-windup sem e com filtro para a parcela
 % integrativa
@@ -199,10 +199,9 @@ ylabel('Erro [$\frac{rad}{s}$]', 'interpreter', 'latex');
 
 legend('PID com anti-windup sem filtro', 'PID com anti-windup com filtro', 'interpreter', 'latex');
 
+minimizar_espaco_branco(hfig.CurrentAxes);
 orient(hfig1, 'landscape');
 saveas(hfig1, '../../images/ex7PID_antiwindup_filtro.pdf');
-
-minimizar_espaco_branco(hfig.CurrentAxes);
 
 % --------------------------------------
 
