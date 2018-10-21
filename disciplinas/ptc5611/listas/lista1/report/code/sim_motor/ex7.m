@@ -12,7 +12,7 @@ N = 3;
 
 % Velocidade inicial e valor de velocidade estacionaria
 t0_vel = 5;
-vel_estat = 30;
+vel_estat = 3;
 
 % Instante inicial e final da perturbacao
 t0_dist = 10;
