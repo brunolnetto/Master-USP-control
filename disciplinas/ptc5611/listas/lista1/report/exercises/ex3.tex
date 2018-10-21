@@ -1,4 +1,5 @@
     \section*{Exercício 3}
+    \label{ex:3}
     \addcontentsline{toc}{section}{Exercício 3}
     
     Seja o pólo $s=0$ através da transformação conforme $z = e^{T_s s}$ corresponde ao pólo $z = 1$.
@@ -8,7 +9,7 @@
         \item % A
         \label{item:ex3a}
         
-         Seja $s = \epsilon + i \delta$, com $\epsilon$ e $\delta$ arbitrários, temos que o processo de mapeamento de pólos e zeros tem como condição necessária que o ganho tanto em $s$ quanto em $z$ sejam iguais. Isto significa 
+         Seja $s = \epsilon + i \delta$, com $\epsilon$ e $\delta$ arbitrários, temos que o processo de mapeamento de pólos e zeros tem como condição necessária que o ganho tanto em $s$ quanto em $z$ sejam iguais. Isto significa que
         
             \begin{equation}
                  \lim\limits_{s \rightarrow (0, 0)} \left \lvert G(s) \right \rvert = \lim\limits_{z \rightarrow (1, 0)} \left \lvert G(z) \right \rvert
@@ -53,7 +54,7 @@
         G(z) = \frac{T_s}{z - 1} = \stackrel{N}{=} = \frac{0.1}{z - 1}
         \end{equation*}
         
-        Perceba que a função de transferência resultante é estritamente própria. Além disso, esta é nomeadamente o inverso da transformação para trás.
+        Perceba que a função de transferência resultante é estritamente própria. Além disso, esta é nomeadamente a transformação para trás.
         
         \item % B
         
@@ -84,17 +85,20 @@
             \end{split}
         \end{equation}
         
-        O termo à esquerda no limite tem valor definito e igual a $\frac{1}{2}$, $\forall T_s, k \in \mathbb{R}$. O termo à direita já foi calculada no item anterior e sua dedução está em \eqref{eq:esqex3a}. Desta forma, $K = \frac{T_s}{2}$. A expressão encontrada para o integrador em tempo discreto com uma função biprópria é dada por 
+        O termo à esquerda no limite tem valor definito e igual a $\frac{1}{2}$, $\forall T_s, k \in \mathbb{R}$. O termo à direita já foi calculado no item anterior e sua dedução está em \eqref{eq:esqex3a}. Desta forma, $K = \frac{T_s}{2}$. A expressão encontrada para o integrador em tempo discreto com uma função biprópria é dada por 
         
             \begin{equation}
                 G(z) = \frac{T_s}{2} \frac{z + 1}{z - 1} \stackrel{N}{=} 0.05 \frac{z + 1}{z - 1}
             \end{equation}
         
         A expressão acima corresponde nomeadamente à transformação bilinear ou Tustin.
-        
+    
+    A figura \ref{fig:ex3} apresenta o diagrama de bode das funções de transferência encontradas no exercício. Para frequências muito menores que a frequência de amostragem, o diagrama das funções discretas aproximam-se fielmente à contínua. Ao se aproximarem da frequência de amostragem, há uma distorção em relação à curva contínua.
+            
     \begin{figure}[H]
-        \includegraphics[width=\textwidth]{bodeex3.pdf}
+        \includegraphics[width=\textwidth, trim=2cm 6.6cm 2cm 6.6cm]{bodeex3.pdf}
         \caption{\label{fig:ex1ac} Diagrama de bode para as função de transferência contínua, discreta estritamente própria e biprópria} 
+        \label{fig:ex3}
     \end{figure}
 
     \end{enumerate}
