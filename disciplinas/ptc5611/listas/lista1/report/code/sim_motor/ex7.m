@@ -1,6 +1,6 @@
 % @Author: Bruno Peixoto
 % Exercício 7 - Lista 1 da disciplina PTC5611
-
+% set(gca,'color','none') 
 % Coeficientes do PID
 Kp = 18;
 Ti = 0.42;
