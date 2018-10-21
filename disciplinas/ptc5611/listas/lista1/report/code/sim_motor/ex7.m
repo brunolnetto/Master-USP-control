@@ -151,7 +151,7 @@ minimizar_espaco_branco(hfig.CurrentAxes);
 % Comparacao entre PID com anti-windup sem e com filtro para a parcela
 % integrativa
 
-hfig = figure();
+hfig1 = figure();
 set(gca,'TickLabelInterpreter','latex')
 set(groot, 'defaultTextInterpreter', 'latex');
 
@@ -199,14 +199,14 @@ ylabel('Erro [$\frac{rad}{s}$]', 'interpreter', 'latex');
 
 legend('PID com anti-windup sem filtro', 'PID com anti-windup com filtro', 'interpreter', 'latex');
 
-orient(hfig, 'landscape');
-saveas(hfig, '../../images/ex7PID_antiwindup_filtro.pdf');
+orient(hfig1, 'landscape');
+saveas(hfig1, '../../images/ex7PID_antiwindup_filtro.pdf');
 
 minimizar_espaco_branco(hfig.CurrentAxes);
 
 % --------------------------------------
 
-hfig1 = figure();
+hfig2 = figure();
 
 subplot(2,2, 1)
 plot(uc.time, uc.signals.values)
@@ -250,8 +250,10 @@ ylabel('Erro [$\frac{rad}{s}$]', 'interpreter', 'latex');
 
 legend('PID com anti-windup (1) e filtro', 'PID com anti-windup (2) e filtro', 'interpreter', 'latex');
 
-orient(hfig1, 'landscape');
-saveas(hfig1, '../../images/PID_antiwidup12_filtro.pdf');
+minimizar_espaco_branco(hfig2.CurrentAxes);
+
+orient(hfig2, 'landscape');
+saveas(hfig2, '../../images/PID_antiwidup12_filtro.pdf');
 
 % Salva modelos em simulink
 open_system('dcIntrocomplete')
