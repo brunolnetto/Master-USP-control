@@ -1,4 +1,5 @@
 \section*{Exercício 1}
+\label{ex:1}
 \addcontentsline{toc}{section}{Exercício 1}
 
     \begin{figure}[H]
@@ -20,7 +21,7 @@
         Como no item anterior, conclui-se que $f_s = 12$ $kHz$. Dada frequência do sistema de $4000\pi \frac{rad}{s}$ ou $2000 Hz$, como a frequência utilizada para amostragem respeita o teorema de Nyquist, é possível reconstruir o sinal por meio de um filtro passa-baixas ideal. 
         
         \item %C
-        Para sinais senoidais amostrados com frequência $f_s$, tem-se que, para uma mesma série $x[n] = cos(\alpha n)$, os possíveis sinais advindos deste são $x(t) = cos(2 \pi (f_0 + f_s)t) \mbox{, } k \in \mathbb{N} \mbox{, } \omega = 2 \pi f$. Temos que $\omega_0 = \frac{5\pi}{4} \frac{rad}{s}$. Assim, dois possíveis sinais para a série fornecida são $x_1(t) = cos(\frac{5\pi}{4} t )$ e $x_2(t) = cos(\frac{85\pi}{4} t)$, mostrado na imagem (\ref{fig:ex1ac}) 
+        Para sinais senoidais amostrados com frequência $f_s$, tem-se que, para uma mesma série $x[n] = cos(\alpha n)$, os possíveis sinais advindos deste são $x(t) = cos(2 \pi (f_0 + f_s)t) \mbox{, } k \in \mathbb{N} \mbox{, } \omega = 2 \pi f$. Como $\omega_0 = \frac{5\pi}{4} \frac{rad}{s}$, dois possíveis sinais para a série fornecida são $x_1(t) = cos(\frac{5\pi}{4} t )$ e $x_2(t) = cos(\frac{85\pi}{4} t)$, mostrado na imagem (\ref{fig:ex1ac}). 
         
         \item %D
         
@@ -31,14 +32,14 @@
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.7\textwidth]{ex1d1.eps}
-            \caption{Espectro do sinal original. Frequência de amostragem e reconstrução $\omega_s = \omega_N$ e $\omega_f = \omega_N$}
+            \caption{Espectro do sinal original, amostrado e reconstruido $\omega_s = \omega_N$ e $\omega_f = \omega_N$}
             \label{fig:ex1d1}
         \end{figure}%
     
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.7\textwidth]{ex1d2.eps}
-            \caption{Espectro do sinal original. Frequência de amostragem e reconstrução $\omega_s = 3 \, \omega_N$ e $\omega_f = \frac{\omega_s}{2}$}
+            \caption{Espectro do sinal original, amostrado e reconstruido $\omega_s = 3 \, \omega_N$ e $\omega_f = \frac{\omega_s}{2}$}
             \label{fig:ex1d2}
         \end{figure}
     

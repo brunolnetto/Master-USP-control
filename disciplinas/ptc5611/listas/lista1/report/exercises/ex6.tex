@@ -1,4 +1,5 @@
 \section*{Exercício 6}
+\label{ex:6}
 \addcontentsline{toc}{section}{Exercício 6}
 
     Para os critérios de projeto fornecidos, o projeto de controle será feito em espaço $s$ e o respectivo pólo deve pertencer ao lugar das raízes em malha fechada. O tempo de subida é dado por:
@@ -29,7 +30,7 @@
         \label{eq:polcarac}
         \end{equation}
     
-    Ao considerar o projeto em tempo contínuo, o controlador acima "casa" o pólo da planta com o zero do controlador. Para o caso de casamento perfeito de pólo e zero, o novo lugar das raízes permite que o pólo estabelecido pertença a este. Ademais, para casamento perfeito de pólo e zero, por inspeção, o polinômio característico \eqref{eq:polcarac} fornece o valor $K$ para os pólos em projeto i.e., $K = \omega_n^2$. Assim, a função de transferência fornecida é:
+    Ao considerar o projeto em tempo contínuo, utilizaremos a estratégia de cancelamento de pólo do controlador com o pólo da planta. Para o caso de cancelamento sem resíduo, o novo lugar das raízes permite que o pólo estabelecido pertença a este. Ademais, por inspeção, o polinômio característico \eqref{eq:polcarac} fornece o valor $K$ para os pólos em projeto i.e., $K = \omega_n^2$. Assim, a função de transferência fornecida é:
     
         \begin{equation}
             C(s) = \omega_n^2 \frac{s + 0.7}{s + 2 \zeta \omega_n}
@@ -37,39 +38,46 @@
         
     Para projeto de controle por meio da aproximação do mantenedor de primeira ordem por transformação de Padé, utilizaremos a fórmula de Padé de primeira ordem seguinte:
     
-    \begin{equation}
-    e^{x} \approx \frac{1 + \frac{x}{2}}{1 - \frac{x}{2}}
-    \label{eq:pade}
-    \end{equation}
+        \begin{equation}
+        e^{x} \approx \frac{1 + \frac{x}{2}}{1 - \frac{x}{2}}
+        \label{eq:pade}
+        \end{equation}
     
     Desta forma, por meio de \eqref{eq:pade}, o segurador de ordem zero exato pode ser aproximado por
     
-    \begin{equation}
-    G_{zoh}(s) = \frac{1 - e^{-T_s s}}{s T_s} \approx \frac{1}{\frac{T_s}{2} s + 1}
-    \end{equation}
+        \begin{equation}
+        G_{zoh}(s) = \frac{1 - e^{-T_s s}}{s} \approx \frac{2}{ s + \frac{2}{T_s}}
+        \end{equation}
     
-    A função de transferência em malha aberta do sistema é $G'(s) = C(s)*G_{zoh}(s)*G(s)$. De mesma forma ao projeto acima, o projeto de controlador em tempo discreto "casará" o pólo da planta com um zero do controlador. Para um controlador da forma \eqref{eq:controladorpade}, o pólo encontrado para projeto pertence a curva $1 + G'(s) \coloneqq 0$.   Com auxílio de software de manipulação numérica, encontramos $K$ e $p$ tal que o sistema satisfaça os critérios de  projeto. 
+    A fim de manter o ganho unitário da função de transferência acima, a aproximaçaõ será 
     
-    A aproximação de Padé para o mantenedor de ordem zero no projeto do controlador aproxima o sinal em tempo discreto da ação contínua tanto para a saída, erro e ação de controle do sistema como representa as imagens \ref{fig:ex6saida}, \ref{fig:ex6erro} e \ref{fig:ex6controle}  respectivamente. Os diagramas de blocos utiliazdos para a simulação estão nas imagens \ref{fig:ex6continuo} e \ref{fig:ex6discreto}.
+        \begin{equation}
+        G_{zoh}(s) \approx \frac{\frac{2}{T_s}}{s + \frac{2}{T_s}} = \frac{1}{\frac{T_s}{2} s + 1} 
+        \end{equation}
+    
+    A função de transferência em malha aberta do sistema é $G'(s) = C(s)G_{zoh}(s)G(s)$. De mesma forma ao projeto acima, o projeto de controlador em tempo discreto cancelará o pólo da planta com um zero do controlador. Para um controlador da forma \eqref{eq:controladorpade}, o pólo encontrado para projeto pertence a curva $1 + G'(s) \coloneqq 0$.   Com auxílio de software de manipulação numérica, encontramos $K$ e $p$ tal que o sistema satisfaça os critérios de  projeto. 
+    
+    A aproximação de Padé para o segurador de ordem zero no projeto do controlador aproxima o sinal em tempo discreto da ação contínua tanto para a ação de controle, saída e erro do sistema como representa as imagens \ref{fig:ex6controle}, \ref{fig:ex6saida} e \ref{fig:ex6erro}  respectivamente. Os diagramas de blocos utilizados para a simulação estão nas imagens \ref{fig:ex6continuo} e \ref{fig:ex6discreto}.
     
     \begin{equation}
     \label{eq:controladorpade}
         C(s) = K \frac{s + 0.7}{s + p}
     \end{equation}
     
-    \begin{figure}[htp]
-	\center
-	\includegraphics[width=0.8\textwidth]{saidazoh.pdf}
-	\caption{Ação de controle para controle contínuo e discreto com $f_s = 4 Hz$ e $f_s = 20 Hz$. }
-	\label{fig:ex6controle}
-    \end{figure}
-    
-\newpage
 
     \begin{figure}[H]
 	\center
 	\includegraphics[width=0.8\textwidth]{controlezoh.pdf}
 	\caption{Curva original e série amostrada}
+	\label{fig:ex6controle}
+    \end{figure}
+    
+\newpage
+
+    \begin{figure}[htp]
+	\center
+	\includegraphics[width=0.8\textwidth]{saidazoh.pdf}
+	\caption{Ação de controle para controle contínuo e discreto com $f_s = 4 Hz$ e $f_s = 20 Hz$. }
 	\label{fig:ex6saida}
     \end{figure}
 
@@ -89,7 +97,7 @@
 
     \begin{figure}[H]
 	\center
-	\includegraphics[width=0.8\textwidth]{ex6simdiscreto.pdf}
+	\includegraphics[width=0.8\textwidth, trim=4cm 6cm 3cm 3cm]{ex6simdiscreto.pdf}
 	\caption{Diagrama de blocos em malha fechada com controle discreto}
 	\label{fig:ex6discreto}
     \end{figure}
