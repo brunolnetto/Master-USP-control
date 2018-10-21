@@ -9,7 +9,7 @@ N = 3;
 
 % Velocidade inicial e valor de velocidade estacionária
 t0_vel = 5;
-vel_estat = 25;
+vel_estat = 3;
 
 % Instante inicial e final da perturbacao
 t0_dist = 10;
@@ -33,7 +33,7 @@ Ts = 0.01;
 Tf = 35;
 
 % Desvio padrão do ruido
-variance = 0.01;
+variance = 0.0;
 
 % Controlador PID
 s = tf('s');
@@ -91,6 +91,7 @@ params.a = Ts/sqrt(Ti*Td);
 [wd, ed, dd, ud, usatd, yd] = sim_ex7(mdlnome, params, Tf);
 
 hfig = figure();
+set(gca,'TickLabelInterpreter','latex')
 set(groot, 'defaultTextInterpreter', 'latex');
 
 subplot(2,2, 1)
@@ -104,8 +105,9 @@ hold on
 plot(ud.time, ud.signals.values)
 hold off
 
-xlabel('Tempo [s]');
-xlabel('Tensao [V]', 'interpreter', 'latex');
+title('Acao de controle antes da saturacao', 'interpreter', 'latex');
+xlabel('Tempo [s]', 'interpreter', 'latex');
+ylabel('Tensao [V]', 'interpreter', 'latex');
 
 subplot(2,2, 2)
 plot(ya.time, ya.signals.values)
@@ -117,6 +119,7 @@ hold on
 plot(yd.time, yd.signals.values)
 hold off
 
+title('Saida do controlador', 'interpreter', 'latex');
 xlabel('Tempo [s]', 'interpreter', 'latex');
 ylabel('$\omega$ [$\frac{rad}{s}$]', 'interpreter', 'latex');
 
@@ -130,6 +133,7 @@ hold on
 plot(usatd.time, usatd.signals.values)
 hold off
 
+title('Acao de controle depois da saturacao', 'interpreter', 'latex');
 xlabel('Tempo [s]', 'interpreter', 'latex');
 ylabel('Tensao [V]', 'interpreter', 'latex');
 
@@ -143,10 +147,12 @@ hold on
 plot(ed.time, ed.signals.values)
 hold off
 
+title('Erro de malha', 'interpreter', 'latex');
 xlabel('Tempo [s]', 'interpreter', 'latex');
 ylabel('Erro [$\frac{rad}{s}$]', 'interpreter', 'latex');
 
-legend('PID', 'PID com anti-windup', 'PID com anti-windup (1) e filtro', 'PID com anti-windup (2) e filtro');
+legend('PID', 'PID com anti-windup', ...
+       'PID com anti-windup (1) e filtro', 'PID com anti-windup (2) e filtro', 'interpreter', 'latex');
 
 orient(hfig, 'landscape');
 
