@@ -13,8 +13,6 @@ function [e, u, y, u_direto] = sim_ex6(G, C, mdlnome, Tf)
         params.b1 = C.num{1}(2);
         params.a0 = C.den{1}(1);
         params.a1 = C.den{1}(2);
-        paramname = sprintf('params%d', 1/Ts);
-        assignin('base', paramname, params);
     end
     
     % Simulacao

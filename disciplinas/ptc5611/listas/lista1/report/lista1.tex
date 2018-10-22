@@ -2,16 +2,25 @@
 \input{packages}
 \input{config}
 
-\title{Lista \esnumber}
+\title{\exercisename \esnumber}
 \author{\studentname \qquad Número USP: \uspid \qquad E-mail USP: \uspmail}
-\newpage
 
 \begin{document}
-%--------------------------------- Exercicios ----------------------------------
+%--------------------------------- Preambulo ----------------------------------
 \maketitle
 \tableofcontents
+\thispagestyle{nofooter}
+
+\newpage
+\clearpage
+\setcounter{page}{1}
+\addcontentsline{toc}{section}{\listfigurename}
 \listoffigures
+\addcontentsline{toc}{section}{\lstlistlistingname}
 \lstlistoflistings
+\addcontentsline{toc}{section}{\listtablename}
+\listoftables
+
 %-------------------------------------------------------------------------------
 
 %--------------------------------- Exercicios ----------------------------------
@@ -23,6 +32,7 @@
 \input{exercises/ex3}
 \newpage
 \input{exercises/ex4}
+\newpage
 \input{exercises/ex5}
 \newpage
 \input{exercises/ex6}
@@ -30,9 +40,7 @@
 \input{exercises/ex7}
 \newpage
 \input{exercises/dedex89}
-\newpage
 \input{exercises/ex8}
-\newpage
 \input{exercises/ex9}
 \newpage
 \input{exercises/ex10}
@@ -40,6 +48,7 @@
 
 %--------------------------------- Anexos ----------------------------------
 \input{attach}
+%\input{appendix}
 %---------------------------------------------------------------------------
 
-\end{document}\grid
+\end{document}

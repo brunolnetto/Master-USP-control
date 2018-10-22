@@ -1,10 +1,11 @@
 \section*{Exercício 2}
+\label{ex:2}
 \addcontentsline{toc}{section}{Exercício 2}
 
     \begin{enumerate}
         \item %Ax
             \begin{itemize}
-            	\item $Z\{\sum_{i=0}^{n}x[i] \} = \frac{1}{1-z^{-1}}X(z)$
+            	\item Dada proposição $Z\{\sum_{i=0}^{n}x[i] \} = \frac{1}{1-z^{-1}}X(z)$, sua demonstração encontra-se abaixo.
             	
             	\begin{proof}
             	\begin{equation}
@@ -23,7 +24,7 @@
             	\end{equation}
             	\end{proof}
             	
-            	\item $Z\{\sum_{i=0}^{n}x[i-1] \} = \frac{z^{-1}}{1-z^{-1}}X(z)$
+            	\item De mesma forma, a demonstração da proposição $Z\{\sum_{i=0}^{n}x[i-1] \} = \frac{z^{-1}}{1-z^{-1}}X(z)$ encontra-se abaixo.
                 
             	\begin{proof}
             	\begin{equation}
@@ -149,7 +150,7 @@
         \item %D
         
             \begin{itemize}
-                \item $x[n] = a^n u[n]$
+                \item Para a série $x[n] = a^n u[n]$, sua transformada $\mathcal{Z}$ é:
                     \begin{equation}
                         \begin{split}
                             X(z) &= \sum_{n = -\infty}^{\infty} a^n u[n] z^{-n} \\
@@ -161,7 +162,7 @@
                     \label{eq:anun}
                     \end{equation}
                 
-                \item $x[n] = -a^n u[-n-1]$
+                \item Para a série $x[n] = -a^n u[-n-1]$, sua transformada $\mathcal{Z}$ é:
                     \begin{equation}
                         \begin{split}
                             X(z) &= - \sum_{n = - \infty}^{\infty} a^n u[-n - 1] z^{-1} \\
@@ -176,7 +177,7 @@
             \end{itemize}
         \end{enumerate}
     
-    Ambos os sinais apresentam a mesma transformada $\mathcal{Z}$, apesar de serem distintos. Além disso, as regiões de convergência de ambos são distintas: para \eqref{eq:anun}, esta á  $|z| > |a|$ e para \eqref{eq:_anun_1}, $|z| < |a|$. A imagem \ref{fig:ex2d} apresenta as regiões visualmente.
+    Ambos os sinais apresentam a mesma transformada $\mathcal{Z}$, apesar de serem distintos. Entretanto, as regiões de convergência de ambos são distintas: para \eqref{eq:anun}, esta é  $|z| > |a|$ e para \eqref{eq:_anun_1}, $|z| < |a|$. A imagem \ref{fig:ex2d} apresenta as regiões visualmente.
     
     \begin{figure}[H]
         \centering
@@ -234,6 +235,6 @@
                         \end{axis}
                 \end{tikzpicture}
             \end{tabular}
-        \caption{\label{fig:ex2d} Região de convergência da transformação $\mathcal{Z}$ das sequências $x[n] = a^n u[n]$ e $x[n] = -a^n u[-n-1]$}
+        \caption{\label{fig:ex2d} Região de convergência da transformada $\mathcal{Z}$ das sequências $x[n] = a^n u[n]$ e $x[n] = -a^n u[-n-1]$}
     \end{figure}
 

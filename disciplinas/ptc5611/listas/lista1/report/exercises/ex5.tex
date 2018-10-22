@@ -1,10 +1,11 @@
 \section*{Exercício 5}
+\label{ex:5}
 \addcontentsline{toc}{section}{Exercício 5}
-
+    
+    Os itens abaixo utilizam frequência de amostragem igual a $10 Hz$. O item \ref{item:ex5d} utiliza frequência de pré-distorção de$\omega_c = 3 \,\, \frac{rad}{s}$.
+    
     \begin{enumerate}
         \item % A
-        Dados: Ts = 0,1 s
-        
             \begin{equation}
                 \begin{split}
                     s = \frac{z - 1}{T_s} \therefore X(z) = \frac{\frac{z+1}{T_s} + 1}{\frac{z+1}{T_s} + 10} = \frac{z - (1-T_s)}{z - (1-10T_s)} \stackrel{N}{=} \frac{z - 0.9}{z} 
@@ -12,7 +13,6 @@
             \end{equation}
         
         \item % B
-        Dados: Ts = 0,1 s
             \begin{equation}
                 \begin{split}
                     s = \frac{z - 1}{T_s z} \therefore X(z) = \frac{\frac{z-1}{T_s z} + 1}{\frac{z-1}{T_s z} + 10} = \frac{(1+T_s) z - 1}{(1 + 10T_s) z + 1} \stackrel{N}{=} 0.45 \frac{z - 1.1}{z - 0.5}
@@ -20,7 +20,6 @@
             \end{equation}
         
         \item % C
-        Dados: Ts = 0,1 s
             \begin{equation}
                 \begin{split}
                     s = \frac{2}{T_s} \frac{z - 1}{z+1} \therefore X(z) = \frac{\frac{2}{T_s} \frac{z-1}{z+1} + 1}{\frac{2}{T_s} \frac{z-1}{z+1} + 10} = \frac{(2+T_s)z + (T_s - 2)}{(2 + 10T_s) z + (10 T_s - 2)} \stackrel{N}{=} \frac{2.1z - 1.9}{3z - 1} = 0.7\frac{z-0.63}{z-0.33}
@@ -28,8 +27,7 @@
             \end{equation}
         
         \item % D
-        Dados: $\omega_c = 3 \frac{rad}{s}$
-            
+        \label{item:ex5d}
             \begin{equation}
                 s = \frac{\omega_c}{\tan{\frac{\omega_c T_s}{2}}} \frac{z-1}{z+1} \therefore X(z) = \frac{\frac{\omega_c}{\tan(\frac{\omega_c T_s}{2})} \frac{z-1}{z+1} + 1}{\frac{\omega_c}{\tan(\frac{\omega_c T_s}{2})} \frac{z-1}{z+1} + 10} = \frac{(\tan{\frac{\omega_c T_s}{2}} + \omega_c) z + (\tan{\frac{\omega_c T_s}{2}} - \omega_c)}{(10 \tan{\frac{\omega_c T_s}{2}} + \omega_c) z + (10 \tan{\frac{\omega_c T_s}{2}} - \omega_c)} 
             \end{equation}
