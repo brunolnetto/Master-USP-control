@@ -2,7 +2,7 @@
 \label{ex:6}
 \addcontentsline{toc}{section}{Exercício 6}
 
-    Para os critérios de projeto fornecidos, o projeto de controle será feito em espaço $s$ e o respectivo pólo deve pertencer ao lugar das raízes em malha fechada. O tempo de subida é dado por:
+    Para os critérios de projeto fornecidos, o projeto de controle será feito em espaço $s$ e o respectivo pólo deve pertencer ao lugar das raízes em malha fechada e o projetista deseja que o sistema em malha fechada possua máximo sobressinal menor que 20$\%$ (valor escolhido de 5$\%$) e tempo de subida de 1 s. O tempo de subida é dado por:
     
         \begin{equation}
             t^{0\% - 100\%}_{r}(\omega_n, \zeta) = \frac{\pi - \theta(\zeta)}{\omega_d(\omega_n, \zeta)} \mbox{, com } \theta(\zeta) = \tan^{-1}\frac{\sqrt{1 - \zeta^2}}{\zeta} \mbox{ e } \omega_d(\omega_n, \zeta) = \omega_n \sqrt{1-\zeta^2}
@@ -55,7 +55,7 @@
         G_{zoh}(s) \approx \frac{\frac{2}{T_s}}{s + \frac{2}{T_s}} = \frac{1}{\frac{T_s}{2} s + 1} 
         \end{equation}
     
-    A função de transferência em malha aberta do sistema é $G'(s) = C(s)G_{zoh}(s)G(s)$. De mesma forma ao projeto acima, o projeto de controlador em tempo discreto cancelará o pólo da planta com um zero do controlador. Para um controlador da forma \eqref{eq:controladorpade}, o pólo encontrado para projeto pertence a curva $1 + G'(s) \coloneqq 0$.   Com auxílio de software de manipulação numérica, encontramos $K$ e $p$ tal que o sistema satisfaça os critérios de  projeto. 
+    A função de transferência em malha aberta do sistema é $G'(s) = C(s)G_{zoh}(s)G(s)$. De mesma forma ao projeto acima, o projeto de controlador em tempo discreto cancelará o pólo da planta com um zero do controlador. Para um controlador da forma \eqref{eq:controladorpade}, o pólo encontrado para projeto pertence a curva $1 + G'(s) \coloneqq 0$.   Com auxílio de software de otimização numérica, encontramos $K$ e $p$ tal que o sistema satisfaça os critérios de  projeto. 
     
     A aproximação de Padé para o segurador de ordem zero no projeto do controlador aproxima o sinal em tempo discreto da ação contínua tanto para a ação de controle, saída e erro do sistema como representa as imagens \ref{fig:ex6controle}, \ref{fig:ex6saida} e \ref{fig:ex6erro}  respectivamente. Os diagramas de blocos utilizados para a simulação estão nas imagens \ref{fig:ex6continuo} e \ref{fig:ex6discreto}.
     
@@ -89,7 +89,7 @@
     
     \begin{figure}[H]
 	\center
-	\includegraphics[width=0.8\textwidth, trim=3.5cm 2.5cm 2cm 3cm]{ex6simcontinuo.pdf}
+	\includegraphics[width=0.8\textwidth, trim=3.5cm 1cm 2cm 3cm]{ex6simcontinuo.pdf}
 	\caption{Diagrama de blocos em malha fechada com controle contínuo}
 	\label{fig:ex6continuo}
     \end{figure}

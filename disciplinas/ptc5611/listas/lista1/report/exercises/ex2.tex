@@ -10,7 +10,7 @@
             	\begin{proof}
             	\begin{equation}
             	\begin{split}
-            	Z\{\sum_{i=0}^{n}x[i] \} & = \sum_{n=0}^{\infty} z^{-n} \sum_{i=0}^{n} x[i] \\
+            	Z\left\{\sum_{i=0}^{n}x[i] \right\} & = \sum_{n=0}^{\infty} z^{-n} \sum_{i=0}^{n} x[i] \\
             	& = x[0] + z^{-1} \sum_{i=0}^{1} x[i] + z^{-2} \sum_{i=0}^{2} x[i] + \cdots \\
             	& = x[0] \sum_{i=0}^{\infty} z^{-i} + x[1] \sum_{i=1}^{\infty} z^{-i} + \cdots + x[k] 
             	\underbrace{\sum_{i=k}^{\infty} z^{-i}}_{\frac{z^{-k}}{1 - z^{-1}}} + \cdots\\
@@ -20,7 +20,7 @@
             	\end{equation}
             
             	\begin{equation}
-            	\therefore Z\{\sum_{i=0}^{n}x[i] \} = \frac{1}{1-z^{-1}}.X(z) \hspace{10pt} \blacksquare
+            	\therefore Z\left\{\sum_{i=0}^{n}x[i] \right\} = \frac{1}{1-z^{-1}}.X(z) \hspace{10pt} \blacksquare
             	\end{equation}
             	\end{proof}
             	
@@ -29,7 +29,7 @@
             	\begin{proof}
             	\begin{equation}
             	\begin{split}
-            	Z\{\sum_{i=0}^{n}x[i] \} & = \sum_{n=0}^{\infty} z^{-n} \sum_{i=0}^{n} x[i-1] \\
+            	Z\left\{\sum_{i=0}^{n}x[i] \right\} & = \sum_{n=0}^{\infty} z^{-n} \sum_{i=0}^{n} x[i-1] \\
             	& = x[-1] + z^{-1} \sum_{i=0}^{1} x[i-1] + z^{-2} \sum_{i=0}^{2} x[i-1] + \cdots \\
             	& = \underbrace{x[-1]}_{\coloneqq 0} \sum_{i=0}^{\infty} z^{-i} + x[0] \sum_{i=1}^{\infty} z^{-i} + \cdots \\
             	& = x[0] \frac{z^{-1}}{1 - z^{-1}} + x[1] \frac{z^{-2}}{1 - z^{-1}} + \cdots \\
@@ -38,11 +38,13 @@
             	\end{equation}
             
             	\begin{equation}
-            	\therefore Z\{\sum_{i=0}^{n}x[i-1] \} = \frac{z^{-1}}{1-z^{-1}}.X(z) \hspace{10pt} \blacksquare
+            	\therefore Z\left\{\sum_{i=0}^{n}x[i-1] \right\} = \frac{z^{-1}}{1-z^{-1}}.X(z) \hspace{10pt} \blacksquare
             	\end{equation}
-            
-            	\item $\lim\limits_{z \rightarrow 1} X(z) = \sum_{i=0}^{\infty}x[i]$
-            
+                \end{proof}
+                
+            	\item Por fim, a proposição $\lim\limits_{z \rightarrow 1} X(z) = \sum_{i=0}^{\infty}x[i]$ segue
+                
+                \begin{proof}
             	\begin{equation}
             	\lim\limits_{z \rightarrow 1} X(z) = \lim\limits_{z \rightarrow 1} \sum_{i=0}^{\infty} x[i].z^{-i} = \sum_{i=0}^{\infty} x[i]
             	\end{equation}
@@ -52,7 +54,7 @@
             	\therefore \lim\limits_{z \rightarrow 1} X(z) = \sum_{i=0}^{\infty}x[i] \hspace{10pt} \blacksquare
             	\end{split}
             	\end{equation}
-            	\end{proof}
+                \end{proof}
             	
             \end{itemize}
         
@@ -80,7 +82,7 @@
         Portanto
         	
         	\begin{equation}
-            	X_1(z) = \frac{1}{a}  \frac{(1 - e^{-aT_s})z^{-1}}{(1-z^{-1})(1-e^{-aT_s} z^ {-1})}
+            	X_1(z) = \frac{1}{a}  \frac{(1 - e^{-aT_s})z^{-1}}{(1-z^{-1})(1-e^{-aT_s} z^{-1})}
         	\end{equation}
         
         De mesma forma, dada função $x_2(t) = t^2 e^{-a t}$, por definição tem-se que:
@@ -100,7 +102,7 @@
                     x[n] = e^{-an} \rightarrow -z \frac{d}{dz} \mathcal{Z}\{e^{-an}\} = \mathcal{Z}\{n e^{-an}\} \mbox{, } n = T_s i \mbox{, } i \in \mathbb{N}
                 \end{equation}
                 \begin{equation}
-                    x[n] = n e^{-an} \rightarrow -z \frac{d}{dz} \mathcal{Z}\{n e^{-an}\} = \mathcal{Z}\{n^2 e^{-an}\} \mbox{, } n = T_s \mbox{, } i \in \mathbb{N}
+                    x[n] = n e^{-an} \rightarrow -z \frac{d}{dz} \mathcal{Z}\{n e^{-an}\} = \mathcal{Z}\{n^2 e^{-an}\} \mbox{, } n = T_s i \mbox{, } i \in \mathbb{N}
                 \end{equation}
             \end{subequations}
         

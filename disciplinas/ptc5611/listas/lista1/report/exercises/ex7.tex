@@ -10,10 +10,10 @@ Os dados utilizados na simulação tanto da planta quanto dos controladores est�
     \hline
     Descrição & Símbolo & Unidade & Valor \\ \hline
     Resistência do estator & R & $\Omega$ & 1 \\
-    Indutância do estator & L & H & 0.01 \\
-    Momento de inércia & J & kg $m^2$  & 1 \\
-    Coeficiente de atrito viscoso & b & $Ns$ & 0.01 \\
-    Fator transformação eletromagnética & K & NmA & 1 \\\hline
+    Indutância do estator & L & H & 0.5 \\
+    Momento de inércia & J & kg $m^2$  & 0.01 \\
+    Coeficiente de atrito viscoso & b & $Ns$ & 0.1 \\
+    Fator transformação eletromagnética & K & NmA & 0.01 \\\hline
     \end{tabular}
     \caption{Parâmetros da planta}
     \label{tab:ex7planta}
@@ -33,24 +33,17 @@ Os dados utilizados na simulação tanto da planta quanto dos controladores est�
     \label{tab:ex7controlador}
 \end{table}
 
-A utilização da estratégia anti-windup juntamente ao controlador PID reduz o tempo que o controlador necessita para sair da área de saturação. O intervalo de tempo que o controlador permanece em saturação na imagem \ref{fig:PIDantiwindup} não é suficiente para afirmar categoricamente a respeito da conclusão acima com os dados fornecidos no enunciado. Entretanto, por meio do aumento do \emph{set-point}, o aluno observou o fato.
+A utilização da estratégia anti-windup juntamente ao controlador PID reduz o tempo que o controlador necessita para sair da área de saturação. Na imagem \ref{fig:PIDantiwindup} o controlador PID clássico integra o erro, como se observa pela curva acentuada e crescente. A curva respectiva ao  controlador com \emph{anti-windup} rapidamente volta ao regime de não-saturação.
 
-Ao compararmos controladores PID, ambos com estratégia anti-windup, sem e com filtro passa-baixas na ação derivativa na imagem \ref{fig:PIDfiltro}, é possível observarmos uma diminuição na sensibilidade ao ruido de leitura, o que faz com que o sinal convirja de forma mais suave que o sinal sem o filtro.
+Ao compararmos controladores PID, ambos com estratégia anti-windup, sem e com filtro passa-baixas na ação derivativa na imagem \ref{fig:PIDfiltro}, não é possível observarmos uma diminuição na sensibilidade ao ruido de leitura, esperado pela sua natureza. Uma melhor abordagem é a implementação de um filtro analógico na saída do sensor de coleta dos dados a fim de evitar o efeito de \emph{aliasing} do sinal adquirido.
 
-Por fim, como análise final, o aluno escolheu duas estratégias apresentadas na apostila da disciplina de controle PID anti-windup com filtro. A primeira não acresce a ação integral durante o período de saturação e a segunda, além da estratégia do anterior, mitiga o sinal de controle por meio de um fator proporcional à diferença de ação de controle antes e depois da saturação. Ambas apresentaram qualitativamente o mesmo desempenho, como se observa em na imagem \ref{fig:PIDantiwindup12}.
+O aluno escolheu duas estratégias de controle PID anti-windup com filtro apresentadas na apostila da disciplina. A primeira não acresce a ação integral durante o período de saturação e a segunda, além da estratégia do anterior, mitiga o sinal de controle por meio de um fator proporcional à diferença de ação de controle antes e depois da saturação. Ambas apresentaram qualitativamente o mesmo desempenho, como se observa na imagem \ref{fig:PIDantiwindup12}.
 
-O torque fornecido como perturbação no eixo do motor não afeta de forma  significativamente a velocidade do motor tanto quanto o ruido de leitura para as quatro simulações.
-
-\begin{figure}[H]
-    \center
-    \includegraphics[width=0.7\textwidth, trim=4cm 3.5cm 1cm 3cm]{dcIntrocomplete.pdf}
-    \caption{Principais sinais de controle do diagrama} 
-    \label{fig:dcIntrocomplete}
-\end{figure}
+Por fim, como análise final, o torque fornecido como perturbação no eixo do motor afeta de forma semelhante a velocidade durante seu período de atuação. Nos casos em análise, o motor não alcança a velocidade estacionária estabelecida. Entretanto, a velocidade angular converge para o valor de referência na ausência de distúrbio.
 
 \begin{figure}[H]
     \center
-    \includegraphics[width=0.85\textwidth, trim=3.5cm 2cm 2cm 1cm]{ex7PID_PIDantiwindup.pdf}
+    \includegraphics[width=0.7\textwidth, trim=3.5cm 2cm 2cm 1cm]{ex7PID_PIDantiwindup.pdf}
     \caption{Diagrama de blocos utilizado para exercício 7}
     \label{fig:PIDantiwindup}
 \end{figure}
@@ -67,4 +60,11 @@ O torque fornecido como perturbação no eixo do motor não afeta de forma  sign
     \includegraphics[width=0.8\textwidth, trim=3.5cm 2.5cm 2cm 2cm]{PID_antiwidup12_filtro.pdf}
     \caption{Diagrama de blocos utilizado para exercício 7}
     \label{fig:PIDantiwindup12}
+\end{figure}
+
+\begin{figure}[H]
+    \center
+    \includegraphics[width=0.7\textwidth, trim=4cm 3.5cm 1cm 2cm]{dcIntrocomplete.pdf}
+    \caption{Principais sinais de controle do diagrama} 
+    \label{fig:dcIntrocomplete}
 \end{figure}
