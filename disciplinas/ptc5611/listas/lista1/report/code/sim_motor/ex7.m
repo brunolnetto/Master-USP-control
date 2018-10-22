@@ -17,14 +17,14 @@ vel_estat = 3;
 % Instante inicial e final da perturbacao
 t0_dist = 10;
 tf_dist = 25;
-dist_val = 3;
+dist_val = 0.25;
 
 % Parametos da planta
-b = 1;
-J = 1;
-K = 1;
+b = 0.1;
+J = 0.01;
+K = 0.01;
 R = 1;
-L = 0.01;
+L = 0.5;
 
 % Valor de saturacao do motor [V]
 sat = 50;
