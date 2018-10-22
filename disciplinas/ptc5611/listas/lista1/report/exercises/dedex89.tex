@@ -2,14 +2,14 @@
 \addcontentsline{toc}{section}{Dedução dos exercícios 8 e 9}
 \label{sec:deducao89}
 
-    O objetivo dos exercícios (8) e (9) é encontrar $G(z)$ dada transformação $s = F(z)$. Em geral, as transformações aplicadas em engenharia respeitam a relação $s = \frac{c^T \mathcal{Z}}{d^T \mathcal{Z}}$, $c, d \in \mathbb{R}^2$, $\mathcal{Z}^T = [z, 1] $. Para a função de transferência dada por $G(s) = \frac{b^T \mathcal{S}_m}{a^T \mathcal{S}_n}$, tal que $\mathcal{S}_k^T = [s^k, \cdots, 1]  \, \in \, \mathbb{R}^{k+1}$, $m = \dim(b)$ e $n = \dim(a)$ e $s \in \mathbb{C}$, segue
+    O objetivo do \nameref{ex:8} e \nameref{ex:9} é encontrar $G(z)$ dada transformação $s = F(z)$. Em geral, as transformações aplicadas em engenharia respeitam a relação $s = \frac{c^T \mathcal{Z}}{d^T \mathcal{Z}}$, $c, d \in \mathbb{R}^2$, $\mathcal{Z}^T = [z, 1] $. Para a função de transferência dada por $G(s) = \frac{b^T \mathcal{S}_m}{a^T \mathcal{S}_n}$, tal que $\mathcal{S}_k^T = [s^k, \cdots, 1]  \, \in \, \mathbb{R}^{k+1}$, $m = \dim(b)$ e $n = \dim(a)$ e $s \in \mathbb{C}$, segue
     
     \begin{equation}
         s^i = \frac{c^T \mathcal{Z} \, c^T \, \mathcal{Z} \, \cdots \, c^T \, \mathcal{Z}}{d^T \, \mathcal{Z} \, d^T \, \mathcal{Z} \, \cdots d^T \, \mathcal{Z}} \, i \in \mathbb{N}
         \label{eq:sexpi}
     \end{equation}
     
-    Por definição, $a b^T = M \,\, M \in \mathbb{R}^{2x2}$, $M = V \Lambda V^{-1}$, $\forall M \in \mathbb{R}^{n \times n}$, com $V$ a matriz direita de autovetores de $M$ e $\Lambda$ a matriz de autovalores de $M$, diagonal por definição. Além disso, $f(M) = V f(\Lambda) V^{-1}$. Em especial, $M^i = V \Lambda^i V^{-1}$. Assim, a equação (\ref{eq:sexpi}) reduz-se a:
+    Por definição, $a b^T = M \,\, M \in \mathbb{R}^{2x2}$, $M = V \Lambda V^{-1}$, $\forall M \in \mathbb{R}^{n \times n}$, com $V$ a matriz direita de autovetores de $M$ e $\Lambda$ a matriz de autovalores de $M$, diagonal por definição. Além disso, $f(M) = V f(\Lambda) V^{-1}$. Em especial, $M^i = V \Lambda^i V^{-1}$. Assim, a equação \eqref{eq:sexpi} reduz-se a:
     
     \begin{equation}
         s^i = \frac{c^T V_c \Lambda_c^{i-1} V_c^{-1} \mathcal{Z}}{d^T V_d \Lambda_d^{i-1} V_d^{-1} \mathcal{Z}}
