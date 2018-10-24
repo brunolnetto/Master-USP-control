@@ -21,7 +21,10 @@
 \setcounter{secnumdepth}{0}
 
 % Configuracoes do matlab
-\lstset{language=Matlab,%
+\lstset{
+    language=Matlab,%
+    basicstyle=\ttfamily,
+    frame=single,
     breaklines=true,%
     morekeywords={matlab2tikz},
     keywordstyle=\color{blue},%
@@ -91,7 +94,6 @@
 \fancypagestyle{nofooter}{
   % Limpa o cabecalho e roda-pe
   \fancyhf{}
-  \fancyhead[LO, RE]{\headerstyle \currentname}
   \fancyhead[RO, LE]{\headerstyle \subjectname}
   \renewcommand{\headrulewidth}{1pt}
 }
@@ -99,7 +101,6 @@
 \setlength{\headheight}{14.0pt}
 \pagestyle{fancy}
 
-\fancyhead[LO, RE]{\headerstyle \exercisename \esnumber}
 \fancyhead[RO, LE]{\headerstyle \subjectname}
 \cfoot{\thepage \hspace{1pt} de \pageref{LastPage}}	
 \renewcommand{\headrulewidth}{1pt}
