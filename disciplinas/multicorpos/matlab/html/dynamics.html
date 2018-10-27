@@ -1,0 +1,539 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>dynamics</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-10-24"><meta name="DC.source" content="dynamics.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% @Author: Bruno Peixoto</span>
+<span class="comment">% @Date: 24/10</span>
+
+clear <span class="string">all</span>;
+close <span class="string">all</span>;
+clc;
+
+<span class="comment">% Subs auxiliary variables</span>
+syms <span class="string">dummy1</span> <span class="string">dummy2</span> <span class="string">dummy3</span>;
+
+<span class="comment">% Member Lengths [m]</span>
+syms <span class="string">L01</span> <span class="string">L02</span> <span class="string">L03</span> <span class="string">real</span>;
+syms <span class="string">L11</span> <span class="string">L12</span> <span class="string">L13</span> <span class="string">real</span>;
+syms <span class="string">L21</span> <span class="string">L22</span> <span class="string">L23</span> <span class="string">real</span>;
+syms <span class="string">Lb1</span> <span class="string">Lb2</span> <span class="string">Lb3</span> <span class="string">real</span>;
+
+<span class="comment">% Mass center distances and orientation [m, rad]</span>
+syms <span class="string">L11_cg</span> <span class="string">L12_cg</span> <span class="string">L13_cg</span> <span class="string">real</span>;
+syms <span class="string">L21_cg</span> <span class="string">L22_cg</span> <span class="string">L23_cg</span> <span class="string">real</span>;
+syms <span class="string">Le_cg</span> <span class="string">delta_e_cg</span> <span class="string">real</span>;
+
+<span class="comment">% Masses [Kg]</span>
+syms <span class="string">m11</span> <span class="string">m12</span> <span class="string">m13</span> <span class="string">real</span>;
+syms <span class="string">m21</span> <span class="string">m22</span> <span class="string">m23</span> <span class="string">real</span>;
+syms <span class="string">me</span> <span class="string">real</span>;
+
+<span class="comment">% Inertial moments [Kg*m^2]</span>
+syms <span class="string">J11</span> <span class="string">J12</span> <span class="string">J13</span> <span class="string">real</span>;
+syms <span class="string">J21</span> <span class="string">J22</span> <span class="string">J23</span> <span class="string">real</span>;
+syms <span class="string">Je</span> <span class="string">real</span>;
+
+<span class="comment">% Orientation for motors and platform member joints [rad]</span>
+syms <span class="string">beta1</span> <span class="string">beta2</span> <span class="string">beta3</span> <span class="string">real</span>;
+syms <span class="string">gamma1</span> <span class="string">gamma2</span> <span class="string">gamma3</span> <span class="string">real</span>;
+
+<span class="comment">% Platform orientation, velocity and acceleration [m, m/s, m/s^2]</span>
+syms <span class="string">alpha(t)</span> <span class="string">x(t)</span> <span class="string">y(t)</span>;
+syms <span class="string">alphap(t)</span> <span class="string">xp(t)</span> <span class="string">yp(t)</span>;
+syms <span class="string">alphapp(t)</span> <span class="string">xpp(t)</span> <span class="string">ypp(t)</span>;
+
+<span class="comment">% First bar orientation, velocity and acceleration [m, m/s, m/s^2]</span>
+syms <span class="string">theta1(t)</span> <span class="string">theta2(t)</span> <span class="string">theta3(t)</span>;
+syms <span class="string">theta1p(t)</span> <span class="string">theta2p(t)</span> <span class="string">theta3p(t)</span>;
+syms <span class="string">theta1pp(t)</span> <span class="string">theta2pp(t)</span> <span class="string">theta3pp(t)</span>;
+
+<span class="comment">% First bar orientation, velocity and acceleration [m, m/s, m/s^2]</span>
+syms <span class="string">phi1(t)</span> <span class="string">phi2(t)</span> <span class="string">phi3(t)</span>;
+syms <span class="string">phi1p(t)</span> <span class="string">phi2p(t)</span> <span class="string">phi3p(t)</span>;
+syms <span class="string">phi1pp(t)</span> <span class="string">phi2pp(t)</span> <span class="string">phi3pp(t)</span>;
+
+assume([alpha(t), x(t), y(t), <span class="keyword">...</span>
+       alphap(t), xp(t), yp(t), <span class="keyword">...</span>
+       alphapp(t), xpp(t), ypp(t)], <span class="string">'real'</span>);
+
+assume([theta1(t), theta2(t), theta3(t), <span class="keyword">...</span>
+        theta1p(t), theta2p(t), theta3p(t), <span class="keyword">...</span>
+        theta1pp(t), theta2pp(t), theta3pp(t)], <span class="string">'real'</span>);
+
+assume([phi1(t), phi2(t), phi3(t), <span class="keyword">...</span>
+        phi1p(t), phi2p(t), phi3p(t), <span class="keyword">...</span>
+        phi1pp(t), phi2pp(t), phi3pp(t)], <span class="string">'real'</span>);
+
+<span class="comment">% Principais matrizes de rotacao</span>
+Rbt = blkdiag(rot2d(dummy1), rot2d(dummy2), rot2d(dummy3));
+Rbt = subs(Rbt, <span class="keyword">...</span>
+           {dummy1, dummy2, dummy3}, <span class="keyword">...</span>
+           {theta1 + beta1, theta2 + beta2, theta3 + beta3});
+
+Rag = blkdiag(rot2d(dummy1), rot2d(dummy2), rot2d(dummy3));
+Rag = subs(Rag, <span class="keyword">...</span>
+           {dummy1, dummy2, dummy3}, <span class="keyword">...</span>
+           {alpha + gamma1, alpha + gamma2, alpha + gamma3});
+
+Rbtp = blkdiag(rot2d(dummy1), rot2d(dummy2), rot2d(dummy3));
+Rbtp = subs(Rbtp, <span class="keyword">...</span>
+            {dummy1, dummy2, dummy3}, <span class="keyword">...</span>
+            {theta1 + beta1 + phi1, <span class="keyword">...</span>
+             theta2 + beta2 + phi2, <span class="keyword">...</span>
+             theta3 + beta3 + phi3});
+
+Rb = blkdiag(rot2d(dummy1), rot2d(dummy2), rot2d(dummy3));
+Rb = subs(Rb, <span class="keyword">...</span>
+          {dummy1, dummy2, dummy3}, <span class="keyword">...</span>
+          {beta1, beta2, beta3});
+
+<span class="comment">% Antisymmetric matrix</span>
+s = [0, -1; 1, 0];
+S = blkdiag(s, s, s);
+
+d = [x; y];
+
+<span class="comment">% Distance matrices</span>
+D0 = blkdiag([L01; 0], [L02; 0], [L03; 0]);
+D1 = blkdiag([L11; 0], [L12; 0], [L13; 0]);
+D2 = blkdiag([L21; 0], [L22; 0], [L23; 0]);
+
+L1 = diag([L11, L12, L13]);
+L2 = diag([L21, L22, L23]);
+
+D1_cg = blkdiag([L11_cg; 0], [L12_cg; 0], [L13_cg; 0]);
+D2_cg = blkdiag([L21_cg; 0], [L22_cg; 0], [L23_cg; 0]);
+
+[xecg, yecg] = pol2cart(delta_e_cg, Le_cg);
+de_cg = [xecg; yecg];
+
+De_cg = blkdiag(de_cg, de_cg, de_cg);
+Db = blkdiag([Lb1; 0], [Lb2; 0], [Lb3; 0]);
+
+dummy = [dummy1; dummy2];
+blkdummy = blkdiag(dummy, dummy, dummy);
+D = subs(blkdummy, {dummy1, dummy2}, {x, y});
+
+A = Rag*Db + D - Rb*D0;
+C = [s.', rot2d(beta1 + theta1)*[Lb1; 0]; <span class="keyword">...</span>
+     s.', rot2d(beta2 + theta2)*[Lb2; 0]; <span class="keyword">...</span>
+     s.', rot2d(beta3 + theta3)*[Lb3; 0]];
+
+T0e = T2d(alpha, d);
+
+T011 = T2d(beta1, [0, 0].')*T2d(0, [L01, 0].')*T2d(theta1, [0, 0].');
+T012 = T2d(beta2, [0, 0].')*T2d(0, [L02, 0].')*T2d(theta2, [0, 0].');
+T013 = T2d(beta3, [0, 0].')*T2d(0, [L03, 0].')*T2d(theta3, [0, 0].');
+
+T011p = diff(T011, t);
+T012p = diff(T012, t);
+T013p = diff(T013, t);
+
+T011p = subs(T011p, diff(theta1, t), theta1p);
+T012p = subs(T012p, diff(theta2, t), theta2p);
+T013p = subs(T013p, diff(theta3, t), theta3p);
+
+T021 = T011*T2d(0, [L11, 0]')*T2d(phi1, [0, 0]');
+T022 = T012*T2d(0, [L12, 0]')*T2d(phi2, [0, 0]');
+T023 = T013*T2d(0, [L13, 0]')*T2d(phi3, [0, 0]');
+
+T0b1 = T0e*T2d(gamma1, [0, 0]')*T2d(0, [Lb1, 0]');
+T0b2 = T0e*T2d(gamma2, [0, 0]')*T2d(0, [Lb2, 0]');
+T0b3 = T0e*T2d(gamma3, [0, 0]')*T2d(0, [Lb3, 0]');
+
+<span class="comment">% Elbow joint Ai</span>
+A1 = T011*[L11; 0; 1];
+A1 = formula(A1);
+A1 = simplify(A1(1:2));
+
+A2 = T012*[L12; 0; 1];
+A2 = formula(A2);
+A2 = simplify(A2(1:2));
+
+A3 = T013*[L13; 0; 1];
+A3 = formula(A3);
+A3 = simplify(A3(1:2));
+
+<span class="comment">% Platform joints Bi</span>
+B1 = T0b1*[L21; 0; 1];
+B1 = formula(B1);
+B1 = simplify(B1(1:2));
+
+B2 = T0b2*[0; 0; 1];
+B2 = formula(B2);
+B2 = simplify(B2(1:2));
+
+B3 = T0b3*[0; 0; 1];
+B3 = formula(B3);
+B3 = simplify(B3(1:2));
+
+<span class="comment">% Cinematica direta e inversa</span>
+diff2p = {diff(phi1, t), diff(phi1, t), diff(phi1, t), <span class="keyword">...</span>
+          diff(theta1, t), diff(theta2, t), diff(theta3, t), <span class="keyword">...</span>
+          diff(x, t), diff(y, t), diff(alpha, t)};
+
+diff2pp = {diff(phi1p, t), diff(phi1p, t), diff(phi1p, t), <span class="keyword">...</span>
+           diff(theta1p, t), diff(theta2p, t), diff(theta3p, t), <span class="keyword">...</span>
+           diff(xp, t), diff(yp, t), diff(alphap, t)};
+
+varp = {phi1p, phi2p, phi3p, <span class="keyword">...</span>
+        theta1p, theta2p, theta3p, <span class="keyword">...</span>
+        xp, yp, alphap};
+
+varpp = {phi1pp, phi2pp, phi3pp, <span class="keyword">...</span>
+         theta1pp, theta2pp, theta3pp, <span class="keyword">...</span>
+         xpp, ypp, alphapp};
+
+eqn_phi = L1*L2*cos([phi1; phi2; phi3]) == <span class="keyword">...</span>
+          A.'*Rbt*[L11; 0; L12; 0; L13; 0] - [L11^2; L12^2; L13^2];
+
+<span class="comment">% Conversion between motor angles and platform DoFs</span>
+eqn_em = [L11^2 == simplify(norm(A1 - B1)^2); <span class="keyword">...</span>
+          L12^2 == simplify(norm(A2 - B2)^2); <span class="keyword">...</span>
+          L13^2 == simplify(norm(A3 - B3)^2)];
+
+eqn_phip = diff(eqn_phi, t);
+eqn_phip = subs(eqn_phip, diff2p, varp);
+
+eqn_phip = diff(eqn_phi, t);
+eqn_phip = subs(eqn_phip, diff2p, varp);
+
+eqn_phipp = diff(eqn_phi, t);
+eqn_phipp = subs(eqn_phip, [diff2p; diff2pp], [varp; varpp]);
+
+qp = [theta1p; theta2p; theta3p];
+phip = [phi1p; phi2p; phi3p];
+
+qpp = [theta1pp; theta2pp; theta3pp];
+phipp = [phi1pp; phi2pp; phi3pp];
+
+
+[Xe_cg, Ye_cg] = pol2cart(delta_e_cg, Le_cg);
+
+Pe_cg_e = [Xe_cg; Ye_cg; 1];
+Pe_cg_0 = T0e*Pe_cg_e;
+Pe_cg_0 = Pe_cg_e(1:2);
+
+<span class="comment">% Center of mass velocities [m/s]</span>
+V1_cg = S*Rbt*D1_cg*qp;
+V2_cg = S*Rbt*D1*qp + S*Rbtp*D2_cg*qp + S*Rbtp*D2_cg*phip;
+Ve_cg = subs(diff(Pe_cg_0, t), {diff(alpha, t), diff(x, t), diff(y, t)}, <span class="keyword">...</span>
+                               {alphap, xp, yp});
+
+<span class="comment">% Angular velocities [rad/s]</span>
+w1 = qp;
+w2 = qp + phip;
+we = alphap;
+
+M1 = blkdiag(m11*eye(2), m12*eye(2), m13*eye(2));
+M2 = blkdiag(m21*eye(2), m22*eye(2), m23*eye(2));
+Me = me*eye(2);
+
+J1 = diag([J11, J12, J13]);
+J2 = diag([J21, J22, J23]);
+
+K1 = kinetic_energy(V1_cg, w1, M1, J1);
+K2 = kinetic_energy(V2_cg, w2, M2, J2);
+Ke = kinetic_energy(Ve_cg, we, Me, Je);
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% @Author: Bruno Peixoto
+% @Date: 24/10
+
+clear all; 
+close all; 
+clc;
+
+% Subs auxiliary variables
+syms dummy1 dummy2 dummy3;
+
+% Member Lengths [m]
+syms L01 L02 L03 real;
+syms L11 L12 L13 real;
+syms L21 L22 L23 real;
+syms Lb1 Lb2 Lb3 real;
+
+% Mass center distances and orientation [m, rad]
+syms L11_cg L12_cg L13_cg real;
+syms L21_cg L22_cg L23_cg real;
+syms Le_cg delta_e_cg real;
+
+% Masses [Kg]
+syms m11 m12 m13 real; 
+syms m21 m22 m23 real;
+syms me real;
+
+% Inertial moments [Kg*m^2]
+syms J11 J12 J13 real;
+syms J21 J22 J23 real;
+syms Je real;
+
+% Orientation for motors and platform member joints [rad]
+syms beta1 beta2 beta3 real;
+syms gamma1 gamma2 gamma3 real;
+
+% Platform orientation, velocity and acceleration [m, m/s, m/s^2]
+syms alpha(t) x(t) y(t);
+syms alphap(t) xp(t) yp(t);
+syms alphapp(t) xpp(t) ypp(t);
+
+% First bar orientation, velocity and acceleration [m, m/s, m/s^2]
+syms theta1(t) theta2(t) theta3(t);
+syms theta1p(t) theta2p(t) theta3p(t);
+syms theta1pp(t) theta2pp(t) theta3pp(t);
+
+% First bar orientation, velocity and acceleration [m, m/s, m/s^2]
+syms phi1(t) phi2(t) phi3(t);
+syms phi1p(t) phi2p(t) phi3p(t);
+syms phi1pp(t) phi2pp(t) phi3pp(t);
+
+assume([alpha(t), x(t), y(t), ...
+       alphap(t), xp(t), yp(t), ...
+       alphapp(t), xpp(t), ypp(t)], 'real');
+   
+assume([theta1(t), theta2(t), theta3(t), ...
+        theta1p(t), theta2p(t), theta3p(t), ...
+        theta1pp(t), theta2pp(t), theta3pp(t)], 'real');
+   
+assume([phi1(t), phi2(t), phi3(t), ...
+        phi1p(t), phi2p(t), phi3p(t), ...
+        phi1pp(t), phi2pp(t), phi3pp(t)], 'real');
+
+% Principais matrizes de rotacao
+Rbt = blkdiag(rot2d(dummy1), rot2d(dummy2), rot2d(dummy3));
+Rbt = subs(Rbt, ...
+           {dummy1, dummy2, dummy3}, ...
+           {theta1 + beta1, theta2 + beta2, theta3 + beta3});
+          
+Rag = blkdiag(rot2d(dummy1), rot2d(dummy2), rot2d(dummy3));
+Rag = subs(Rag, ...
+           {dummy1, dummy2, dummy3}, ...
+           {alpha + gamma1, alpha + gamma2, alpha + gamma3});
+
+Rbtp = blkdiag(rot2d(dummy1), rot2d(dummy2), rot2d(dummy3));
+Rbtp = subs(Rbtp, ...
+            {dummy1, dummy2, dummy3}, ...
+            {theta1 + beta1 + phi1, ...
+             theta2 + beta2 + phi2, ...
+             theta3 + beta3 + phi3});
+       
+Rb = blkdiag(rot2d(dummy1), rot2d(dummy2), rot2d(dummy3));
+Rb = subs(Rb, ...
+          {dummy1, dummy2, dummy3}, ...
+          {beta1, beta2, beta3});
+
+% Antisymmetric matrix
+s = [0, -1; 1, 0];
+S = blkdiag(s, s, s);
+
+d = [x; y];
+
+% Distance matrices
+D0 = blkdiag([L01; 0], [L02; 0], [L03; 0]);
+D1 = blkdiag([L11; 0], [L12; 0], [L13; 0]);
+D2 = blkdiag([L21; 0], [L22; 0], [L23; 0]);
+
+L1 = diag([L11, L12, L13]);
+L2 = diag([L21, L22, L23]);
+
+D1_cg = blkdiag([L11_cg; 0], [L12_cg; 0], [L13_cg; 0]);
+D2_cg = blkdiag([L21_cg; 0], [L22_cg; 0], [L23_cg; 0]);
+
+[xecg, yecg] = pol2cart(delta_e_cg, Le_cg);
+de_cg = [xecg; yecg];
+
+De_cg = blkdiag(de_cg, de_cg, de_cg);
+Db = blkdiag([Lb1; 0], [Lb2; 0], [Lb3; 0]);
+
+dummy = [dummy1; dummy2];
+blkdummy = blkdiag(dummy, dummy, dummy);
+D = subs(blkdummy, {dummy1, dummy2}, {x, y});
+
+A = Rag*Db + D - Rb*D0;
+C = [s.', rot2d(beta1 + theta1)*[Lb1; 0]; ...
+     s.', rot2d(beta2 + theta2)*[Lb2; 0]; ...
+     s.', rot2d(beta3 + theta3)*[Lb3; 0]];
+
+T0e = T2d(alpha, d);
+
+T011 = T2d(beta1, [0, 0].')*T2d(0, [L01, 0].')*T2d(theta1, [0, 0].');
+T012 = T2d(beta2, [0, 0].')*T2d(0, [L02, 0].')*T2d(theta2, [0, 0].');
+T013 = T2d(beta3, [0, 0].')*T2d(0, [L03, 0].')*T2d(theta3, [0, 0].');
+
+T011p = diff(T011, t);
+T012p = diff(T012, t);
+T013p = diff(T013, t);
+
+T011p = subs(T011p, diff(theta1, t), theta1p);
+T012p = subs(T012p, diff(theta2, t), theta2p);
+T013p = subs(T013p, diff(theta3, t), theta3p);
+
+T021 = T011*T2d(0, [L11, 0]')*T2d(phi1, [0, 0]');
+T022 = T012*T2d(0, [L12, 0]')*T2d(phi2, [0, 0]');
+T023 = T013*T2d(0, [L13, 0]')*T2d(phi3, [0, 0]');
+
+T0b1 = T0e*T2d(gamma1, [0, 0]')*T2d(0, [Lb1, 0]');
+T0b2 = T0e*T2d(gamma2, [0, 0]')*T2d(0, [Lb2, 0]');
+T0b3 = T0e*T2d(gamma3, [0, 0]')*T2d(0, [Lb3, 0]');
+
+% Elbow joint Ai
+A1 = T011*[L11; 0; 1];
+A1 = formula(A1);
+A1 = simplify(A1(1:2));
+
+A2 = T012*[L12; 0; 1];
+A2 = formula(A2);
+A2 = simplify(A2(1:2));
+
+A3 = T013*[L13; 0; 1];
+A3 = formula(A3);
+A3 = simplify(A3(1:2));
+
+% Platform joints Bi
+B1 = T0b1*[L21; 0; 1];
+B1 = formula(B1);
+B1 = simplify(B1(1:2));
+
+B2 = T0b2*[0; 0; 1];
+B2 = formula(B2);
+B2 = simplify(B2(1:2));
+
+B3 = T0b3*[0; 0; 1];
+B3 = formula(B3);
+B3 = simplify(B3(1:2));
+
+% Cinematica direta e inversa
+diff2p = {diff(phi1, t), diff(phi1, t), diff(phi1, t), ...
+          diff(theta1, t), diff(theta2, t), diff(theta3, t), ...
+          diff(x, t), diff(y, t), diff(alpha, t)};
+
+diff2pp = {diff(phi1p, t), diff(phi1p, t), diff(phi1p, t), ...
+           diff(theta1p, t), diff(theta2p, t), diff(theta3p, t), ...
+           diff(xp, t), diff(yp, t), diff(alphap, t)};
+       
+varp = {phi1p, phi2p, phi3p, ...
+        theta1p, theta2p, theta3p, ...
+        xp, yp, alphap};
+
+varpp = {phi1pp, phi2pp, phi3pp, ...
+         theta1pp, theta2pp, theta3pp, ...
+         xpp, ypp, alphapp};
+
+eqn_phi = L1*L2*cos([phi1; phi2; phi3]) == ...
+          A.'*Rbt*[L11; 0; L12; 0; L13; 0] - [L11^2; L12^2; L13^2];
+
+% Conversion between motor angles and platform DoFs
+eqn_em = [L11^2 == simplify(norm(A1 - B1)^2); ...
+          L12^2 == simplify(norm(A2 - B2)^2); ...
+          L13^2 == simplify(norm(A3 - B3)^2)];
+
+eqn_phip = diff(eqn_phi, t);
+eqn_phip = subs(eqn_phip, diff2p, varp);
+
+eqn_phip = diff(eqn_phi, t);
+eqn_phip = subs(eqn_phip, diff2p, varp);
+
+eqn_phipp = diff(eqn_phi, t);
+eqn_phipp = subs(eqn_phip, [diff2p; diff2pp], [varp; varpp]);
+
+qp = [theta1p; theta2p; theta3p];
+phip = [phi1p; phi2p; phi3p];
+
+qpp = [theta1pp; theta2pp; theta3pp];
+phipp = [phi1pp; phi2pp; phi3pp];
+
+
+[Xe_cg, Ye_cg] = pol2cart(delta_e_cg, Le_cg); 
+
+Pe_cg_e = [Xe_cg; Ye_cg; 1];
+Pe_cg_0 = T0e*Pe_cg_e;
+Pe_cg_0 = Pe_cg_e(1:2);
+
+% Center of mass velocities [m/s]
+V1_cg = S*Rbt*D1_cg*qp;
+V2_cg = S*Rbt*D1*qp + S*Rbtp*D2_cg*qp + S*Rbtp*D2_cg*phip;
+Ve_cg = subs(diff(Pe_cg_0, t), {diff(alpha, t), diff(x, t), diff(y, t)}, ...
+                               {alphap, xp, yp});
+
+% Angular velocities [rad/s]
+w1 = qp;
+w2 = qp + phip;           
+we = alphap;
+
+M1 = blkdiag(m11*eye(2), m12*eye(2), m13*eye(2));
+M2 = blkdiag(m21*eye(2), m22*eye(2), m23*eye(2));
+Me = me*eye(2);
+
+J1 = diag([J11, J12, J13]);
+J2 = diag([J21, J22, J23]);
+
+K1 = kinetic_energy(V1_cg, w1, M1, J1);
+K2 = kinetic_energy(V2_cg, w2, M2, J2);
+Ke = kinetic_energy(Ve_cg, we, Me, Je);
+
+##### SOURCE END #####
+--></body></html>
