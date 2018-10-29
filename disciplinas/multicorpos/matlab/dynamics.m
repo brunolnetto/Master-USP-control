@@ -236,9 +236,9 @@ p   = [x, y, alpha].';
 pp  = [xp, yp, alphap].';
 ppp = [xpp, ypp, alphapp].';
 
-q   = [q1;   q2;   p  ];
-qp  = [q1p;  q2p;  pp ];
-qpp = [q1pp; q2pp; ppp];
+q   = formula([q1;   q2;   p  ]);
+qp  = formula([q1p;  q2p;  pp ]);
+qpp = formula([q1pp; q2pp; ppp]);
 
 M1 = blkdiag(m11*eye(2), m12*eye(2), m13*eye(2));
 M2 = blkdiag(m21*eye(2), m22*eye(2), m23*eye(2));
@@ -316,9 +316,12 @@ w2 = q1p + q2p;
 we = alphap;
 
 V = [V1_CG; V2_CG; Ve_CG];
-W = [w1; w2; we];
+Omega = [w1; w2; we];
 
-D = jacobian([V; W], qp);
+u = sym('u', size(qp));
+VOmega_ = subs([V; Omega], qp, u);
+D_ = jacobian(formula(VOmega_), u).';
+D = subs(D_, u, qp);
 
 % Ce = Ci(alpha + delta_e_cg, di(Le_cg));
 % 
