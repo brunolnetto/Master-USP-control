@@ -340,7 +340,7 @@ E = [zeros(12, 3); eye(2), zeros(2,1); zeros(6, 3); 0, 0, 1];
 F = [zeros(14, 3); eye(3); zeros(4, 3)];
 G = [zeros(17, 3); eye(3); zeros(1, 3)];
 
-f1 = [T11; T12; T13];
-f2 = [T21; T22; T23];
+f1 = sym('T1', [3, 1]);
+f2 = sym('T2', [3, 1]);
 fe = [Fx; Fy; T];
 
