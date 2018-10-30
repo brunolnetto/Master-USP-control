@@ -49,12 +49,6 @@ syms th21(t)   th22(t)   th23(t);
 syms th21p(t)  th22p(t)  th23p(t);
 syms th21pp(t) th22pp(t) th23pp(t);
 
-% End-effector Efforts
-syms Fx Fy Tau real;
-
-% Motor efforts
-syms Tau1 Tau2 Tau3 real;
-
 assume([alpha(t),  x(t),   y(t), ...
        alphap(t),  xp(t),  yp(t), ...
        alphapp(t), xpp(t), ypp(t)], 'real');
@@ -96,23 +90,19 @@ T0e = T2d(alpha, d);
 T0ep = diff(T0e, t);
 T0ep = subs(T0ep, diff2p, varp);
 
-Tseq = @(angle, L) T2d(angle, di(0))*T2d(0, di(L)); 
+T_0i = @(angle, L) T2d(angle, di(0))*T2d(0, di(L)); 
 
-T011 = Tseq(beta1, L01);
-T012 = Tseq(beta2, L02);
-T013 = Tseq(beta3, L03);
+T_01 = T_0i(beta1, L01);
+T_02 = T_0i(beta2, L02);
+T_03 = T_0i(beta3, L03);
 
-T021 = T011*T2d(th11, di(0));
-T022 = T012*T2d(th12, di(0));
-T023 = T013*T2d(th13, di(0));
+T011 = T_01*T2d(th11, di(0));
+T012 = T_02*T2d(th12, di(0));
+T013 = T_03*T2d(th13, di(0));
 
-T031 = T021*T2d(0, di(L11))*T2d(th21, di(0));
-T032 = T022*T2d(0, di(L12))*T2d(th22, di(0));
-T033 = T023*T2d(0, di(L13))*T2d(th23, di(0));
-
-T111p = T0ip(T011, diff2p, varp);
-T112p = T0ip(T012, diff2p, varp);
-T113p = T0ip(T013, diff2p, varp);
+T021 = T011*T2d(0, di(L11))*T2d(th21, di(0));
+T022 = T012*T2d(0, di(L12))*T2d(th22, di(0));
+T023 = T013*T2d(0, di(L13))*T2d(th23, di(0));
 
 T011p = T0ip(T011, diff2p, varp);
 T012p = T0ip(T012, diff2p, varp);

@@ -17,7 +17,7 @@ C3 = 1 + 0.5*P3 + P3^2;
 % Custo total
 C = C1 + C2 + C3;
 
-% Condição de igualdade
+% Condicao de igualdade
 cond = P1 + P2 + P3 - L;
 
 % Multiplicadores de Lagrange
