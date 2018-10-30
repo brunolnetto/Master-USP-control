@@ -41,7 +41,7 @@ Ctilde_sol = subs(Ctilde, [P1, P2, P3, lambda], P);
 
 % Se DC e' maior que 0, para todo epsilon, entao e' um ponto de minimo.
 % Se for menor que 0, e' de maximo. Se for 0, e' inconclusivo
-DC = Ctilde_eps - Ctilde_sol;
+DC = simplify(Ctilde_eps - Ctilde_sol)
 
 
 
