@@ -118,35 +118,17 @@ T011p = T0ip(T011, diff2p, varp);
 T012p = T0ip(T012, diff2p, varp);
 T013p = T0ip(T013, diff2p, varp);
 
-T011p = subs(T011p, diff2p, varp);
-T012p = subs(T012p, diff2p, varp);
-T013p = subs(T013p, diff2p, varp);
+T011pp = Tpp(T011, [diff2p, diff2pp], [varp, varpp]);
+T012pp = Tpp(T012, [diff2p, diff2pp], [varp, varpp]);
+T013pp = Tpp(T013, [diff2p, diff2pp], [varp, varpp]);
 
-T011pp = diff(T011p, t);
-T012pp = diff(T012p, t);
-T013pp = diff(T013p, t);
+T021pp = Tpp(T021, [diff2p, diff2pp], [varp, varpp]);
+T022pp = Tpp(T022, [diff2p, diff2pp], [varp, varpp]);
+T023pp = Tpp(T023, [diff2p, diff2pp], [varp, varpp]);
 
-T011pp = subs(T011pp, [diff2pp, diff2p], [varpp, varp]);
-T012pp = subs(T012pp, [diff2pp, diff2p], [varpp, varp]);
-T013pp = subs(T013pp, [diff2pp, diff2p], [varpp, varp]);
-
-
-
-T021p = diff(T011, t);
-T022p = diff(T022, t);
-T023p = diff(T023, t);
-
-T021p = subs(T021p, diff2p, varp);
-T022p = subs(T022p, diff2p, varp);
-T023p = subs(T023p, diff2p, varp);
-
-T021pp = diff(T011p, t);
-T022pp = diff(T022p, t);
-T023pp = diff(T023p, t);
-
-T021pp = subs(T021pp, [diff2p, diff2pp], [varp, varpp]);
-T022pp = subs(T022pp, [diff2p, diff2pp], [varp, varpp]);
-T023pp = subs(T023pp, [diff2p, diff2pp], [varp, varpp]);
+T031pp = Tpp(T031, [diff2p, diff2pp], [varp, varpp]);
+T032pp = Tpp(T032, [diff2p, diff2pp], [varp, varpp]);
+T033pp = Tpp(T033, [diff2p, diff2pp], [varp, varpp]);
 
 T0b1 = T0e*T2d(gamma1, di(0));
 T0b2 = T0e*T2d(gamma2, di(0));

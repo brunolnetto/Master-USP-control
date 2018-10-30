@@ -9,8 +9,6 @@ clc;
 
 syms P1 P2 P3 L lambda epsilon;
 
-assume(epsilon > 0);
-
 % Custos nominais
 C1 = 1 - P1 + P1^2;
 C2 = 0.75 + 0.5*P2 + 0.5*P2^2;
@@ -38,10 +36,5 @@ P = [sol.P1, sol.P2, sol.P3, sol.lambda];
 Peps =  P + epsilon;
 Ctilde_eps = subs(Ctilde, [P1, P2, P3, lambda], Peps);
 Ctilde_sol = subs(Ctilde, [P1, P2, P3, lambda], P);
-
-% Se DC e' maior que 0, para todo epsilon, entao e' um ponto de minimo.
-% Se for menor que 0, e' de maximo. Se for 0, e' inconclusivo
-DC = Ctilde_eps - Ctilde_sol;
-
-
-
+DC = Ctilde_eps - Ctilde_sol
+s
