@@ -1,5 +1,6 @@
+
 % @Author: Bruno Peixoto
-% Exercicio 4 da lista 1 de exercícios 
+% Exercicio 4 - Lista 1 
 % Disciplina: PME5205
 
 clear all;
@@ -27,6 +28,6 @@ diffC_P2 = diff(Ctilde, P2);
 diffC_P3 = diff(Ctilde, P3);
 diffC_lambda = diff(Ctilde, lambda);
 
-sol = solve(diffC_P1, diffC_P2, ...
-            diffC_P3,diffC_lambda, ...
+sol = solve(diffC_P1 == 0, diffC_P2 == 0, ...
+            diffC_P3 == 0,diffC_lambda == 0, ...
             P1, P2, P3, lambda, 'ReturnConditions', true);
