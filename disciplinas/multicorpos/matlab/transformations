@@ -1,0 +1,47 @@
+di = @(L) [L; 0];
+
+T0e = T2d(alpha, d);
+T0ep = Tp(T0e, diff2p, varp);
+T0epp = Tpp(T0e, [diff2p, diff2pp], [varp, varpp]);
+
+Tseq = @(angle, L) T2d(angle, di(0))*T2d(0, di(L)); 
+
+T011 = Tseq(beta1, L01);
+T012 = Tseq(beta2, L02);
+T013 = Tseq(beta3, L03);
+
+T021 = T011*T2d(th11, di(0));
+T022 = T012*T2d(th12, di(0));
+T023 = T013*T2d(th13, di(0));
+
+T031 = T021*T2d(0, di(L11))*T2d(th21, di(0));
+T032 = T022*T2d(0, di(L12))*T2d(th22, di(0));
+T033 = T023*T2d(0, di(L13))*T2d(th23, di(0));
+
+T011p = Tp(T011, diff2p, varp);
+T012p = Tp(T012, diff2p, varp);
+T013p = Tp(T013, diff2p, varp);
+
+T021p = Tp(T021, diff2p, varp);
+T022p = Tp(T022, diff2p, varp);
+T023p = Tp(T023, diff2p, varp);
+
+T031p = Tp(T031, diff2p, varp);
+T032p = Tp(T032, diff2p, varp);
+T033p = Tp(T033, diff2p, varp);
+
+T011pp = Tpp(T011, [diff2p, diff2pp], [varp, varpp]);
+T012pp = Tpp(T012, [diff2p, diff2pp], [varp, varpp]);
+T013pp = Tpp(T013, [diff2p, diff2pp], [varp, varpp]);
+
+T021pp = Tpp(T021, [diff2p, diff2pp], [varp, varpp]);
+T022pp = Tpp(T022, [diff2p, diff2pp], [varp, varpp]);
+T023pp = Tpp(T023, [diff2p, diff2pp], [varp, varpp]);
+
+T031pp = Tpp(T031, [diff2p, diff2pp], [varp, varpp]);
+T032pp = Tpp(T032, [diff2p, diff2pp], [varp, varpp]);
+T033pp = Tpp(T033, [diff2p, diff2pp], [varp, varpp]);
+
+T0b1 = T0e*T2d(gamma1, di(0));
+T0b2 = T0e*T2d(gamma2, di(0));
+T0b3 = T0e*T2d(gamma3, di(0));
