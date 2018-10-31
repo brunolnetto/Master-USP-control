@@ -45,6 +45,12 @@ Rbq1q2 = blkdiag(formula(rot2d(beta1 + th11 + th21)), ...
 a = diff([V; Omega], t);
 a = subs(a, [diff2p, diff2pp], [varp, varpp]);
 
+coriolis = a - D.'*qpp;
+coriolis = simplify(coriolis);
+
+a = D.'*qpp + coriolis;
+a = simplify(a);
+
 % Generalized forces for each multibody segment
 F = [zeros(14, 3); eye(3); zeros(4, 3)];
 f1 = sym('Tau', [3, 1]);
@@ -58,16 +64,31 @@ L2 = diag([L21, L22, L23]);
 Gamma = (A - Rbq1*D1).'*C;
 Sigma = A.'*S*Rbq1*D1;
 Xi = L1*L2*sin(diag(q2));
-Lambda = A.'*C_ - Gamma ;
+Lambda = A.'*C - Gamma ;
 
 Sigmainv = Sigma\eye(3);
 Gammainv = Gamma\eye(3);
 Xiinv = Xi\eye(3);
 
+% Jacobian matrix of system constraints
 jacConst = [Sigma, zeros(3, 3), -Gamma;...
              Sigma,          Xi, Lambda];
 jacConst_perp = [Sigmainv*Gamma; -Xiinv*(Gamma + Lambda); eye(3)];
 
+% Complementar space of Jacobian matrix
 C_cal = jacConst_perp;
+C_cal = simplify(C_cal);
 
-eqdyn = C_cal.'*D*f == 0;
+% Inertial decoupling matrix
+DMD_ = simplify(D*M*D.');
+M_ = simplify(C_cal.'*DMD_);
+
+% Coriolis matrix 
+Mup = simplify(M*coriolis);
+DMup = simplify(D*Mup);
+upsilon = simplify(C_cal.'*DMup);
+
+DF = simplify(D*F);
+U_ =  simplify(C_cal.'*DF);
+
+eqdyn = - M_*qpp + upsilon + U_*f1 == 0;

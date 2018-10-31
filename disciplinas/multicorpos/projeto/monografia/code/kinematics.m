@@ -15,7 +15,10 @@ run('points');
 run('velocities');
 run('accelerations');
 
-% Closed chain constraint
+% Closed chain constraints
 run('constraints');
+
+% Relation between redundant and independent variables
+% run('vel_accel_relation');
 
 

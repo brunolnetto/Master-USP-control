@@ -43,7 +43,7 @@ A3O3_ = subs(A3O3, posrel, t1t2psym);
 % Connection between point Ai and Bi
 eqn_con1 = [L21^2 - diff_A1B1.'*diff_A1B1; ...
             L22^2 - diff_A2B2.'*diff_A2B2; ...
-            L23^2 - diff_A3B3.'*diff_A2B2];
+            L23^2 - diff_A3B3.'*diff_A3B3];
 
 % Angle between vector BiAi and AiOi
 eqn_con2 = [dot(B1A1_, A1O1_) - L11*L21*cos(th21); ...
@@ -52,3 +52,5 @@ eqn_con2 = [dot(B1A1_, A1O1_) - L11*L21*cos(th21); ...
 
 const = [eqn_con1; eqn_con2];
 const = subs(const, t1t2psym, posrel);
+eqn_con1 = subs(eqn_con1, t1t2psym, posrel);
+eqn_con2 = subs(eqn_con2, t1t2psym, posrel);

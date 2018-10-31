@@ -5,9 +5,9 @@ syms L21 L22 L23 real;
 syms Le1 Le2 Le3 real;
 
 % Mass center distances and orientation [m, rad]
-syms L11_cg L12_cg L13_cg real;
-syms L21_cg L22_cg L23_cg real;
-syms Le_cg delta_e_cg real;
+syms L11cg L12cg L13cg real;
+syms L21cg L22cg L23cg real;
+syms Lecg deltaecg real;
 
 % Masses [Kg]
 syms m11 m12 m13 real; 

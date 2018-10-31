@@ -19,14 +19,14 @@ B2p = point(T0e, rot2d(gamma2)*di(Le2));
 B3p = point(T0e, rot2d(gamma3)*di(Le3));
 
 % Center of mass
-P11cg = point(T011, di(L11_cg));
-P12cg = point(T012, di(L12_cg));
-P13cg = point(T013, di(L13_cg));
+P11cg = point(T011, di(L11cg));
+P12cg = point(T012, di(L12cg));
+P13cg = point(T013, di(L13cg));
 
-P21cg = point(T021, di(L21_cg));
-P22cg = point(T022, di(L22_cg));
-P23cg = point(T023, di(L23_cg));
+P21cg = point(T021, di(L21cg));
+P22cg = point(T022, di(L22cg));
+P23cg = point(T023, di(L23cg));
 
-[xecg, yecg] = pol2cart(delta_e_cg, Le_cg);
+[xecg, yecg] = pol2cart(deltaecg, Lecg);
 de_cg = [xecg; yecg];
 Pecg = point(T0e, de_cg);
