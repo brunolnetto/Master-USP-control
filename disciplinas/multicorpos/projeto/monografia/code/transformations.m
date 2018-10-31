@@ -8,18 +8,19 @@ di = @(L) [L; 0];
 
 % Transformation matrices of position
 % #CFS1
-T011 = pol2cart(beta1, L01);
-T012 = pol2cart(beta2, L02);
-T013 = pol2cart(beta3, L03);
+T = @(angle, L) T2d(angle, di(0))*T2d(0, di(L));
+T011 = T(beta1, L01);
+T012 = T(beta2, L02);
+T013 = T(beta3, L03);
 
 % # CFS2
-T02i = @(T01i, th1i, di) simplify(T011*T2d(th1i, di));
+T02i = @(T01i, th1i, di) simplify(T01i*T2d(th1i, di));
 T021 = T02i(T011, th11, di(0));
 T022 = T02i(T012, th12, di(0));
 T023 = T02i(T013, th13, di(0));
 
 % # CFS3
-T03i = @(T01i, th2i, L1i) T021*T2d(0, di(L1i))*T2d(th21, di(0));
+T03i = @(T01i, th2i, L1i) simplify(T021*T2d(0, di(L1i))*T2d(th21, di(0)));
 T031 = T03i(T011, th21, L11);
 T032 = T03i(T012, th22, L12);
 T033 = T03i(T013, th23, L13);

@@ -19,6 +19,6 @@ run('accelerations');
 run('constraints');
 
 % Relation between redundant and independent variables
-% run('vel_accel_relation');
+run('vel_accel_relation');
 
 
