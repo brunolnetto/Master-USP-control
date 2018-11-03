@@ -1,0 +1,55 @@
+\section*{Exercício 4}
+\label{ex:4}
+\addcontentsline{toc}{section}{Exercício 4}
+
+    A conversão sem aproximação do espaço contínuo para discreto com mantenedor de ordem zero (ZOH) satisfaz a seguinte equação:
+    
+        \begin{equation}
+            G(z) \coloneqq (1-z^{-1}) \mathcal{Z}\left\{\mathcal{L}^{-1}\left\{\frac{G(s)}{s}\right\}\right\}
+        \end{equation}
+    
+    Desta forma
+    
+        \begin{equation}
+            \frac{G(s)}{s} = H(s) = \frac{K}{s(s+a)}
+            \label{eq:ex41}
+        \end{equation}
+    
+    Pelo método de expansão de frações parciais, a equação (\ref{eq:ex41}) apresenta a seguinte forma
+    
+        \begin{equation}
+            H(s) = \frac{A}{s} + \frac{B}{(s+a)} 
+        \end{equation}
+    
+    o qual 
+    
+        \begin{equation}
+            A = H(s) s \bigg\rvert_{s=0} = \frac{K}{a} \mbox{ e } B = H(s) (s+a)\bigg\rvert_{s=-a} = -\frac{K}{a}
+        \end{equation}
+    
+    Logo
+    
+        \begin{equation}
+            H(s) = \frac{K}{a} \left( \frac{1}{s} - \frac{1}{s+a} \right)
+        \end{equation}
+    
+    A função de transferência acima exceto ao fator de escala $K$ foi obtida no item (\ref{item:ex2b}) do \nameref{ex:2}. Desta forma
+    
+        \begin{equation}
+            \mathcal{L}^{-1}\left\{\frac{G(s)}{s}\right\} = \frac{K}{a}\sigma(t)\left(1+e^{-at}\right)
+            \label{eq:lapinv}
+        \end{equation}
+    
+    Portanto, a função $\mathcal{Z}$ da função (\ref{eq:lapinv}) é dada por
+    
+        \begin{equation}
+            G(z) = \frac{K}{a} \frac{(1 - e^{-aT_s}z^{-1})}{(1-z^{-1})(1 - e^{-aT_s}z^{-1})}
+        \end{equation}
+    
+    Por fim, por meio da função de transefrência de malha fechada \footnote{A equação em malha fechada de um sistema em tempo discreto ou contínuo é dado pela equação $G_{MF} = \frac{G}{1+G}$}, após manipulação algébrica é dada por:
+    
+        \begin{equation}
+            G_{MF}(z) = K' \frac{z}{z+b}
+        \end{equation}
+        
+    onde $K' = \frac{K}{a} (1-e^{-aT_s}) \mbox{ e } b = (1 + \frac{k}{a})\left[e^{-aT_s} - \frac{k}{a} \right] $.

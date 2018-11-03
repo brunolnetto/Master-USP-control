@@ -1,0 +1,54 @@
+\documentclass[tikz, twoside, fleqn]{article}
+\input{packages}
+\input{config}
+
+\title{\exercisename \esnumber}
+\author{\studentname \qquad Número USP: \uspid \qquad E-mail USP: \uspmail}
+
+\begin{document}
+%--------------------------------- Preambulo ----------------------------------
+\maketitle
+\tableofcontents
+\thispagestyle{nofooter}
+
+\newpage
+\clearpage
+\setcounter{page}{1}
+\addcontentsline{toc}{section}{\listfigurename}
+\listoffigures
+\addcontentsline{toc}{section}{\lstlistlistingname}
+\lstlistoflistings
+\addcontentsline{toc}{section}{\listtablename}
+\listoftables
+
+%-------------------------------------------------------------------------------
+
+%--------------------------------- Exercicios ----------------------------------
+\newpage
+\input{exercises/ex1}
+\newpage
+\input{exercises/ex2}
+\newpage
+\input{exercises/ex3}
+\newpage
+\input{exercises/ex4}
+\newpage
+\input{exercises/ex5}
+\newpage
+\input{exercises/ex6}
+\newpage
+\input{exercises/ex7}
+\newpage
+\input{exercises/dedex89}
+\input{exercises/ex8}
+\input{exercises/ex9}
+\newpage
+\input{exercises/ex10}
+%---------------------------------------------------------------------------
+
+%--------------------------------- Anexos ----------------------------------
+\input{attach}
+%\input{appendix}
+%---------------------------------------------------------------------------
+
+\end{document}
