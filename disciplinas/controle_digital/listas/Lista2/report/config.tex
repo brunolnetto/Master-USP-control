@@ -10,10 +10,10 @@
 % Configuração de orientacao do Tikz
 \tikzset{
     reverseclip/.style={insert path={(current page.north east) --
-        (current page.south east) --
-        (current page.south west) --
-        (current page.north west) --
-        (current page.north east)}
+                                     (current page.south east) --
+                                     (current page.south west) --
+                                     (current page.north west) --
+                                     (current page.north east)}
     }
 }
 
@@ -87,7 +87,7 @@
 \newcommand{\subjectname}{PTC5611 Controle Digital de Sistemas Dinâmicos}
 \newcommand{\uspid}{7206666}
 \newcommand{\uspmail}{bruno.peixoto@usp.br}
-\newcommand{\esnumber}{1}
+\newcommand{\esnumber}{2}
 
 \newcommand{\headerstyle}{\sffamily\bfseries\large}
 
@@ -101,7 +101,8 @@
 \setlength{\headheight}{14.0pt}
 \pagestyle{fancy}
 
-\fancyhead[RO, LE]{\headerstyle \subjectname}
+\fancyhead[LE, RO]{\headerstyle \subjectname}
+\fancyhead[RE, LO]{\currentname}
 \cfoot{\thepage \hspace{1pt} de \pageref{LastPage}}	
 \renewcommand{\headrulewidth}{1pt}
 
