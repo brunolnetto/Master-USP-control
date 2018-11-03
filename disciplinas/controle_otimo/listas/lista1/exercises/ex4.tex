@@ -1,0 +1,11 @@
+\section{Exercício 4}
+
+Para o custo total $C = C_1 + C_2 + C_3$ cuja condição de contorno é $P_1 + P_2 + P_3 = L$ e $C_1 = 1 - P_1  P_1^2$, $C_2 = 0.75 + 0.75 P_2 + 0.5 P_2^2$ e $C_3 = 1 + 0.5 P_3 + P_3^2$, o ponto candidato a mínimo é $
+\left(\begin{array}{cccc} \frac{L}{4} + \frac{9}{16}, & \frac{L}{2} - \frac{3}{8}, & \frac{L}{4} - \frac{3}{16}, &  - \frac{L}{2} - \frac{1}{8} \end{array}\right)$, obtido por meio de 
+
+\begin{equation}
+\label{eq:grad}
+\vec \nabla (C + \lambda (P_1 + P_2 + P_3 - L)) \coloneqq 0
+\end{equation}
+
+Por definição, se o ponto é mínimo para C, então para todo $P$ pertencente a uma vizinhança de $P_0$, sendo $P_0$ a solução de \eqref{eq:grad} dada anteriormente, $C(P) - C(P_0) > \epsilon$. De fato, $C(P) - C(P_0) = \frac{11\, {\epsilon}^2}{2} > 0$. Portanto, $P_0$ é um ponto de mínimo. O programa utilizado encontra-se na seção $\nameref{sec:scripts}$.

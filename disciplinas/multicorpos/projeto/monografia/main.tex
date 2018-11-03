@@ -1,0 +1,52 @@
+\documentclass[]{article}
+
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lscape}
+
+\usepackage[backend=biber, style=alphabetic]{biblatex}
+\addbibresource{bibliography.bib}
+
+\newcommand{\studentname}{Bruno Peixoto}
+\newcommand{\subjectname}{PME5236 Dinâmica de Sistemas Multicorpos e Suas Aplicações em
+Robótica e Engenharia Veicular}
+\newcommand{\uspid}{7206666}
+\newcommand{\uspmail}{bruno.peixoto@usp.br}
+\newcommand{\esnumber}{1}
+\newcommand{\headerstyle}{\sffamily \bfseries \small}
+\renewcommand{\headrulewidth}{1pt}
+
+\setlength{\headheight}{14.0pt}
+\fancyhead[RE, LO]{\headerstyle \subjectname}
+\fancyhead[RO, LE]{}
+
+\pagestyle{fancy}
+
+%opening
+\title{Matrizes}
+\author{\studentname \qquad \uspid \qquad \uspmail}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\begin{equation*}
+\mathrm{U'(:, 1)} = \left(\begin{array}{c} \frac{x - \mathrm{\mathrm{L_{01}}}\, \cos\!\left(\mathrm{\mathrm{\beta_1}}\right) + \mathrm{\mathrm{L_{e_1}}}\, \cos\!\left(\mathrm{\mathrm{\gamma_1}} + \mathrm{alpha}\right) - \mathrm{\mathrm{L_{11}}}\, \cos\!\left(\mathrm{\mathrm{\beta_1}} + \mathrm{\theta_{11}}\right)}{\mathrm{\mathrm{L_{11}}}\, \left(\mathrm{\mathrm{L_{01}}}\, \sin\!\left(\mathrm{\theta_{11}}\right) + \cos\!\left(\mathrm{\mathrm{\beta_1}} + \mathrm{\theta_{11}}\right)\, \mathrm{x} - \sin\!\left(\mathrm{\mathrm{\beta_1}} + \mathrm{\theta_{11}}\right)\, x + \mathrm{\mathrm{L_{e_1}}}\, \sin\!\left(\mathrm{\mathrm{\gamma_1}} - \mathrm{\mathrm{\beta_1}} + \mathrm{alpha} - \mathrm{\theta_{11}}\right)\right)}\\ \frac{\mathrm{x} - \mathrm{\mathrm{L_{01}}}\, \sin\!\left(\mathrm{\mathrm{\beta_1}}\right) + \mathrm{\mathrm{L_{e_1}}}\, \sin\!\left(\mathrm{\mathrm{\gamma_1}} + \mathrm{alpha}\right) - \mathrm{\mathrm{L_{11}}}\, \sin\!\left(\mathrm{\mathrm{\beta_1}} + \mathrm{\theta_{11}}\right)}{\mathrm{\mathrm{L_{11}}}\, \left(\mathrm{\mathrm{L_{01}}}\, \sin\!\left(\mathrm{\theta_{11}}\right) + \cos\!\left(\mathrm{\mathrm{\beta_1}} + \mathrm{\theta_{11}}\right)\, \mathrm{x} - \sin\!\left(\mathrm{\mathrm{\beta_1}} + \mathrm{\theta_{11}}\right)\, x + \mathrm{\mathrm{L_{e_1}}}\, \sin\!\left(\mathrm{\mathrm{\gamma_1}} - \mathrm{\mathrm{\beta_1}} + \mathrm{alpha} - \mathrm{\theta_{11}}\right)\right)}\\ 1 \end{array}\right)
+\end{equation*}
+
+\begin{equation*}
+\mathrm{U'(:, 2)} = \left(\begin{array}{c} \frac{x - \mathrm{\mathrm{L_{03}}}\, \cos\!\left(\mathrm{\mathrm{\beta_3}}\right) + \mathrm{\mathrm{L_{e_3}}}\, \cos\!\left(\mathrm{\mathrm{\gamma_3}} + \mathrm{alpha}\right) - \mathrm{\mathrm{L_{13}}}\, \cos\!\left(\mathrm{\mathrm{\beta_3}} + \mathrm{\theta_{13}}\right)}{\mathrm{\mathrm{L_{13}}}\, \left(\mathrm{\mathrm{L_{03}}}\, \sin\!\left(\mathrm{\theta_{13}}\right) + \cos\!\left(\mathrm{\mathrm{\beta_3}} + \mathrm{\theta_{13}}\right)\, \mathrm{x} - \sin\!\left(\mathrm{\mathrm{\beta_3}} + \mathrm{\theta_{13}}\right)\, x + \mathrm{\mathrm{L_{e_3}}}\, \sin\!\left(\mathrm{\mathrm{\gamma_3}} - \mathrm{\mathrm{\beta_3}} + \mathrm{alpha} - \mathrm{\theta_{13}}\right)\right)}\\ \frac{\mathrm{x} - \mathrm{\mathrm{L_{03}}}\, \sin\!\left(\mathrm{\mathrm{\beta_3}}\right) + \mathrm{\mathrm{L_{e_3}}}\, \sin\!\left(\mathrm{\mathrm{\gamma_3}} + \mathrm{alpha}\right) - \mathrm{\mathrm{L_{13}}}\, \sin\!\left(\mathrm{\mathrm{\beta_3}} + \mathrm{\theta_{13}}\right)}{\mathrm{\mathrm{L_{13}}}\, \left(\mathrm{\mathrm{L_{03}}}\, \sin\!\left(\mathrm{\theta_{13}}\right) + \cos\!\left(\mathrm{\mathrm{\beta_3}} + \mathrm{\theta_{13}}\right)\, \mathrm{x} - \sin\!\left(\mathrm{\mathrm{\beta_3}} + \mathrm{\theta_{13}}\right)\, x + \mathrm{\mathrm{L_{e_3}}}\, \sin\!\left(\mathrm{\mathrm{\gamma_3}} - \mathrm{\mathrm{\beta_3}} + \mathrm{alpha} - \mathrm{\theta_{13}}\right)\right)}\\ 1 \end{array}\right)
+\end{equation*}
+
+\begin{equation*}
+\mathrm{U'(:, 3)} = \left(\begin{array}{c} \frac{x - \mathrm{\mathrm{L_{03}}}\, \cos\!\left(\mathrm{\mathrm{\beta_3}}\right) + \mathrm{\mathrm{L_{e_3}}}\, \cos\!\left(\mathrm{\mathrm{\gamma_3}} + \mathrm{alpha}\right) - \mathrm{\mathrm{L_{13}}}\, \cos\!\left(\mathrm{\mathrm{\beta_3}} + \mathrm{\theta_{13}}\right)}{\mathrm{\mathrm{L_{13}}}\, \left(\mathrm{\mathrm{L_{03}}}\, \sin\!\left(\mathrm{\theta_{13}}\right) + \cos\!\left(\mathrm{\mathrm{\beta_3}} + \mathrm{\theta_{13}}\right)\, \mathrm{x} - \sin\!\left(\mathrm{\mathrm{\beta_3}} + \mathrm{\theta_{13}}\right)\, x + \mathrm{\mathrm{L_{e_3}}}\, \sin\!\left(\mathrm{\mathrm{\gamma_3}} - \mathrm{\mathrm{\beta_3}} + \mathrm{alpha} - \mathrm{\theta_{13}}\right)\right)}\\ \frac{\mathrm{x} - \mathrm{\mathrm{L_{03}}}\, \sin\!\left(\mathrm{\mathrm{\beta_3}}\right) + \mathrm{\mathrm{L_{e_3}}}\, \sin\!\left(\mathrm{\mathrm{\gamma_3}} + \mathrm{alpha}\right) - \mathrm{\mathrm{L_{13}}}\, \sin\!\left(\mathrm{\mathrm{\beta_3}} + \mathrm{\theta_{13}}\right)}{\mathrm{\mathrm{L_{13}}}\, \left(\mathrm{\mathrm{L_{03}}}\, \sin\!\left(\mathrm{\theta_{13}}\right) + \cos\!\left(\mathrm{\mathrm{\beta_3}} + \mathrm{\theta_{13}}\right)\, \mathrm{x} - \sin\!\left(\mathrm{\mathrm{\beta_3}} + \mathrm{\theta_{13}}\right)\, x + \mathrm{\mathrm{L_{e_3}}}\, \sin\!\left(\mathrm{\mathrm{\gamma_3}} - \mathrm{\mathrm{\beta_3}} + \mathrm{alpha} - \mathrm{\theta_{13}}\right)\right)}\\ 1 \end{array}\right)
+\end{equation*}
+
+\newpage
+
+\printbibliography  
+
+\end{document}
