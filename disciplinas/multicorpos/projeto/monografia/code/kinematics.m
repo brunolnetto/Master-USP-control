@@ -17,8 +17,3 @@ run('accelerations');
 
 % Closed chain constraints
 run('constraints');
-
-% Relation between redundant and independent variables
-run('vel_accel_relation');
-
-

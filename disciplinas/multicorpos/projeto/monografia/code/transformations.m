@@ -1,17 +1,17 @@
 % Transformation matrices of coordinate systems
-% Coordinate frame system 1 (CFS1): Attached to motor i
-% Coordinate frame system 2 (CFS2): Attached to first bar i on beginning of bar
-% Coordinate frame system 3 (CFS3): Attached to second bar i on elbow
-% Coordinate frame system e (CFSe): Attached to end-effector
+% Coordinate frame system 1 (CFS1i): Attached to motor i
+% Coordinate frame system 2 (CFS2i): Attached to first bar i on motor
+% shaft's center 
+% Coordinate frame system 3 (CFS3i): Attached to second bar i on elbow
+% Coordinate frame system e (CFSei): Attached to end-effector
 
 di = @(L) [L; 0];
 
 % Transformation matrices of position
 % #CFS1
-T = @(angle, L) T2d(angle, di(0))*T2d(0, di(L));
-T011 = T(beta1, L01);
-T012 = T(beta2, L02);
-T013 = T(beta3, L03);
+T011 = T2d(0, rot2d(beta1)*di(L01));
+T012 = T2d(0, rot2d(beta2)*di(L02));
+T013 = T2d(0, rot2d(beta3)*di(L03));
 
 % # CFS2
 T02i = @(T01i, th1i, di) simplify(T01i*T2d(th1i, di));

@@ -21,6 +21,7 @@ paramsp = [paramsp1, paramsp2];
 syms x01 y01 xb1 yb1 L11 L21;
 syms x02 y02 xb2 yb2 L12 L22;
 syms x03 y03 xb3 yb3 L13 L23;
+gamma
 syms alpha;
 
 C1 = [x01;  y01] - rot2d(alpha)*[xb1; yb1];
