@@ -51,20 +51,33 @@ set(hfig, 'defaultLegendInterpreter','latex');
 % Projeto #1
 subplot(2, 2, 1)
 step(Gyw);
+title('Sa\''ida - Projeto 1', 'interpreter', 'latex');
+xlabel('t', 'interpreter', 'latex');
+ylabel('Amplitude', 'interpreter', 'latex');
 xlim([0, 10])
 
 subplot(2, 2, 2)
 step(Guw);
+title('Sinal de controle - Projeto 1', 'interpreter', 'latex');
+xlabel('t', 'interpreter', 'latex');
+ylabel('Amplitude', 'interpreter', 'latex');
 xlim([0, 10])
 
 % Projeto #2
 subplot(2, 2, 3)
 step(Gyw_);
+title('Sa\''ida - Projeto 2', 'interpreter', 'latex');
+xlabel('t', 'interpreter', 'latex');
+ylabel('Amplitude', 'interpreter', 'latex');
 xlim([0, 10])
 
 subplot(2, 2, 4)
 step(Guw_);
+title('Sinal de controle - Projeto 2', 'interpreter', 'latex');
+xlabel('t', 'interpreter', 'latex');
+ylabel('Amplitude', 'interpreter', 'latex');
 xlim([0, 10])
 
 saveas(hfig, '../images/ex2.png');
+print(hfig,'../images/ex2.pdf','-dpdf','-r0')
 close;

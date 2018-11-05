@@ -34,4 +34,5 @@ xlabel('Frequencia de entrada', 'interpreter', 'latex');
 
 xlim([0.01, 1.5*ws/2]);
 saveas(hfig, '../report/images/ex3.png');
-saveas(hfig, '../report/images/ex3.eps');
+
+print(hfig,'../report/images/ex3.pdf','-dpdf','-r0')
