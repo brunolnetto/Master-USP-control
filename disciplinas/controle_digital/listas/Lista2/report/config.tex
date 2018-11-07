@@ -40,6 +40,19 @@
     %emph=[2]{word1,word2}, emphstyle=[2]{style},    
 }
 
+% Ambientes para formalidades matemáticas
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section] % reset theorem numbering for each chapter
+\newtheorem{definition}[thm]{Definição}
+\newtheorem{lemma}[thm]{Lema}
+\newtheorem{proposition}[thm]{Proposição}
+\newtheorem{corollary}[thm]{Corolário}
+
+\setcounter{section}{1}
+\setcounter{thm}{0}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
 % Equações 
 \makeatletter
 \newcommand*\@dblLabelI {}
