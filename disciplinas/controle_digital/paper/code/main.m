@@ -43,7 +43,7 @@ Ts_car = {T3d(0, [0, 0, 1].', [x; 0; 0])};
 car = build_body(m0, I0, b0, Ts_car, L0cg, x, xp, xpp, true);
 
 % Bar 1
-Ts_bar1 = {car.T, T3d(th1, [0, 0, 1].', [0; 0; 0])};
+Ts_bar1 = {car.T, T3d(pi/2 - th1, [0, 0, 1].', [0; 0; 0])};
 
 bar1 = build_body(m1, I1, b1, Ts_bar1, L1cg, th1, th1p, th1p, false);
 
@@ -57,7 +57,7 @@ bar2 = build_body(m2, I2, b2, Ts_bar2, L2cg, th2, th2p, th2pp, false);
 % Variables used to substitute by diff's
 sys.varq = [xp, th1p, th2p, xpp, th1pp, th2pp];
 sys.diffq = [diff(x, t), diff(th1, t), diff(th2, t), ...
-            diff(xp, t), diff(th1p, t), diff(th2p, t)];
+             diff(xp, t), diff(th1p, t), diff(th2p, t)];
     
 sys.bodies = {car, bar1, bar2};
 sys.gravity = gravity;
@@ -87,7 +87,7 @@ uq = u(1:6);
 uf = u(7);
 
 f_u = subs(sys.f, [states, F].', u);
-f_WP = subs(f_u, u, WP);
+f_WP = simplify(subs(f_u, u, WP));
 
 A = simplify(subs(jacobian(f_u, u(1:6)), u, WP));
 B = simplify(subs(jacobian(f_u, u(7)), u, WP));
