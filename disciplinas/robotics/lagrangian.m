@@ -1,17 +1,29 @@
-function L = lagrangian(sys)
-    K = 0;
-    U = 0;
-
-    for body = sys.bodies
-        body = body{1};
-        body.K = kinetic_energy(body);
-        body.U = potential_energy(body, sys.gravity);
-        body.F = rayleigh_energy(body);
+function sys = lagrangian(sys)
+    K_ = [];
+    U_ = [];
+    F_ = [];
+    
+    for i = 1:length(sys.bodies)
+        body = sys.bodies{i};
+        sys.bodies{i}.K = kinetic_energy(body);
+        sys.bodies{i}.U = potential_energy(body, sys.gravity);
+        sys.bodies{i}.F = rayleigh_energy(body);
         
-        K = K + body.K;
-        U = U + body.U;
-
+        K_ = [K_, sys.bodies{i}.K];
+        U_ = [U_, sys.bodies{i}.U];
+        F_ = [F_, sys.bodies{i}.F];
     end
        
-    L = simplify(K - U);
+    K = K_(1);
+    U = U_(2);
+    F = F_(3);
+
+    for i = 2:length(sys.bodies)
+        K = K + K_(i);
+        U = U + U_(i);
+        F = F + F_(i);
+    end
+        
+    sys.L = simplify(K - U);
+    sys.F = simplify(F);
 end
