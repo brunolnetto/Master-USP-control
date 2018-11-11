@@ -8,7 +8,5 @@ run('kinematics');
 % Closed chain dynamics
 run('dynamics');
 
-
-
 % Pretty Model string in LaTeX
 %run('pretty_model');

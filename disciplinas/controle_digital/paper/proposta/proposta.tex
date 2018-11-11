@@ -1,0 +1,153 @@
+\documentclass[a4paper, twoside]{article}
+
+% Pacotes utilizados
+\usepackage[backend=biber, style=alphabetic]{biblatex}
+\usepackage{amssymb, amsfonts}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{dsfont}
+\usepackage{tikz}
+
+% Arquivo da bibliografia 
+\addbibresource{bibliography.bib}
+\usetikzlibrary{patterns}
+
+% Cabecalho
+\newcommand{\studentname}{Bruno Peixoto}
+\newcommand{\subjectname}{\hspace{10pt} PTC5611 Controle digital de sistemas dinâmicos}
+\newcommand{\uspid}{7206666}
+\newcommand{\uspmail}{bruno.peixoto@usp.br}
+\newcommand{\esnumber}{1}
+\newcommand{\headerstyle}{\sffamily \bfseries \small}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\headrulewidth}{1pt}
+
+% Cabecalho
+\fancyhead[RO, LE]{\headerstyle \subjectname}
+\fancyhead[RE, LO]{}
+
+\pagestyle{fancy}
+
+% Título
+\title{Proposta de projeto}
+\author{\studentname \qquad \uspid \qquad \uspmail}
+
+\begin{document}
+    
+    \maketitle
+    \thispagestyle{fancy}
+
+    % https://tex.stackexchange.com/questions/99224/putting-text-at-the-side-of-a-tikzpicture
+    O modelo pendular emerge na natureza em diversas aplicações, entre outros, guindastes e sistemas de orientação de foguetes. Além disso, ele é amplamente utilizado na literatura por consistir em um sistema não-linear e apresentar conceitos fundamentais da teoria de controle. 
+    
+    A planta consiste em um sistema pendular sub-atuado bidimensional composto por um carro $\mathcal{B}_0$ de massa $m_0$ associado a um sistema de elos $\mathcal{B}_1$ e $\mathcal{B}_2$ com massas $m_1$ e $m_2$ e momento de inércia $I_1$ e $I_2$ respectivamente referentes ao sistema de coordenadas afixado aos centros de massa, solidários aos elos. 
+    
+    Considere que o sistema apresenta excitações externas respectivas a uma força $\mathbf{F} = [F, 0, 0]^T$ aplicada ao corpo $\mathcal{B}_0$ por meio de uma polia de raio $R$ ligada a um motor distante de correia estirada inextensível e um momento gerado por um motor balanceado $\mathbf{M} = [0, 0, \tau]^T$ aplicado ao primeiro elo na junta que conecta $\mathcal{B}_1$ e $\mathcal{B}_2$. O vínculo do carro permite deslocamento seja apenas horizontal. Os elos do sistema consistem em barras homogêneas com centro de massa $\ell_{g_1}$ e $\ell_{g_2}$ respectivamente referentes às juntas. Ademais, seja uma das posições de repouso (instável) definida por $\mathbf{x}_{0} = \mathbf{0}$ e região de convergência $\chi$ suficientemente próxima a $\mathbf{x}_{0}$ a fim de garantia linear do modelo \cite{Adamy2009}. 
+    
+    A proposta propõe o projeto de um controlador LQG com frequência de amostragem $f_s$ tal que o sistema tenha tempo de assentamento menor que $\mathbf{t}_s^{1\%}$ para cada um dos estados do sistema e desvio-padrão para a torque aplicado igual a $\mathbf{\sigma}_u$. Os sensores disponíveis são um encoder rotativo para o motor de acionamento e um encoder rotativo para $\theta_1$ acoplado à junta. A leitura dos sensores são decorrelacionados e apresentam densidade espectral $\mathbf{R}_v$. A posição linear $\mathrm{x}$ e angulares $\theta_1$ e $\theta_2$ apresentam ruído branco e a densidade espectral de potência iguais a $\mathbf{R}_w$ \cite{controle_digital_2018}. O microcontrolador escolhido apresenta, em média, atraso de cálculo de $n$ períodos de amostragem, $n \in \mathbb{N}$, a depender do \emph{hardware}, e resolução de quantização de $m$ bits.
+    
+    Considere ademais que o sistema seja submetido à um impulso proporcional à função delta de dirac $\delta(t)$ na extremidade da segunda barra após sua estabilização. Varie a amplitude do sinal e verifique se o sistema estabiliza \cite{Beer:2003:VME:1207649}. 
+
+%  node[anchor=north east]{B}
+        \begin{figure}[ht]
+        \centering
+        \label{fig:pendulum}
+        \begin{tikzpicture}[thick,>=latex,->]
+    
+            % Trajectory projection
+            \draw[dashed] (4.2,0) arc (0:90:4.2);
+    
+            % Bar
+            \draw[double distance=5mm, -] (3.15, 2.8) -- (0, 7);
+            \draw[double distance=5mm, -] (0,0) -- (3.2, 3.2);
+    
+            % Car
+            \draw[fill=white] (1.2,-1.0) -- (.5,0) arc(180:360:-0.5) -- (-1.2, -1.0) -- cycle;
+            \draw[draw=black,fill=white] (0, 0) circle circle (.15cm);
+    
+            % Wheels
+            \draw (0.7, -1.2) circle (2mm);
+            \draw (-0.7, -1.2) circle (2mm);
+    
+            % Base
+            \draw[pattern=north east lines] (-1.7, -1.6) rectangle (1.7, -1.4);
+    
+            % Joints
+            \draw[draw=black,fill=white] (0, 0) circle circle (.15cm);
+            \draw[draw=black,fill=white] (3, 3) circle circle (.15cm);
+            
+            % 
+            \draw[->] (-1.5, 0) -- (-0.5, 0) node[anchor=south east]{$\vec F$};
+            
+            \draw [dashed, -] (0, 0) -- (2, 2);
+            \draw [dashed, -] (0, 0) -- (0, 2);
+    
+            \draw [dashed, -] (3, 3) -- (3, 5);
+            \draw [dashed, -] (3, 3) -- (0, 7);
+            
+            % Axis
+            \draw[->] (2.6, 0) -- (3.6, 0) node[below]{\texttt{x}};
+            \draw[->] (2.6, 0) -- (2.6, 1) node[above]{\texttt{y}};
+            
+            % Angle
+            \draw[thick, -] (0.7, 0.7) arc (45:90:1);
+            \node at (.5, 1.5) {\Large $\theta_1$};
+    
+            \draw[thick, -] (3, 3.7) arc (90:135:0.6);
+            \node at (2.7, 4.6) {\Large $\theta_2$};
+            
+            \draw (current bounding box.south west) rectangle (current bounding box.north east);
+        
+        \end{tikzpicture}
+        \caption{Desenho esquemático do modelo}
+    \end{figure}
+
+    \begin{table}[!ht]
+        \begin{minipage}[b]{0.45\linewidth}\centering
+                \begin{tabular}{|c|c|c|}
+                    \hline Descrição & Unidade & Valor\\ \hline
+                    $m_0$ & Kg & 0.440\\
+                    $m_1$ & Kg & 0.153\\
+                    $m_2$ & Kg & 0.071\\
+                    $I_1$ & Kg m$^2$ & $\frac{m_1 \ell_1^2}{12}$\\
+                    $I_2$ & Kg m$^2$ & $\frac{m_2 \ell_2^2}{12}$\\ 
+                    $b_0$   & $\frac{N s}{\mathrm{m}}$ & 1.950\\
+                    $b_1$   & $\frac{N s}{\mathrm{rad}}$ & 0.010\\
+                    $b_2$   & $\frac{N s}{\mathrm{rad}}$ & 0.010\\
+                    $\ell_1$ & m & 0.180\\ 
+                    $\ell_2$ & m  & 0.215\\
+                    $\ell_1^g$ & m & 0.164\\ 
+                    $\ell_2^g$ & m  & 0.108\\ \hline
+                \end{tabular}
+                \caption{Dados da planta}
+                \label{tab:dados_planta}
+        \end{minipage}
+        \hspace{0.5cm}
+        \begin{minipage}[b]{0.45\linewidth}
+        \centering
+                \begin{tabular}{|c|c|c|}
+                    \hline Descrição & Unidade & Valor\\ \hline
+                    $m$ & bits & 10 \\
+                    $n$ & - & 5 \\
+                    $f_s$ & Hz & 100 \\
+                    $\mathbf{t}_s$ & s & $3.\mathbf{1}$\footnote{$\mathbf{1} $ consiste em uma matriz-coluna composta por 1's com dimensão adequada.} \\
+                    $\mathbf{R}_w$ & - & 0.02 $\mathds{1}$\footnote{[$\mathds{1}$] corresponde à matriz identidade}  \\ 
+                    $\mathbf{R}_v$ & - & 0.02 $\mathds{1}$ \, \\
+                    $\mathbf{\sigma}_u$ & $N m$ & $15$ \\
+                    $t_{\delta}$ & s & $10$ \\
+                    \hline
+                \end{tabular}
+                \caption{Dados do microcontrolador e sensores}
+                \label{tab:dados_controle}
+        \end{minipage}
+    \end{table}
+
+    \clearpage
+    \printbibliography
+
+\end{document}
