@@ -32,7 +32,7 @@ function sys = double_pendulum()
     % Bodies
     % Car
     Ts_car = {T3d(0, [0, 0, 1].', [x; 0; 0])};
-
+    
     car = build_body(m0, I0, b0, Ts_car, L0cg, x, xp, xpp, true);
 
     % Bar 1
@@ -46,7 +46,8 @@ function sys = double_pendulum()
     Ts_bar2 = {bar1.T, T3d(0, [0, 0, 1].', [L(1); 0; 0]), ...
                T3d(th2, [0, 0, 1].', [0; 0; 0])};
 
-    bar2 = build_body(m2, I2, b2, Ts_bar2, L2cg, th2, th2p, th2pp, false);
+    bar2 = build_body(m2, I2, b2, Ts_bar2, L2cg, th2, th2p, th2pp, ...
+                      false);
 
     % System
     % Variables used to substitute by diff's
@@ -67,6 +68,12 @@ function sys = double_pendulum()
     
     % Movement formalism
     sys = kinematic_model(sys);
+    
+    % Updated bodies
+    sys.bodies{1}.previous_body = struct('');
+    sys.bodies{2}.previous_body = sys.bodies{1};
+    sys.bodies{3}.previous_body = sys.bodies{2};
+    
     sys = dynamic_model(sys);
     
     % Sensors output

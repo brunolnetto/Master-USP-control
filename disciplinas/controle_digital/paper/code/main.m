@@ -11,7 +11,7 @@ sys = double_pendulum();
 sys = state_space(sys);
 
 % Working point
-WP = [0; pi; pi; 0; 0; 0; 0];
+WP = [0; pi; 0; 0; 0; 0; 0];
 
 % Linearized pendulum
 sys = lin_pendulum(sys, WP);
