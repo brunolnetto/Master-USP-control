@@ -70,8 +70,7 @@ function sys = double_pendulum()
     sys = dynamic_model(sys);
     
     % Sensors output
-    sys.g = [x;...
-             th2];
+    sys.g = [x; th2];
     
     % System symbolics
     sys.syms = [g];

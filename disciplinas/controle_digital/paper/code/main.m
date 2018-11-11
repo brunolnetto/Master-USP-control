@@ -1,6 +1,6 @@
 % @Author: Bruno Peixoto
 % @Date: 08/11
-clear al l;
+clear all;
 close all;
 clc;
 
@@ -14,6 +14,5 @@ sys = state_space(sys);
 WP = [0; pi; pi; 0; 0; 0; 0];
 
 % Linearized pendulum
-n = max(size(sys.q)) + max(size(sys.qp));
 sys = lin_pendulum(sys, WP);
 
