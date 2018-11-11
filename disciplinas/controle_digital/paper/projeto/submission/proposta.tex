@@ -1,0 +1,155 @@
+\documentclass[a4paper, twoside]{article}
+
+% Pacotes utilizados
+\usepackage[backend=biber, style=alphabetic]{biblatex}
+\usepackage{amssymb, amsfonts}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{dsfont}
+\usepackage{tikz}
+
+% Arquivo da bibliografia 
+\addbibresource{bibliography.bib}
+\usetikzlibrary{patterns}
+
+% Cabecalho
+\newcommand{\studentname}{Bruno Peixoto}
+\newcommand{\subjectname}{\hspace{10pt} PTC5611 Controle digital de sistemas dinâmicos}
+\newcommand{\uspid}{7206666}
+\newcommand{\uspmail}{bruno.peixoto@usp.br}
+\newcommand{\esnumber}{1}
+\newcommand{\headerstyle}{\sffamily \bfseries \small}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\headrulewidth}{1pt}
+
+% Cabecalho
+\fancyhead[RO, LE]{\headerstyle \subjectname}
+\fancyhead[RE, LO]{}
+
+\pagestyle{fancy}
+
+% Título
+\title{Proposta de projeto}
+\author{\studentname \qquad \uspid \qquad \uspmail}
+
+\begin{document}
+    
+    \maketitle
+    \thispagestyle{fancy}
+
+    % https://tex.stackexchange.com/questions/99224/putting-text-at-the-side-of-a-tikzpicture
+    O modelo pendular emerge na natureza em diversas aplicações, entre outros, guindastes e sistemas de orientação de foguetes. Além disso, ele é amplamente utilizado na literatura por consistir em um sistema não-linear e apresentar conceitos fundamentais da teoria de controle. 
+    
+    A planta consiste em um sistema pendular sub-atuado bidimensional composto por um carro $\mathcal{B}_0$ de massa $m_0$ associado a um sistema de elos $\mathcal{B}_1$ e $\mathcal{B}_2$ com massas $m_1$ e $m_2$ respectivamente referentes ao sistema de coordenadas afixado aos centros de massa, solidários aos elos. Os elos $\mathcal{B}_1$ e $\mathcal{B}_2$ consistem respectivamente em uma barra retangular homogênea de comprimento $\ell_1$, largura $\mathrm{w}_1$ e espessura desprezível e uma barra cilíndrica homogênea de comprimento $\ell_2$ e raio $r_2$ (Tabela \ref{tab:dados_planta}).
+    
+    Considere que o sistema apresenta excitação externa respectiva a uma força $\mathbf{F} = [F, 0, 0]^T$ aplicada ao corpo $\mathcal{B}_0$ (Figura \ref{fig:pendulum}) por meio de uma polia de diãmetro $D$ de inércia desprezível ligada a um motor distante de correia estirada inextensível e um momento gerado por um motor balanceado $\mathbf{M} = [0, 0, \tau]^T$ aplicado ao primeiro elo na junta que conecta $\mathcal{B}_1$ e $\mathcal{B}_2$. A correia de acionamento envolve a polia em um ângulo $\beta$ e possui coeficiente de atrito seco $\mu$. Para este projeto, não é necessário a modelagem do acionamento: a propoulsão é realizada pelo cabo e o sensoreamento é fornecido por $\mathrm{x}$. O vínculo do carro permite deslocamento seja apenas horizontal.
+    
+    Sejam os estados do sistema apresentado na figura \ref{fig:pendulum} $\mathbf{x} = [x, \theta_1, \theta_2, \dot x, \dot \theta_1, \dot \theta_2]^T$, uma das posições de repouso (instável) definida por $\mathbf{x}_{0} = [0, \pi, 0, 0, 0, 0]^T$ e região de convergência $\chi$ suficientemente próxima a $\mathbf{x}_{0}$ a fim de garantia linear do modelo \cite{Adamy2009}, a proposta consiste no projeto de um controlador LQG com frequência de amostragem $f_s$. O sistema controlado deve apresentar tempo de assentamento menor que $\mathbf{t}_s^{1\%}$ para cada um dos estados do sistema e desvio-padrão para a força aplicada igual a $\mathbf{\sigma}_u$. 
+    
+    Os sensores disponíveis são um encoder rotativo para o motor de acionamento e um encoder rotativo para $\theta_1$ acoplado à junta, considerado uma massa pontual $m_e$. As leituras dos sensores são decorrelacionadas e apresentam densidade espectral $\mathbf{R}_v$. A posição angulares $\theta_1$ e $\theta_2$ apresentam ruído branco e a densidade espectral de potência iguais a $\mathbf{R}_w$ \cite{controle_digital_2018}. O microcontrolador escolhido apresenta, em média, atraso de cálculo de $n$ períodos de amostragem, $n \in \mathbb{N}$, a depender do \emph{hardware}, e resolução de quantização de $m$ bits (Tabela \ref{tab:dados_controle}).
+    
+    Considere ademais que o sistema seja submetido a um impulso $I = k \delta(t)$ \cite{Beer:2003:VME:1207649}, com $\delta(t)$ a função delta de Dirac, no instante $t_{\delta}$ na extremidade da segunda barra após sua estabilização. Propõe-se a determinação empírica de $k$ tal que que o sistema não saia da região de estabilização. 
+
+        \begin{figure}[ht]
+        \centering
+        \begin{tikzpicture}[thick,>=latex,->]
+    
+            % Trajectory projection
+            \draw[dashed] (4.2,0) arc (0:90:4.2);
+    
+            % Bar
+            \draw[draw=black,fill=white] (3, 3) circle circle (.5cm);
+            \draw[double distance=2mm, -] (3.15, 2.8) -- (0, 7);
+            \draw[double distance=5mm, -] (0,0) -- (3.2, 3.2);
+    
+            % Car
+            \draw[fill=white] (1.2,-1.0) -- (.5,0) arc(180:360:-0.5) -- (-1.2, -1.0) -- cycle;
+            \draw[draw=black,fill=white] (0, 0) circle circle (.15cm);
+    
+            % Wheels
+            \draw (0.7, -1.2) circle (2mm);
+            \draw (-0.7, -1.2) circle (2mm);
+    
+            % Base
+            \draw[pattern=north east lines] (-1.7, -1.6) rectangle (1.7, -1.4);
+    
+            % Joints
+            \draw[draw=black,fill=white] (0, 0) circle circle (.15cm);
+            \draw[draw=black,fill=white] (3, 3) circle circle (.15cm);
+            
+            % Force
+            \draw[->] (-1.5, 0) -- (-0.5, 0) node[anchor=south east]{$\vec F$};
+            
+            \draw [dashed, -] (0, 0) -- (1, 1);
+            \draw [dashed, -] (0, 0) -- (0, -1);
+    
+            \draw [dashed, -] (3, 3) -- (4, 4);
+            \draw [dashed, -] (3, 3) -- (0, 7);
+            
+            % Axis
+            \draw[->] (2.6, 0) -- (3.6, 0) node[below]{\texttt{x}};
+            \draw[->] (2.6, 0) -- (2.6, 1) node[above]{\texttt{y}};
+            
+            % Angle
+            \draw[thick, ->] (0, -0.5) arc (-90:45:0.5); 
+            \node at (1, 0) {\Large $\theta_1$};
+            \draw[thick, ->] (3.5, 3.5) arc (45:135:0.64);
+            \node at (3, 4) {\Large $\theta_2$};
+            
+            \draw (current bounding box.south west) rectangle (current bounding box.north east);
+        
+        \end{tikzpicture}
+        \caption{Desenho esquemático do modelo}
+        \label{fig:pendulum}
+    \end{figure}
+
+    \begin{table}[!ht]
+        \begin{minipage}[b]{0.45\linewidth}\centering
+                \begin{tabular}{|c|c|l|}
+                    \hline Descrição & Unidade & Valor\\ \hline
+                    $m_0$ & g & 440\\
+                    $m_1$ & g & 153\\
+                    $m_e$ & g & 8\\
+                    $m_2$ & g & 7\\
+                    $b_0$   & ${N s}/{\mathrm{m}}$ & 1.950\\
+                    $b_1$   & ${N s}/{\mathrm{rad}}$ & 0.010\\
+                    $b_2$   & ${N s}/{\mathrm{rad}}$ & 0.010\\
+                    $\ell_1$ & mm & 180\\ 
+                    $w_1$ & mm & 40\\
+                    $e_1$ & mm & 40\\
+                    $\ell_2$ & mm  & 215\\
+                    $r_2$ & mm & 8\\ 
+                    \hline
+                \end{tabular}
+                \caption{Dados da planta}
+                \label{tab:dados_planta}
+        \end{minipage}
+        \hspace{0.5cm}
+        \begin{minipage}[b]{0.45\linewidth}
+        \centering
+                \begin{tabular}{|c|c|c|}
+                    \hline Descrição & Unidade & Valor\\ \hline
+                    $m$ & bits & 10 \\
+                    $n$ & - & 5 \\
+                    $f_s$ & Hz & 100 \\
+                    $\mathbf{t}_s$ & s & $3.\mathbf{1}$\footnote{$\mathbf{1} $ consiste em uma matriz-coluna composta por 1's com dimensão adequada.} \\
+                    $\mathbf{R}_w$ & - & 0.02 $\mathds{1}$\footnote{[$\mathds{1}$] corresponde à matriz identidade}  \\ 
+                    $\mathbf{R}_v$ & - & 0.02 $\mathds{1}$ \, \\
+                    $\mathbf{\sigma}_u$ & $N$ & $500$ \\
+                    $t_{\delta}$ & s & $10$ \\
+                    \hline
+                \end{tabular}
+                \caption{Dados do microcontrolador e sensores}
+                \label{tab:dados_controle}
+        \end{minipage}
+    \end{table}
+
+    \clearpage
+    \printbibliography
+
+\end{document}
