@@ -88,10 +88,6 @@
 }
 \makeatother
 
-\makeatletter
-\newcommand*{\currentname}{\@currentlabelname}
-\makeatother
-
 \renewcommand\lstlistlistingname{Scripts em Matlab}
 \renewcommand{\lstlistingname}{Script}
 \renewcommand{\theenumi}{\bf \Alph{enumi}}
@@ -101,6 +97,10 @@
 \newcommand{\uspid}{7206666}
 \newcommand{\uspmail}{bruno.peixoto@usp.br}
 \newcommand{\esnumber}{2}
+
+\makeatletter
+\newcommand*{\currentname}{\@currentlabelname}
+\makeatother
 
 \newcommand{\headerstyle}{\sffamily\bfseries\large}
 
