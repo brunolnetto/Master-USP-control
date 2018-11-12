@@ -1,0 +1,254 @@
+\documentclass[a4paper, twoside]{article}
+
+% Pacotes utilizados
+\usepackage[backend=biber, style=alphabetic]{biblatex}
+\usepackage{amssymb, amsfonts, amsmath}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lscape}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{dsfont}
+\usepackage{tikz}
+
+% Arquivo da bibliografia 
+\addbibresource{bibliography.bib}
+\usetikzlibrary{patterns}
+
+% Cabecalho
+\newcommand{\studentname}{Bruno Peixoto}
+\newcommand{\subjectname}{\hspace{10pt} PTC5611 Controle digital de sistemas dinâmicos}
+\newcommand{\uspid}{7206666}
+\newcommand{\uspmail}{bruno.peixoto@usp.br}
+\newcommand{\esnumber}{1}
+\newcommand{\headerstyle}{\sffamily \bfseries \small}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\headrulewidth}{1pt}
+
+% Cabecalho
+\fancyhead[RO, LE]{\headerstyle \subjectname}
+\fancyhead[RE, LO]{}
+
+\pagestyle{fancy}
+
+% Título
+\title{Proposta de projeto}
+\author{\studentname \qquad \uspid \qquad \uspmail}
+
+\begin{document}
+    
+    \maketitle
+    \thispagestyle{fancy}
+
+    % https://tex.stackexchange.com/questions/99224/putting-text-at-the-side-of-a-tikzpicture
+    O modelo pendular emerge na natureza em diversas aplicações, entre outros, guindastes e sistemas de orientação de foguetes. Além disso, ele é amplamente utilizado na literatura por consistir em um sistema não-linear e apresentar conceitos fundamentais da teoria de controle. 
+    
+    A planta consiste em um sistema pendular sub-atuado bidimensional composto por um carro $\mathcal{B}_0$ de massa $m_0$ associado a um sistema de elos $\mathcal{B}_1$ e $\mathcal{B}_2$ com massas $m_1$ e $m_2$ respectivamente referentes ao sistema de coordenadas afixado aos centros de massa, solidários aos elos. Os elos $\mathcal{B}_1$ e $\mathcal{B}_2$ consistem respectivamente em uma barra retangular homogênea de comprimento $\ell_1$, largura $\mathrm{w}_1$ e espessura desprezível e uma barra cilíndrica homogênea de comprimento $\ell_2$ e raio $r_2$ (Tabela \ref{tab:dados_planta}).
+    
+        \begin{figure}[ht]
+        \centering
+        \begin{tikzpicture}[thick,>=latex,->]
+    
+            % Trajectory projection
+            \draw[dashed] (4.2,0) arc (0:90:4.2);
+    
+            % Bar
+            \draw[draw=black,fill=white] (3, 3) circle circle (.5cm);
+            \draw[double distance=2mm, -] (3.15, 2.8) -- (0, 7);
+            \draw[double distance=5mm, -] (0,0) -- (3.2, 3.2);
+    
+            % Car
+            \draw[fill=white] (1.2,-1.0) -- (.5,0) arc(180:360:-0.5) -- (-1.2, -1.0) -- cycle;
+            \draw[draw=black,fill=white] (0, 0) circle circle (.15cm);
+    
+            % Wheels
+            \draw (0.7, -1.2) circle (2mm);
+            \draw (-0.7, -1.2) circle (2mm);
+    
+            % Base
+            \draw[pattern=north east lines] (-1.7, -1.6) rectangle (1.7, -1.4);
+    
+            % Joints
+            \draw[draw=black,fill=white] (0, 0) circle circle (.15cm);
+            \draw[draw=black,fill=white] (3, 3) circle circle (.15cm);
+            
+            % Force
+            \draw[->] (-1.5, 0) -- (-0.5, 0) node[anchor=south east]{$\vec F$};
+            
+            \draw [dashed, -] (0, 0) -- (1, 1);
+            \draw [dashed, -] (0, 0) -- (0, -1);
+    
+            \draw [dashed, -] (3, 3) -- (4, 4);
+            \draw [dashed, -] (3, 3) -- (0, 7);
+            
+            % Axis
+            \draw[->] (2.6, 0) -- (3.6, 0) node[below]{\texttt{x}};
+            \draw[->] (2.6, 0) -- (2.6, 1) node[above]{\texttt{y}};
+            
+            % Angle
+            \draw[thick, ->] (0, -0.5) arc (-90:45:0.5); 
+            \node at (1, 0) {\Large $\theta_1$};
+            \draw[thick, ->] (3.5, 3.5) arc (45:135:0.64);
+            \node at (3, 4) {\Large $\theta_2$};
+            
+            \draw (current bounding box.south west) rectangle (current bounding box.north east);
+        
+        \end{tikzpicture}
+        \caption{Desenho esquemático do modelo}
+        \label{fig:pendulum}
+    \end{figure}
+    
+    Considere que o sistema apresenta excitação externa respectiva a uma força $\mathbf{F} = [F, 0, 0]^T$ aplicada ao corpo $\mathcal{B}_0$ (Figura \ref{fig:pendulum}) por meio de uma polia de diãmetro $D$ de inércia desprezível ligada a um motor distante de correia estirada inextensível e um momento gerado por um motor balanceado $\mathbf{M} = [0, 0, \tau]^T$ aplicado ao primeiro elo na junta que conecta $\mathcal{B}_1$ e $\mathcal{B}_2$. A correia de acionamento envolve a polia em um ângulo $\beta$ e possui coeficiente de atrito seco $\mu$. Para este projeto, não é necessário a modelagem do acionamento: a propoulsão é realizada pelo cabo e o sensoreamento é fornecido por $\mathrm{x}$. O vínculo do carro permite deslocamento seja apenas horizontal.
+    
+    \begin{table}[!ht]
+        \begin{minipage}[b]{0.45\linewidth}\centering
+                \begin{tabular}{|c|c|l|}
+                    \hline Descrição & Unidade & Valor\\ \hline
+                    $m_0$ & g & 440\\
+                    $m_1$ & g & 153\\
+                    $m_e$ & g & 8\\
+                    $m_2$ & g & 7\\
+                    $b_0$   & ${N s}/{\mathrm{m}}$ & 1.950\\
+                    $b_1$   & ${N s}/{\mathrm{rad}}$ & 0.010\\
+                    $b_2$   & ${N s}/{\mathrm{rad}}$ & 0.010\\
+                    $\ell_1$ & mm & 180\\ 
+                    $w_1$ & mm & 40\\
+                    $e_1$ & mm & 40\\
+                    $\ell_2$ & mm  & 215\\
+                    $r_2$ & mm & 8\\ 
+                    \hline
+                \end{tabular}
+                \caption{Dados da planta}
+                \label{tab:dados_planta}
+        \end{minipage}
+        \hspace{0.5cm}
+        \begin{minipage}[b]{0.45\linewidth}
+        \centering
+                \begin{tabular}{|c|c|c|}
+                    \hline Descrição & Unidade & Valor\\ \hline
+                    $m$ & bits & 10 \\
+                    $n$ & - & 5 \\
+                    $f_s$ & Hz & 100 \\
+                    $\mathbf{t}_s$ & s & $3.\mathbf{1}$\footnote{$\mathbf{1} $ consiste em uma matriz-coluna composta por 1's com dimensão adequada.} \\
+                    $\mathbf{R}_w$ & - & 0.02 $\mathds{1}$\footnote{[$\mathds{1}$] corresponde à matriz identidade}  \\ 
+                    $\mathbf{R}_v$ & - & 0.02 $\mathds{1}$ \, \\
+                    $\mathbf{\sigma}_u$ & $N$ & $500$ \\
+                    $t_{\delta}$ & s & $10$ \\
+                    \hline
+                \end{tabular}
+                \caption{Dados do microcontrolador e sensores}
+                \label{tab:dados_controle}
+        \end{minipage}
+    \end{table}
+    
+    Sejam os estados do sistema apresentado na figura \ref{fig:pendulum} $\mathbf{x} = [x, \theta_1, \theta_2, \dot x, \dot \theta_1, \dot \theta_2]^T$, uma das posições de repouso (instável) definida por $\mathbf{x}_{0} = [0, \pi, 0, 0, 0, 0]^T$ e região de convergência $\chi$ suficientemente próxima a $\mathbf{x}_{0}$ a fim de garantia linear do modelo \cite{Adamy2009}, a proposta consiste no projeto de um controlador LQG com frequência de amostragem $f_s$. O sistema controlado deve apresentar tempo de assentamento menor que $\mathbf{t}_s^{1\%}$ para cada um dos estados do sistema e desvio-padrão para a força aplicada igual a $\mathbf{\sigma}_u$. 
+    
+    Os sensores disponíveis são um encoder rotativo para o motor de acionamento e um encoder rotativo para $\theta_1$ acoplado à junta, considerado uma massa pontual $m_e$. As leituras dos sensores são decorrelacionadas e apresentam densidade espectral $\mathbf{R}_v$. A posição angulares $\theta_1$ e $\theta_2$ apresentam ruído branco e a densidade espectral de potência iguais a $\mathbf{R}_w$ \cite{controle_digital_2018}. O microcontrolador escolhido apresenta, em média, atraso de cálculo de $n$ períodos de amostragem, $n \in \mathbb{N}$, a depender do \emph{hardware}, e resolução de quantização de $m$ bits (Tabela \ref{tab:dados_controle}).
+    
+    Considere ademais que o sistema seja submetido a um impulso $I = k \delta(t)$ \cite{Beer:2003:VME:1207649}, com $\delta(t)$ a função delta de Dirac, no instante $t_{\delta}$ na extremidade da segunda barra após sua estabilização. Propõe-se a determinação empírica de $k$ tal que que o sistema não saia da região de estabilização.  
+
+
+\newpage
+
+\section*{Apêndice}
+
+A equação do pêndulo apresenta a forma $\mathbf{M}(\mathbf{q}) \mathbf{\ddot q} + \mathbf{\nu}(\mathbf{q}, \mathbf{\dot q}) + \mathbf{f}(\mathbf{q}, \mathbf{\dot q}) + \mathbf{g}(\mathbf{q}) = \mathbf{U} \mathbf{u}$ tal que $q = [x, \, \theta_1, \, \theta_2]^T$ e as matrizes $\mathbf{M}(\mathbf{q})$, $\mathbf{\nu(\mathbf{q}, \mathbf{\dot q})}$, $\mathbf{f}(\mathbf{\dot q})$ e $\mathbf{g}(\mathbf{q})$ respecticamente a matriz de massa acoplada, termos giroscópicos, atrito do sistema e termos gravitacionais. 
+
+A matriz $\mathbf{U}$ advém do princípio dos trabalhos virtuais \cite{Beer:2003:VME:1207649} e satisfaz a relação $\mathbf{F_q} \delta{\mathbf{q}} + \mathbf{F}\delta \mathbf{x} = \delta \mathbf{W} \stackrel{def}{=} 0$, para $\mathbf{q}$ os estados do sistema e $\mathbf{x}$ os delocamentos infinitesimais das excitações externas aplicadas.
+
+A representação em espaço de estados $\mathbf{\dot x} = \mathbf{f}(\mathbf{x}, \mathbf{u})$ é dada por
+    
+    \begin{equation}
+        \begin{aligned}
+            \mathbf{\dot x} = \frac{d}{dt} \begin{bmatrix} \mathbf{q} \\ \mathbf{\dot q} \end{bmatrix} &= 
+            \underbrace{\begin{bmatrix}
+                \mathbf{\dot q} \\
+                - \mathbf{M}^{-1}(\mathbf{q}, \mathbf{\dot q})(\mathbf{\nu}(\mathbf{q}, \mathbf{\dot q}) + \mathbf{f}(\mathbf{q}, \mathbf{\dot q}) + \mathbf{g}(\mathbf{q}) )
+            \end{bmatrix}}_{\mathbf{a}(\mathbf{x})} + 
+            \underbrace{\begin{bmatrix} 
+                0 \\ \mathbf{M}^{-1}(\mathbf{q}, \mathbf{\dot q}) \mathbf{U} 
+            \end{bmatrix}}_{\mathbf{b}(\mathbf{x})} \mathbf{u} \\
+            & = \mathbf{a}(\mathbf{x}) + \mathbf{b}(\mathbf{x})\mathbf{u}
+        \end{aligned}
+    \end{equation}
+    
+    Para um ponto de operação $\mathbf{x}_0$, existe $\mathbf{u_0}$ tal que $0 = a(\mathbf{x}_0) + b(\mathbf{x}_0) \mathbf{u_0}$, o sistema linearizado é dado por 
+    
+    \begin{equation}
+        \begin{aligned}
+            \Delta \mathbf{\dot x} &= \underbrace{(\frac{\partial \mathbf{a}}{\partial \mathbf{x}}(\mathbf{x_0}) + \frac{\partial \mathbf{b}}{\partial \mathbf{x}}(\mathbf{x_0}) \mathbf{u}_0)}_{\mathbf{A}(\mathbf{x_0})} \Delta \mathbf{x} + \underbrace{ \mathbf{b}(\mathbf{x_0}) }_{\mathbf{B}(\mathbf{x_0})} \Delta \mathbf{u} \\
+            & = \mathbf{A}(\mathbf{x_0}) \Delta \mathbf{x} + \mathbf{B}(\mathbf{x_0}) \Delta \mathbf{u}
+        \end{aligned}
+    \end{equation}
+
+    
+    Sendo $\Delta \mathbf{x} = \mathbf{x} - \mathbf{x_0}$ e $\Delta \mathbf{u} = \mathbf{u} - \mathbf{u_0}$. Para o sistema representado na figura \ref{fig:pendulum} seguem as matrizes.
+
+    \begin{equation}
+        M(\mathbf{q}) = 
+        \begin{bmatrix}
+            M_{11} & M_{11} & M_{13} \\
+            M_{21} & M_{22} & M_{23}\\
+            M_{31} & M_{23} & M_{33}
+        \end{bmatrix}
+    \end{equation}
+
+    \begin{equation}
+         \begin{aligned}
+            M_{11} &= \mathrm{m_0} + \mathrm{m_1} + \mathrm{m_2} \\
+            M_{33} &= \mathrm{m_2}\, {\ell_{2}^g}^2\, + \mathrm{I_2} \\
+            M_{22} &= \mathrm{m_2}\, {\mathrm{\ell_1}}^2 + 2\, \mathrm{m_2}\, \cos\!\left(\theta_2\right)\, \mathrm{\ell_1}\, \ell_{2}^g + \mathrm{m_1}\, {\ell_{1}^g}^2 + \mathrm{m_2}\, {\ell_{2}^g}^2 + \mathrm{I_1} + \mathrm{I_2} \\
+            M_{12} = M_{21} &= \mathrm{m_2}\, \ell_{2}^g\, \cos\!\left(\theta_1 + \mathrm{m_2}\, \theta_2\right) + \mathrm{\ell_1}\, \cos\!\left(\theta_1\right) + \ell_{1}^g\, \mathrm{m_1}\, \cos\!\left(\theta_1\right) \\
+            M_{13} = M_{31} &= \mathrm{m_2}\, \ell_{2}^g\, \cos\!\left(\theta_1 + \theta_2\right) \\
+            M_{23} = M_{32} &= \mathrm{m_2}\, {\ell_{2}^g}^2 + \mathrm{\ell_1}\, \mathrm{m_2}\, \cos\!\left(\theta_2\right)\, \ell_{2}^g + \mathrm{I_2}
+         \end{aligned}
+         \phantom{\hspace{6cm}}
+    \end{equation}
+    
+    \begin{equation}
+    \mathbf{\nu}(\mathbf{\dot q}, \mathbf{q}) = 
+    \begin{bmatrix}  
+    \nu_1 \\
+    \nu_2 \\
+    \nu_3
+    \end{bmatrix}
+    \end{equation}
+    
+    \begin{equation}
+        \begin{aligned}
+             \nu_1 = &- \ell_{2}^g\, \mathrm{m_2}\, \sin\!\left(\theta_1 + \theta_2\right)\, {\mathrm{\dot \theta_1}}^2 - \ell_{2}^g\, \mathrm{m_2}\, \sin\!\left(\theta_1 + \theta_2\right)\, {\mathrm{\dot \theta_2}}^2 - \mathrm{\ell_1}\, \mathrm{m_2}\, \sin\!\left(\theta_1\right)\, {\mathrm{\dot \theta_1}}^2 -\\
+             & \,\,\,\,\,\,\,\, \ell_{1}^g\, \mathrm{m_1}\, \sin\!\left(\theta_1\right)\, {\mathrm{\dot \theta_1}}^2 - 2\, \ell_{2}^g\, \mathrm{m_2}\, \sin\!\left(\theta_1 + \theta_2\right)\, \mathrm{\dot \theta_1}\, \mathrm{\dot \theta_2}\\ 
+             \nu_2 = & - \mathrm{m_2}\, \mathrm{\dot \theta_2}\, \left(2\, \mathrm{\dot \theta_1} + \mathrm{\dot \theta_2}\right) \, \ell_{2}^g\, \mathrm{\ell_1}\, \sin\!\left(\theta_2\right) \\ 
+             \nu_3 = & \mathrm{m_2}\, {\mathrm{\dot \theta_1}}^2\, \ell_{2}^g\, \mathrm{\ell_1}\, \sin\!\left(\theta_2\right)
+        \end{aligned}
+        \phantom{\hspace{6cm}}
+    \end{equation}
+    
+    \begin{equation}
+        \mathbf{f}(\mathbf{\dot q}) = 
+        \begin{bmatrix} 
+        \mathrm{\mathrm{b_0}}\, \mathrm{\dot x}\\ \mathrm{\mathrm{b_1}}\, \mathrm{\dot \theta_1}\\ \mathrm{\mathrm{b_2}}\, \mathrm{\dot \theta_2} 
+        \end{bmatrix}
+    \end{equation}
+    
+    \begin{equation}
+        \mathbf{U} = \begin{bmatrix}
+        1 \\
+        0 \\
+        0 
+        \end{bmatrix} 
+    \end{equation}
+    
+    \begin{equation}
+    \mathbf{u} = F
+    \end{equation}
+    
+    As matrizes linearizadas do sistema proposto não será representada neste documento por questões de brevidade.
+    
+    \clearpage
+    \printbibliography
+
+\end{document}
