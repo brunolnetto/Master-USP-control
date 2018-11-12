@@ -16,3 +16,5 @@ WP = [0; pi; 0; 0; 0; 0; 0];
 % Linearized pendulum
 sys = lin_pendulum(sys, WP);
 
+run('pretty_model')
+

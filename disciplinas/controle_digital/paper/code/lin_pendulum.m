@@ -11,8 +11,8 @@ function sys =  lin_pendulum(sys, WP)
     
     linvars = [];
     for  i = 1:max(size(sys.u))
-        Fq = sys.u{i};
-        linvars = [states; Fq];
+        ui = sys.u{i};
+        linvars = [states; ui];
     end 
     
     sys.states = states;
@@ -21,7 +21,7 @@ function sys =  lin_pendulum(sys, WP)
     % Auxiliarry subs variables
     n = max(size(formula(linvars)));
     u = sym('u', [n, 1]);
-    u_x = u(1:n);
+    u_x = u(1:n-1);
     u_u = u(end);
     
     % System behaviour's function 
@@ -29,27 +29,21 @@ function sys =  lin_pendulum(sys, WP)
     
     % Sensor behaviour's function
     g_u = subs(sys.g, linvars, u);
+    % Matrices A, B, C and D for each working-point
+    syms x_0 th1_0 th2_0 xp_0 th1p_0 th2p_0 F_0;
+    sys.lin_states = [x_0; th1_0; th2_0; xp_0; th1p_0; th2p_0; F_0];
     
-    % Matrix A for each working-point
-    jacf_x = jacobian(f_u, u_x);
-    jacf_u = jacobian(f_u, u_u);
-    jacg_x = jacobian(g_u, u_x);
-    jacg_u = jacobian(g_u, u_u);
-    
-    jacf_x
-    jacf_u
-    jacg_x
-    jacg_u
+    sys.jacf_x = subs(jacobian(f_u, u_x), u, sys.lin_states);
+    sys.jacf_u = subs(jacobian(f_u, u_u), u, sys.lin_states);
+    sys.jacg_x = subs(jacobian(g_u, u_x), u, sys.lin_states);
+    sys.jacg_u = subs(jacobian(g_u, u_u), u, sys.lin_states);
     
     % Matrices on the provided working-point
-    A = subs(jacf_x, u, WP);
-    B = subs(jacf_u, u, WP);
-    C = subs(jacg_x, u, WP);
-    D = subs(jacg_u, u, WP);
-    
-    A
-    B
-    
+    A = subs(sys.jacf_x, sys.lin_states, WP);
+    B = subs(sys.jacf_u, sys.lin_states, WP);
+    C = subs(sys.jacg_x, sys.lin_states, WP);
+    D = subs(sys.jacg_u, sys.lin_states, WP);
+         
     sys.A = simplify(A);
     sys.B = simplify(B);
     sys.C = simplify(C);
