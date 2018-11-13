@@ -1,0 +1,17 @@
+L1 = 0.18;
+L2 = 0.215;
+L1_cg = 0.16404822;
+L1_cg = 0.215/2;
+
+m0 = 0.440;
+m1 = 0.153;
+m2 = 0.071;
+
+I1_33 = 0.00068267;
+I2_33 = m2*L2^2/12;
+
+symbs = [sys.syms];
+
+for body in sys.bodies
+    symbs = [symbs; body.syms];
+end
