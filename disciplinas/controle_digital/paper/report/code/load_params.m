@@ -41,6 +41,7 @@ function params = load_params()
     % Pulley's radius
     R = 0.0226;
 
-    params = [L1, L2, L1_cg, L2_cg, m0, m1, m2, b0, b1, b2, ...
-              I1_33, I2_33, Vcc, Ra, Ke, Kt, R];
+    params = [L1, L2, L1_cg, L2_cg, 
+	      m0, m1, m2, b0, b1, b2, I1_33, I2_33, 
+	      Vcc, Ra, Ke, Kt, R];
 end
