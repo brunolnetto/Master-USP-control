@@ -15,10 +15,9 @@ function params = load_params()
     m2 = 0.071;
     
     % Viscuous friction
-    b0 = 0.01;
-    b1 = 0.01;
-    b2 = 0.01;
-    b_m = 0.01;
+    b0 = 0;
+    b1 = 0;
+    b2 = 0;
     
     % Inertia
     I1_33 = 0.00068267;
@@ -28,6 +27,7 @@ function params = load_params()
     g = 9.8;
     
     % Electrical params
+    
     % Source voltage
     Vcc = 12;
     
@@ -41,12 +41,10 @@ function params = load_params()
     % Pulley's radius
     R = 0.0226;
     
-    % Relation between trque and force
+    % Relation between trque and fo
     eta = -1;
     
-    % Model parameters
-    params = [g, m0, b0, ...
-              m1, I1_33, b1, L1, L1_cg, ...
-              m2, I2_33, b2, L2, L2_cg, ...
-              Kt, Ke, Ra, R, b_m, Vcc, eta];
+    params = [L1, L2, L1_cg, L2_cg, 
+              m0, m1, m2, b0, b1, b2, I1_33, I2_33, 
+              Vcc, Ra, Ke, Kt, R, eta];
 end

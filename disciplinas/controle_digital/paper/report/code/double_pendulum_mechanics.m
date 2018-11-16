@@ -1,28 +1,27 @@
 function sys = double_pendulum_mechanics()
-    % Inertial parameters
+
+    % --- Plant parameters ---
+    % Inertial
     syms m0 m1 m2;
-    syms L1_cg L2_cg; 
-
-    % Gravity
-    syms g;
-
-    % Force applied to system
-    syms F;
-    
-    % Viscuous friction
-    syms b0 b1 b2;
-       
-    gravity = [0; -g; 0];
-
     I0 = zeros(3, 3);
     I1 = sym('I1_%d%d', [3, 3]);
     I2 = sym('I2_%d%d', [3, 3]);
+   
+    % Viscuous friction
+    syms b0 b1 b2;
+          
+    % Gravity
+    syms g;
+    gravity = [0; -g; 0];
     
-    % Length parameters
-    L = sym('L%d', [1, 2]);
+    % Dimensional
+    syms L1 L2 L1_cg L2_cg; 
     L0cg = [0; 0; 0];
     L1cg = [L1_cg; 0; 0];
     L2cg = [L2_cg; 0; 0];
+    
+    % Extern excitations
+    syms F;
 
     % Generalized variables
     syms x(t) th1(t) th2(t);
@@ -43,7 +42,7 @@ function sys = double_pendulum_mechanics()
     bar1 = build_body(m1, I1, b1, Ts_bar1, L1cg, th1, th1p, th1p, false);
 
     % Bar 2
-    Ts_bar2 = {bar1.T, T3d(0, [0, 0, 1].', [L(1); 0; 0]), ...
+    Ts_bar2 = {bar1.T, T3d(0, [0, 0, 1].', [L1; 0; 0]), ...
                T3d(th2, [0, 0, 1].', [0; 0; 0])};
 
     bar2 = build_body(m2, I2, b2, Ts_bar2, L2cg, th2, th2p, th2pp, ...
@@ -63,7 +62,8 @@ function sys = double_pendulum_mechanics()
     sys.qp = {xp; th1p; th2p};
     sys.qpp = {xpp; th1pp; th2pp};
     
-    sys.Fq = {F; 0; 0};
+    sys.U = [1; 0; 0];
+    sys.Fq = mat2cell(sys.U*F, ones(1, length(sys.U)), 1);
     sys.u = {F};
     
     % Movement formalism
@@ -76,13 +76,12 @@ function sys = double_pendulum_mechanics()
     
     sys = dynamic_model(sys);
     
-    % Sensors output
-    sys.g = [x; th2];
-    
     % System symbolics
     sys.syms = [g];
+    sys.syms = [sys.syms, m0, b0];
+    sys.syms = [sys.syms, m1, I1(3, 3), b1, L1, L1_cg];
+    sys.syms = [sys.syms, m2, I2(3, 3), b2, L2, L2_cg];
     
-    sys.bodies{1}.syms = [m0, b0];
-    sys.bodies{2}.syms = [m1, I1, b1, L(1), L1_cg];
-    sys.bodies{3}.syms = [m2, I2, b2, L(2), L2_cg];
+    % State space representation
+    sys.f = state_space(sys);
 end
