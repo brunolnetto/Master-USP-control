@@ -1,0 +1,114 @@
+Para o sistema representado na figura \ref{fig:pendulum}, as coordenadas generalizadas são $q = [x, \, \theta_1, \, \theta_2]^T$ e as matrizes características seguem abaixo. A matriz de massa do sistema é dada por \eqref{eq:mass_matrix}
+
+    \begin{equation}
+        M(\mathbf{q}) = 
+        \begin{bmatrix}
+            M_{11} & M_{11} & M_{13} \\
+            M_{21} & M_{22} & M_{23}\\
+            M_{31} & M_{23} & M_{33}
+        \end{bmatrix}
+        \label{eq:mass_matrix}
+    \end{equation}
+    
+    tal que
+    
+    \begin{subequations}
+         \begin{align}
+            M_{11} &= \mathrm{m_0} + \mathrm{m_1} + \mathrm{m_2} \\
+            M_{33} &= \mathrm{m_2}\, {\ell_{2}^g}^2\, + \mathrm{I_2} \\
+            M_{22} &= \mathrm{m_1}\, {\ell_{1}^g}^2 + \mathrm{m_2}\, ({\mathrm{\ell_1}}^2 + {\ell_{2}^g}^2) + \mathrm{I_1} + \mathrm{I_2} + 2\, \mathrm{m_2}\, \mathrm{\ell_1}\, \ell_{2}^g\, \cos\!\left(\theta_2\right) \\
+            M_{12} = M_{21} &= \mathrm{m_2}\, \ell_{2}^g\, \cos\!\left(\theta_1 + \theta_2\right) + (\mathrm{m_2}\,\mathrm{\ell_1} + \mathrm{m_1}\,\ell_{1}^g\,) \cos\!\left(\theta_1\right) \\
+            M_{13} = M_{31} &= \mathrm{m_2}\, \ell_{2}^g\, \cos\!\left(\theta_1 + \theta_2\right) \\
+            M_{23} = M_{32} &= \mathrm{m_2}\, {\ell_{2}^g}^2 + \mathrm{I_2} + \mathrm{m_2}\,\mathrm{\ell_1}\, \ell_{2}^g \, \cos\!\left(\theta_2\right)
+         \end{align}
+         \phantom{\hspace{6cm}}
+    \end{subequations}
+    
+    A matriz de efeitos giroscópicos é dada por $\mathbf{\nu}(\mathbf{\dot q}, \mathbf{q}) = \begin{bmatrix}  \nu_1 \\ \nu_2 \\\nu_3 \end{bmatrix}$ tal que os componentes $\nu_i$ são
+    
+    \begin{equation}
+        \begin{aligned}
+             \nu_1 = & -\mathrm{m_2} \, \ell_{2}^g\, \sin\!\left(\theta_1 + \theta_2\right)\, (\mathrm{\dot \theta_1} + \mathrm{\dot \theta_2})^2 - (\mathrm{m_2} \mathrm{\ell_1} + \mathrm{m_1}\,\ell_{1}^g)\sin\!\left(\theta_1\right)\, {\mathrm{\dot \theta_1}}^2\\ 
+             \nu_2 = & - \mathrm{m_2}\, \mathrm{\dot \theta_2}\, \left(2\, \mathrm{\dot \theta_1} + \mathrm{\dot \theta_2}\right) \, \ell_{2}^g\, \mathrm{\ell_1}\, \sin\!\left(\theta_2\right) \\
+             % todo Checar sinal do termo abaixo
+             \nu_3 = & \,\,\,\,\,\,\,\,\mathrm{m_2}\, {\mathrm{\dot \theta_1}}^2\, \ell_{2}^g\, \mathrm{\ell_1}\, \sin\!\left(\theta_2\right)
+        \end{aligned}
+        \phantom{\hspace{6cm}}
+    \end{equation}
+    
+    Por fim, termos de referentes a atrito, gravitacional e acoplamento de entrada seguem em \eqref{eq:friction}, \eqref{eq:coupling} e \eqref{eq:input}.  
+    
+    \begin{equation}
+        \mathbf{f}(\mathbf{\dot q}) = 
+        \begin{bmatrix} 
+        \mathrm{\mathrm{b_0}}\, \mathrm{\dot x}\\ \mathrm{\mathrm{b_1}}\, \mathrm{\dot \theta_1}\\ \mathrm{\mathrm{b_2}}\, \mathrm{\dot \theta_2} 
+        \end{bmatrix}
+        \label{eq:friction}
+    \end{equation}
+    
+    \begin{equation}
+        \mathbf{g}(\mathbf{q}) = 
+        \begin{bmatrix} 
+        0
+        \\ \mathrm{m_2}\, g \,\left(\mathrm{\ell_1}\, \sin\!\left(\theta_1\right) + \ell_{2}^g\, \sin\!\left(\theta_1 + \theta_2\right)\right) + \mathrm{m_1}\, g \, \ell_{1}^g\, \sin\!\left(\theta_1\right)\\ 
+        \mathrm{m_2}\, g\, \ell_{2}^g\, \sin\!\left(\theta_1 + \theta_2\right) \end{bmatrix}
+    \end{equation}
+    
+    \begin{equation}
+        \mathbf{U}(\mathbf{q}) = \begin{bmatrix}
+        1 \\
+        0 \\
+        0 
+        \end{bmatrix}
+        \label{eq:coupling}
+    \end{equation}
+    
+    \begin{equation}
+    \mathbf{u} = F
+    \label{eq:input}
+    \end{equation}
+    
+    A representação não-linear do sistema em espaço de estados assim como suas matrizes linearizadas não serão representadas integralmente neste documento por questão de brevidade. As matrizes linearizadas são abaixo.
+    
+    \begin{subequations}
+    \begin{equation}
+        \mathbf{A}(\mathbf{x_0}, \mathbf{u_0}) = 
+        \begin{bmatrix}
+        \mathbf{0}_{33} &  \mathds{1}_3\\
+        \mathds{A}_{33}^1 & \mathds{A}_{33}^2
+        \end{bmatrix} \mbox{ tal que }
+        \begin{cases}
+        \mathds{A}_{33}^1 = 
+        \begin{bmatrix}
+            \mathbf{0}_{31} &  \mathbf{A}_{32}
+        \end{bmatrix} \\
+        \vspace{2pt}
+        \mathds{A}_{33}^2 = 
+        \begin{bmatrix}
+            \mathbf{A}_{31} & \mathbf{0}_{32} 
+        \end{bmatrix}
+        \end{cases}
+    \end{equation}
+    
+    
+    \begin{equation}
+        \mathbf{B}(\mathbf{x_0}, \mathbf{u_0}) = 
+        \begin{bmatrix}
+        \mathbf{0}_{31} \\
+        \mathds{B}_{31} \\
+        \end{bmatrix}
+    \end{equation}
+        \begin{equation}
+        \mathbf{C}(\mathbf{x_0}, \mathbf{u_0}) = 
+        \begin{bmatrix}
+        \mathds{1}_3 & \mathbf{0}_{33} 
+        \end{bmatrix}
+    \end{equation}
+        \begin{equation}
+        \mathbf{D}(\mathbf{x_0}, \mathbf{u_0}) = 
+        \begin{bmatrix}
+        0 \\
+        0
+        \end{bmatrix}
+    \end{equation}
+    \end{subequations}

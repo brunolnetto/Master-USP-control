@@ -1,0 +1,52 @@
+\documentclass[a4paper, oneside, fleqn]{abntex2}
+
+% Pacotes utilizados
+\usepackage[backend=biber, style=alphabetic]{biblatex}
+\usepackage{amssymb, amsfonts, amsmath}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage{microtype} 			% para melhorias de justificação
+\usepackage{lscape}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{dsfont}
+\usepackage{tikz}
+
+% Arquivo da bibliografia 
+\addbibresource{bibliography.bib}
+\usetikzlibrary{patterns}
+
+% Cabecalho
+\newcommand{\studentname}{Bruno Peixoto}
+\newcommand{\subjectname}{\hspace{10pt} PTC5611 Controle digital de sistemas dinâmicos}
+\newcommand{\uspid}{7206666}
+\newcommand{\uspmail}{bruno.peixoto@usp.br}
+\newcommand{\esnumber}{1}
+\newcommand{\headerstyle}{\sffamily \bfseries \small}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\headrulewidth}{1pt}
+
+% Cabecalho
+\fancyhead[RO, LE]{\headerstyle \subjectname}
+\fancyhead[RE, LO]{}
+
+\pagestyle{fancy}
+
+% Título
+\title{Proposta de projeto}
+\author{\studentname \qquad \uspid \qquad \uspmail}
+
+\begin{document}
+
+\input{statement}
+
+\newpage
+
+\input{appendix}
+
+\clearpage
+\printbibliography
+
+\end{document}
