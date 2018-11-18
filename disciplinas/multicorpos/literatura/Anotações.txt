@@ -1,0 +1,4 @@
+Quaternions =>  Bottema (pag. 525)
+		Jazar (pag. 135)
+
+Denavit-Hatemberg => 0_Tsai (pag.36)
