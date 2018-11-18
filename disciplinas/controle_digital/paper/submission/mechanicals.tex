@@ -1,0 +1,44 @@
+Um sistema dinâmico satisfaz a equação de Lagrange dada por 
+
+\begin{equation}
+    \frac{\mathrm{d}}{\mathrm{dt}} \left( \frac{\partial L}{\partial \mathbf{\dot q}} \right) - \frac{\partial L}{\partial \mathbf{q}} + \frac{\partial F}{\partial \mathbf{\dot q}} = \mathbf{F_q}
+\end{equation}
+
+    tal que $\mathbf{q}$ e $\mathbf{\dot q}$ são as coordenadas generalizadas do sistema e suas respectivas derivadas, $L$ o lagrangiano dado por $L = T - U$, $T$ sua a energia cinética e $U$ a energia potencial do sistema, $F$ a energia dissipativa de Rayleigh e $\mathbf{F_q}$ as forças generalizadas do sistema. As forças generalizadas $\mathbf{F_q}$ advém do princípio dos trabalhos virtuais \cite{Beer:2003:VME:1207649} e satisfazem a relação $\mathbf{F_q} \delta{\mathbf{q}} + \mathbf{F}\delta \mathbf{x} = \delta \mathbf{W} \stackrel{\mathrm{def}}{=} 0$, para $\mathbf{x}$ os deslocamentos infinitesimais das posições de aplicação das excitações externas tal que $\mathbf{x} = \mathbf{x}(\mathbf{q})$.
+    
+    Umas das formas de representação de um sistema mecânico segue por $\mathbf{M}(\mathbf{q}) \mathbf{\ddot q} + \mathbf{\nu}(\mathbf{q}, \mathbf{\dot q}) + \mathbf{f}(\mathbf{q}, \mathbf{\dot q}) + \mathbf{g}(\mathbf{q}) = \mathbf{U}(\mathbf{q}) \mathbf{u}$. As matrizes $\mathbf{M}(\mathbf{q})$, $\mathbf{\nu(\mathbf{q}, \mathbf{\dot q})}$, $\mathbf{f}(\mathbf{\dot q})$ e $\mathbf{g}(\mathbf{q})$ são a matriz de massa acoplada, termos giroscópicos, atrito e de campo do sistema respectivamente. A matriz $\mathbf{U}(\mathbf{q})$ satisfaz a relação $\mathbf{F_q} = \mathbf{U}(\mathbf{q})\mathbf{u}$, tal que $\mathbf{u}$ são as excitações externas ao sistema.
+
+    A representação em espaço de estados $\begin{cases} \mathbf{\dot x} = \mathbf{f}(\mathbf{x}, \mathbf{u}) \\ \mathbf{y} = \mathbf{g}(\mathbf{x}, \mathbf{u}) \end{cases}$ é dada por \eqref{eq:states}. Os estados do sistema são $\mathbf{x} = \begin{bmatrix} \mathbf{q} \\ \mathbf{\dot q} \end{bmatrix}$ e os sensores são representados genericamente pela relação $\mathbf{y} = \mathbf{g}(\mathbf{x}, \mathbf{u})$.
+    
+    \begin{equation}
+    \label{eq:states}
+        \begin{aligned}
+            \frac{d}{dt} \begin{bmatrix} \mathbf{q} \\ \mathbf{\dot q} \end{bmatrix} &= 
+            \underbrace{\begin{bmatrix}
+                \mathbf{\dot q} \\
+                - \mathbf{M}^{-1}(\mathbf{q}, \mathbf{\dot q})(\mathbf{\nu}(\mathbf{q}, \mathbf{\dot q}) + \mathbf{f}(\mathbf{q}, \mathbf{\dot q}) + \mathbf{g}(\mathbf{q}) )
+            \end{bmatrix}}_{\mathbf{a}(\mathbf{x})} + 
+            \underbrace{\begin{bmatrix} 
+                0 \\ \mathbf{M}^{-1}(\mathbf{q}, \mathbf{\dot q}) \mathbf{U} 
+            \end{bmatrix}}_{\mathbf{b}(\mathbf{x})} \mathbf{u}
+        \end{aligned}
+    \end{equation}
+    
+    Para um ponto de operação $(\mathbf{\dot x}_0, \mathbf{x_0})$, existe $\mathbf{u_0}$ tal que $\mathbf{\dot x_0} = \mathbf{a}(\mathbf{x}_0) + \mathbf{b}(\mathbf{x}_0) \mathbf{u_0}$, o sistema linearizado é dado por 
+    
+    \begin{subequations}
+        \begin{equation}
+            \begin{aligned}
+                \Delta \mathbf{\dot x} &= \underbrace{(\frac{\partial \mathbf{a}}{\partial \mathbf{x}}(\mathbf{x_0}) + \frac{\partial \mathbf{b}}{\partial \mathbf{x}}(\mathbf{x_0}) \mathbf{u}_0)}_{\mathbf{A}(\mathbf{x_0}, \mathbf{u_0})} \Delta \mathbf{x} + \underbrace{ \mathbf{b}(\mathbf{x_0}) }_{\mathbf{B}(\mathbf{x_0}, \mathbf{u_0})} \Delta \mathbf{u} \\
+                & = \mathbf{A}(\mathbf{x_0}, \mathbf{u_0}) \Delta \mathbf{x} + \mathbf{B}(\mathbf{x_0}, \mathbf{u_0}) \Delta \mathbf{u}
+            \end{aligned}
+        \end{equation}
+        \begin{equation}
+            \begin{aligned}
+                \Delta \mathbf{y} &= \underbrace{\frac{\partial \mathbf{g}}{\partial \mathbf{x}}(\mathbf{x_0}, \mathbf{u_0})}_{\mathbf{C}(\mathbf{x_0}, \mathbf{u_0})} \Delta \mathbf{x} + \underbrace{\frac{\partial \mathbf{g}}{\partial \mathbf{u}}(\mathbf{x_0}, \mathbf{u_0})}_{\mathbf{D}(\mathbf{x_0}, \mathbf{u_0})} \Delta \mathbf{u} \\
+                & = \mathbf{C}(\mathbf{x_0}, \mathbf{u_0}) \Delta \mathbf{x} + \mathbf{D}(\mathbf{x_0}, \mathbf{u_0}) \Delta \mathbf{u}
+            \end{aligned}
+        \end{equation}    
+    \end{subequations}
+    
+    Sendo $\Delta \mathbf{\dot x} = \mathbf{\dot x} - \mathbf{\dot x}_0$, $\Delta \mathbf{x} = \mathbf{x} - \mathbf{x_0}$, $\Delta \mathbf{y} = \mathbf{y} - \mathbf{y_0}$ e $\Delta \mathbf{u} = \mathbf{u} - \mathbf{u_0}$. 

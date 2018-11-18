@@ -1,0 +1,57 @@
+        \begin{figure}[ht]
+        \centering
+        \begin{tikzpicture}[thick,>=latex,->]
+    
+            % Trajectory projection
+            \draw[dashed] (4.2,0) arc (0:90:4.2);
+    
+            % Bar
+            \draw[draw=black,fill=white] (3, 3) circle circle (.5cm);
+            \draw[double distance=2mm, -] (3.15, 2.8) -- (0, 7);
+            \draw[double distance=5mm, -] (0,0) -- (3.2, 3.2);
+    
+            % Car
+            \draw[fill=white] (1.2,-1.0) -- (.5,0) arc(180:360:-0.5) -- (-1.2, -1.0) -- cycle;
+            \draw[draw=black,fill=white] (0, 0) circle circle (.15cm);
+            
+            % Motor
+            \draw[fill=white] (-3.1,-1.4) -- (-3.5, -0.5) arc(180:360:-0.5) -- (-4.9, -1.4) -- cycle;
+            \draw[draw=black,fill=white] (-4, -0.5) circle circle (.5cm);
+            \draw[draw=black,fill=white] (-4, -0.5) circle circle (.15cm);
+                            
+            % Wheels
+            \draw (0.7, -1.2) circle (2mm);
+            \draw (-0.7, -1.2) circle (2mm);
+    
+            % Base
+            \draw[pattern=north east lines] (-5.7, -1.6) rectangle (4.7, -1.4);
+                
+            % Joints
+            \draw[draw=black,fill=white] (0, 0) circle circle (.15cm);
+            \draw[draw=black,fill=white] (3, 3) circle circle (.15cm);
+            
+            % Force
+            \draw[->] (-1.5, 0) -- (-0.5, 0) node[anchor = south east]{$\vec F$};
+            \draw[->] (-3, 0) -- (-4, 0) node[anchor = south west]{$-\vec F$};
+            
+            \draw [dashed, -] (0, 0) -- (1, 1);
+            \draw [dashed, -] (0, 0) -- (0, -1);
+            \draw [dashed, -] (3, 3) -- (4, 4);
+            \draw [dashed, -] (3, 3) -- (0, 7);
+            
+            % Axis
+            \draw[->] (2.6, 0) -- (3.6, 0) node[below]{\texttt{x}};
+            \draw[->] (2.6, 0) -- (2.6, 1) node[above]{\texttt{y}};
+            
+            % Angle
+            \draw[thick, ->] (0, -0.5) arc (-90:45:0.5); 
+            \node at (1, 0) {\Large $\theta_1$};
+            \draw[thick, ->] (3.5, 3.5) arc (45:135:0.64);
+            \node at (3, 4) {\Large $\theta_2$};
+            
+            %\draw (current bounding box.south west) rectangle (current bounding box.north east);
+        
+        \end{tikzpicture}
+        \caption{Desenho esquemático do modelo}
+        \label{fig:pendulum}
+    \end{figure}

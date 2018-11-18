@@ -1,0 +1,19 @@
+\maketitle
+    \thispagestyle{fancy}
+
+    % https://tex.stackexchange.com/questions/99224/putting-text-at-the-side-of-a-tikzpicture
+    O modelo pendular emerge na natureza em diversas aplicações, entre outros, guindastes e sistemas de orientação de foguetes. Além disso, ele é amplamente utilizado na literatura por consistir em um sistema não-linear e apresentar conceitos fundamentais da teoria de controle. 
+    
+    A planta proposta consiste em um sistema pendular sub-atuado bidimensional composto por um carro $\mathcal{B}_0$ de massa $m_0$ associado a um sistema de elos $\mathcal{B}_1$ e $\mathcal{B}_2$ com massas $m_1$ e $m_2$ respectivamente referentes ao sistema de coordenadas afixado aos centros de massa, solidários aos elos. Os elos $\mathcal{B}_1$ e $\mathcal{B}_2$ consistem respectivamente em uma barra retangular homogênea de comprimento $\ell_1$, largura $\mathrm{w}_1$ e espessura desprezível e uma barra cilíndrica homogênea de comprimento $\ell_2$ e raio $r_2$ (Tabela \ref{tab:dados_planta}).
+    
+    \input{pendulum_fig}
+    
+    Considere que o sistema apresenta excitação externa respectiva ao sinal PWM $u$ aplicado no circuito de armadura do motor à esquerda (Figura \ref{fig:pendulum}). O motor não apresenta redução, possui resistência de armadura $R$, constantes de acoplamento eletromagnético $K_t$ e $K_e$. A indutância de armadura do circuito é considerada nula para fins práticos. O torque gerado aciona uma polia de diâmetro $D$ de inércia desprezível acoplada ao motor e consequentemente um cabo de aço estirado inextensível.
+    
+    \input{tables}
+        
+    Considere uma representação possível de estados $\mathbf{x} = [x, \theta_1, \theta_2, \dot x, \dot \theta_1, \dot \theta_2]^T$ e uma das posições de repouso (instável) definida por $\mathbf{x}_{0} = [0, \pi, 0, 0, 0, 0]^T$. O controle linear pretende permanecer em uma região de convergência $\chi$ suficientemente próxima a $\mathbf{x}_{0}$ a fim de garantia linear do modelo \cite{Adamy2009} tal que o sistema permaneça em repouso a proposta consiste no projeto de um controlador LQR com frequência de amostragem $f_s$. O sistema controlado deve apresentar tempo de assentamento menor que $\mathbf{t}_s^{1\%}$ para cada um dos estados do sistema e desvio-padrão para a força aplicada igual a $\mathbf{\sigma}_u$. 
+    
+    Os sensores disponíveis são encoderes rotativos para o motor de acionamento i.e. leitura de $\mathbf{x}$, e um para leitura de $\theta_2$ acoplado à junta. As leituras dos sensores são decorrelacionadas e apresentam densidade espectral de potência $\mathbf{R}_v$. A posição angulares $\theta_1$ e $\theta_2$ apresentam ruído branco e a densidade espectral de potência iguais a $\mathbf{R}_w$ \cite{controle_digital_2018}. O microcontrolador escolhido apresenta atraso de cálculo de $n$ períodos de amostragem, $n \in \mathbb{N}$ e resolução de quantização de $m$ bits (Tabela \ref{tab:dados_controle}).
+    
+    %Como atividade extra, propõe-se considerar que o sistema seja submetido a um impulso $I = k \delta(t)$ \cite{Beer:2003:VME:1207649}, com $\delta(t)$ a função delta de Dirac, no instante $t_{\delta}$ na extremidade da segunda barra após sua estabilização a fim de determinar empiricamente $k$ tal que que o sistema não saia da região de estabilização.  

@@ -1,0 +1,44 @@
+    \begin{table}[!ht]
+        \begin{minipage}[b]{0.45\linewidth}\centering
+                \begin{tabular}{|c|c|l|}
+                    \hline Descrição & Unidade & Valor\\ \hline
+                    $R_a$ & $\Omega$ & 0.6\\
+                    $K_t$ & $\frac{Nm}{A}$ & 0.262\\
+                    $K_e$ & $Vs$ & 0.108\\
+                    $b_0$   & ${N s}/{\mathrm{m}}$ & 1.950\\
+                    $b_1$   & ${N s}/{\mathrm{rad}}$ & 0.010\\
+                    $b_2$   & ${N s}/{\mathrm{rad}}$ & 0.010\\
+                    $m_0$ & g & 440\\
+                    $m_1$ & g & 153\\
+                    $m_2$ & g & 71\\
+                    $I_1$ & ${\mathrm{Kg} \mathrm{m^2}}$ & 6.63 $10^{-4}$\\
+                    $I_2$ & ${\mathrm{Kg} \mathrm{m^2}}$ & $\frac{m_2 \ell_2^2}{12}$\\
+                    $r$ & mm & 22.6\\
+                    $\ell_1$ & mm & 180\\ 
+                    $\ell_2$ & mm  & 215\\
+                    $\ell_1^g$ & mm & 164\\ 
+                    $\ell_2^g$ & mm  & 107\\
+                    \hline
+                \end{tabular}
+                \caption{Dados da planta}
+                \label{tab:dados_planta}
+        \end{minipage}
+        \hspace{0.5cm}
+        \begin{minipage}[b]{0.45\linewidth}
+        \centering
+                \begin{tabular}{|c|c|c|}
+                    \hline Descrição & Unidade & Valor\\ \hline
+                    $m$ & bits & 10 \\
+                    $n$ & - & 2 \\
+                    $f_s$ & Hz & 100 \\
+                    $\mathbf{t}_s$ & s & $3.\mathbf{1}$\footnote{$\mathbf{1} $ consiste em uma matriz-coluna composta por 1's com dimensão adequada.} \\
+                    $\mathbf{R}_w$ & - & 0.02 $\mathds{1}$\footnote{[$\mathds{1}$] corresponde à matriz identidade}  \\ 
+                    $\mathbf{R}_v$ & - & 0.02 $\mathds{1}$ \, \\
+                    $\mathbf{\sigma}_u$ & $N$ & $500$ \\
+                    $t_{\delta}$ & s & $10$ \\
+                    \hline
+                \end{tabular}
+                \caption{Dados do microcontrolador e sensores}
+                \label{tab:dados_controle}
+        \end{minipage}
+    \end{table}
