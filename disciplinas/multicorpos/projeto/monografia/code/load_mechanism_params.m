@@ -1,4 +1,4 @@
-function params = load_mechanism_params()
+function params = load_params()
 % Units
 %   Mass    : [Kg]
 %   Inertia : [Kg*m^2]

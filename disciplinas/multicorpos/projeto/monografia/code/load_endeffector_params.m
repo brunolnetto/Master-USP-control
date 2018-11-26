@@ -5,29 +5,34 @@ function params = load_endeffector_params(params)
     %   density [kg/m^3]
     params.rhoe = 2700;
 
-    % Triangle's side [m]
+    % Circle radius [m]
     params.Le = 5/100;
     
     % End-effector thickness [m]
     params.he = 4/1000;
     
     % End-effector volume [m^3]
-    params.Ve = params.he*(params.Le^2)*sqrt(3)/4;
+    params.Ve = params.he*pi*params.Le^2;
     
     % Mass [Kg]
-    params.me = params.rhoe*params.Ve;   
+    params.me = params.rhoe*params.Ve; 
 
-    % Inertia [Kg*m^2] - Source: https://bit.ly/2yMkxQS
-    params.Je = 0.5*params.me*params.Le^2;
+    % Inertia [Kg*m^2] - Source: https://bit.ly/1DsCrVC
+    Jex = (1/12)*params.me*(3*params.Le^2 + params.he);
+    Jey = Jex;
+    Jez = (1/2)*params.me*params.Le^2;
     
-    % Joint relatiev position 
-    % By symmetry, the reference point is baricenter of the triangle
+    params.Je = diag([Jex, Jey, Jez]);
+    
+    % Joint relative position 
+    % By symmetry, the reference point is baricenter of the projected 
+    % circle
     
     % End-effector distance between reference frame and  [m] 
     % Geometrically, the radius of an equilater triangle MUST a*sqrt(3)/3
-    params.Le1 = params.Le*sqrt(3)/3;
-    params.Le2 = params.Le*sqrt(3)/3;
-    params.Le3 = params.Le*sqrt(3)/3;
+    params.Le1 = params.Le;
+    params.Le2 = params.Le;
+    params.Le3 = params.Le;
     
     % Angles relative to coordinate frame system attached to the
     % end-effector
