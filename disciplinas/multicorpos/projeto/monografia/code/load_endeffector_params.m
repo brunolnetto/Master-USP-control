@@ -39,4 +39,10 @@ function params = load_endeffector_params(params)
     params.gamma1 = 0;
     params.gamma2 = 2*pi/3;
     params.gamma3 = 4*pi/3;
+    
+    % End-effector coordinates
+    params.x = [sym('x'), sym('y'), sym('alpha')];
+    params.xp = [sym('xp'), sym('yp'), sym('alphap')];
+    params.xpp = [sym('xpp'), sym('ypp'), sym('alphapp')];
+    
 end

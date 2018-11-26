@@ -1,15 +1,16 @@
-function params = load_arm_params(params, i)
+function params = load_arm_params(i, params)
 % Units
 %   Mass    : [Kg]
 %   Inertia : [Kg*m^2]
 %   Length  : [m]
 %   Angle   : [rad]
-    
+
     meq = @(L, W, H, rho) L*W*H*rho;
     Jcgeq = @(m, a, b) m*(a^2 + b^2)/12;
 
     L0i_name = sprintf('L0%d', i);
     betai_name = sprintf('beta%d', i);
+    gammai_name = sprintf('gamma%d', i);
     
     % 1st link
     L1i_name = sprintf('L1%d', i);
@@ -27,11 +28,14 @@ function params = load_arm_params(params, i)
     
     rho2i_name = sprintf('rho2%d', i);
     m2i_name = sprintf('m2%d', i);
-    J2i_name = sprintf('J2%d', i);    
+    J2i_name = sprintf('J2%d', i);
     
     % Base parameters
     params = setfield(params, L0i_name, 20/100);
     params = setfield(params, betai_name, i*2*pi/3);
+    
+    % End-effector parameters
+    params = setfield(params, gammai_name, i*2*pi/3);
     
     % 1st link
     params = setfield(params, rho1i_name, 2700);
@@ -70,4 +74,24 @@ function params = load_arm_params(params, i)
     
     params = setfield(params, m2i_name, m2i);
     params = setfield(params, J2i_name, diag([J2ix, J2iy, J2iz]));
+    
+    th_str = 'th';
+    th1_name = sprintf('th1%d', i);
+    th2_name = sprintf('th2%d', i);
+    
+    params = setfield(params, th_str, ...
+                      [sym(th1_name, 'real'), sym(th2_name, 'real')]);
+    
+    thp_str = 'thp';
+    th1p_name = sprintf('th1%dp', i);
+    th2p_name = sprintf('th2%dp', i);
+    params = setfield(params, thp_str, ...
+                      sym(th1p_name, 'real'), sym(th2p_name, 'real'));
+    
+    thpp_str = 'thpp';
+    th1pp_name = sprintf('th1%dpp', i);
+    th2pp_name = sprintf('th2%dpp', i);
+    params = setfield(params, thpp_str, ...
+                      sym(th1pp_name, 'real'), sym(th2pp_name, 'real'));
+    
 end
