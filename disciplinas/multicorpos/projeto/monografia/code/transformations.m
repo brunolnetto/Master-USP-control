@@ -6,9 +6,9 @@ function sys = transformations(params)
 % Coordinate frame system 3 (CFS3i): Attached to second bar i on elbow
 % Coordinate frame system e (CFSei): Attached to end-effector
     
-    sys.arm1 = transformations_arm(1, params);
-    sys.arm2 = transformations_arm(2, params);
-    sys.arm3 = transformations_arm(3, params);
+    sys.serials.serial1.params = transformations_arm(1, params);
+    sys.serials.serial2.params = transformations_arm(2, params);
+    sys.serials.serial3.params = transformations_arm(3, params);
     
     
 
