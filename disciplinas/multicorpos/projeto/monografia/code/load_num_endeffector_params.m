@@ -9,6 +9,10 @@ function params = load_num_endeffector_params()
 
     % Circle radius [m]
     params.Le = 5/100;
+
+    % Center of mass position [m] [rad]
+    params.Lecg = 0;
+    params.deltacg = 0;
     
     % End-effector thickness [m]
     params.he = 4/1000;

@@ -25,10 +25,4 @@ function params = load_sym_endeffector_params()
     params.gamma1 = sym('gamma1');
     params.gamma2 = sym('gamma2');
     params.gamma3 = sym('gamma3');
-    
-    % End-effector coordinates
-    params.x = [sym('x'), sym('y'), sym('alpha')];
-    params.xp = [sym('xp'), sym('yp'), sym('alphap')];
-    params.xpp = [sym('xpp'), sym('ypp'), sym('alphapp')];
-    
 end

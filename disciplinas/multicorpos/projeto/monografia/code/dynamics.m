@@ -24,8 +24,8 @@ S = blkdiag(s, s, s);
 
 Ci = @(angle, di) [eye(2, 2), s*rot2d(angle)*di];
 C = [Ci(th11 + beta1, di(L11)); ...
-      Ci(th12 + beta2, di(L12)); ...
-      Ci(th13 + beta3, di(L13))];
+     Ci(th12 + beta2, di(L12)); ...
+     Ci(th13 + beta3, di(L13))];
 
 % TAKE NOTE: 'formula' allows to turn 'varfun' into symvar and proceed
 % symbolic manipulation

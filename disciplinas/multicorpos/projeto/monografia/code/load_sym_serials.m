@@ -1,4 +1,4 @@
-function serials = load_num_serials()
+function serials = load_sym_serials()
     serials = {};
     
     for i = 1:3
@@ -6,11 +6,11 @@ function serials = load_num_serials()
         serial_i.generalized = load_generalized_serial(i);
         
         % Serial parameters
-        serial_i.params = load_num_serial_params(i);
+        serial_i.params = load_sym_serial_params(i);
         
         % Transformations
         serial_i.T = transformations_serial(i, serial_i);
-
+        
         serials{end+1} = serial_i;
     end
 end

@@ -1,4 +1,4 @@
-function params = load_sym_arm_params(i)
+function params = load_sym_serial_params(i)
 % Units
 %   Mass    : [Kg]
 %   Inertia : [Kg*m^2]
@@ -29,32 +29,32 @@ function params = load_sym_arm_params(i)
     J2iz_name = sprintf('J2%dz', i);
     
     % Base parameters
-    params = setfield(params, L0i_name, sym(L0i_name));
-    params = setfield(params, betai_name, sym(betai_name));
+    params = setfield(params, L0i_name, sym(L0i_name, 'real'));
+    params = setfield(params, betai_name, sym(betai_name, 'real'));
     
     % End-effector parameters
-    params = setfield(params, gammai_name, sym(gammai_name));
+    params = setfield(params, gammai_name, sym(gammai_name, 'real'));
     
     % 1st link
-    params = setfield(params, L1i_name, sym(L1i_name));
+    params = setfield(params, L1i_name, sym(L1i_name, 'real'));
     
     % 1st link Inertial params
-    J1ix = sym(J1ix_name);
-    J1iy = sym(J1iy_name);
-    J1iz = sym(J1iz_name);
+    J1ix = sym(J1ix_name, 'real');
+    J1iy = sym(J1iy_name, 'real');
+    J1iz = sym(J1iz_name, 'real');
     
-    params = setfield(params, m1i_name, sym(m1i_name));
+    params = setfield(params, m1i_name, sym(m1i_name, 'real'));
     params = setfield(params, J1i_name, diag([J1ix, J1iy, J1iz]));
     
     % 2nd link
-    params = setfield(params, L2i_name, sym(L2i_name));
+    params = setfield(params, L2i_name, sym(L2i_name, 'real'));
     
     % 2nd link Inertial params
-    J2ix = sym(J2ix_name);
-    J2iy = sym(J2iy_name);
-    J2iz = sym(J2iz_name);
+    J2ix = sym(J2ix_name, 'real');
+    J2iy = sym(J2iy_name, 'real');
+    J2iz = sym(J2iz_name, 'real');
     
-    params = setfield(params, m2i_name, sym(m2i_name));
+    params = setfield(params, m2i_name, sym(m2i_name, 'real'));
     params = setfield(params, J2i_name, diag([J2ix, J2iy, J2iz]));
     
     

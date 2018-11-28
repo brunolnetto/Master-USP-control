@@ -18,6 +18,7 @@ function params = load_num_serial_params(i)
     L1i_name = sprintf('L1%d', i);
     H1i_name = sprintf('H1%d', i);
     W1i_name = sprintf('W1%d', i);
+    L1cgi_name = sprintf('L1cg%d', i);
 
     rho1i_name = sprintf('rho1%d', i);
     m1i_name = sprintf('m1%d', i);
@@ -27,6 +28,7 @@ function params = load_num_serial_params(i)
     L2i_name = sprintf('L2%d', i);
     H2i_name = sprintf('H2%d', i);
     W2i_name = sprintf('W2%d', i);
+    L2cgi_name = sprintf('L2cg%d', i);
     
     rho2i_name = sprintf('rho2%d', i);
     m2i_name = sprintf('m2%d', i);
@@ -41,6 +43,7 @@ function params = load_num_serial_params(i)
     params = setfield(params, L1i_name, 10/100);
     params = setfield(params, H1i_name, 5/1000);
     params = setfield(params, W1i_name, 4/100);
+    params = setfield(params, L1cgi_name, 5/100);
     
     % 1st link Inertial params
     rho1i = getfield(params, rho1i_name);
@@ -59,7 +62,8 @@ function params = load_num_serial_params(i)
     params = setfield(params, rho2i_name, 2700);
     params = setfield(params, L2i_name, 20/100);
     params = setfield(params, H2i_name, 5/1000);
-    params = setfield(params, W2i_name, 4/100);    
+    params = setfield(params, W2i_name, 4/100);
+    params = setfield(params, L2cgi_name, 10/100);
     
     % 1st link Inertial params
     rho2i = getfield(params, rho2i_name);
