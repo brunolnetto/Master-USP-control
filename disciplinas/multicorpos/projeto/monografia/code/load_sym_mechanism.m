@@ -7,4 +7,7 @@ function mechanism = load_sym_mechanism()
     
     % End-effector
     mechanism.endeffector = load_sym_endeffector();
+    
+    % Constraints
+    mechanism.constraints = load_constraints(mechanism);
 end

@@ -26,6 +26,4 @@ function generalized = load_generalized_serial(i)
     generalized = setfield(generalized, 'q', [q1i, q2i]);
     generalized = setfield(generalized, 'p', [p1i, p2i]);
     generalized = setfield(generalized, 'pp', [pp1i, pp1i]);
-    generalized = setfield(generalized, 'D', eye(2));
-    
 end

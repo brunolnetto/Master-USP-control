@@ -1,6 +1,7 @@
 function endeffector = load_num_endeffector()
     endeffector = struct();
 
-    endeffector = structcat(endeffector, load_generalized_endeffector());
-    endeffector = structcat(endeffector, load_num_endeffector_params());
+    endeffector.generalized = load_generalized_endeffector();
+    endeffector.params = load_num_endeffector_params();
+    endeffector.T = transformations_endeffector(endeffector);
 end
