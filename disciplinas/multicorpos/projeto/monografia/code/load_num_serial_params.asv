@@ -1,0 +1,81 @@
+function params = load_num_serial_params(i)
+% Units
+%   Mass    : [Kg]
+%   Inertia : [Kg*m^2]
+%   Length  : [m]
+%   Angle   : [rad]
+
+    meq = @(L, W, H, rho) L*W*H*rho;
+    Jcgeq = @(m, a, b) m*(a^2 + b^2)/12;
+
+    % Base parameters
+    base.params.L0 = 20/100;
+    base.params.beta = i*2*pi/3;
+    
+    params = setfield(params, L1i_name, );
+    params = setfield(params, H1i_name, );
+    params = setfield(params, W1i_name, 4/100);
+    params = setfield(params, L1cgi_name, 5/100);
+    
+    % 1st link
+    body1.params.rho1 = 2700;
+    body1.params.W1 = 10/100;
+    body1.params.H1 = 4/100;
+    body1.params.L1 = 4/100;
+    body1.params.L1g = body1.params.L1/2;
+    body1.params.cg = [body1.params.L1g; 0; 0];
+       
+    body1.params.m1 = meq(body1.params., body1.params., body1.params.
+                          body1.params.rho1);
+    body1.params.J1 = sym(sprintf('J1%d', i), [3, 3], 'real');
+    
+    % 2nd link
+    body2.params.L2 = sym(sprintf('L2%d', i), 'real');
+    body2.params.L2g = sym(sprintf('L2%dg', i), 'real');
+    body2.params.cg = [body2.params.L2g; 0; 0];
+
+    body2.params.m2 = sym(sprintf('m2%dm', i), 'real');
+    body2.params.J2 = sym(sprintf('J2_%dm', i), [3, 3], 'real');
+    
+    serial.base = base;
+    serial.bodies = {body1, body2};
+    
+    % Base parameters
+    params = setfield(params, L0i_name, );
+    params = setfield(params, betai_name, );
+    
+    % 1st link
+    
+    % 1st link Inertial params
+    rho1i = getfield(params, rho1i_name);
+    L1i = getfield(params, L1i_name);
+    W1i = getfield(params, W1i_name);
+    H1i = getfield(params, H1i_name);
+    m1i = meq(L1i, W1i, H1i, rho1i);
+    J1ix = Jcgeq(m1i, W1i, H1i);
+    J1iy = Jcgeq(m1i, L1i, H1i);
+    J1iz = Jcgeq(m1i, L1i, W1i);
+    
+    params = setfield(params, m1i_name, m1i);
+    params = setfield(params, J1i_name, diag([J1ix, J1iy, J1iz]));
+    
+    % 2nd link
+    params = setfield(params, rho2i_name, 2700);
+    params = setfield(params, L2i_name, 20/100);
+    params = setfield(params, H2i_name, 5/1000);
+    params = setfield(params, W2i_name, 4/100);
+    params = setfield(params, L2cgi_name, 10/100);
+    
+    % 1st link Inertial params
+    rho2i = getfield(params, rho2i_name);
+    L2i = getfield(params, L2i_name);
+    W2i = getfield(params, W2i_name);
+    H2i = getfield(params, H2i_name);
+    m2i = meq(L2i, W2i, H2i, rho2i);
+    J2ix = Jcgeq(m2i, W2i, H2i);
+    J2iy = Jcgeq(m2i, L2i, H2i);
+    J2iz = Jcgeq(m2i, L2i, W2i);
+    
+    params = setfield(params, m2i_name, m2i);
+    params = setfield(params, J2i_name, diag([J2ix, J2iy, J2iz]));
+end

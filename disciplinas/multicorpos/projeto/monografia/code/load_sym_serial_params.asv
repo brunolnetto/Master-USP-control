@@ -1,4 +1,4 @@
-function serial = load_sym_serial_params(i)
+function serial = load_sym_serial_params(i, serials)
 % Units
 %   Mass    : [Kg]
 %   Inertia : [Kg*m^2]
@@ -24,6 +24,10 @@ function serial = load_sym_serial_params(i)
     body2.params.m2 = sym(sprintf('m2%dm', i), 'real');
     body2.params.J2 = sym(sprintf('J2_%dm', i), [3, 3], 'real');
     
-    serial.base = base;
-    serial.bodies = {body1, body2};
+    seri
+    serial.bodies = 
+    
+    serial.serials{end+1}.base
+    base = base;
+    serial.serials.bodies = {body1, body2};
 end

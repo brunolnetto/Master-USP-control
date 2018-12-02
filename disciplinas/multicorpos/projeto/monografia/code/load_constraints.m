@@ -10,10 +10,10 @@ function constraints = load_constraints(mechanism)
         
         Oi = mechanism.serials{i}.O;
         Ai = mechanism.serials{i}.A;
-        Bi = mechanism.serials{i}.B;
+        Bi = mechanism.endeffector.B{i};
         
-        L1i = getfield(mechanism.serials{i}.params, sprintf('L1%d', i));
-        L2i = getfield(mechanism.serials{i}.params, sprintf('L2%d', i));
+        L1i = mechanism.serials{i}.bodies{1}.params.L1;
+        L2i = mechanism.serials{i}.bodies{2}.params.L2;
         qi = mechanism.serials{i}.generalized.q;
         
         % Constraint 1i

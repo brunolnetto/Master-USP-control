@@ -1,4 +1,5 @@
-clear all; 
+
+kktclear all; 
 close all; 
 clc;
 

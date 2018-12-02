@@ -1,4 +1,4 @@
-function T = transformations_serial(i, serial)
+function serial = transformations_serial(serial)
 % Transformation matrices of coordinate systems
 % Coordinate frame system 1 (CFS1i): Attached to motor i
 % Coordinate frame system 2 (CFS2i): Attached to first bar i on motor
@@ -7,18 +7,22 @@ function T = transformations_serial(i, serial)
 % Coordinate frame system e (CFSei): Attached to end-effector
 
     di = @(L) [L; 0; 0];
-    
-    beta = getfield(serial.params, sprintf('beta%d', i));
-    L0i = getfield(serial.params, sprintf('L0%d', i));
-    L1i = getfield(serial.params, sprintf('L1%d', i));
-    L2i = getfield(serial.params, sprintf('L2%d', i));
+
+    beta = serial.base.params.beta;
+    L0i = serial.base.params.L0;    
+
+    L1i = serial.bodies{1}.params.L1;
+    L2i = serial.bodies{2}.params.L2;
+
     q1i = serial.generalized.q(1);
     q2i = serial.generalized.q(2);
     
-    TN0 = T3d(beta, [0; 0; 1], [0; 0 ; 0])*...
-          T3d(0, [0; 0; 0], [L0i; 0 ; 0]);
-    TN1 = TN0*T3d(q1i, [0; 0; 1], [L1i; 0 ; 0]);
-    TN2 = TN1*T3d(q2i - q1i, [0; 0; 1], [L2i; 0 ; 0]);
-        
-    T = {vpa(simplify(TN0)), vpa(simplify(TN1)), vpa(simplify(TN2))};
+    TN0 = T3d(beta, [0; 0; 1], [0; 0 ; 0])*T3d(0, zeros(3, 1), di(L0i));
+    serial.base.T = TN0;
+
+    TN1 = TN0*T3d(q1i, [0; 0; 1], di(L1i));
+    TN2 = TN1*T3d(q2i - q1i, [0; 0; 1], di(L2i));
+    
+    serial.bodies{1}.T = TN1;
+    serial.bodies{2}.T = TN2;
 end

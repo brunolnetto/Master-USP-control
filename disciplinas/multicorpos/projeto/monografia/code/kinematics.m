@@ -1,8 +1,7 @@
 % @Author: Bruno Peixoto
 % @Date: 24/10/2018
 
-% Main transformation matrices
-run('transformations');
+mechanism = load_mechanism('sym');
 
 % Required measures for kinematics
 run('points');

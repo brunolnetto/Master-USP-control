@@ -15,7 +15,7 @@ function params = load_num_endeffector_params()
     params.deltacg = 0;
     
     % End-effector thickness [m]
-    params.he = 4/1000;
+    params.he = 8/1000;
     
     % End-effector volume [m^3]
     params.Ve = params.he*pi*params.Le^2;
