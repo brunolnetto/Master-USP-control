@@ -4,9 +4,6 @@ function generalized = load_generalized_serial(i)
     % Generalized coordinates
     q1_name = sprintf('q1%d', i);
     q2_name = sprintf('q2%d', i);
-   
-    q1i = sym(q1_name, 'real');
-    q2i = sym(q2_name, 'real');
     
     % Generalized velocities
     p1_name = sprintf('p1%d', i);
@@ -20,11 +17,11 @@ function generalized = load_generalized_serial(i)
     pp2_name = sprintf('pp2%d', i);
     
     pp1i = sym(pp1_name, 'real');
-    pp2i = sym(pp2_name, 'real');
+    pp2i = sym(pp2_name, 'real') + sym(th2p_name , 'real');
     
     % Generalized variables
-    generalized.q = [q1i, q2i];
-    generalized.qp = [p1i, p2i];
-    generalized.p = [p1i, p2i];
-    generalized.pp = [pp1i, pp1i];
+    generalized.q = setfield(generalized, 'q', [q1i, q2i]);
+    generalized.qp = setfield(generalized, 'qp', [p1i, p2i]);
+    generalized.p = setfield(generalized, 'p', [p1i, p2i]);
+    generalized = setfield(generalized, 'pp', [pp1i, pp1i]);
 end

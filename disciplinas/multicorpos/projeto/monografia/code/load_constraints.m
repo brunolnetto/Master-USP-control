@@ -17,10 +17,10 @@ function constraints = load_constraints(mechanism)
         qi = mechanism.serials{i}.generalized.q;
         
         % Constraint 1i
-        constraints{i} = (Bi - Ai).'*(Bi - Ai) - L2i^2;
-        
+        constraints{2*i-1} = (Bi - Ai).'*(Bi - Ai) - L2i^2;
+
         % Constraint 2i
-        constraints{i+3} = (Bi - Ai).'*(Ai - Oi) - L2i*L1i*cos(qi(2) - qi(1));
+        constraints{2*i} = (Bi - Ai).'*(Ai - Oi) - L2i*L1i*cos(qi(2) - qi(1));    
     end
 end
 
