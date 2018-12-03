@@ -13,6 +13,8 @@ function params = load_num_endeffector_params()
     % Center of mass position [m] [rad]
     params.Lecg = 0;
     params.deltacg = 0;
+    [Xcg, Ycg, Zcg] = pol2cart(params.Lecg, params.deltacg, 0);
+    params.cg = [Xcg; Ycg; Zcg];
     
     % End-effector thickness [m]
     params.he = 8/1000;
@@ -21,14 +23,14 @@ function params = load_num_endeffector_params()
     params.Ve = params.he*pi*params.Le^2;
     
     % Mass [Kg]
-    params.me = params.rhoe*params.Ve; 
+    params.m = params.rhoe*params.Ve; 
 
     % Inertia [Kg*m^2] - Source: https://bit.ly/1DsCrVC
-    Jex = (1/12)*params.me*(3*params.Le^2 + params.he);
+    Jex = (1/12)*params.m*(3*params.Le^2 + params.he);
     Jey = Jex;
-    Jez = (1/2)*params.me*params.Le^2;
+    Jez = (1/2)*params.m*params.Le^2;
     
-    params.Je = diag([Jex, Jey, Jez]);
+    params.J = diag([Jex, Jey, Jez]);
     
     % Joint relative position 
     % By symmetry, the reference point is baricenter of the projected 

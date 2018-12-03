@@ -4,11 +4,9 @@ function serial = load_num_serial_params(i)
 %   Inertia : [Kg*m^2]
 %   Length  : [m]
 %   Angle   : [rad]
-
+    
     meq = @(L, W, H, rho) L*W*H*rho;
     Jcgeq = @(m, a, b) m*(a^2 + b^2)/12;
-    
-    gravity = [0; 0; -9.8];
     
     % Base parameters
     base.params.L0 = 20/100;
@@ -35,6 +33,14 @@ function serial = load_num_serial_params(i)
 
     body1.params.J = diag([J1x, J1y, J1z]);
     
+    tau = sym(sprintf('tau%d', i), 'real');
+    
+    body1.excitations.forces.symbs = [];
+    body1.excitations.momenta.symbs = tau;
+    
+    body1.excitations.forces.entities = {};
+    body1.excitations.momenta.entities = {[0; 0; tau]};
+    
     % 2nd link
     body2.params.rho2 = 2700;
     body2.params.W2 = 10/100;
@@ -54,8 +60,16 @@ function serial = load_num_serial_params(i)
     J2y = Jcgeq(m2, body2.params.L2, body2.params.H2);
     J2z = Jcgeq(m2, body2.params.L2, body2.params.W2);
 
-    body1.params.J = diag([J2x, J2y, J2z]);
+    body2.params.J = diag([J2x, J2y, J2z]);
+
+    body2.excitations.forces.symbs = {};
+    body2.excitations.momenta.symbs = {};
     
+    body2.excitations.forces.entities = {};
+    body2.excitations.forces.applications = {};
+    body2.excitations.momenta.entities = {};
+    
+    gravity = [0; 0; -9.8];
     serial.gravity = gravity;
     serial.base = base;
     serial.bodies = {body1, body2};

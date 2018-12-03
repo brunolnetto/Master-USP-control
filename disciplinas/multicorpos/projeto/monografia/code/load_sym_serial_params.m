@@ -4,8 +4,6 @@ function serial = load_sym_serial_params(i)
 %   Inertia : [Kg*m^2]
 %   Length  : [m]
 %   Angle   : [rad]
-    gravity = [0; 0; -sym('g')];
-
     % Base parameters
     base.params.L0 = sym(sprintf('L0%d', i), 'real');
     base.params.beta = sym(sprintf('beta%d', i), 'real');
@@ -41,6 +39,7 @@ function serial = load_sym_serial_params(i)
     body2.excitations.forces.applications = {};
     body2.excitations.momenta.entities = {};
     
+    gravity = [0; 0; -sym('g')];
     serial.gravity = gravity;
     serial.base = base;
     serial.bodies = {body1, body2};
