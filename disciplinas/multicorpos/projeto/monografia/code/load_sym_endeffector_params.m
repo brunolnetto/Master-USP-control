@@ -3,12 +3,18 @@ function params = load_sym_endeffector_params()
 % triangle of side, thickness and material specified below
     % Circle radius [m]
     params.Le = sym('Le');
- 
+    
+    % Angle relative to body
+    params.deltacg = sym('deltacg');
+    
+    [Xcg, Ycg, Zcg] = pol2cart(params.Le, params.deltacg, 0);
+    params.cg = [Xcg; Ycg; Zcg];
+    
     % Mass [Kg]
-    params.me = sym('me'); 
+    params.m = sym('me'); 
 
     % Inertia [Kg*m^2] - Source: https://bit.ly/1DsCrVC
-    params.Je = diag([sym('Jex'), sym('Jey'), sym('Jez')]);
+    params.J = diag([sym('Jex'), sym('Jey'), sym('Jez')]);
     
     % Joint relative position 
     % By symmetry, the reference point is baricenter of the projected 

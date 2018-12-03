@@ -7,7 +7,9 @@ function serial = load_num_serial_params(i)
 
     meq = @(L, W, H, rho) L*W*H*rho;
     Jcgeq = @(m, a, b) m*(a^2 + b^2)/12;
-
+    
+    gravity = [0; 0; -9.8];
+    
     % Base parameters
     base.params.L0 = 20/100;
     base.params.beta = i*2*pi/3;
@@ -25,13 +27,13 @@ function serial = load_num_serial_params(i)
              body1.params.H1, ...
              body1.params.rho1);
     
-    body1.params.m1 = m1;
+    body1.params.m = m1;
     
     J1x = Jcgeq(m1, body1.params.W1, body1.params.H1);
     J1y = Jcgeq(m1, body1.params.L1, body1.params.H1);
     J1z = Jcgeq(m1, body1.params.L1, body1.params.W1);
 
-    body1.params.J1 = diag([J1x, J1y, J1z]);
+    body1.params.J = diag([J1x, J1y, J1z]);
     
     % 2nd link
     body2.params.rho2 = 2700;
@@ -46,14 +48,15 @@ function serial = load_num_serial_params(i)
              body2.params.H2, ...
              body2.params.rho2);
     
-    body2.params.m2 = m2;
+    body2.params.m = m2;
     
     J2x = Jcgeq(m2, body2.params.W2, body2.params.H2);
     J2y = Jcgeq(m2, body2.params.L2, body2.params.H2);
     J2z = Jcgeq(m2, body2.params.L2, body2.params.W2);
 
-    body1.params.J1 = diag([J2x, J2y, J2z]);
+    body1.params.J = diag([J2x, J2y, J2z]);
     
+    serial.gravity = gravity;
     serial.base = base;
     serial.bodies = {body1, body2};
 end

@@ -26,5 +26,5 @@ function generalized = load_generalized_serial(i)
     generalized.q = [q1i, q2i];
     generalized.qp = [p1i, p2i];
     generalized.p = [p1i, p2i];
-    generalized.pp = [pp1i, pp1i];
+    generalized.pp = [pp1i, pp2i];
 end

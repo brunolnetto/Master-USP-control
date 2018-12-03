@@ -17,12 +17,18 @@ function serial = transformations_serial(serial)
     q1i = serial.generalized.q(1);
     q2i = serial.generalized.q(2);
     
-    TN0 = T3d(beta, [0; 0; 1], [0; 0 ; 0])*T3d(0, zeros(3, 1), di(L0i));
-    serial.base.T = TN0;
-
-    TN1 = TN0*T3d(q1i, [0; 0; 1], di(L1i));
-    TN2 = TN1*T3d(q2i - q1i, [0; 0; 1], di(L2i));
+    TN0 = simplify(T3d(beta, [0; 0; 1], di(0))*T3d(0, zeros(3, 1), di(L0i)));
+    serial.base.T = simplify(TN0);
     
-    serial.bodies{1}.T = TN1;
-    serial.bodies{2}.T = TN2;
+    % Transformations of 1st body
+    TrotB1 = T3d(q1i, [0; 0; 1], di(0));
+    TN1 = simplify(TN0*TrotB1);
+    
+    % Transformations of 2nd body
+    TtransB2 = T3d(0, [0; 0; 0], di(L1i));
+    TrotB2 = T3d(q2i - q1i, [0; 0; 1], di(0));
+    TN2 = simplify(TN1*TtransB2*TrotB2);
+    
+    serial.bodies{1}.T = simplify(TN1);
+    serial.bodies{2}.T = simplify(TN2);
 end

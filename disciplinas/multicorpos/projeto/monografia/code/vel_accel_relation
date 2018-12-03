@@ -1,7 +1,0 @@
-const_0 = const == 0;
-
-const_0p = diff(const_0, t);
-const_0p = subs(const_0p, diff2p, varp);
-
-constpp = diff(const == 0, t);
-const_0pp = subs(const_0pp, [diff2p, diff2pp], [varp, varpp]);
