@@ -1,4 +1,4 @@
-function sim = update_sim(i, mechanism, trajectory)   
+function sim = update_sim(i, mechanism, trajectory)
     % Generalized variables
     q_bullet = trajectory.q(:, i);
     qp_bullet = trajectory.qp(:, i);
@@ -39,12 +39,10 @@ function sim = update_sim(i, mechanism, trajectory)
         sim.C_curr = coupling_matrixC(mechanism, q_curr);
     end
     
+    % Euler approximation
     t_prev = sim.previous_time;
     t_curr = sim.current_time;
     delta_t = t_curr - t_prev;
     
-    % Euler approximation
-    C_prev = sim.C_prev(end);
-    C_curr = subs(eqdyn.C, [q_sym, qp_sym], [q_num, qp_num]);
-    sim.Cp = (C_curr - C_prev)/delta_t;
+    sim.Cp = (sim.C_curr - sim.C_prev)/delta_t;
 end
