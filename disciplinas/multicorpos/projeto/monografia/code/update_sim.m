@@ -1,14 +1,14 @@
 function sim = update_sim(i, mechanism, trajectory)
     % Generalized variables
-    q_bullet = trajectory.q(:, i);
-    qp_bullet = trajectory.qp(:, i);
-    qpp_bullet = trajectory.qpp(:, i);
+    q_bullet = trajectory.q(i, :);
+    qp_bullet = trajectory.qp(i, :);
+    qpp_bullet = trajectory.qpp(i, :);
     
-    [q_curr, p_curr, pp_curr] = generalized_variables(mechanism, ...
-                                                      q_bullet, ...
-                                                      qp_bullet, ...
-                                                      qpp_bullet);
+    [q_curr, ~, ...
+     p_curr, pp_curr] = q_qp_p_pp(mechanism, q_bullet, qp_bullet, qpp_bullet);
     
+    q = [mechanism.eqdyn.q_bullet, mechanism.eqdyn.q_circ];
+
     sim.q = q_curr;
     sim.p = p_curr;
     sim.pp = pp_curr;
@@ -20,11 +20,13 @@ function sim = update_sim(i, mechanism, trajectory)
         sim.current_time = trajectory.time(2);
         
         % Generalized variables
-        q_bullet_next = trajectory.q(:, 2);
-        qp_bullet_next = trajectory.qp(:, 2);
-        qpp_bullet_next = trajectory.qp(:, 2);
+        q_bullet_next = trajectory.q(2, :);
+        qp_bullet_next = trajectory.qp(2, :);
+        qpp_bullet_next = trajectory.qp(2, :);
         
-        [q_next, ~, ~] = generalized_variables(q_bullet_next, ...
+        [q_next, ~, ~] = generalized_variables(mechanism, ...
+                                               xfun_q_bullet,...
+                                               q_bullet_next, ...
                                                qp_bullet_next, ...
                                                qpp_bullet_next);
         
@@ -46,4 +48,10 @@ function sim = update_sim(i, mechanism, trajectory)
     delta_t = t_curr - t_prev;
     
     sim.Cp = (sim.C_curr - sim.C_prev)/delta_t;
+
+    for i = 1:3
+        sim.serials{i}.A = subs(mechanism.serials{i}.A, q, q_curr);
+        sim.serials{i}.O = subs(mechanism.serials{i}.O, q, q_curr);
+        sim.endeffector.B{i} = subs(sim.endeffector.B{i}, q, q_curr);
+    end
 end

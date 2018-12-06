@@ -7,7 +7,10 @@ function mechanism = load_mechanism(params_type)
 
     % End-effector
     mechanism.endeffector = load_endeffector(params_type);
-
+    
+    % Main points of the mechanism
+    mechanism = load_points(mechanism);
+    
     % Constraints
     mechanism.constraints = load_constraints(mechanism);
 end

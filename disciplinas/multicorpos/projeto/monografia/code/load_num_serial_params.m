@@ -16,7 +16,7 @@ function serial = load_num_serial_params(i)
     body1.params.rho1 = 2700;
     body1.params.W1 = 10/100;
     body1.params.H1 = 5/1000;
-    body1.params.L1 = 4/100;
+    body1.params.L1 = 25/100;
     body1.params.L1g = body1.params.L1/2;
     body1.params.cg = [body1.params.L1g; 0; 0];
     
@@ -45,7 +45,7 @@ function serial = load_num_serial_params(i)
     body2.params.rho2 = 2700;
     body2.params.W2 = 10/100;
     body2.params.H2 = 5/1000;
-    body2.params.L2 = 4/100;
+    body2.params.L2 = 50/100;
     body2.params.L2g = body2.params.L2/2;
     body2.params.cg = [body2.params.L2g; 0; 0];
        

@@ -5,9 +5,7 @@ function constraints = load_constraints(mechanism)
 
     constraints = {};
     
-    for i = 1:3
-        mechanism = load_points(mechanism);
-        
+    for i = 1:3        
         Oi = mechanism.serials{i}.O;
         Ai = mechanism.serials{i}.A;
         Bi = mechanism.endeffector.B{i};
