@@ -9,8 +9,8 @@ function serial = load_num_serial_params(i)
     Jcgeq = @(m, a, b) m*(a^2 + b^2)/12;
     
     % Base parameters
-    base.params.L0 = 20/100;
-    base.params.beta = i*2*pi/3;
+    base.params.L0 = 40/100;
+    base.params.beta = (i-1)*2*pi/3;
     
     % 1st link
     body1.params.rho1 = 2700;

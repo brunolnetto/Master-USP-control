@@ -17,7 +17,8 @@ function  traj = trajectory()
     q = [R*cos(omega*t); R*sin(omega*t); omega*t].';
     qp = [-R*omega*sin(omega*t); R*omega*cos(omega*t); omega*ones(size(t))].';
     qpp = [-R*omega^2*cos(omega*t); R*omega^2*sin(omega*t); zeros(size(t))].';
-
+    
+    traj.dt = dt;
     traj.t = t;
     traj.q = q;
     traj.qp = qp;

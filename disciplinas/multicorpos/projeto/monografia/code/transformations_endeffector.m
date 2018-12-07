@@ -15,9 +15,9 @@ function T = transformations_endeffector(endeffector)
     gamma3 = endeffector.params.gamma3;
 
     TNe = T3d(alpha, [0; 0; 1], [x; y; 0]);
-    TNe1 = TNe*T3d(gamma1, [0; 0; 1], [x; y; 0]);
-    TNe2 = TNe*T3d(gamma2, [0; 0; 1], [x; y; 0]);
-    TNe3 = TNe*T3d(gamma3, [0; 0; 1], [x; y; 0]);
+    TNe1 = TNe*T3d(gamma1, [0; 0; 1], [0; 0; 0]);
+    TNe2 = TNe*T3d(gamma2, [0; 0; 1], [0; 0; 0]);
+    TNe3 = TNe*T3d(gamma3, [0; 0; 1], [0; 0; 0]);
     
     T = {vpa(simplify(TNe)), ...
              vpa(simplify(TNe1)), ...

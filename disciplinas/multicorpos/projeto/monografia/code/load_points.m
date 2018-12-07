@@ -12,7 +12,7 @@ function mechanism = load_points(mechanism)
         TN0 = serial.base.T;
         TN1 = serial.bodies{1}.T;
         TN2 = serial.bodies{2}.T;
-        TNe = endeffector.T{i};
+        TNe = endeffector.T{i+1};
 
         mechanism.serials{i}.O = point(TN0, [0; 0; 0]);
         mechanism.serials{i}.A = point(TN1, [L1; 0; 0]);

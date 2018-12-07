@@ -1,6 +1,6 @@
 function ps_ = points(Ts, ps)
     % Guard
-    if lenght(Ts) ~= lenght(ps):
+    if lenght(Ts) ~= lenght(ps)
        error('Number of transformations MUST be equal to points!'); 
     end       
     
