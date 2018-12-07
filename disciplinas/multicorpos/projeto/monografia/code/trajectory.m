@@ -1,6 +1,6 @@
 function  traj = trajectory()
     % [s]
-    dt = 0.01;
+    dt = 0.1;
     
     % [m]
     R = 0.1;

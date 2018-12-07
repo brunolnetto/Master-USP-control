@@ -17,5 +17,6 @@ traj = trajectory();
 
 sims = calculate_sims(mechanism, trajectory);
 
-hfig = figure();
-simulate(sims, mechanism);
+% hfig = figure();
+% simulate(sims, mechanism);
+

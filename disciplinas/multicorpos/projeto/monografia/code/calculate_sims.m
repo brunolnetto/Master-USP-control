@@ -7,7 +7,6 @@ function sims = calculate_sims(mechanism, trajectory)
     % Offline calculation of simulation parameters
     sims = {};
     for i = 1:n
-        disp(i);
         sim = update_sim(i, sim, mechanism, trajectory);
         sims{i} = sim;
     end
