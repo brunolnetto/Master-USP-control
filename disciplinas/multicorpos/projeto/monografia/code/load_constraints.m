@@ -1,4 +1,3 @@
-
 function constraints = load_constraints(mechanism)
 % Constraints of the 3RRR mechanism
 %   - (Bi - Ai).'*(Bi - Ai) == L2i^2

@@ -3,7 +3,7 @@ function  traj = trajectory()
     dt = 0.1;
     
     % [m]
-    R = 0.1;
+    R = 1;
     
     % [rad/s]
     omega = 1;

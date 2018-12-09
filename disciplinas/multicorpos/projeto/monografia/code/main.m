@@ -1,4 +1,3 @@
-
 clear all; 
 close all; 
 clc;
@@ -20,4 +19,3 @@ sims = calculate_sims(mechanism, trajectory);
 
 % hfig = figure();
 % simulate(sims, mechanism);
-

@@ -2,8 +2,6 @@ function draw_mechanism(mechanism, sim)
     clf;
     axis equal;
     
-    axis([-0.4, 0.6, -0.6, 0.6]);
-    
     % End-effector
     viscircles(double([sim.q(1), sim.q(2)]), ...
                mechanism.endeffector.params.Le1); 
@@ -28,21 +26,24 @@ function draw_mechanism(mechanism, sim)
        yBi = Bi(2);
        
        % Principal dots
-       plot(Oi(1), Oi(2), strcat(colors(i), markers(1)))
+       plot(Oi(1), Oi(2), strcat(colors(1), markers(1)))
        hold on;
-       plot(Ai(1), Ai(2), strcat(colors(i), markers(2)))
+       plot(Ai(1), Ai(2), strcat(colors(2), markers(2)))
        hold on;
-       plot(Bi(1), Bi(2), strcat(colors(i), markers(3)))
+       plot(Bi(1), Bi(2), strcat(colors(3), markers(3)))
        hold on;
        
        % Main segments
-       Wi = getfield(mechanism.serials{i}.params, sprintf('W%d', i));
+       W1 = mechanism.serials{i}.bodies{1}.params.W1;
+       W2 = mechanism.serials{i}.bodies{2}.params.W2;
        
-       line([xOi, xAi], [yOi, yAi], 'LineWidth', Wi);
-       line([xAi, xBi], [yAi, yBi], 'LineWidth', Wi);
+       line([xOi, xAi], [yOi, yAi], 'LineWidth', W1);
+       line([xAi, xBi], [yAi, yBi], 'LineWidth', W2);
     end
+            
     hold off;
     
+    axis([-0.6 0.6 -0.6 0.6]);
+    
     axis equal;
-
 end
