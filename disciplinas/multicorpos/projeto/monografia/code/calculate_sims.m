@@ -3,11 +3,14 @@ function sims = calculate_sims(mechanism, trajectory)
     
     % Begin of simulation
     sim = struct('');
+    prev_sim = sim;
     
     % Offline calculation of simulation parameters
     sims = {};
     for i = 1:n
-        sim = update_sim(i, sim, mechanism, trajectory);
+        sim = update_sim(i, prev_sim, mechanism, trajectory);
         sims{i} = sim;
+    
+        prev_sim = sim;
     end
 end
