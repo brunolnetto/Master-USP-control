@@ -1,6 +1,6 @@
 function  traj = trajectory()
     % [s]
-    dt = 0.1;
+    dt = 0.01;
     
     % [m]
     R = 0.2;
@@ -12,7 +12,7 @@ function  traj = trajectory()
     tf = 2*pi/omega;
     
     % Time vector
-    n = 20;
+    n = 70;
     t = linspace(0, tf, n);
     
     q = [R*cos(omega*t); R*sin(omega*t); omega*t].';

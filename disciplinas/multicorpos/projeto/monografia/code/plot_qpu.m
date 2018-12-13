@@ -4,6 +4,18 @@ function plot_qpu(sims)
     t = zeros(1, n);
     q = zeros(n, 6);
     p = zeros(n, 6);
+    constraints_error = zeros(n, 1);
+    q_error = zeros(n, 1);
+    
+    % Constraints error
+    for i = 1:n
+        constraints_error(i) = sims{i}.constraints_error;
+    end
+    
+    % q-error
+    for i = 1:n
+        q_error(i) = sims{i}.q_error;
+    end
     
     % q, p
     for i = 1:n
@@ -71,4 +83,9 @@ function plot_qpu(sims)
     subplot(3, 2, 6);
     plot(t, p(:,3));
     
+    figure();
+    plot(t, constraints_error);
+
+    figure();
+    plot(t, q_error);
 end
