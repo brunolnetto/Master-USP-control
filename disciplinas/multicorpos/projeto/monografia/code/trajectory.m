@@ -3,16 +3,17 @@ function  traj = trajectory()
     dt = 0.1;
     
     % [m]
-    R = 0.1;
+    R = 0.2;
     
     % [rad/s]
-    omega = 1;
+    omega = 10;
     
     % End time [s]
     tf = 2*pi/omega;
     
     % Time vector
-    t = 0:dt:tf;
+    n = 20;
+    t = linspace(0, tf, n);
     
     q = [R*cos(omega*t); R*sin(omega*t); omega*t].';
     qp = [-R*omega*sin(omega*t); R*omega*cos(omega*t); omega*ones(size(t))].';
