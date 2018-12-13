@@ -17,11 +17,22 @@ function plot_qpu(sims)
     
     % Motors
     for i = 1:n
-        t(i) = sims{i}.ti;
+        t(i) = sims{i}.curr_t;
         
         u(i,1) = sims{i}.u(1);
         u(i,2) = sims{i}.u(2);
         u(i,3) = sims{i}.u(3);
+    end
+    
+    e_const = zeros(n, 3);
+    e_q = zeros(n, 3);
+    
+    % Motors
+    for i = 1:n
+        t(i) = sims{i}.curr_t;
+        
+        e_const = sims{i}.constraints_error;
+        e_q = sims{i}.constraints_error;
     end
     
     figure();

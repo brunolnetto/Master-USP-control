@@ -16,6 +16,8 @@ mechanism = load_mechanism('num');
  
  sims = calculate_sims(mechanism, trajectory);
 
+ 
+ 
 % hfig = figure();
 % 
 % address = [pwd, '\multibody.avi'];
