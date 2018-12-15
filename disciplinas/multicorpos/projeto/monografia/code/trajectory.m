@@ -1,15 +1,15 @@
 function  traj = trajectory()   
     % [m]
-    R = 0.15;
+    R = 0.2;
     
     % [rad/s]
-    omega = 10;
+    omega = 1;
     
     % End time [s]
-    tf = 5;
+    tf = 2*pi/omega;
     
     % Time vector
-    n = 70;
+    n = 40;
     t = linspace(0, tf, n);
     
     dt = t(2) - t(1);
