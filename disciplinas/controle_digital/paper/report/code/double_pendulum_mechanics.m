@@ -24,9 +24,9 @@ function sys = double_pendulum_mechanics()
     syms F;
 
     % Generalized variables
-    syms x(t) th1(t) th2(t);
-    syms xp(t)  th1p(t)  th2p(t);
-    syms xpp(t) th1pp(t) th2pp(t);
+    syms x q1 q2;
+    syms xp  q1p q2p;
+    syms xpp q1pp q2pp;
     
     % Bodies
     % Car
@@ -37,43 +37,38 @@ function sys = double_pendulum_mechanics()
     % Bar 1
     Ts_bar1 = {car.T, ...
                T3d(-pi/2, [0, 0, 1].', [0; 0; 0]), ...
-               T3d(th1, [0, 0, 1].', [0; 0; 0])};
+               T3d(q1, [0, 0, 1].', [0; 0; 0])};
 
-    bar1 = build_body(m1, I1, b1, Ts_bar1, L1cg, th1, th1p, th1p, false);
+    bar1 = build_body(m1, I1, b1, Ts_bar1, L1cg, q1, q1p, q1p, false);
 
     % Bar 2
     Ts_bar2 = {bar1.T, T3d(0, [0, 0, 1].', [L1; 0; 0]), ...
-               T3d(th2, [0, 0, 1].', [0; 0; 0])};
+               T3d(q2, [0, 0, 1].', [0; 0; 0])};
 
-    bar2 = build_body(m2, I2, b2, Ts_bar2, L2cg, th2, th2p, th2pp, ...
-                      false);
+    bar2 = build_body(m2, I2, b2, Ts_bar2, L2cg, q2, q2p, q2pp, false);
 
     % System
-    % Variables used to substitute by diff's
-    sys.varq = [xp, th1p, th2p, xpp, th1pp, th2pp];
-    sys.diffq = [diff(x, t), diff(th1, t), diff(th2, t), ...
-                 diff(xp, t), diff(th1p, t), diff(th2p, t)];
-
     sys.bodies = {car, bar1, bar2}; 
     sys.gravity = gravity;
     sys.g = g;
 
-    sys.q = {x; th1; th2};
-    sys.qp = {xp; th1p; th2p};
-    sys.qpp = {xpp; th1pp; th2pp};
+    sys.q = [x; q1; q2];
+    sys.qp = [xp; q1p; q2p];
+    sys.qpp = [xpp; q1pp; q2pp];
     
-    sys.U = [1; 0; 0];
-    sys.Fq = mat2cell(sys.U*F, ones(1, length(sys.U)), 1);
-    sys.u = {F};
+    sys.Fq = [F; 0; 0];
+    sys.u = F;
+    sys.y = [x; q1; q2];
     
-    % Movement formalism
-    sys = kinematic_model(sys);
+    sys.states = [sys.q; sys.qp];
     
     % Updated bodies
     sys.bodies{1}.previous_body = struct('');
     sys.bodies{2}.previous_body = sys.bodies{1};
     sys.bodies{3}.previous_body = sys.bodies{2};
     
+    % Movement formalism
+    sys = kinematic_model(sys);
     sys = dynamic_model(sys);
     
     % System symbolics
@@ -81,7 +76,4 @@ function sys = double_pendulum_mechanics()
     sys.syms = [sys.syms, m0, b0];
     sys.syms = [sys.syms, m1, I1(3, 3), b1, L1, L1_cg];
     sys.syms = [sys.syms, m2, I2(3, 3), b2, L2, L2_cg];
-    
-    % State space representation
-    sys.f = state_space(sys);
 end

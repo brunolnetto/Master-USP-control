@@ -39,7 +39,7 @@ function params = load_params()
     Kt = 2.157304/20;
     
     % Pulley's radius
-    R = 0.0226;
+    D = 2*0.0226;
     
     % Relation between trque and force
     eta = -1;
@@ -48,5 +48,5 @@ function params = load_params()
     params = [g, m0, b0, ...
               m1, I1_33, b1, L1, L1_cg, ...
               m2, I2_33, b2, L2, L2_cg, ...
-              Kt, Ke, Ra, R, b_m, Vcc, eta];
+              Kt, Ke, Ra, Vcc, D];
 end

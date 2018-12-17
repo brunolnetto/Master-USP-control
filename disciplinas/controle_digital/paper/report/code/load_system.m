@@ -8,8 +8,9 @@ clc;
 sys = double_pendulum();
 
 % Working point
-WP = [0; pi; 0; 0; 0; 0; 0];
-sys = sys.linearize(WP);
+x0 = [0; pi; 0; 0; 0; 0];
+u0 = 0;
+WP = [x0; u0];
 
-% Prettify equations and matrices a bit for document
-% run('pretty_model');
+% Linearized system
+sys.lin_sys = sys.linearize(WP);

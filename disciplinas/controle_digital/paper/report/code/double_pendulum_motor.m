@@ -1,29 +1,27 @@
 function sys = double_pendulum_motor()
     % Electrical part - motor 
     % Remarks: Inductance neglected
-    syms Kt Ke Ra b_m;
-    syms Vcc u PWM;
+    syms Kt Ke Ra real;
+    syms xp F real;
+    syms Vcc u PWM real;
 
     % Mechanical part - motor 
     % Remarks: Inertia neglected
-    syms wm;
-    syms R;
+    syms wm Tau;
     
     % Shaft torque
-    sys.Tau = (Kt/Ra)*(u - (Ke + Ra*b_m/Kt)*wm);
-    sys.wm = wm;
-    sys.i = (1/Kt)*(sys.Tau + b_m*sys.wm);
-    
-    
+    Vt = Ke*wm;
+    V_pwm = Vcc*PWM;
+    Tau_ = (Kt/Ra)*(V_pwm - Vt);
+    sys.i = Tau/Kt;
+       
     % Tension on armature
-    u_ = Vcc*PWM;
-    
-    sys.u = {PWM};
-    
-    % Torque with main values substituted
-    sys.Tau = subs(sys.Tau, u, u_);
-    sys.i = subs(sys.i, u, u_);
+    sys.u = PWM;
+    sys.transform = @(u, wm_) subs(Tau_, [wm, sys.u], [wm_, u]);
+    sys.y = Tau;
+        
+    sys.states = [];
     
     % Electrical and mechanical system
-    sys.syms = [Kt, Ke, Ra, R, b_m, Vcc];
+    sys.syms = [Kt, Ke, Ra, Vcc];
 end
