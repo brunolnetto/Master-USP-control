@@ -45,8 +45,8 @@ function linsys =  lin_pendulum(sys, WP)
     % Poles, nulls, controlability and observability
     [sys_cont.nulls, ...
      sys_cont.poles, ...
-     sys_cont.Mc, ...
-     sys_cont.Mo] = plant_behaviour(sys_cont.ss);
+     sys_cont.is_cont, ...
+     sys_cont.is_obsv] = plant_behaviour(sys_cont.ss);
     
     % Sample time
     Ts = 1/100;
@@ -64,7 +64,7 @@ function linsys =  lin_pendulum(sys, WP)
     sys2_disc.ts = Ts;
 
     ndelay = 1;
-    sys2_disc.ss = delaydss(sys1_disc.ss, ndelay);
+    sys2_disc.ss = inputdelay_dss(sys1_disc.ss, ndelay);
     
     % Poles, nulls, controlability and observability
     [sys2_disc.nulls, ...

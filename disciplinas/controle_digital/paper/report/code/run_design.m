@@ -11,10 +11,10 @@ function [K, L] = run_design(sys, Q, R, Psi, rho)
     Rw = Psi'*Psi;
     Rv = rho*eye(p);
 
-    Phi = disc_ss.a;
-    Gamma = disc_ss.b;
-    C = disc_ss.c;
+    Phi = sys.a;
+    Gamma = sys.b;
+    C = sys.c;
 
     K = dlqr(Phi, Gamma, Q, R);
-    L = dlqe(Phi, Psi, alpha*C, Rw, Rv);
+    L = dlqe(Phi, Psi, C, Rw, Rv);
 end

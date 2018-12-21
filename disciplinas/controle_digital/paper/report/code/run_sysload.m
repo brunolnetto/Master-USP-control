@@ -8,7 +8,7 @@ clc;
 sys = double_pendulum();
 
 % Working point
-x0 = [0; pi; 0; 0; 0; 0];
+x0 = [0; pi; pi; 0; 0; 0];
 u0 = 0;
 WP = [x0; u0];
 
@@ -28,6 +28,6 @@ R = 1;
 rho = 1;
 Psi = [zeros(3); eye(3)];
 
-dsys = sys.lin_sys.discrete.systems{2}.ss;
+dsys = sys.lin_sys.discrete.systems{1}.ss;
 [K, L] = run_design(dsys, Q, R, Psi, rho);
 

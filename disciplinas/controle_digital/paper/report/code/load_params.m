@@ -45,8 +45,8 @@ function [params, params_str] = load_params()
     
     % Model parameters
     params = [g, m0, b0, ...
-              m1, I1_33, b1, L1, L1_cg, ...
-              m2, I2_33, b2, L2, L2_cg, ...
+              m1, I1, b1, L1, L1_cg, ...
+              m2, I2, b2, L2, L2_cg, ...
               Kt, Ke, Ra, Vcc, D];
     
     % Structure system parameters
@@ -54,12 +54,12 @@ function [params, params_str] = load_params()
     params_str.m0 = m0;
     params_str.b0 = b0;
     params_str.m1 = m1;
-    params_str.I1 = I1_33;
+    params_str.I1 = I1;
     params_str.b1 = b1;
     params_str.L1 = L1;
     params_str.L1_cg = L1_cg;
     params_str.m2 = m2;
-    params_str.I2 = I2_33;
+    params_str.I2 = I2;
     params_str.b2 = b2;
     params_str.L2 = L2; 
     params_str.L2_cg = L2_cg;
