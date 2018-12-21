@@ -1,5 +1,5 @@
 % Initial conditions
-x0 = [0; deg2rad(15); deg2rad(30); 0; 0; 0];
+x0 = [0; deg2rad(180); deg2rad(180 + 5); 0; 0; 0];
 u0 = 0;
 
 % Time vector

@@ -18,11 +18,10 @@ function [params, params_str] = load_params()
     b0 = 0.01;
     b1 = 0.01;
     b2 = 0.01;
-    b_m = 0.01;
     
     % Inertia
-    I1_33 = 0.00068267;
-    I2_33 = m2*L2^2/12;
+    I1 = 0.00068267;
+    I2 = m2*L2^2/12;
     
     % Gravity
     g = 9.8;
@@ -49,7 +48,8 @@ function [params, params_str] = load_params()
               m1, I1_33, b1, L1, L1_cg, ...
               m2, I2_33, b2, L2, L2_cg, ...
               Kt, Ke, Ra, Vcc, D];
-          
+    
+    % Structure system parameters
     params_str.g = g;
     params_str.m0 = m0;
     params_str.b0 = b0;
