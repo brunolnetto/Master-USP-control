@@ -1,0 +1,24 @@
+disc_ss = sys.lin_sys.discrete.systems{1}.ss;
+n = length(disc_ss.a);
+
+Q = diag([1/(0.05)^2; ...
+          1/1^2; ...
+          1/deg2rad(5)^2; ...
+          1/5^2; ...
+          1/deg2rad(5)^2; ...
+          1/5^2]);
+R = 1;
+
+Rw = Psi'*Psi;
+Rv = ;
+
+Psi = [zeros(3, 3); eye(3)];
+A = disc_ss.a;
+B = disc_ss.b;
+C = disc_ss.c;
+
+K = dlqr(A, B, Q, R);
+L = dlqe(A, Psi, C, Psi'*Psi, R);
+
+[Ac,Bc,Cc,Dc] = dreg(disc_ss.a, disc_ss.b, disc_ss.c, disc_ss.d, K, L);
+
