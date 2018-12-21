@@ -23,7 +23,7 @@ function sys = double_pendulum()
     sys.l_r = subs(sys_m.l_r, sys_m.u, F);
     sys.l_r = subs(sys.l_r, sys_e.y, Tau);
     sys.l_r = subs(sys.l_r, sys_p.u(2), wm);
-       
+    
     sys.u = sys_e.u;
     sys.qp = sys_m.qp;
     sys.qpp = sys_m.qpp;
