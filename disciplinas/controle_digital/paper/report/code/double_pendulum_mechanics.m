@@ -24,9 +24,9 @@ function sys = double_pendulum_mechanics()
     syms F;
 
     % Generalized variables
-    syms x q1 q2;
-    syms xp  q1p q2p;
-    syms xpp q1pp q2pp;
+    syms x th1 th2;
+    syms xp  th1p th2p;
+    syms xpp th1pp th2pp;
     
     % Bodies
     % Car
@@ -37,28 +37,28 @@ function sys = double_pendulum_mechanics()
     % Bar 1
     Ts_bar1 = {car.T, ...
                T3d(-pi/2, [0, 0, 1].', [0; 0; 0]), ...
-               T3d(q1, [0, 0, 1].', [0; 0; 0])};
+               T3d(th1, [0, 0, 1].', [0; 0; 0])};
 
-    bar1 = build_body(m1, I1, b1, Ts_bar1, L1cg, q1, q1p, q1p, false);
+    bar1 = build_body(m1, I1, b1, Ts_bar1, L1cg, th1, th1p, th1p, false);
 
     % Bar 2
     Ts_bar2 = {bar1.T, T3d(0, [0, 0, 1].', [L1; 0; 0]), ...
-               T3d(q2, [0, 0, 1].', [0; 0; 0])};
+               T3d(th2, [0, 0, 1].', [0; 0; 0])};
 
-    bar2 = build_body(m2, I2, b2, Ts_bar2, L2cg, q2, q2p, q2pp, false);
+    bar2 = build_body(m2, I2, b2, Ts_bar2, L2cg, th2, th2p, th2pp, false);
 
     % System
     sys.bodies = {car, bar1, bar2}; 
     sys.gravity = gravity;
     sys.g = g;
 
-    sys.q = [x; q1; q2];
-    sys.qp = [xp; q1p; q2p];
-    sys.qpp = [xpp; q1pp; q2pp];
+    sys.q = [x; th1; th2];
+    sys.qp = [xp; th1p; th2p];
+    sys.qpp = [xpp; th1pp; th2pp];
     
     sys.Fq = [F; 0; 0];
     sys.u = F;
-    sys.y = [x; q1; q2];
+    sys.y = [x; th1; th2];
     
     sys.states = [sys.q; sys.qp];
     

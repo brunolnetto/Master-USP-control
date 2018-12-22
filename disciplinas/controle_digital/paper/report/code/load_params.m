@@ -69,6 +69,6 @@ function [params, params_str] = load_params()
     params_str.Vcc = Vcc;
     params_str.D = D;
     params_str.nbits = 10;
-    params_str.q0 = [0.1, deg2rad(10), deg2rad(10)];
-    params_str.qp0 = [0.1, 0.1, 0.1];
+    params_str.q0 = [0; deg2rad(45); deg2rad(45)];
+    params_str.qp0 = [0; 0; 0];
 end
