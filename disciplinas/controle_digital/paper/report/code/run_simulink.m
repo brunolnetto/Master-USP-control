@@ -30,5 +30,5 @@ params.x0 = x_WP;
 params.u0 = u_WP;
 params.y0 = double(subs(sys.g, [sys.states; sys.u], [x_WP; u_WP]));
 
-simOut = sim('sim_double_pendulum');
+simOut = sim('pendulum_model');
 plot_simulink

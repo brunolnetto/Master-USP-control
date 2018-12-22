@@ -28,11 +28,6 @@ function sys = double_pendulum()
     sys.qp = sys_m.qp;
     sys.qpp = sys_m.qpp;
     sys.g = symvar(sys_m.gravity);
-    
-    sys.H = equationsToMatrix(sys.l_r, sys.qpp.');
-    
-    sys.Z = -equationsToMatrix(sys.l_r, sys.u);
-    sys.h = sys.l_r - sys.H*sys.qpp + sys.Z*sys.u;
 
     % Sytem behaviour and sensoring
     qpps = sys.H\(sys.Z*sys.u - sys.h);
@@ -42,7 +37,7 @@ function sys = double_pendulum()
     sys.g = [sys_m.q(1); sys_m.q(2); sys_m.q(3)];
     
     % Subssystem of the whole system
-    sys.subssystems = {sys_m, sys_e, sys_p};
+    sys.subsystems = {sys_m, sys_e, sys_p};
     
     % States
     sys.states = [sys_m.q(1); sys_m.q(2); sys_m.q(3)];
@@ -50,16 +45,15 @@ function sys = double_pendulum()
     
     % Input
     sys.u = sys_e.u(1);
-
-    % Parameters of the plant
-    sys.model_params = load_params();
     
     % System symbolics
     sys.syms = [sys_m.syms, sys_e.syms, sys_p.syms];
 
-    % Model parameters
+    % Parameters of the plant
     sys.model_params = load_params();
-    
+    pars = load_mechanism_params();    
+    sys.subsystems{1}.model_params = pars;
+
     % Linearization point
     sys.linearize = @(x0) lin_pendulum(sys, x0);
 end
