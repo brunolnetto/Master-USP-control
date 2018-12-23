@@ -15,9 +15,9 @@ function [params, params_str] = load_params()
     m2 = 0.071;
     
     % Viscuous friction
-    b0 = 0.01;
-    b1 = 0.01;
-    b2 = 0.01;
+    b0 = 0;
+    b1 = 0;
+    b2 = 0;
     
     % Inertia
     I1 = 0.00068267;
@@ -71,4 +71,7 @@ function [params, params_str] = load_params()
     params_str.nbits = 10;
     params_str.q0 = [0; deg2rad(45); deg2rad(45)];
     params_str.qp0 = [0; 0; 0];
+    params_str.x0 = [0; pi; pi; 0; 0; 0];
+    params_str.u0 = 0;
+    params_str.tf = 20;
 end

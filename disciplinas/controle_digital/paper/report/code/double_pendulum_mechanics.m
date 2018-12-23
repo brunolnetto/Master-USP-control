@@ -1,5 +1,4 @@
 function sys = double_pendulum_mechanics()
-
     % --- Plant parameters ---
     % Inertial
     syms m0 m1 m2 real;

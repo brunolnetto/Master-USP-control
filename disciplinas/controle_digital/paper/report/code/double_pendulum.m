@@ -1,7 +1,7 @@
 function sys = double_pendulum()
     % Mechanical part
     sys_m = double_pendulum_mechanics();
-    
+        
     % Coupling component
     sys_p = pulley();
     
@@ -28,7 +28,11 @@ function sys = double_pendulum()
     sys.qp = sys_m.qp;
     sys.qpp = sys_m.qpp;
     sys.g = symvar(sys_m.gravity);
-
+    
+    sys.H = jacobian(sys.l_r, sys.qpp);
+    sys.Z = -jacobian(sys.l_r, sys.u);
+    sys.h = sys.l_r - sys.H*sys.qpp + sys.Z*sys.u;
+    
     % Sytem behaviour and sensoring
     qpps = sys.H\(sys.Z*sys.u - sys.h);
     qps = sys.qp;

@@ -4,8 +4,10 @@ function sol = simulate_sys(sys, t, x0)
 end
 
 function dq = df(t, q, sys)
-    dq_sym = vpa(subs(sys.f_subs, sys.syms, sys.model_params));
-    q_syms = formula(sys.states);
-    dq_ = vpa(subs(dq_sym, q_syms, q));
+    dq_sym = subs(sys.f_subs, sys.syms, sys.model_params);
+    dq_sym = vpa(dq_sym);
+    
+    dq_ = vpa(subs(dq_sym, sys.states, q));
+    
     dq = double(dq_);
 end

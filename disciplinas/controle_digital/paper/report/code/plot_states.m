@@ -25,5 +25,6 @@ function plot_states(sol)
     plot(sol.x, sol.y(6, :));
     title('$\dot \theta_2(t)$', 'interpreter', 'latex')
     
-    saveas(hfig, 'model.tiff');    
+    saveas(hfig, 'model.tiff');
+    saveas(hfig, 'model.fig');
 end

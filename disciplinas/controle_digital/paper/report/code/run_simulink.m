@@ -30,5 +30,14 @@ params.x0 = x_WP;
 params.u0 = u_WP;
 params.y0 = double(subs(sys.g, [sys.states; sys.u], [x_WP; u_WP]));
 
-simOut = sim('pendulum_model');
+simOut = sim('pendulum_model', 'AbsTol', '1e-10', 'RelTol', '1e-10');
+
+time = get(simOut, 'tout');
+statesstruct = get(simOut, 'x');
+states = statesstruct.signals.values;
+
+sys_ = sys.subsystems{1};
+
 plot_simulink
+plot_energies(sys_, time, states);
+

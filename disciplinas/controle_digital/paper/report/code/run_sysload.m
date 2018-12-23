@@ -14,6 +14,3 @@ WP = [x_WP; u_WP];
 
 % Linearized system
 sys.lin_sys = sys.linearize(WP);
-
-
-

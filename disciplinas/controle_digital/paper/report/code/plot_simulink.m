@@ -1,3 +1,5 @@
+x = get(simOut, 'x');
+
 hfig = figure('units','normalized','outerposition',[0 0 1 1]);
     
 subplot(3,2, 1);
