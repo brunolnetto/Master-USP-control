@@ -1,16 +1,16 @@
-[~, params] = load_params();
+[~, params] = load_single_params();
 
 % Initial conditions
-x0 = [params.q0; params.qp0];
-u0 = params.u0;
+x0 = [0; deg2rad(45); 0; 0];
+u0 = 0;
 
 % Time vector
-t = 0:0.01:20;
+t = 0:0.1:20;
 
 sys_ = sys.subsystems{1};
 
 % System validation
-plotstates = @(sol) plot_states(sol);
+plotstates = @(hfig, sol) plot_single_states(hfig, sol);
 
 sol = validate_model(sys_, t, x0, u0, plotstates);
 

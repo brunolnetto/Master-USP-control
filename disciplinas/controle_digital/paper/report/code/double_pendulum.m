@@ -23,12 +23,17 @@ function sys = double_pendulum()
     sys.l_r = subs(sys_m.l_r, sys_m.u, F);
     sys.l_r = subs(sys.l_r, sys_e.y, Tau);
     sys.l_r = subs(sys.l_r, sys_p.u(2), wm);
+
+    sys.u = sys_m.u;
+    sys.qp = sys_m.qp;
+    sys.qpp = sys_m.qpp;
+    sys.g = symvar(sys_m.gravity);
     
     sys.u = sys_e.u;
     sys.qp = sys_m.qp;
     sys.qpp = sys_m.qpp;
     sys.g = symvar(sys_m.gravity);
-    
+
     sys.H = jacobian(sys.l_r, sys.qpp);
     sys.Z = -jacobian(sys.l_r, sys.u);
     sys.h = sys.l_r - sys.H*sys.qpp + sys.Z*sys.u;
@@ -49,15 +54,16 @@ function sys = double_pendulum()
     
     % Input
     sys.u = sys_e.u(1);
+
     
     % System symbolics
     sys.syms = [sys_m.syms, sys_e.syms, sys_p.syms];
 
     % Parameters of the plant
     sys.model_params = load_params();
-    pars = load_mechanism_params();    
+    pars = load_mechanism_params();
     sys.subsystems{1}.model_params = pars;
-
+    
     % Linearization point
     sys.linearize = @(x0) lin_pendulum(sys, x0);
 end

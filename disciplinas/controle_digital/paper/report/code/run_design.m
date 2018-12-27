@@ -1,4 +1,4 @@
-function [K, L] = run_design(sys, Q, R, Psi, rho)
+function [K, L] = run_design(sys, Q, R, Psi, rho, alpha)
     % Discretized system
     Ts = sys.ts;
 
@@ -14,7 +14,7 @@ function [K, L] = run_design(sys, Q, R, Psi, rho)
     Phi = sys.a;
     Gamma = sys.b;
     C = sys.c;
-
-    K = dlqr(Phi, Gamma, Q, R);
+    
+    K = dlqr(alpha*Phi, alpha*Gamma, Q, R);
     L = dlqe(Phi, Psi, C, Rw, Rv);
 end

@@ -1,41 +1,47 @@
-function [params, params_str] = load_params()
+function [params, params_str] = load_single_params()
 
     % Mechanical parameters
     % Distances between shafts
     L1 = 0.18;
-    L2 = 0.215;
     
     % Distance to center of mass
     L1_cg = 0.16404822;
-    L2_cg = 0.215/2;
     
     % Body masses
     m0 = 0.440;
     m1 = 0.153;
-    m2 = 0.071;
     
     % Viscuous friction
     b0 = 0;
     b1 = 0;
-    b2 = 0;
     
     % Inertia
     I1 = 0.00068267;
-    I2 = m2*L2^2/12;
     
     % Gravity
     g = 9.8;
     
     % Electrical params
     % Source voltage
-    Vcc = 12;
+    Vcc_p = 12;
     
     % Armature voltage
-    Ra = 12/20;
+    Ra_p = 12/20;
     
     % Eletromechanical parameters
-    Ke = 12/(2*pi*437/60);
-    Kt = 2.157304/20;
+    Ke_p = 12/(2*pi*437/60);
+    Kt_p = 2.157304/20;
+    
+    % Electrical params
+    % Source voltage
+    Vcc_b = 12;
+    
+    % Armature voltage
+    Ra_b = 12/20;
+    
+    % Eletromechanical parameters
+    Ke_b = 12/(2*pi*437/60);
+    Kt_b = 2.157304/20;
     
     % Pulley's radius
     D = 2*0.0226;
@@ -46,11 +52,9 @@ function [params, params_str] = load_params()
     % Model parameters
     params = [g, m0, b0, ...
               m1, I1, b1, L1, L1_cg, ...
-              m2, I2, b2, L2, L2_cg, ...
-              Kt, Ke, Ra, Vcc, D];
-    
-    eps_ = 0.1;
-          
+              Kt_p, Ke_p, Ra_p, Vcc_p,...
+              Kt_b, Ke_b, Ra_b, Vcc_b, D];
+              
     % Structure system parameters
     params_str.g = g;
     params_str.m0 = m0;
@@ -60,20 +64,16 @@ function [params, params_str] = load_params()
     params_str.b1 = b1;
     params_str.L1 = L1;
     params_str.L1_cg = L1_cg;
-    params_str.m2 = m2;
-    params_str.I2 = I2;
-    params_str.b2 = b2;
-    params_str.L2 = L2; 
-    params_str.L2_cg = L2_cg;
-    params_str.Kt = Kt; 
-    params_str.Ke = Ke; 
-    params_str.Ra = Ra;
-    params_str.Vcc = Vcc;
+    params_str.Kt = Kt_b; 
+    params_str.Ke = Ke_b; 
+    params_str.Ra = Ra_b;
+    params_str.Vcc = Vcc_b;
     params_str.D = D;
-    params_str.nbits = 10;
-    params_str.x0 = [0, pi, pi, 0, 0, 0];
-    params_str.u0 = 0;
-    params_str.q0 = [0, pi+eps_, pi+eps_];
-    params_str.qp0 = [0, 0, 0];
-    params_str.tf = 20;
+    params_str.nbits = 10; 
+    params_str.x_WP = [0, pi, 0, 0].';
+    params_str.u_WP = 0;
+    params_str.y_WP = [0; pi];
+    params_str.q0 = [0, pi];
+    params_str.qp0 = [0, 0];
+    params_str.tf = 4;
 end

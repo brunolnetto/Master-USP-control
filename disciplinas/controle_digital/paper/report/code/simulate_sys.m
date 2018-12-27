@@ -1,6 +1,6 @@
 function sol = simulate_sys(sys, t, x0)
     df_ = @(t, q) df(t, q, sys);
-    sol = ode45(df_, t, x0);
+    sol = ode23t(df_, t, x0);
 end
 
 function dq = df(t, q, sys)
