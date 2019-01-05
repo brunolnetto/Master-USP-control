@@ -1,3 +1,0 @@
-function actions(sims)
-
-end
