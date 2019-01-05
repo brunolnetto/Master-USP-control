@@ -7,15 +7,14 @@ t0 = tic;
 mechanism = load_mechanism('num');
 
  % Implicit attributes for 
- mechanism.eqdyn = orsino_eqdyn(mechanism);
- 
+ mechanism.eqdyn = orsino_eqdyn(mechanism); 
  toc(t0)
  
- % Simulation
- traj = trajectory();
+% % Simulation
+% traj = trajectory();
  
- sims = calculate_sims(mechanism, trajectory);
-
+% sims = calculate_sims(mechanism, trajectory);
+%
 % hfig = figure();
 % 
 % address = [pwd, '\multibody.avi'];

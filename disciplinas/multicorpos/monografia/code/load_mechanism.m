@@ -13,4 +13,6 @@ function mechanism = load_mechanism(params_type)
     
     % Constraints
     mechanism.constraints = load_constraints(mechanism);
+    
+    % mechanism.q_circ = load_q_circ(mechanism);
 end
