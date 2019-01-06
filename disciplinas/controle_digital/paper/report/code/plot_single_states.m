@@ -1,6 +1,5 @@
-function plot_single_states(sol)
+function plot_single_states(sol, to, fname)
     hfig = figure('units','normalized','outerposition',[0 0 1 1]);
-
     subplot(3,2, 1);
     plot(sol.x, sol.y(1, :));
     title('$x(t)$', 'interpreter', 'latex')
@@ -15,8 +14,10 @@ function plot_single_states(sol)
 
     subplot(3,2, 4);
     plot(sol.x, sol.y(4, :));
+
     title('$\dot \theta_1(t)$', 'interpreter', 'latex')
+    xlim([min(sol.x), max(sol.x)]);
     
-    saveas(gcf, [pwd, 'model.tiff']);
-    saveas(gcf, [pwd, 'model.fig']);
+    saveas(hfig, [to, fname, '.tiff']);
+    saveas(hfig, [to, fname, '.fig']);
 end

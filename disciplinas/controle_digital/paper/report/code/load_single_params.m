@@ -12,8 +12,8 @@ function [params, params_str] = load_single_params()
     m1 = 0.153;
     
     % Viscuous friction
-    b0 = 0;
-    b1 = 0;
+    b0 = 0.1;
+    b1 = 0.1;
     
     % Inertia
     I1 = 0.00068267;
@@ -46,9 +46,6 @@ function [params, params_str] = load_single_params()
     % Pulley's radius
     D = 2*0.0226;
     
-    % Relation between trque and force
-    eta = -1;
-    
     % Model parameters
     params = [g, m0, b0, ...
               m1, I1, b1, L1, L1_cg, ...
@@ -69,11 +66,15 @@ function [params, params_str] = load_single_params()
     params_str.Ra = Ra_b;
     params_str.Vcc = Vcc_b;
     params_str.D = D;
-    params_str.nbits = 10; 
+    params_str.nbits = 10;
+    
+    % Working point
     params_str.x_WP = [0, pi, 0, 0].';
-    params_str.u_WP = 0;
+    params_str.u_WP = [0; 0];
     params_str.y_WP = [0; pi];
-    params_str.q0 = [0, pi];
+    
+    % Starting point
+    params_str.q0 = [0, pi + 0.2];
     params_str.qp0 = [0, 0];
-    params_str.tf = 4;
+    params_str.tf = 5;
 end
