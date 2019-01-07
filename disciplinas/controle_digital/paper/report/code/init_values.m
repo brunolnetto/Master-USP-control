@@ -31,7 +31,7 @@ x_WP = params_str.x_WP;
 Vdot = ((fhat - x_WP).'*P*(fhat - x_WP) - (xk - x_WP).'*P*(xk - x_WP))/2;
 
 % Optimization functions
-% Best solution sofar: 0.17342, 2.7811, 5.9057, -2.0019
+% Best solution sofar: -0.1295 2.7631 0.0193 1.2773
 fopt = @(x) double(norm(x - x_WP));
 r = 0.4;
 nleq = @(x) nlcond(x, x_WP, r, sys.states, Vdot);
