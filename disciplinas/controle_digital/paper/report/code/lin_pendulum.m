@@ -8,13 +8,13 @@ function linsys =  lin_pendulum(sys, WP, Ts, ndelay)
     linsys.B0 = jacobian(sys.f, sys.u);
     linsys.C0 = jacobian(sys.g, sys.states);
     linsys.D0 = jacobian(sys.g, sys.u);
-    
+        
     % Matrices on the provided working-point
     A = subs(linsys.A0, linvars, WP);
     B = subs(linsys.B0, linvars, WP);
     C = subs(linsys.C0, linvars, WP);
     D = subs(linsys.D0, linvars, WP);
-         
+       
     linsys.A = simplify(A);
     linsys.B = simplify(B);
     linsys.C = simplify(C);
@@ -24,7 +24,7 @@ function linsys =  lin_pendulum(sys, WP, Ts, ndelay)
     linsys.B = double(subs(linsys.B, sys.syms, sys.model_params));
     linsys.C = double(subs(linsys.C, sys.syms, sys.model_params));
     linsys.D = double(subs(linsys.D, sys.syms, sys.model_params));
-    
+            
     % State space representation
     sys_cont.ss = ss(linsys.A, linsys.B, linsys.C, linsys.D);
     

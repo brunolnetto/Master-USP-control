@@ -1,27 +1,30 @@
-function plot_single_states(sol)
+function plot_single_states(sol, to, fname)
     hfig = figure('units','normalized','outerposition',[0 0 1 1]);
-
-    subplot(3,2, 1);
+    
+    subplot(2, 2, 1);
     plot(sol.x, sol.y(:, 1));
     title('$x(t)$', 'interpreter', 'latex')
-
-    subplot(3,2, 2);
+%    ylim([-0.2, 0.2])
+    xlim([min(sol.x), max(sol.x)]);    
+    
+    subplot(2, 2, 2);
     plot(sol.x, sol.y(:, 3));
     title('$\dot x(t)$', 'interpreter', 'latex')
-
-    subplot(3,2, 3);
+%    ylim([-5, 5])
+    xlim([min(sol.x), max(sol.x)]);
+    
+    subplot(2, 2, 3);
     plot(sol.x, sol.y(:, 2));
     title('$\theta_1(t)$', 'interpreter', 'latex')
-
-    subplot(3,2, 4);
+%    ylim([-0.3 + pi, 0.3 + pi])
+    xlim([min(sol.x), max(sol.x)]);
+    
+    subplot(2, 2, 4);
     plot(sol.x, sol.y(:, 4));
     title('$\dot \theta_1(t)$', 'interpreter', 'latex')
+%    ylim([-3, 3])
+    xlim([min(sol.x), max(sol.x)]);
     
-    saveas(gcf, [pwd, 'model.tiff']);
-    saveas(gcf, [pwd, 'model.fig']);
-
-    hfig = figure('units','normalized','outerposition',[0 0 1 1]);
-
-    stairs(sol.x, sol.u);
-    title('$u(k)$', 'interpreter', 'latex')
+    saveas(hfig, [to, fname, '.tiff']);
+    saveas(hfig, [to, fname, '.fig']);
 end

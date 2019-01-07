@@ -1,19 +1,22 @@
 [~, params] = load_single_params();
 
 % Initial conditions
-x0 = [0; deg2rad(45); 0; 0];
-u0 = 0;
+x0 = [0; 0.1; 0; 0];
+u0 = [0; 0];
 
 % Time vector
-t = 0:0.1:20;
+t = 0:0.1:10;
 
 sys_ = sys.subsystems{1};
 
 % System validation
-plotstates = @(hfig, sol) plot_single_states(hfig, sol);
+% Last reversed bar is important!
+to = [pwd, '\images\'];
+fname = 'states';
+plotstates = @(hfig, sol) plot_single_states(sol, to, fname);
 
 sol = validate_model(sys_, t, x0, u0, plotstates);
 
 time = sol.x;
-states = sol.y.';
+states = sol.y;
 [Kv, Pv, Fv, Tv] = plot_energies(sys_, time, states);

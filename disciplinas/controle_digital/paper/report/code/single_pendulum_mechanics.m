@@ -17,7 +17,7 @@ function sys = double_pendulum_mechanics()
     syms L1 L1_cg real; 
     
     % Extern excitations
-    syms F tau1;
+    syms F Tau_b;
 
     % Generalized variables
     syms x th1 real;
@@ -51,8 +51,8 @@ function sys = double_pendulum_mechanics()
     sys.qp = [xp; th1p];
     sys.qpp = [xpp; th1pp];
     
-    sys.Fq = [F; tau1];
-    sys.u = [F; tau1];
+    sys.Fq = [F; Tau_b];
+    sys.u = [F; Tau_b];
     sys.y = [x; th1];
     
     sys.states = [sys.q; sys.qp];

@@ -23,8 +23,8 @@ function generalized = load_generalized_serial(i)
     pp2i = sym(pp2_name, 'real');
     
     % Generalized variables
-    generalized.q = [q1i, q2i];
-    generalized.qp = [p1i, p2i];
-    generalized.p = [p1i, p2i];
-    generalized.pp = [pp1i, pp2i];
+    generalized.q = [q1i; q2i];
+    generalized.qp = [p1i; p2i];
+    generalized.p = [p1i; p2i];
+    generalized.pp = [pp1i; pp2i];
 end
