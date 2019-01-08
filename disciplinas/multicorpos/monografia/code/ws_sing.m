@@ -7,7 +7,7 @@ ys = -0.4:0.01:0.4;
 alphas = -3:0.1:3;
 
 f = waitbar(0,'1','Name','Calculating trajectory...',...
-                'CreateCancelBtn','setappdata(gcbf,''canceling'',1)');
+            'CreateCancelBtn','setappdata(gcbf,''canceling'',1)');
 setappdata(f, 'canceling', 0);
 
 i = 1;
@@ -64,3 +64,22 @@ for x = xs
    end
 end
 
+ps_ws = [];
+for i = q:length(is_wss)
+    if(is_wss(i))
+        ps_ws = [ps_ws; points(i, :)];
+    end
+end
+
+figure()
+plot3(ps_ws(:, 1), ps_ws(:, 2), ps_ws(:, 3), 'kx');
+
+ps_s = [];
+for i = q:length(is_sings)
+    if(is_sings(i))
+        ps_s = [ps_s; points(i, :)];
+    end
+end
+
+figure()
+plot3(ps_s(:, 1), ps_s(:, 2), ps_s(:, 3), 'mx');

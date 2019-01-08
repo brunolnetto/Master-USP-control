@@ -47,74 +47,116 @@ function plot_qpu(sims)
         e_q = sims{i}.constraints_error;
     end
     
-    figure();
+    hfig_t = figure('units','normalized', 'outerposition', [0 0 1 1]);
     subplot(3, 1, 1);
     plot(t, u(:,1));
-    title('Torque $\tau_1$', 'interpreter', 'latex')
+    title('$\tau_1$', 'interpreter', 'latex')
+    ylabel('[N.m]');
+    xlabel('t [s]');
     
     subplot(3, 1, 2);
     plot(t, u(:,2));
-    title('Torque $\tau_2$', 'interpreter', 'latex')    
+    title('$\tau_2$', 'interpreter', 'latex')    
+    ylabel('[N.m]');
+    xlabel('t [s]');
     
     subplot(3, 1, 3);
     plot(t, u(:,3));
-    title('Torque $\tau_3$', 'interpreter', 'latex')    
+    title('$\tau_3$', 'interpreter', 'latex')    
+    ylabel('[N.m]');
+    xlabel('t [s]');
     
-    figure();
+    hfig_q = figure('units','normalized', 'outerposition', [0 0 1 1]);
     subplot(3, 2, 1);
     plot(t, q(:,1));
     title('${}^1 q_1$', 'interpreter', 'latex');
+    ylabel('[rad]');
+    xlabel('t [s]');
     
     subplot(3, 2, 2);
     plot(t, q(:,2));
     title('${}^1 q_2$', 'interpreter', 'latex');
+    ylabel('');
+    xlabel('t [s]');
     
     subplot(3, 2, 3);
     plot(t, q(:,3));
     title('${}^2 q_1$', 'interpreter', 'latex');
+    ylabel('[rad]');
+    xlabel('t [s]');
     
     subplot(3, 2, 4);
     plot(t, q(:,1));
     title('${}^2 q_2$', 'interpreter', 'latex');
+    ylabel('[rad]');
+    xlabel('t [s]');
     
     subplot(3, 2, 5);
     plot(t, q(:,2));
     title('${}^3 q_1$', 'interpreter', 'latex');
-    
+    ylabel('[rad]');
+    xlabel('t [s]');
+
     subplot(3, 2, 6);
     plot(t, q(:,3));
     title('${}^3 q_2$', 'interpreter', 'latex');
+    ylabel('[rad]');
+    xlabel('t [s]');
     
-    figure();
+    hfig_p = figure('units','normalized', 'outerposition', [0 0 1 1]);
     subplot(3, 2, 1);
     plot(t, p(:,1));
     title('${}^1 p_1$', 'interpreter', 'latex');
+    ylabel('[$\frac{rad}{s}$]');
+    xlabel('t [s]');
     
     subplot(3, 2, 2);
     plot(t, p(:,2));
     title('${}^1 p_2$', 'interpreter', 'latex');
+    ylabel('[$\frac{rad}{s}$]');
+    xlabel('t [s]');
     
     subplot(3, 2, 3);
     plot(t, p(:,3));
     title('${}^2 p_1$', 'interpreter', 'latex');
+    ylabel('[$\frac{rad}{s}$]');
+    xlabel('t [s]');
     
     subplot(3, 2, 4);
     plot(t, p(:,1));
     title('${}^2 p_2$', 'interpreter', 'latex');
+    ylabel('[$\frac{rad}{s}$]');
+    xlabel('t [s]');
     
     subplot(3, 2, 5);
     plot(t, p(:,2));
     title('${}^3 p_1$', 'interpreter', 'latex');
+    ylabel('[$\frac{rad}{s}]$');
+    xlabel('t [s]');
     
     subplot(3, 2, 6);
     plot(t, p(:,3));
     title('${}^3 p_2$', 'interpreter', 'latex');
+    ylabel('[$\frac{rad}{s}$]');
+    xlabel('t [s]');
     
-    figure();
+    hfig_phi = figure('units','normalized', 'outerposition', [0 0 1 1]);
     plot(t, constraints_error);
     title('$\varphi(\mathbf{q}) = \epsilon_\varphi$', 'interpreter', 'latex');
-
-    figure();
+    
+    hfig_e = figure('units','normalized', 'outerposition', [0 0 1 1]);
     plot(t, q_error);
     title('$|\mathbf{q}_{k} - \mathbf{q}_{k-1}| = \epsilon_{\Delta q}$', 'interpreter', 'latex');
+
+    saveas(hfig_t, 'torques', 'fig');
+    saveas(hfig_t, 'torques', 'eps');
+    saveas(hfig_q, 'coordinates', 'fig');
+    saveas(hfig_q, 'coordinates', 'eps');
+    saveas(hfig_p, 'speeds', 'fig');
+    saveas(hfig_p, 'speeds', 'eps');
+    saveas(hfig_e, 'error', 'fig');
+    saveas(hfig_e, 'error', 'eps');
+    saveas(hfig_phi, 'constraints', 'fig');
+    saveas(hfig_phi, 'constraints', 'eps');
+    
 end

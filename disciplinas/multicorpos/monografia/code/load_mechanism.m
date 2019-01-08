@@ -9,7 +9,7 @@ function mechanism = load_mechanism(params_type)
     mechanism.endeffector = load_endeffector(params_type);
     
     % Main points of the mechanism
-    mechanism = load_points(mechanism);
+    mechanism = load_aesthetic(mechanism);
     
     % Constraints
     mechanism.constraints = load_constraints(mechanism);

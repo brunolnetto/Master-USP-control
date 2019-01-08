@@ -32,6 +32,15 @@ function sims = calculate_sims(mechanism, trajectory)
             prev_sim = sim;
         end
     else
+        idx_ws = find(is_wss == 0);
+        idx_s = find(is_sings == 0);
+        
+        disp('The following points are out from WS:');
+        trajectory.q(idx_ws, :)
+        
+        disp('The following points are singularities:');
+        trajectory.q(idx_s, :)
+        
         error('Trajectory not valid: out of workspace or singularity');
     end
     
