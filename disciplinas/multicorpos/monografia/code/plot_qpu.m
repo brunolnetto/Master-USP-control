@@ -148,15 +148,15 @@ function plot_qpu(sims)
     plot(t, q_error);
     title('$|\mathbf{q}_{k} - \mathbf{q}_{k-1}| = \epsilon_{\Delta q}$', 'interpreter', 'latex');
 
-    saveas(hfig_t, 'torques', 'fig');
-    saveas(hfig_t, 'torques', 'eps');
-    saveas(hfig_q, 'coordinates', 'fig');
-    saveas(hfig_q, 'coordinates', 'eps');
-    saveas(hfig_p, 'speeds', 'fig');
-    saveas(hfig_p, 'speeds', 'eps');
-    saveas(hfig_e, 'error', 'fig');
-    saveas(hfig_e, 'error', 'eps');
-    saveas(hfig_phi, 'constraints', 'fig');
-    saveas(hfig_phi, 'constraints', 'eps');
+    saveas(hfig_t, [pwd, '/../torques'], 'fig');
+    saveas(hfig_t, [pwd, '/../torques'], 'eps');
+    saveas(hfig_q, [pwd, '/../coordinates'], 'fig');
+    saveas(hfig_q, [pwd, '/../coordinates'], 'eps');
+    saveas(hfig_p, [pwd, '/../speeds'], 'fig');
+    saveas(hfig_p, [pwd, '/../speeds'], 'eps');
+    saveas(hfig_e, [pwd, '/../error'], 'fig');
+    saveas(hfig_e, [pwd, '/../error'], 'eps');
+    saveas(hfig_phi, [pwd, '/../constraints'], 'fig');
+    saveas(hfig_phi, [pwd, '/../constraints'], 'eps');
     
 end

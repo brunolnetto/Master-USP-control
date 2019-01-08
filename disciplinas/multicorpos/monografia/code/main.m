@@ -20,7 +20,7 @@ traj = trajectory();
 sims = calculate_sims(mechanism, trajectory);
 
 hfig = figure('units','normalized', 'outerposition', [0 0 1 1]);
-address = [pwd, '/multibody.avi'];
+address = [pwd, '/../videos/multibody.avi'];
 axs = [-0.5, 0.8, -0.8, 0.8];
 simulate(sims, mechanism, traj.dt, axs, address);
 
