@@ -23,12 +23,43 @@ function  traj = trajectory()
     P2 = [-L0; -L0];
     P3 = [L0; -L0];
     A_max = 5;
+    incl0 = 0;
+    alpha0 = 0.33;
     
-    [t1, tf1, q1, qp1, qpp1] = P2P(P0, P1, A_max);
-    [t2, tf2, q2, qp2, qpp2] = P2P(P1, P2, A_max);
-    [t3, tf3, q3, qp3, qpp3] = P2P(P2, P3, A_max);
-    [t4, tf4, q4, qp4, qpp4] = P2P(P3, P0, A_max);
+    % First side
+    [t1, tf1, q1, qp1, qpp1] = P2P(P0, P1, A_max, alpha0);
+
+    [m, ~] = size(q1);
+
+    q1 = [q1, incl0*ones(m, 1)];
+    qp1 = [qp1, incl0*ones(m, 1)];
+    qpp1 = [qpp1, incl0*ones(m, 1)];
+ 
+    % Second side    
+    [t2, tf2, q2, qp2, qpp2] = P2P(P1, P2, A_max, alpha0);
+
+    [m, ~] = size(q2);
+    q2 = [q2, incl0*ones(m, 1)];
+    qp2 = [qp2, incl0*ones(m, 1)];
+    qpp2 = [qpp2, incl0*ones(m, 1)];
     
+    % Third side    
+    [t3, tf3, q3, qp3, qpp3] = P2P(P2, P3, A_max, alpha0);
+
+    [m, ~] = size(q3);
+    q3 = [q3, incl0*ones(m, 1)];
+    qp3 = [qp3, incl0*ones(m, 1)];
+    qpp3 = [qpp3, incl0*ones(m, 1)];
+
+    % Fourth side    
+    [t4, ~, q4, qp4, qpp4] = P2P(P3, P0, A_max, alpha0);
+
+    [m, ~] = size(q4);
+    q4 = [q4, incl0*ones(m, 1)];
+    qp4 = [qp4, incl0*ones(m, 1)];
+    qpp4 = [qpp4, incl0*ones(m, 1)];    
+
+    % Whole rectangle
     dt = t1(2) - t1(1);
     t = [t1; tf1+t2; tf1+tf2+t3; tf1+tf2+tf3+t4];
     q = [q1; q2; q3; q4];
