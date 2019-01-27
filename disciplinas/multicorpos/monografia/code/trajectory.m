@@ -24,7 +24,7 @@ function  traj = trajectory()
     P3 = [L0; -L0];
     A_max = 5;
     incl0 = 0;
-    alpha0 = 0.33;
+    alpha0 = 0.10;
     
     % First side
     [t1, tf1, q1, qp1, qpp1] = P2P(P0, P1, A_max, alpha0);
