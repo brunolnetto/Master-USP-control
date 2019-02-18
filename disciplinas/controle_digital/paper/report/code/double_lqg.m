@@ -25,6 +25,16 @@ B = sys.lin_sys.continuous.systems{1}.ss.b;
 C = sys.lin_sys.continuous.systems{1}.ss.c;
 D = sys.lin_sys.continuous.systems{1}.ss.d;
 
+Ts = dsys.ts;
+
+t_settling = 2;
+alpha = 100^(Ts/t_settling);
+
+% Plant matrices
+Phi = dsys.a;
+Gamma = dsys.b;
+C = dsys.c;
+
 % LQR Q and R matrices
 Q = diag([1/0.1^2; ...
           0; ...
@@ -36,18 +46,9 @@ Q = diag([1/0.1^2; ...
 R = 1/1^2;
 
 % Kalman filter main parameters
-%Psi = [zeros(3); eye(3)];
-Psi = dsys.b;
-
-Ts = dsys.ts;
-
-t_settling = 2;
-alpha = 100^(Ts/t_settling);
-
-% Plant matrices
-Phi = dsys.a;
-Gamma = dsys.b;
-C = dsys.c;
+% Psi = [zeros(3); eye(3)];
+% Psi = Gamma;
+Psi = -;
 
 Phi_aug = [Phi, zeros(length(Phi), 1);...
            -C(1, :), eye(1)];
