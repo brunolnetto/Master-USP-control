@@ -46,9 +46,7 @@ Q = diag([1/0.1^2; ...
 R = 1/1^2;
 
 % Kalman filter main parameters
-% Psi = [zeros(3); eye(3)];
-% Psi = Gamma;
-Psi = -;
+Psi = [zeros(3, 1); ones(3, 1)];
 
 Phi_aug = [Phi, zeros(length(Phi), 1);...
            -C(1, :), eye(1)];
