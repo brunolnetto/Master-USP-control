@@ -4,9 +4,9 @@ function hfig = plot_double_xxhat(w, x, xhat, to, fname)
     subplot(3, 2, 1);
     plot(x.time, x.signals.values(:, 1));
     hold on;
+    plot(xhat.time, xhat.signals.values(:, 1));
     hold on;
     plot(w.time, w.signals.values);
-    plot(xhat.time, xhat.signals.values(:, 1));
     hold off
     
     title('$x(t)$', 'interpreter', 'latex')
