@@ -44,5 +44,5 @@ function [q_circ_fun, is_ws_fun] = load_q_circ(mechanism)
     end
     
     q_circ_fun = @(q) double(subs(qs, q_bullet, q));
-    is_ws_fun = @(q) ~any(~(subs(deltas, q_bullet, q) >= 0));
+    is_ws_fun = @(q) ~any(~(double(subs(deltas, q_bullet, q)) >= 0));
 end
