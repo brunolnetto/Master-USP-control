@@ -1,3 +1,4 @@
+*.mat
 *.log
 *.synctex.gz
 *.aux
