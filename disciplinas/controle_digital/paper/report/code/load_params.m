@@ -39,14 +39,14 @@ function [params, params_str] = load_params()
     
     % Pulley's radius
     D = 2*0.0226;
-    
+
     % Model parameters
     params = [g, m0, b0, ...
               m1, I1, b1, L1, L1_cg, ...
               m2, I2, b2, L2, L2_cg, ...
               Kt, Ke, Ra, Vcc, D];
     
-    eps_ = 0;
+    eps_ = 0.2;
           
     % Structure system parameters
     params_str.g = g;

@@ -10,7 +10,6 @@ Ts = 1/100;
 % Plant parameters
 sys = double_pendulum(Ts, ndelay);
 
-
 % Time delays for the system
 ndelay = 0;
 
@@ -26,19 +25,6 @@ B = sys.lin_sys.continuous.systems{1}.ss.b;
 C = sys.lin_sys.continuous.systems{1}.ss.c;
 D = sys.lin_sys.continuous.systems{1}.ss.d;
 
-% LQR Q and R matrices
-Q = diag([1/0.1^2; ...
-          0; ...
-          1/deg2rad(10)^2; ...
-          0; ...
-          1/deg2rad(10)^2; ...
-          0; ...
-          0]);
-R = 1/1^2;
-
-% Kalman filter main parameters
-Psi = [0; 1; 0; 1; 0; 1];
-
 Ts = dsys.ts;
 
 t_settling = 2;
@@ -48,6 +34,21 @@ alpha = 100^(Ts/t_settling);
 Phi = dsys.a;
 Gamma = dsys.b;
 C = dsys.c;
+
+% LQR Q and R matrices
+Q = diag([1/0.1^2; ...
+          0; ...
+          1/(pi*10/180)^2; ...
+          0; ...
+          1/(pi*10/180)^2; ...
+          0; ...
+          0]);
+R = 1/1^2;
+
+% Kalman filter main parameters
+% Psi = [zeros(3); eye(3)];
+% Psi = Gamma;
+Psi = -;
 
 Phi_aug = [Phi, zeros(length(Phi), 1);...
            -C(1, :), eye(1)];
@@ -84,10 +85,15 @@ params.step_amplitude = 0.2;
 params.tf = 10;
 
 % Initial point
-params.x0 = [0; pi + 0.1; pi + 0.1; 0; 0; 0];
-params.xhat0 = [0; 0; 0; 0; 0; 0];
+params.x0 = [0; ...
+             pi + 0.1; ...
+             pi + 0.1; ...
+             0; 0; 0];
+params.xhat0 = [0; 0; 0; ...
+                0; 0; 0];
 
 mdlname = 'sim_double';
+open_system(mdlname);
 set_param(mdlname, 'SaveOutput', 'on');
 simOut = sim(mdlname, 'StopTime', num2str(params.tf), ...
                       'SrcWorkspace', 'current', ...

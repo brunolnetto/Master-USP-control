@@ -13,3 +13,4 @@ Ts = 1/100;
 % Plant parameters
 sys = double_pendulum(Ts, ndelay);
 
+run('load_lqg');
