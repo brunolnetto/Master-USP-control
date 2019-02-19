@@ -1,4 +1,4 @@
-function mechanism = load_points(mechanism)
+function mechanism = load_aesthetic(mechanism)
     mechanism.endeffector.Be = {};
 
     mechanism.points = {};
@@ -66,6 +66,33 @@ function mechanism = load_points(mechanism)
         
         mechanism.draw_endeffector = @(sim, mec) draw_endeffector(sim, mec);
     end
+    
+    mechanism.draw_generalized = @(sim, mec) draw_generalized(sim, mec); 
+    mechanism.draw_trajectory = @(sims) draw_trajectory(sims);
+end
+
+function draw_trajectory(sims)
+    n = length(sims);
+    
+    for i = 1:n-1
+        x = [sims{i}.q(1); sims{i+1}.q(1)];
+        y = [sims{i}.q(2); sims{i+1}.q(2)];
+        plot(x, y, '-k')
+        hold on
+    end
+end
+
+function draw_generalized(sim, mechanism)
+    plot(sim.q(1), sim.q(2), '*');
+
+    hold on;
+    
+    dvec = 0.1;
+    alpha = sim.q(3);
+    u = dvec*cos(alpha);
+    v = dvec*sin(alpha);
+    
+    quiver(sim.q(1), sim.q(2), u, v);
 end
 
 function draw_endeffector(sim, mechanism)
