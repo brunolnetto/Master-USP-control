@@ -1,5 +1,7 @@
 function hfig = plot_double_states(x, to, fname)
-    hfig = figure('units','normalized','outerposition',[0 0 1 1]);
+    hfig = figure('units','normalized', ...
+                  'outerposition',[0 0 1 1], ...
+                  'PaperPositionMode', 'auto');
 
     subplot(3, 2, 1);
     plot(x.time, x.signals.values(:, 1));
@@ -45,5 +47,5 @@ function hfig = plot_double_states(x, to, fname)
     xlabel('[s]', 'Interpreter', 'latex');
     ylabel('[rad/s]', 'Interpreter', 'latex');
     
-    print(hfig, [to, fname], '-depsc');
+    print(hfig, [to, fname], '-depsc2', '-r0');
 end

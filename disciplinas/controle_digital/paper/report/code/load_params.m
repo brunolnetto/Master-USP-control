@@ -46,7 +46,7 @@ function [params, params_str] = load_params()
               m2, I2, b2, L2, L2_cg, ...
               Kt, Ke, Ra, Vcc, D];
     
-    eps_ = 0.2;
+    eps_ = 10*pi/180;
           
     % Structure system parameters
     params_str.g = g;

@@ -1,30 +1,24 @@
-% States
-x = get(simOut, 'x');
-fname = 'states';
+to = '../images/';
 
-hfigx = plot_double_states(x, to, fname);
-print(hfigx, [to, fname], '-depsc');
+fnames = {'states_lin', 'predicted_lin'};
+plot_sim(simOut_lin, to, fnames);
 
-% Estimated states
-xhat = get(simOut, 'xhat');
-fname = 'predicted';
-
-hfigxhat = plot_double_states(xhat, to, fname);
-print(hfigxhat, [to, fname], '-depsc');
+fnames = {'states_nlin', 'predicted_nlin'};
+plot_sim(simOut_nlin, to, fnames);
 
 % Comparison
 fname = 'comparison';
-w = get(simOut, 'w');
-hfigcomp = plot_double_xxhat(w, x, xhat, to, fname);
-print(hfigcomp, [to, fname], '-depsc');
+w = get(simOut_lin, 'w');
+xhat = get(simOut_lin, 'xhat');
+x_lin = get(simOut_lin, 'x');
+x_nlin = get(simOut_lin, 'x');
+
+hfigcomp = plot_double_xxhat(w, x_lin, x_nlin, xhat, to, fname);
+print(hfigcomp, [to, fname], '-depsc2', '-r0');
 
 % Output
-u = get(simOut, 'u');
-t = u.time;
-fname = 'output';
+u_lin = get(simOut_lin, 'u');
+u_nlin = get(simOut_nlin, 'u');
 
-hfigu = figure('units','normalized','outerposition', [0 0 1 1]);
-plot_double_u(hfigu, t, u, to, fname);
-
-print(hfigu, [to, fname], '-depsc');
-
+fname = 'ouput';
+plot_double_u(u_lin, u_nlin, to, fname);

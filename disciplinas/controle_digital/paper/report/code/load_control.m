@@ -21,15 +21,18 @@ Phi_aug = [Phi, zeros(length(Phi), 1);...
            -C(1, :), eye(1)];
 Gamma_aug = [Gamma; 0];
 
-Rw = 1e-6;
-Rv = diag(1e-4*[1; 1; 1]);
+Rw_ = 1e-5;
+Rv_ = 1e-3;
+
+Rw = Rw_;
+Rv = diag(Rv_*[1; 1; 1]);
 
 K = dlqr(alpha*Phi_aug, alpha*Gamma_aug, Q, R);
 L = dlqe(Phi, Psi, C, Rw, Rv);
 
 % Noise parameters
-params.Rv = 1e-6;
-params.Rw = 1e-4;
+params.Rv = Rv_;
+params.Rw = Rw_;
 
 % Control and observer
 Kp = K(:, 1:n);
