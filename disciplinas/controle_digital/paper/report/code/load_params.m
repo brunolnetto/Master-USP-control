@@ -67,10 +67,19 @@ function [params, params_str] = load_params()
     params_str.Ra = Ra;
     params_str.Vcc = Vcc;
     params_str.D = D;
-    params_str.nbits = 10;
+    
+    % Linearization parameters
     params_str.x0 = [0, pi, pi, 0, 0, 0];
     params_str.u0 = 0;
+    
+    % Initial values
     params_str.q0 = [0, pi+eps_, pi+eps_];
     params_str.qp0 = [0, 0, 0];
-    params_str.tf = 20;
+    params_str.xhat0 = [0; 0; 0; ...
+                    0; 0; 0];
+    
+    % Simulation setup
+    params_str.tf = 10;
+    params_str.step_amplitude = 0.2;
+    params_str.nbits = 10;
 end

@@ -1,0 +1,19 @@
+params = catstruct(params, sys.params_str);
+mdlname = 'sim_double_lin';
+open_system(mdlname);
+set_param(mdlname, 'SaveOutput', 'on');
+simOut = sim(mdlname, 'StopTime', num2str(params.tf), ...
+                      'SrcWorkspace', 'current', ...
+                      'AbsTol', '1e-10', ...
+                      'RelTol', '1e-10');
+to = [pwd, '/../images/'];
+
+params = catstruct(params, sys.params_str);
+mdlname = 'sim_double_nlin';
+open_system(mdlname);
+set_param(mdlname, 'SaveOutput', 'on');
+simOut = sim(mdlname, 'StopTime', num2str(params.tf), ...
+                      'SrcWorkspace', 'current', ...
+                      'AbsTol', '1e-10', ...
+                      'RelTol', '1e-10');
+to = [pwd, '/../images/'];
