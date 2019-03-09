@@ -76,7 +76,7 @@ function [params, params_str] = load_params()
     params_str.q0 = [0, pi+eps_, pi+eps_];
     params_str.qp0 = [0, 0, 0];
     params_str.xhat0 = [0; 0; 0; ...
-                    0; 0; 0];
+                        0; 0; 0];
     
     % Simulation setup
     params_str.tf = 10;

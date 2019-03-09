@@ -1,4 +1,4 @@
-to = '../images/';
+to = 'images/';
 
 fnames = {'states_lin', 'predicted_lin'};
 plot_sim(simOut_lin, to, fnames);
@@ -11,7 +11,7 @@ fname = 'comparison';
 w = get(simOut_lin, 'w');
 xhat = get(simOut_lin, 'xhat');
 x_lin = get(simOut_lin, 'x');
-x_nlin = get(simOut_lin, 'x');
+x_nlin = get(simOut_nlin, 'x');
 
 hfigcomp = plot_double_xxhat(w, x_lin, x_nlin, xhat, to, fname);
 print(hfigcomp, [to, fname], '-depsc2', '-r0');

@@ -12,4 +12,5 @@ function plot_sim(simOut, to, fnames)
     
     hfigxhat = plot_double_states(xhat, to, fname);
     print(hfigxhat, [to, fname], '-depsc2', '-r0');
+    close all;
 end
