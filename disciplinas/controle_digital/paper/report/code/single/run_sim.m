@@ -1,5 +1,5 @@
 params = catstruct(params, sys.params_str);
-mdlname = 'sim_double_lin';
+mdlname = 'sim_single_lin';
 open_system(mdlname);
 set_param(mdlname, 'SaveOutput', 'on');
 simOut_lin = sim(mdlname, 'SrcWorkspace', 'current', ...
@@ -10,7 +10,7 @@ simOut_lin = sim(mdlname, 'SrcWorkspace', 'current', ...
                           'FixedStep','1e-3');
 
 params = catstruct(params, sys.params_str);
-mdlname = 'sim_double_nlin';
+mdlname = 'sim_single_nlin';
 open_system(mdlname);
 set_param(mdlname, 'SaveOutput', 'on');
 simOut_nlin = sim(mdlname, 'SrcWorkspace', 'current', ...

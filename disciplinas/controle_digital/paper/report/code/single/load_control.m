@@ -28,6 +28,18 @@ Rv = diag(Rv_*[1; 1]);
 K = dlqr(alpha*Phi_aug, alpha*Gamma_aug, Q, R);
 L = dlqe(Phi, Psi, C, Rw, Rv);
 
+[~, params] = load_params();
+
+% System parameters
+params.Phi = Phi;
+params.Gamma = Gamma;
+params.C = C;
+
+sys.fnum = vpa(subs(sys.f, sys.syms, sys.model_params));
+
+% Sample time
+params.ts = dsys.ts;
+
 % Noise parameters
 params.Rv = Rv_;
 params.Rw = Rw_;
@@ -35,3 +47,5 @@ params.Rw = Rw_;
 % Control and observer
 Kp = K(:, 1:n);
 Ki = -K(:, n+1:end);
+
+xhat0 = params.xhat0;

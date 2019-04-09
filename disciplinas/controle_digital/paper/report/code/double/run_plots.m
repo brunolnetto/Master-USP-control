@@ -1,4 +1,4 @@
-to = 'images/';
+to = '../images/';
 
 fnames = {'states_lin', 'predicted_lin'};
 plot_sim(simOut_lin, to, fnames);

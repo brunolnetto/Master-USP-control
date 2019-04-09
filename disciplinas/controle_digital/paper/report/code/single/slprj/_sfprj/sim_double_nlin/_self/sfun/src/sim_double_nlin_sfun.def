@@ -1,3 +1,0 @@
-LIBRARY sim_double_nlin_sfun.mexw64
-EXPORTS
-mexFunction

@@ -8,8 +8,10 @@ function plot_double_u(u_lin, u_nlin, to, fname)
     stairs(u_nlin.time, u_nlin.signals.values);
     hold off;
     
-    ylim([-1.5, 1.5])
-
+    ylim([-2, 2])
+    
+    axis square;
+    
     title('$u(t)$', 'interpreter', 'latex');
     legend({'u(t) - Linear', 'u(t) - Nonlinear'}, ...
             'interpreter', 'latex', '-r0');

@@ -28,12 +28,3 @@ Ts = dsys.ts;
 Phi = dsys.a;
 Gamma = dsys.b;
 C = dsys.c;
-
-params.Phi = Phi;
-params.Gamma = Gamma;
-params.C = C;
-
-sys.fnum = vpa(subs(sys.f, sys.syms, sys.model_params));
-
-% Sample time
-params.ts = dsys.ts;
