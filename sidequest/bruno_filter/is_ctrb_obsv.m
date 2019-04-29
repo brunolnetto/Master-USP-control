@@ -24,7 +24,7 @@ function is_ctrb_obsv(name, A, B, C)
         disp(msg);
     end
     
-    % Observabiulity assurance
+    % Observability assurance
     [eigs, eig_is_obsv, sys_is_obsv] = obsv_hautus(A, C);
 
     for i = 1:n

@@ -14,7 +14,7 @@ n_d = 1;
 L = 10e-3;
 
 % Circuit resistance [ohm]
-R = 10;
+R = 0.1;
 
 % Filter capacitor [F]
 C = 25e-6;

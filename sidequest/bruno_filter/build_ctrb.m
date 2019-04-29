@@ -26,7 +26,7 @@ n_ctrb = length(Phi_ctrb);
 
 % LQR control
 Q = zeros(n_ctrb);
-Q(1, 1) = 1/(1)^2;
+Q(1, 1) = 1/(5)^2;
 Q(2, 2) = 1/(20)^2;
 
 R = 1/1^2;

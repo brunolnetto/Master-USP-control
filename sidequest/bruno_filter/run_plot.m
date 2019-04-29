@@ -16,20 +16,20 @@ simOut = sim('LC_VSI_filter', 'StopTime', num2str(0.1), ...
 % pwm
 % Saturated PWM
 
-x = simOut.x.signals.values;
-xhat = simOut.xhat.signals.values;
-noise = simOut.noise.signals.values;
-line_signal = simOut.line_signal.signals.values;
+x = simOut.get('x');
+xhat = simOut.get('xhat');
+noise = simOut.get('noise');
+line_signal = simOut.get('line_signal');
 
-noise = [simOut.noise.time, noise];
-line_signal = [simOut.line_signal.time, line_signal];
+noise = [noise.time, noise.signals.values];
+line_signal = [line_signal.time, line_signal.signals.values];
 
-x = [simOut.x.time x(:, 1) x(:, 2)];
-xtilde = [simOut.xhat.time xhat(:, 1:2)];
-wtilde = xhat(:, 3:end);
+x = [x.time x.signals.values(:, 1) x.signals.values(:, 2)];
+xtilde = [xhat.time xhat.signals.values(:, 1:2)];
+wtilde = xhat.signals.values(:, 3:end);
 
-line_tilde = [simOut.xhat.time wtilde(:, 1)];
-noise_tilde = [simOut.xhat.time sum(wtilde(:, 2:end)')'];
+line_tilde = [xhat.time wtilde(:, 1)];
+noise_tilde = [xhat.time sum(wtilde(:, 2:end)')'];
 
 % States
 hfig = figure('units','normalized', ...
@@ -45,6 +45,8 @@ hold off
 title('Filter current','Interpreter','latex')          
 xlabel('Time [s]','Interpreter','latex');
 ylabel('Amplitude [A]','Interpreter','latex');
+legend({'$i_f$', '$\tilde{i}_f$'}, ...
+        'Location','best','Interpreter','latex')
 
 subplot(2, 1, 2)
 plot(x(:, 1), x(:, 3))
@@ -55,6 +57,8 @@ hold off
 title('Capacitor voltage','Interpreter','latex')          
 xlabel('Time [s]','Interpreter','latex');
 ylabel('Amplitude [V]','Interpreter','latex');
+legend({'$v_c$', '$\tilde{v}_c$'}, ...
+        'Location','best','Interpreter','latex')
 
 % Harmonic components
 hfig = figure('units','normalized', ...
@@ -70,7 +74,7 @@ hold off
 xlabel('Time [s]','Interpreter','latex');
 ylabel('Amplitude [V]','Interpreter','latex');
 
-legend({'$\tilde{u}(t)$', '$\tilde{u}(t)$'}, ...
+legend({'$\tilde{u}(t)$', '$u(t)$'}, ...
         'Location','best','Interpreter','latex')
 
 subplot(2, 1, 2)
@@ -84,5 +88,5 @@ title('Harmonic noise prediction','Interpreter','latex')
 xlabel('$Time [s]$','Interpreter','latex');
 ylabel('Amplitude [V]','Interpreter','latex');
 
-legend({'$\mathbf{\tilde{w}}$', '$\mathbf{\tilde{w}}$'}, ...
+legend({'$\mathbf{\tilde{w}}$', '$\mathbf{w}$'}, ...
         'Location','best','Interpreter','latex')
