@@ -24,8 +24,8 @@ n_obsv = length(Phi_obsv);
 [~, m_obsv] = size(Gamma_obsv);
 [p_obsv, ~] = size(C_obsv);
 
-Rv = 1e-1;
-Rw = 1e-1;
+Rv = 1e-2;
+Rw = 1e-2;
 
 Psi = zeros(n_obsv, 1);
 Psi(1) = 1;

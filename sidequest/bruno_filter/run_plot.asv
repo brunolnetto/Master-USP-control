@@ -21,16 +21,15 @@ xhat = simOut.get('xhat');
 noise = simOut.get('noise');
 line_signal = simOut.get('line_signal');
 time = simOut.get('time');
+noise = [noise.time, noise.signals.values];
+line_signal = [line_signal.time, line_signal.signals.values];
 
-noise = [time, noise];
-line_signal = [time, line_signal];
+x = [x.time squeeze(x.signals.values(:, 1)) squeeze(x.signals.values(:,2))];
+xtilde = [xhat.time xhat.signals.values(:, 1:2)];
+wtilde = xhat.signals.values(:, 3:end);
 
-x = [time x(:, 1) x(:,2)];
-xtilde = [time xhat(:, 1:2)];
-wtilde = xhat(:, 3:end);
-
-line_tilde = [time wtilde(:, 1)];
-noise_tilde = [time sum(wtilde(:, 2:end)')'];
+line_tilde = [xhat.time wtilde(:, 1)];
+noise_tilde = [xhat.time sum(wtilde(:, 2:end)')'];
 
 % States
 hfig = figure('units','normalized', ...
