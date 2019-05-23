@@ -2,14 +2,18 @@ A_obsv = A;
 B_obsv = B;
 C_obsv = C;
 
-T_x = diag([1/100, 1/100]);
+T_x = diag([1/1, 1/1]);
 T_u = 1;
-T_y = 1/100;
+T_y = 1/1;
 
 % System normalization
 A_obsv = T_x\A_obsv*T_x;
 B_obsv = T_x\B_obsv*T_u;
 C_obsv = T_y\C_obsv*T_x;
+
+%A_obsv = A;
+%B_obsv = B;
+%C_obsv = C;
 
 run('noise_');
 
@@ -24,8 +28,8 @@ n_obsv = length(Phi_obsv);
 [~, m_obsv] = size(Gamma_obsv);
 [p_obsv, ~] = size(C_obsv);
 
-Rv = 1e-2;
-Rw = 1e-2;
+Rv = 1e-3;
+Rw = 1e-3;
 
 Psi = zeros(n_obsv, 1);
 Psi(1) = 1;
