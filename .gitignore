@@ -10,3 +10,5 @@
 *.fig
 *.tiff
 **/slprj
+*.png
+*.eps
