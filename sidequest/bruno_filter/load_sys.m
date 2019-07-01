@@ -1,4 +1,4 @@
-fa = 20000;
+fa = 5000;
 Ta = 1/fa;
 
 % Discrete time Z variable

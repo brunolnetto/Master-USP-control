@@ -1,7 +1,7 @@
 % Nominal plant
 
 % Motor voltage
-Vcc = 40;
+Vcc = 140;
 
 % Harmonic noise 
 n_w = 7;
@@ -11,10 +11,10 @@ w_n = 2*pi*60;
 n_d = 1;
 
 % Filter indutance [H]
-L = 10e-3;
+L = 19e-3;
 
 % Circuit resistance [ohm]
-R = 0.1;
+R = 2;
 
 % Filter capacitor [F]
 C = 25e-6;
