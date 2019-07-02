@@ -6,15 +6,11 @@ tf = 15;
 dt = 1e-3;
 
 x0 = -1e-2;
-y0 = y;
-
 sim('ex3');
+y0 = y;
 
 x0 = -2;
-y0 = y;
-
 sim('ex3');
-
 y1 = y;
 
 hfig = figure(1);
