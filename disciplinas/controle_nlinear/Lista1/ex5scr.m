@@ -3,7 +3,11 @@
 % Exercicio 5 - Lista 1
 
 x0 = [1, 1];
-tf = 20;
+tf = 100;
+
+m = 2;
+n = 4;
+p = 6;
 
 sim('ex5sim')
 
