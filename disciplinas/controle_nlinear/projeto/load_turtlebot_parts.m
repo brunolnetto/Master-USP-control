@@ -1,9 +1,9 @@
-function [chassi, wheel_r, wheel_l] = load_turtle_parts()
+function turtlebot = load_turtlebot_parts()
     % Positions
-    syms x y
-    syms xp yp
-    syms xpp ypp
-        
+    syms x y real
+    syms xp yp real
+    syms xpp ypp real
+    
     % Angles
     syms th_c th_r th_l real;
     syms thp_c thp_r thp_l real;
@@ -49,6 +49,7 @@ function [chassi, wheel_r, wheel_l] = load_turtle_parts()
     chassi.qp = qp_c;
     chassi.qpp = qpp_c;    
     chassi.previous_body = struct('');
+    chassi.params = [l_c, m_c];
     
     %------------------------------------------------%
     % Right wheel
@@ -73,6 +74,7 @@ function [chassi, wheel_r, wheel_l] = load_turtle_parts()
     wheel_r.qpp = thpp_r;
     wheel_r.fric_is_linear = 0;
     wheel_r.previous_body = chassi;
+    wheel_r.params = [l_r, D_r, m_r];
         
     %------------------------------------------------%
     % Left wheel    
@@ -97,4 +99,27 @@ function [chassi, wheel_r, wheel_l] = load_turtle_parts()
     wheel_l.qpp = thpp_l;
     wheel_l.fric_is_linear = 0;
     wheel_l.previous_body = chassi;
+    wheel_l.params = [l_l, D_l, m_l];
+    
+    % States and its derivatives
+    q = [chassi.q; wheel_r.q; wheel_l.q];
+    qp = [chassi.qp; wheel_r.qp; wheel_l.qp];
+    qpp = [chassi.qpp; wheel_r.qpp; wheel_l.qpp];
+    
+    % Body builder
+    bodies_descrip = [chassi, wheel_r, wheel_l];
+    bodies = build_bodies(bodies_descrip);
+    
+    % Generalized outputs and output
+    Fq = [0; 0; 0; tau_r; -tau_l];
+    u = [tau_r; tau_l];
+    
+    % Output
+    y = [th_r; th_l];
+   
+    turtlebot = struct('bodies', bodies, ...
+                       'q', q, 'qp', qp, 'qpp', qpp, ...
+                       'gravity', [0; 0; -g], 'g', g, ...
+                       'states', [q; qp], 'Fq', Fq, ...
+                       'u', u, 'y', y);
 end

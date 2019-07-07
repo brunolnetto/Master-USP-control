@@ -5,4 +5,5 @@ addpath('/home/brunopeixoto/github/Robotics4fun/')
 addpath(genpath('/home/brunopeixoto/github/Robotics4fun/'))
 savepath
 
-turtlebot = load_turtlebot();
+[turtlebot, A] = load_turtlebot();
+    
