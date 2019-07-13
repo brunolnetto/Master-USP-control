@@ -1,4 +1,4 @@
-function turtlebot = load_turtlebot_parts()
+function bodies = load_turtlebot_bodies()
     % Positions
     syms x y real
     syms xp yp real
@@ -9,21 +9,30 @@ function turtlebot = load_turtlebot_parts()
     syms thp_c thp_r thp_l real;
     syms thpp_c thpp_r thpp_l real;
     
-    % Torque actions
-    syms tau_r tau_l real;
-    
     % Systems main parameters
     syms l_r l_l l_c l_b real; 
     syms D_r D_l real;
     syms m_c m_r m_l real;
-    
-    % Gravity
-    syms g real;
-    
+        
     % Inertia tensor matrix
     I_c = sym('I%d%d_c', [3, 3]);
     I_r = sym('I%d%d_r', [3, 3]);
     I_l = sym('I%d%d_l', [3, 3]);
+    
+    % Chassi Symmetric inertia tensor
+    I_c(2, 1) = I_c(1, 2);
+    I_c(3, 1) = I_c(1, 3);
+    I_c(3, 2) = I_c(2, 3);
+    
+    % Chassi Symmetric inertia tensor
+    I_r(2, 1) = I_r(1, 2);
+    I_r(3, 1) = I_r(1, 3);
+    I_r(3, 2) = I_r(2, 3);
+    
+    % Chassi Symmetric inertia tensor
+    I_l(2, 1) = I_l(1, 2);
+    I_l(3, 1) = I_l(1, 3);
+    I_l(3, 2) = I_l(2, 3);
     
     %------------------------------------------------%
     % Chassi
@@ -100,26 +109,9 @@ function turtlebot = load_turtlebot_parts()
     wheel_l.fric_is_linear = 0;
     wheel_l.previous_body = chassi;
     wheel_l.params = [l_l, D_l, m_l];
-    
-    % States and its derivatives
-    q = [chassi.q; wheel_r.q; wheel_l.q];
-    qp = [chassi.qp; wheel_r.qp; wheel_l.qp];
-    qpp = [chassi.qpp; wheel_r.qpp; wheel_l.qpp];
-    
+        
     % Body builder
     bodies_descrip = [chassi, wheel_r, wheel_l];
+    
     bodies = build_bodies(bodies_descrip);
-    
-    % Generalized outputs and output
-    Fq = [0; 0; 0; tau_r; -tau_l];
-    u = [tau_r; tau_l];
-    
-    % Output
-    y = [th_r; th_l];
-   
-    turtlebot = struct('bodies', bodies, ...
-                       'q', q, 'qp', qp, 'qpp', qpp, ...
-                       'gravity', [0; 0; -g], 'g', g, ...
-                       'states', [q; qp], 'Fq', Fq, ...
-                       'u', u, 'y', y);
 end
