@@ -30,7 +30,8 @@ function turtlebot = load_turtlebot_constraints(turtlebot)
                            dot(v_cg_l, i_c) - R_l*thp_l], turtlebot.qp);
                        
     A = simplify(A);
-                       
+    
+    turtlebot.is_constrained = true;
     turtlebot.unhol_constraints = A*turtlebot.qp;
     
     [n_p, n_q] = size(A);

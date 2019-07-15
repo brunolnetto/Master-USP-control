@@ -14,6 +14,7 @@ function turtlebot = load_turtlebot_struct()
     
     % Output
     y = [bodies(2).q(1); bodies(3).q(1)];
+    y_ref = [bodies(1).q(1); bodies(1).q(2)];
     
     chassi = bodies(1);
     wheel_r = bodies(2);
@@ -28,5 +29,5 @@ function turtlebot = load_turtlebot_struct()
                        'q', q, 'qp', qp, 'qpp', qpp, ...
                        'gravity', [0; 0; -g], 'g', g, ...
                        'states', [q; qp], 'Fq', Fq, ...
-                       'u', u, 'y', y);
+                       'u', u, 'y', y, 'y_ref', y_ref);
 end
